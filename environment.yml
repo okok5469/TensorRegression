@@ -1,0 +1,14 @@
+name: tensor-abess
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+      - abess
+      - numpy
+      - scipy
+      - scikit-learn
+      - pymupdf
+      - pytest

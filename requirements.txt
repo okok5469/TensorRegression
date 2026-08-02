@@ -1,0 +1,6 @@
+abess
+numpy
+scipy
+scikit-learn
+pymupdf
+pytest
