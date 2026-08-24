@@ -3,12 +3,13 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import Literal
 
 import numpy as np
 
 from tensor_abess.group.bess_fix import GroupBessFixResult, group_bess_fix
 from tensor_abess.group.sacrifices import initial_active_groups
-from tensor_abess.tensor.sic import compute_mode_sic_from_rss
+from tensor_abess.tensor.sic import compute_mode_msic_from_rss, compute_mode_sic_from_rss
 
 
 @dataclass
@@ -38,6 +39,7 @@ def group_bess_adaptive(
     groups_warm: np.ndarray | None = None,
     beta_warm: np.ndarray | None = None,
     tau: float | None = None,
+    information_criterion: Literal["sic", "msic"] = "sic",
 ) -> GroupAbessResult:
     """Adaptive grouped BESS using the revised conditional SIC from Algorithm 5.1."""
     y = np.asarray(y, dtype=float).ravel()
@@ -56,6 +58,10 @@ def group_bess_adaptive(
     best_result: GroupBessFixResult | None = None
     best_s = 1
     best_sic = np.inf
+    criterion_fn = {
+        "sic": compute_mode_sic_from_rss,
+        "msic": compute_mode_msic_from_rss,
+    }[information_criterion]
 
     for s in range(1, s_max + 1):
         if groups_warm is not None and len(groups_warm) == s:
@@ -79,7 +85,7 @@ def group_bess_adaptive(
             tau=tau,
         )
         bess_path[s] = result
-        sic_val = compute_mode_sic_from_rss(
+        sic_val = criterion_fn(
             result.rss, s=s, n=y.shape[0], J=n_groups, block_size=block_size
         )
         sic_path[s] = sic_val

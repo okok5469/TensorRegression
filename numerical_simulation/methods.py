@@ -176,9 +176,11 @@ def run_tensor_abess_method(
 ) -> MethodEstimate:
     """Run the project's Tensor-ABESS core solver."""
     start = perf_counter()
+    target_sparsity = config.sparsity if config.tensor_abess_mode == "fixed" else None
     result = tensor_abess_core(
         X,
         y,
+        target_sparsity=target_sparsity,
         k_max=config.k_max,
         c=config.abess_init_c,
         criterion=config.abess_init_criterion,
@@ -188,6 +190,7 @@ def run_tensor_abess_method(
         tol=config.tol,
         max_cycles=config.max_cycles,
         eps=1e-8,
+        adaptive_criterion="msic",
     )
     runtime = perf_counter() - start
     n_cycles = 1 if result.bcd_result is None else int(result.bcd_result.n_cycles)
@@ -205,7 +208,7 @@ def run_tensor_abess_method(
         runtime_sec=float(runtime),
         n_cycles=n_cycles,
         sic=float(result.sic),
-        details={"random_state": int(random_state)},
+        details={"random_state": int(random_state), "tensor_abess_mode": config.tensor_abess_mode},
     )
 
 

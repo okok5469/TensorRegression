@@ -44,6 +44,7 @@ class ExperimentSuiteConfig:
     output_dir: str | Path
     n_reps: int
     experiments: tuple[ExperimentSpec, ...]
+    resume: bool = False
 
 
 @dataclass(frozen=True)
@@ -56,6 +57,17 @@ class ExperimentSuiteArtifacts:
     plot_paths: tuple[Path, ...]
     raw_rows: tuple[dict[str, Any], ...]
     summary_rows: tuple[dict[str, Any], ...]
+
+
+@dataclass(frozen=True)
+class _ScenarioRun:
+    experiment: str
+    parameter: str
+    scenario_value: str
+    scenario_label: str
+    scenario_order: int
+    config: TensorSimulationConfig
+    seed_offset: int
 
 
 SUMMARY_METRICS = [
@@ -78,6 +90,31 @@ SUMMARY_METRICS = [
     "runtime_sec",
     "n_cycles",
 ]
+
+EXPECTED_METHODS = ("Tensor-ABESS", "Tensor-GLasso", "Vector Lasso", "Oracle OLS")
+RAW_INT_FIELDS = {
+    "replicate",
+    "seed",
+    "n_train",
+    "n_test",
+    "p1",
+    "p2",
+    "p3",
+    "total_dimension",
+    "s1_true",
+    "s2_true",
+    "s3_true",
+    "scenario_order",
+}
+RAW_STR_FIELDS = {
+    "experiment",
+    "parameter",
+    "scenario_value",
+    "scenario_label",
+    "method",
+    "support_shape",
+}
+CHECKPOINT_FILENAME = "checkpoint_manifest.json"
 
 
 def _override_config(config: TensorSimulationConfig, parameter: str, value: Any) -> TensorSimulationConfig:
@@ -125,6 +162,36 @@ def _config_metadata(config: TensorSimulationConfig) -> dict[str, Any]:
         "sigma": float(config.sigma),
         "support_shape": str(config.support_shape),
     }
+
+
+def _suite_scenarios(suite: ExperimentSuiteConfig) -> list[_ScenarioRun]:
+    scenarios = [
+        _ScenarioRun(
+            experiment="baseline",
+            parameter="baseline",
+            scenario_value="baseline",
+            scenario_label="baseline",
+            scenario_order=0,
+            config=suite.base_config,
+            seed_offset=0,
+        )
+    ]
+    for exp_index, experiment in enumerate(suite.experiments, start=1):
+        for value_index, value in enumerate(experiment.values):
+            config = _override_config(suite.base_config, experiment.parameter, value)
+            label = _scenario_label(experiment.parameter, value)
+            scenarios.append(
+                _ScenarioRun(
+                    experiment=experiment.name,
+                    parameter=experiment.parameter,
+                    scenario_value=label,
+                    scenario_label=label,
+                    scenario_order=value_index,
+                    config=config,
+                    seed_offset=10_000 * exp_index,
+                )
+            )
+    return scenarios
 
 
 def _evaluate_estimate(
@@ -191,16 +258,142 @@ def run_single_repetition(
 
 def _write_csv(rows: list[dict[str, Any]], path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
+    tmp_path = path.with_suffix(path.suffix + ".tmp")
     if not rows:
-        path.write_text("", encoding="utf-8")
+        tmp_path.write_text("", encoding="utf-8")
+        tmp_path.replace(path)
         return
     first_keys = list(rows[0].keys())
     extra_keys = sorted({key for row in rows for key in row.keys()} - set(first_keys))
     fieldnames = first_keys + extra_keys
-    with path.open("w", encoding="utf-8", newline="") as f:
+    with tmp_path.open("w", encoding="utf-8", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(rows)
+    tmp_path.replace(path)
+
+
+def _read_csv_rows(path: Path) -> list[dict[str, Any]]:
+    if not path.exists() or path.stat().st_size == 0:
+        return []
+    with path.open("r", encoding="utf-8", newline="") as f:
+        reader = csv.DictReader(f)
+        rows = []
+        for row in reader:
+            typed_row: dict[str, Any] = {}
+            for key, value in row.items():
+                if value is None:
+                    typed_row[key] = value
+                elif key in RAW_INT_FIELDS:
+                    typed_row[key] = int(float(value))
+                elif key in RAW_STR_FIELDS:
+                    typed_row[key] = value
+                else:
+                    try:
+                        typed_row[key] = float(value)
+                    except ValueError:
+                        typed_row[key] = value
+            rows.append(typed_row)
+    return rows
+
+
+def _checkpoint_manifest(suite: ExperimentSuiteConfig) -> dict[str, Any]:
+    return {
+        "base_config": json.loads(json.dumps(asdict(suite.base_config), ensure_ascii=False)),
+        "n_reps": int(suite.n_reps),
+    }
+
+
+def _load_checkpoint_manifest(path: Path) -> dict[str, Any] | None:
+    if not path.exists():
+        return None
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _write_checkpoint_manifest(path: Path, suite: ExperimentSuiteConfig) -> None:
+    path.write_text(
+        json.dumps(_checkpoint_manifest(suite), indent=2, ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+
+def _deduplicate_raw_rows(raw_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    seen_keys: set[tuple[Any, ...]] = set()
+    deduplicated: list[dict[str, Any]] = []
+    for row in raw_rows:
+        if str(row.get("method")) not in EXPECTED_METHODS:
+            continue
+        key = (
+            row.get("experiment"),
+            row.get("parameter"),
+            row.get("scenario_value"),
+            int(row.get("scenario_order", -1)),
+            int(row.get("replicate", -1)),
+            row.get("method"),
+        )
+        if key in seen_keys:
+            continue
+        seen_keys.add(key)
+        deduplicated.append(row)
+    return deduplicated
+
+
+def _row_matches_scenario(
+    row: dict[str, Any],
+    scenario: _ScenarioRun,
+    *,
+    n_reps: int,
+) -> bool:
+    if str(row.get("experiment")) != scenario.experiment:
+        return False
+    if str(row.get("parameter")) != scenario.parameter:
+        return False
+    if str(row.get("scenario_value")) != scenario.scenario_value:
+        return False
+    if int(row.get("scenario_order", -1)) != scenario.scenario_order:
+        return False
+    replicate = int(row.get("replicate", -1))
+    if not (0 <= replicate < n_reps):
+        return False
+
+    expected = _config_metadata(scenario.config)
+    for key, expected_value in expected.items():
+        actual = row.get(key)
+        if key == "support_shape":
+            if str(actual) != str(expected_value):
+                return False
+        elif isinstance(expected_value, int):
+            if int(actual) != int(expected_value):
+                return False
+        else:
+            if not np.isclose(float(actual), float(expected_value)):
+                return False
+    return str(row.get("method")) in EXPECTED_METHODS
+
+
+def _load_resume_rows(
+    raw_results_path: Path,
+    suite: ExperimentSuiteConfig,
+) -> list[dict[str, Any]]:
+    del suite
+    return _deduplicate_raw_rows(_read_csv_rows(raw_results_path))
+
+
+def _completed_repetition_keys(raw_rows: list[dict[str, Any]]) -> set[tuple[Any, ...]]:
+    grouped_methods: dict[tuple[Any, ...], set[str]] = {}
+    for row in raw_rows:
+        key = (
+            row["experiment"],
+            row["parameter"],
+            row["scenario_value"],
+            int(row["scenario_order"]),
+            int(row["replicate"]),
+        )
+        grouped_methods.setdefault(key, set()).add(str(row["method"]))
+    expected_methods = set(EXPECTED_METHODS)
+    return {
+        key for key, method_names in grouped_methods.items() if expected_methods.issubset(method_names)
+    }
 
 
 def _summarize_rows(raw_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -261,64 +454,87 @@ def run_experiment_suite(suite: ExperimentSuiteConfig) -> ExperimentSuiteArtifac
     output_dir = Path(suite.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    raw_rows: list[dict[str, Any]] = []
+    raw_results_path = output_dir / "raw_results.csv"
+    checkpoint_path = output_dir / CHECKPOINT_FILENAME
+    if suite.resume:
+        actual_manifest = _load_checkpoint_manifest(checkpoint_path)
+        expected_manifest = _checkpoint_manifest(suite)
+        if actual_manifest is None:
+            if raw_results_path.exists() and raw_results_path.stat().st_size > 0:
+                raise ValueError(
+                    "resume requested but checkpoint manifest is missing; use a fresh output directory"
+                )
+            _write_checkpoint_manifest(checkpoint_path, suite)
+        elif actual_manifest != expected_manifest:
+            raise ValueError("resume requested with incompatible base configuration or n_reps")
+        raw_rows = _load_resume_rows(raw_results_path, suite)
+    else:
+        _write_checkpoint_manifest(checkpoint_path, suite)
+        raw_rows = []
+    _write_csv(raw_rows, raw_results_path)
 
     consistency = run_consistency_checks(seed=suite.base_config.random_state)
     consistency_path = output_dir / "consistency_checks.json"
     _write_consistency_report(consistency, consistency_path)
+    scenarios = _suite_scenarios(suite)
+    completed_keys = _completed_repetition_keys(raw_rows)
+    current_batch_keys = {
+        (
+            scenario.experiment,
+            scenario.parameter,
+            scenario.scenario_value,
+            scenario.scenario_order,
+            rep,
+        )
+        for scenario in scenarios
+        for rep in range(suite.n_reps)
+    }
+    total_repetitions = len(scenarios) * suite.n_reps
+    completed_count = len(completed_keys & current_batch_keys)
 
-    def append_rows(
-        experiment: str,
-        parameter: str,
-        scenario_value: str,
-        scenario_label: str,
-        scenario_order: int,
-        config: TensorSimulationConfig,
-        *,
-        seed_offset: int,
-    ) -> None:
+    for scenario in scenarios:
         for rep in range(suite.n_reps):
-            seed = int(suite.base_config.random_state + seed_offset + 100 * scenario_order + rep)
-            rows = run_single_repetition(config, replicate_index=rep, seed=seed)
+            repetition_key = (
+                scenario.experiment,
+                scenario.parameter,
+                scenario.scenario_value,
+                scenario.scenario_order,
+                rep,
+            )
+            if repetition_key in completed_keys:
+                continue
+
+            seed = int(
+                suite.base_config.random_state
+                + scenario.seed_offset
+                + 100 * scenario.scenario_order
+                + rep
+            )
+            rows = run_single_repetition(scenario.config, replicate_index=rep, seed=seed)
             for row in rows:
                 row.update(
                     {
-                        "experiment": experiment,
-                        "parameter": parameter,
-                        "scenario_value": scenario_value,
-                        "scenario_label": scenario_label,
-                        "scenario_order": int(scenario_order),
+                        "experiment": scenario.experiment,
+                        "parameter": scenario.parameter,
+                        "scenario_value": scenario.scenario_value,
+                        "scenario_label": scenario.scenario_label,
+                        "scenario_order": int(scenario.scenario_order),
                     }
                 )
                 raw_rows.append(row)
 
-    append_rows(
-        "baseline",
-        "baseline",
-        "baseline",
-        "baseline",
-        0,
-        suite.base_config,
-        seed_offset=0,
-    )
-
-    for exp_index, experiment in enumerate(suite.experiments, start=1):
-        for value_index, value in enumerate(experiment.values):
-            config = _override_config(suite.base_config, experiment.parameter, value)
-            append_rows(
-                experiment.name,
-                experiment.parameter,
-                _scenario_label(experiment.parameter, value),
-                _scenario_label(experiment.parameter, value),
-                value_index,
-                config,
-                seed_offset=10_000 * exp_index,
+            completed_keys.add(repetition_key)
+            completed_count += 1
+            _write_csv(raw_rows, raw_results_path)
+            print(
+                "[progress] "
+                f"{completed_count}/{total_repetitions} repetitions complete | "
+                f"experiment={scenario.experiment} scenario={scenario.scenario_label} "
+                f"rep={rep + 1}/{suite.n_reps}"
             )
 
     summary_rows = _summarize_rows(raw_rows)
-    raw_results_path = output_dir / "raw_results.csv"
     summary_results_path = output_dir / "summary_results.csv"
-    _write_csv(raw_rows, raw_results_path)
     _write_csv(summary_rows, summary_results_path)
 
     plot_paths = tuple(

@@ -10,6 +10,7 @@ import numpy as np
 from tensor_abess.tensor.ops import tensor_inner
 
 SupportShape = Literal["continuous", "discrete"]
+TensorAbessMode = Literal["fixed", "adaptive"]
 
 
 @dataclass(frozen=True)
@@ -32,6 +33,7 @@ class TensorSimulationConfig:
     tol: float = 1e-6
     abess_init_criterion: str = "bic"
     abess_init_c: float = 3.0
+    tensor_abess_mode: TensorAbessMode = "fixed"
     random_state: int = 2026
     test_batch_size: int = 100
 

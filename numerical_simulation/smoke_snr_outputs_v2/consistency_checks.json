@@ -1,8 +1,0 @@
-{
-  "inner_product_ok": true,
-  "mode_design_ok": true,
-  "max_inner_product_error": 8.881784197001252e-16,
-  "max_mode_design_error": 0.0,
-  "design_convention": "numpy_c_order",
-  "note": "Design-matrix checks use the current NumPy C-order unfolding convention implemented in src/tensor_abess."
-}

@@ -477,37 +477,98 @@ $$
 
 $$
 \arg\min_{s_m}\mathrm{SIC}
-=\arg\min_{s_m}\Bigl[n\log(\mathrm{RSS}/n)+\log\log n\cdot\log\tbinom{p_m}{s_m}\Bigr].
+=\arg\min_{s_m}\Bigl[n\log(\mathrm{RSS}/n)
++s_md_m\log n
++\log\log n\cdot\log\tbinom{p_m}{s_m}\Bigr].
 \tag{5.1}
 $$
+
+其中$d_m=∏_{m' \neq m}s_{m'}$ 是当前模态 $m$ 的组块大小（由已固定的另两个模态尺寸决定）。
 
 也就是说，**在该模态方向对整体 SIC 取截面 = 用一个只含该模态惩罚的"条件 SIC"**。这就是"序贯信息准则"名字的由来：不必一次在三维网格上搜 $(s_1,s_2,s_3)$，而是在 BCD 每步里对当前模态一维地扫 $s_m$、用 (5.1) 定阶。（若担心序贯的次优，可退回到在三元组网格上跑，用整体 SIC 取最优——作为对照方案。）
 
 ```text
-算法 5.1  GroupBESS.Adaptive(Z, y, 𝒢, s_max, k_max, τ, 其余模态尺寸)
-1  for s = 1 .. s_max:
-2      (β̂_s, Â_s) ← GroupBESS.Fix(Z, y, 𝒢, s, k_max, τ)
-3      RSS_s ← ‖y − Z β̂_s‖²
-4  s* ← argmin_s [ n·log(RSS_s/n) + log log n · log C(p_m, s) ]    # (5.1)
-5  return (β̂_{s*}, Â_{s*}, s*)
+算法 5.0  Tensor-Init-GLasso —— 基于组 Lasso 的初始稀疏度估计
+输入: {(𝒳_i, y_i)}, (p_1, p_2, p_3), 安全系数 c (默认 c=2)
 
-算法 5.2  Tensor-ABESS   —— 矩形支撑张量回归的组 Splicing 变量选择
-输入: {(𝒳_i, y_i)}, (s_{1,max}, s_{2,max}, s_{3,max}), k_max, τ, 收敛容差 ε
-1  初始化 S_1,S_2,S_3（各模态边际相关性筛选取 Top-s 切片）
-2  repeat
-3     ── 模态1: 固定 S_2,S_3 ──
-4        Z^{(1)}_i ← X_{i(1)}(U_3⊗U_2), 组划分 𝒢_1 (p_1 组, 块 s_2 s_3)
-5        (β^{(1)}, S_1, s_1) ← GroupBESS.Adaptive(Z^{(1)}, y, 𝒢_1, s_{1,max}, …)
-6     ── 模态2: 固定 S_1,S_3 ──
-7        Z^{(2)}_i ← X_{i(2)}(U_3⊗U_1), 组划分 𝒢_2 (p_2 组, 块 s_1 s_3)
-8        (β^{(2)}, S_2, s_2) ← GroupBESS.Adaptive(Z^{(2)}, y, 𝒢_2, s_{2,max}, …)
-9     ── 模态3: 固定 S_1,S_2 ──
-10       Z^{(3)}_i ← X_{i(3)}(U_2⊗U_1), 组划分 𝒢_3 (p_3 组, 块 s_1 s_2)
-11       (β^{(3)}, S_3, s_3) ← GroupBESS.Adaptive(Z^{(3)}, y, 𝒢_3, s_{3,max}, …)
-12 until (S_1,S_2,S_3) 不变, 或 ΔL_n < ε
-13 在矩形支撑 S_1×S_2×S_3 上做最终最小二乘, 得 B̂; 计算 SIC(S_1,S_2,S_3)
-14 (可选) 阶段二: 在 S_1×S_2×S_3 内对 B̂ 做 CP/Tucker 低秩精化
-输出: (S_1,S_2,S_3), B̂
+—— 步骤 A: 边际筛选预缩维 ——
+1  for m = 1,2,3:
+2    对每个切片 k ∈ [p_m], 计算边际得分
+       score_k^{(m)} = ‖X_{(m)}^{(k)⊤} y‖² / n    # 切片 k 对响应的总相关能量
+3    保留得分最大的 min(⌊n^{2/3}⌋, p_m) 个切片, 记为 𝒞_m (候选集)
+
+—— 步骤 B: 逐模态组 Lasso ——
+4  S̃_2 ← 𝒞_2 中得分最大的 ⌊√n⌋ 个 ; S̃_3 ← 𝒞_3 中得分最大的 ⌊√n⌋ 个
+     # 粗糙初始支撑, 仅用于构造设计矩阵
+5  for m = 1,2,3 (按固定顺序):
+6    构造 Z^{(m)} ∈ ℝ^{n × |𝒞_m|·|S̃_{-m}|}, 
+       其中 S̃_{-m} 为当前另两个模态的支撑
+       组划分: |𝒞_m| 组, 块大小 |S̃_{-m}|
+7    解组 Lasso (λ 路径):
+       β̂^{(m)}(λ) = argmin_{β} ½n⁻¹‖y - Z^{(m)}β‖² + λ Σ_{k∈𝒞_m} ‖β_k‖_2
+8    用 5-折 CV 或 BIC 选最优 λ*, 
+       记 S̃_m ← {k ∈ 𝒞_m : β̂_k^{(m)}(λ*) ≠ 0}, s̃_m ← |S̃_m|
+
+—— 步骤 C: 确定搜索上界与初始值 ——
+9  s_{m,max} ← min(c · s̃_m, ⌊(n / (3·max_m' s̃_{m'}))^{1/2}⌋)
+     # 保证 s_{1,max}·s_{2,max}·s_{3,max} < n (OLS可解)
+10 S_m^{(0)} ← S̃_m  (作为 BCD 的暖启动)
+
+输出: (s_{1,max}, s_{2,max}, s_{3,max}), (S_1^{(0)}, S_2^{(0)}, S_3^{(0)})
+
+算法 5.1 GroupBESS.Adaptive（修正版）
+输入: Z, y, 𝒢, s_max, k_max, τ, d_m (块大小), A_warm (可选暖启动)
+
+1  for s = 1 .. s_max:
+2    if s = |A_warm| and A_warm is provided:
+3      A⁰ ← A_warm               # 暖启动
+4    else:
+5      A⁰ ← 边际筛选：组相关能量最大的 s 组
+6    β⁰ ← 在 A⁰ 上的 OLS
+7    (β̂_s, Â_s) ← GroupBESS.Fix(Z, y, 𝒢, s, k_max, τ, β⁰, A⁰)
+8    RSS_s ← ‖y − Z β̂_s‖²
+9  s* ← argmin_s [ n·log(RSS_s/n) + s·d_m·log(n) 
+                    + log log n · log C(J, s) ]       # 修正SIC
+10 return (β̂_{s*}, Â_{s*}, s*)
+
+算法 5.2' Tensor-ABESS（修正版）—— 矩形支撑张量回归的组 Splicing 变量选择
+
+输入: {(𝒳_i, y_i)}, k_max, τ, 收敛容差 ε, 安全系数 c=2
+
+━━━━━ 阶段 0: 组 Lasso 初始化 ━━━━━
+0  (s_{1,max}, s_{2,max}, s_{3,max}), (S_1, S_2, S_3) 
+     ← Tensor-Init-GLasso({(𝒳_i, y_i)}, c)
+
+━━━━━ 阶段 1: BCD + 组 Splicing 精确选择 ━━━━━
+1  repeat
+2    —— 模态1: 固定 S_2, S_3 ——
+3      d_1 ← |S_2|·|S_3|
+4      Z^{(1)}_i ← X_{i(1)}(U_3⊗U_2), 组划分 𝒢_1 (p_1 组, 块 d_1)
+5      (β^{(1)}, S_1, s_1) ← GroupBESS.Adaptive(Z^{(1)}, y, 𝒢_1,
+                              s_{1,max}, k_max, τ, d_1)  
+         # 注意: Adaptive 内部 SIC 用修正版 (含 s·d_1·log n 项)
+
+6    —— 模态2: 固定 S_1, S_3 ——
+7      d_2 ← |S_1|·|S_3|
+8      Z^{(2)}_i ← X_{i(2)}(U_3⊗U_1), 组划分 𝒢_2 (p_2 组, 块 d_2)
+9      (β^{(2)}, S_2, s_2) ← GroupBESS.Adaptive(Z^{(2)}, y, 𝒢_2,
+                              s_{2,max}, k_max, τ, d_2)
+
+10   —— 模态3: 固定 S_1, S_2 ——
+11     d_3 ← |S_1|·|S_2|
+12     Z^{(3)}_i ← X_{i(3)}(U_2⊗U_1), 组划分 𝒢_3 (p_3 组, 块 d_3)
+13     (β^{(3)}, S_3, s_3) ← GroupBESS.Adaptive(Z^{(3)}, y, 𝒢_3,
+                              s_{3,max}, k_max, τ, d_3)
+
+14 until (S_1, S_2, S_3) 不变, 或 ΔSIC < ε
+
+━━━━━ 阶段 2: 最终精化 ━━━━━
+15 在矩形支撑 S_1×S_2×S_3 上做最终 OLS, 得 B̂
+16 计算 SIC(S_1, S_2, S_3) = n·log(RSS/n) + s_1s_2s_3·log n 
+                              + log log n · Σ_m log C(p_m, s_m)
+17 (可选) 在 S_1×S_2×S_3 内对 B̂ 做 CP/Tucker 低秩精化
+
+输出: (S_1, S_2, S_3), B̂, SIC
 ```
 
 第 13 行把张量从 $p_1\times p_2\times p_3$ 缩到小张量 $s_1\times s_2\times s_3$——这正是申报书"先筛选、后精化"里的筛选产物；后续低秩分解只在这个小块上做，计算量从指数级降到线性级。
@@ -573,6 +634,7 @@ $$
 $$
 \boxed{\;
 \mathrm{SIC}(S_1,S_2,S_3)=n\log\!\Bigl(\frac{\mathrm{RSS}}{n}\Bigr)
++s_1s_2s_3\log n
 +\log\log n\sum_{m=1}^{3}\log\binom{p_m}{s_m}
 \;}
 \tag{6.3}
@@ -589,13 +651,15 @@ $$
 **当** $s_m\ll p_m$，由 Stirling $\log\binom{p_m}{s_m}\approx s_m\log(p_m/s_m)+s_m\approx s_m\log p_m$，得便于计算的等价形式
 
 $$
-\mathrm{SIC}\approx n\log(\mathrm{RSS}/n)+\log\log n\,(s_1\log p_1+s_2\log p_2+s_3\log p_3).
+\mathrm{SIC}\approx n\log(\mathrm{RSS}/n)
++s_1s_2s_3\log n
++\log\log n\,(s_1\log p_1+s_2\log p_2+s_3\log p_3).
 \tag{6.4}
 $$
 
-取 $p_2=p_3=1,s_2=s_3=1$ 就回到向量 ABESS 的 $\mathrm{SIC}=n\log\hat{\mathcal L}_A+|A|\log p\log\log n$。可见 (6.3) 是把向量版的 $|A|\log p$ 精细化为组合数对数之和 $\sum_m\log\binom{p_m}{s_m}$。
+取 $p_2=p_3=1,s_2=s_3=1$ 就回到向量 ABESS 的 $\mathrm{SIC}=n\log\hat{\mathcal L}_A+|A|\log n+|A|\log p\log\log n$。可见 (6.3) 是把向量版的 $|A|\log p$ 精细化为组合数对数之和 $\sum_m\log\binom{p_m}{s_m}$。
 
-**再次强调**：惩罚里出现的是模型空间规模的对数（$\sum_m\log\binom{p_m}{s_m}$），**不是**自由参数个数 $s_1 s_2 s_3$。前者是"要在多少个候选里挑"（决定假发现风险），后者是"挑中后拟合几个数"，二者在高维下差别巨大，用错会导致选择不一致。
+向量 ABESS 的 SIC 为 $n\log\hat{\mathcal{L}}_A + |A|\log p\log\log n$。两者一致的条件是 $\log p_1 \cdot \log\log n \gg \log n$，即 $p_1 \gg n^{1/\log\log n}$（超高维条件下 BIC 项被搜索项吸收）。需补充说明：**在超高维 $p_m \gg n$ 时，BIC 项被搜索空间项覆盖，两者退化一致；在中等维度时，BIC 项是必要的独立贡献。**
 
 ---
 
@@ -609,23 +673,23 @@ $$
 
 **复杂度.** 单模态组 Splicing 是多项式复杂度（Zhu et al. 定理 2 的组版本，另加每组 $d\times d$ 的求逆/求解代价 $O(nd^2+d^3)$，其中模态 $m$ 的 $d=\prod_{m'\ne m}s_{m'}$）。BCD 每轮扫三个模态，总代价 = 单模态多项式 $\times 3\times$ 轮数，仍多项式，远优于对 $\prod_m\binom{p_m}{s_m}$ 个矩形支撑的穷举。
 
-**选择一致性（目标定理）.** 在张量版稀疏受限条件（SRC）、最小信号强度、以及 $\sum_m s_m\log p_m=o(n/\log\log n)$ 等温和条件下，SIC 应以概率 $1-O(p^{-\alpha})$（$\alpha>0$）恢复真实矩形支撑 $(S_1^*,S_2^*,S_3^*)$，从而 $\hat{\mathcal{B}}$ 达到 oracle 最小二乘估计（Zhu et al. 定理 4、推论 1 的张量推广）。$\log\log n$ 前是否需配常数 $\gamma$（EBIC 式）由该一致性条件的常数决定，留作待定接口。
+**选择一致性（目标定理）.** 在张量版稀疏受限条件（SRC）、最小信号强度、以及 $s_1s_2s_3\log n+\log\log n\sum_m s_m\log p_m=o(n)$ 等温和条件下，SIC 应以概率 $1-O(p^{-\alpha})$（$\alpha>0$）恢复真实矩形支撑 $(S_1^*,S_2^*,S_3^*)$，从而 $\hat{\mathcal{B}}$ 达到 oracle 最小二乘估计（Zhu et al. 定理 4、推论 1 的张量推广）。$\log\log n$ 前是否需配常数 $\gamma$（EBIC 式）由该一致性条件的常数决定，留作待定接口。
 
 ---
 
 ## 8. 与向量版 ABESS 的对照
 
-| 维度 | 向量 ABESS（Zhu et al. 2020） | 张量组 Splicing（本框架） |
-|---|---|---|
-| 模型 | $y=X\beta+\varepsilon,\ \beta\in\mathbb{R}^p$ | $y_i=\langle\mathcal{X}_i,\mathcal{B}\rangle+\varepsilon_i$ |
-| 稀疏结构 | $\lVert\beta\rVert_0\le s$（逐元素） | 矩形支撑 $\operatorname{supp}(\mathcal{B})\subseteq S_1\times S_2\times S_3$ |
-| 选择对象 | 单个变量（组大小 1） | 模态切片（组），块大小 $\prod_{m'\ne m}s_{m'}$ |
-| 化归 | 无需 | 固定两模态 $\Rightarrow$ 组最优子集（命题 1） |
-| 向后牺牲量 | $\frac{X_j^\top X_j}{2n}\hat\beta_j^2$ | $\tfrac12\hat{\boldsymbol\beta}_{G_g}^\top\Gamma_g\hat{\boldsymbol\beta}_{G_g}$ |
-| 向前牺牲量 | $\frac{X_j^\top X_j}{2n}\bigl(\hat d_j/\tfrac{X_j^\top X_j}{n}\bigr)^2$ | $\tfrac12\hat d_g^\top\Gamma_g^{-1}\hat d_g$ |
-| 外层 | 对 $s$ 扫描 | BCD 轮转三模态 + 各模态序贯 SIC 定阶 |
-| 信息准则 | $n\log\hat{\mathcal L}_A+\lvert A\rvert\log p\log\log n$ | $n\log(\mathrm{RSS}/n)+\log\log n\sum_m\log\binom{p_m}{s_m}$ |
-| 模型空间 | $\binom{p}{s}$ | $\prod_m\binom{p_m}{s_m}$（对数可加） |
+| 维度    | 向量 ABESS（Zhu et al. 2020）                                               | 张量组 Splicing（本框架）                                                               |
+| ----- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| 模型    | $y=X\beta+\varepsilon,\ \beta\in\mathbb{R}^p$                           | $y_i=\langle\mathcal{X}_i,\mathcal{B}\rangle+\varepsilon_i$                     |
+| 稀疏结构  | $\lVert\beta\rVert_0\le s$（逐元素）                                         | 矩形支撑 $\operatorname{supp}(\mathcal{B})\subseteq S_1\times S_2\times S_3$        |
+| 选择对象  | 单个变量（组大小 1）                                                             | 模态切片（组），块大小 $\prod_{m'\ne m}s_{m'}$                                             |
+| 化归    | 无需                                                                      | 固定两模态 $\Rightarrow$ 组最优子集（命题 1）                                                 |
+| 向后牺牲量 | $\frac{X_j^\top X_j}{2n}\hat\beta_j^2$                                  | $\tfrac12\hat{\boldsymbol\beta}_{G_g}^\top\Gamma_g\hat{\boldsymbol\beta}_{G_g}$ |
+| 向前牺牲量 | $\frac{X_j^\top X_j}{2n}\bigl(\hat d_j/\tfrac{X_j^\top X_j}{n}\bigr)^2$ | $\tfrac12\hat d_g^\top\Gamma_g^{-1}\hat d_g$                                    |
+| 外层    | 对 $s$ 扫描                                                                | BCD 轮转三模态 + 各模态序贯 SIC 定阶                                                        |
+| 信息准则  | $n\log\hat{\mathcal L}_A+\lvert A\rvert\log p\log\log n$                | $n\log(\mathrm{RSS}/n)+s_1s_2s_3\log n+\log\log n\sum_m\log\binom{p_m}{s_m}$    |
+| 模型空间  | $\binom{p}{s}$                                                          | $\prod_m\binom{p_m}{s_m}$（对数可加）                                                 |
 
 $d=1$、$p_2=p_3=1$ 时本框架逐条退化为向量 ABESS——它是本方法的严格特例。
 

@@ -3,11 +3,18 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from typing import Literal
 
 import numpy as np
 
-from tensor_abess.tensor.bcd import TensorBcdAdaptiveResult, tensor_bcd_adaptive
-from tensor_abess.utils.init import TensorInitResult, tensor_init_glasso
+from tensor_abess.tensor.bcd import (
+    TensorBcdAdaptiveResult,
+    TensorBcdResult,
+    tensor_bcd,
+    tensor_bcd_adaptive,
+)
+from tensor_abess.tensor.sic import compute_tensor_sic_from_rss
+from tensor_abess.utils.init import TensorInitResult, _mode_slice_scores, tensor_init_glasso
 
 
 @dataclass
@@ -29,13 +36,27 @@ class TensorAbessResult:
     sic_history: list[float] = field(default_factory=list)
     init_supports: tuple[np.ndarray, np.ndarray, np.ndarray] | None = None
     init_result: TensorInitResult | None = None
-    bcd_result: TensorBcdAdaptiveResult | None = None
+    bcd_result: TensorBcdAdaptiveResult | TensorBcdResult | None = None
+
+
+def _marginal_top_supports(
+    X: np.ndarray,
+    y: np.ndarray,
+    sparsity: tuple[int, int, int],
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """Warm start fixed-size BCD with the strongest marginal slices."""
+    supports = []
+    for mode, s in enumerate(sparsity, start=1):
+        scores = _mode_slice_scores(X, y, mode)
+        supports.append(np.sort(np.argsort(-scores)[: int(s)]))
+    return tuple(supports)  # type: ignore[return-value]
 
 
 def tensor_abess(
     X: np.ndarray,
     y: np.ndarray,
     *,
+    target_sparsity: tuple[int, int, int] | None = None,
     k_max: int | None = None,
     tau: float | None = None,
     eps: float = 1e-8,
@@ -45,6 +66,7 @@ def tensor_abess(
     cv_folds: int = 5,
     max_iter: int = 500,
     tol: float = 1e-6,
+    adaptive_criterion: Literal["sic", "msic"] = "msic",
     max_cycles: int = 30,
     m_max: int = 15,
 ) -> TensorAbessResult:
@@ -67,6 +89,44 @@ def tensor_abess(
         max_iter=max_iter,
         tol=tol,
     )
+    if target_sparsity is not None:
+        s1, s2, s3 = (int(s) for s in target_sparsity)
+        S1_init, S2_init, S3_init = _marginal_top_supports(X, y, (s1, s2, s3))
+        bcd_fixed = tensor_bcd(
+            X,
+            y,
+            s1,
+            s2,
+            s3,
+            max_cycles=max_cycles,
+            m_max=m_max,
+            k_max=k_max,
+            S1_init=S1_init,
+            S2_init=S2_init,
+            S3_init=S3_init,
+        )
+        n, p1, p2, p3 = X.shape
+        rss = float(2.0 * n * bcd_fixed.loss)
+        sic = compute_tensor_sic_from_rss(rss, s1, s2, s3, n, p1, p2, p3)
+        return TensorAbessResult(
+            B=bcd_fixed.B,
+            S1=bcd_fixed.S1,
+            S2=bcd_fixed.S2,
+            S3=bcd_fixed.S3,
+            s1=s1,
+            s2=s2,
+            s3=s3,
+            s_max=(init_res.s1_max, init_res.s2_max, init_res.s3_max),
+            loss=bcd_fixed.loss,
+            rss=rss,
+            sic=sic,
+            loss_history=bcd_fixed.loss_history,
+            sic_history=[sic],
+            init_supports=(S1_init, S2_init, S3_init),
+            init_result=init_res,
+            bcd_result=bcd_fixed,
+        )
+
     bcd_res = tensor_bcd_adaptive(
         X,
         y,
@@ -81,6 +141,7 @@ def tensor_abess(
         k_max=k_max,
         tau=tau,
         eps=eps,
+        information_criterion=adaptive_criterion,
     )
     return TensorAbessResult(
         B=bcd_res.B,

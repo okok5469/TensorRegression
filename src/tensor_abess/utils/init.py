@@ -99,6 +99,13 @@ def _top_from_candidates(scores: np.ndarray, candidates: np.ndarray, n: int) -> 
     return np.sort(candidates[order])
 
 
+def _fallback_from_candidates(scores: np.ndarray, candidates: np.ndarray) -> np.ndarray:
+    """Use the highest-scoring candidate when group Lasso selects nothing."""
+    candidates = np.asarray(candidates, dtype=int)
+    best_local = int(np.argmax(scores[candidates]))
+    return np.array([int(candidates[best_local])], dtype=int)
+
+
 def _select_group_lasso_fit(
     Z: np.ndarray,
     y: np.ndarray,
@@ -193,7 +200,12 @@ def tensor_init_glasso(
             tol=tol,
         )
         glasso_fits[mode] = fit
-        selected = original[fit.active_groups] if fit.active_groups.size else np.array([original[0]])
+        scores = {1: score1, 2: score2, 3: score3}[mode]
+        selected = (
+            original[fit.active_groups]
+            if fit.active_groups.size
+            else _fallback_from_candidates(scores, original)
+        )
         selected = np.sort(np.asarray(selected, dtype=int))
         if mode == 1:
             S1_tilde = selected
@@ -203,17 +215,17 @@ def tensor_init_glasso(
             S3_tilde = selected
 
     s_tilde = np.array([len(S1_tilde), len(S2_tilde), len(S3_tilde)], dtype=int)
-    max_s_tilde = max(int(s_tilde.max()), 1)
-    shared_cap = max(1, int(np.floor(np.sqrt(n / (3.0 * max_s_tilde)))))
+    marginal_floor = max(1, int(np.floor(np.sqrt(n) / 2.0)))
 
-    s1_max = min(int(np.ceil(c * len(S1_tilde))), shared_cap, p1)
-    s2_max = min(int(np.ceil(c * len(S2_tilde))), shared_cap, p2)
-    s3_max = min(int(np.ceil(c * len(S3_tilde))), shared_cap, p3)
+    s1_max = min(max(int(np.ceil(c * len(S1_tilde))), marginal_floor), p1)
+    s2_max = min(max(int(np.ceil(c * len(S2_tilde))), marginal_floor), p2)
+    s3_max = min(max(int(np.ceil(c * len(S3_tilde))), marginal_floor), p3)
     s1_max = max(1, s1_max)
     s2_max = max(1, s2_max)
     s3_max = max(1, s3_max)
 
-    while s1_max * s2_max * s3_max >= n:
+    max_rectangular_params = max(1, int(np.floor(0.7 * n)))
+    while s1_max * s2_max * s3_max > max_rectangular_params:
         largest = int(np.argmax([s1_max, s2_max, s3_max]))
         if largest == 0 and s1_max > 1:
             s1_max -= 1

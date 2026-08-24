@@ -26,20 +26,20 @@ def build_profile(profile: str) -> tuple[TensorSimulationConfig, int, tuple[Expe
             sparsity=(4, 3, 5),
             rho=(0.3, 0.3, 0.3),
             snr=2.0,
-        support_shape="continuous",
-        sigma=1.0,
-        k_max=1,
-        max_cycles=6,
-        n_lambdas=20,
-        cv_folds=5,
-        max_iter=500,
-        tol=1e-6,
-        abess_init_criterion="bic",
-        abess_init_c=3.0,
-        random_state=2026,
-        test_batch_size=100,
-    )
-        n_reps = 50
+            support_shape="continuous",
+            sigma=1.0,
+            k_max=1,
+            max_cycles=6,
+            n_lambdas=20,
+            cv_folds=5,
+            max_iter=500,
+            tol=1e-6,
+            abess_init_criterion="bic",
+            abess_init_c=3.0,
+            random_state=2026,
+            test_batch_size=100,
+        )
+        n_reps = 10
         experiments = (
             ExperimentSpec("snr", "snr", (0.5, 1.0, 2.0, 4.0)),
             ExperimentSpec("sample_size", "n_train", (100, 200, 400)),
@@ -96,10 +96,21 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--n-reps", type=int, default=None, help="Override the repetition count.")
     parser.add_argument("--seed", type=int, default=None, help="Override the base random seed.")
     parser.add_argument(
+        "--resume",
+        action="store_true",
+        help="Resume from an existing raw_results.csv checkpoint in the output directory.",
+    )
+    parser.add_argument(
         "--support-shape",
         choices=("continuous", "discrete"),
         default=None,
         help="Override the support shape; PDF main experiments use continuous.",
+    )
+    parser.add_argument(
+        "--tensor-abess-mode",
+        choices=("fixed", "adaptive"),
+        default=None,
+        help="Use fixed true sparsity or adaptive MSIC sparsity for Tensor-ABESS.",
     )
     return parser
 
@@ -114,6 +125,8 @@ def main(argv: list[str] | None = None) -> int:
         base_config = replace(base_config, random_state=int(args.seed))
     if args.support_shape is not None:
         base_config = replace(base_config, support_shape=args.support_shape)
+    if args.tensor_abess_mode is not None:
+        base_config = replace(base_config, tensor_abess_mode=args.tensor_abess_mode)
 
     selected = set(args.experiments)
     experiments = tuple(exp for exp in all_experiments if exp.name in selected)
@@ -122,6 +135,7 @@ def main(argv: list[str] | None = None) -> int:
         output_dir=args.output_dir,
         n_reps=n_reps,
         experiments=experiments,
+        resume=bool(args.resume),
     )
 
     artifacts = run_experiment_suite(suite)

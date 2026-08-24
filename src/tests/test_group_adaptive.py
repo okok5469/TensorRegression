@@ -57,6 +57,42 @@ class GroupAdaptiveTests(unittest.TestCase):
 
         self.assertTrue(np.array_equal(result.bess_path[2].active_groups, warm))
 
+    def test_group_bess_adaptive_can_use_modified_sic(self) -> None:
+        X = np.zeros((20, 3), dtype=float)
+        X[0, 0] = 1.0
+        X[1, 1] = 1.0
+        X[2, 2] = 1.0
+        y = np.zeros(20, dtype=float)
+        y[0] = 10.0
+        y[1] = np.sqrt(50.0)
+        y[3:] = np.sqrt(10.0 / 17.0)
+        group_index = np.array([0, 1, 2])
+
+        sic_result = group_bess_adaptive(
+            y,
+            X,
+            group_index,
+            s_max=3,
+            block_size=30,
+            tau=1e9,
+            m_max=1,
+            information_criterion="sic",
+        )
+        msic_result = group_bess_adaptive(
+            y,
+            X,
+            group_index,
+            s_max=3,
+            block_size=30,
+            tau=1e9,
+            m_max=1,
+            information_criterion="msic",
+        )
+
+        self.assertEqual(sic_result.s, 1)
+        self.assertEqual(msic_result.s, 2)
+        self.assertTrue(np.array_equal(msic_result.active_groups, np.array([0, 1])))
+
 
 if __name__ == "__main__":
     unittest.main()

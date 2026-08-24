@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from typing import Literal
 
 import numpy as np
 
@@ -10,8 +11,8 @@ from tensor_abess.group.adaptive import group_bess_adaptive
 from tensor_abess.group.bess_fix import group_bess_fix
 from tensor_abess.tensor.ops import refit_tensor_coefficients, tensor_loss
 from tensor_abess.tensor.reduction import build_mode_design
-from tensor_abess.tensor.sic import compute_tensor_sic_from_rss
-from tensor_abess.utils.init import InitStrategy, initial_support
+from tensor_abess.tensor.sic import compute_tensor_msic_from_rss, compute_tensor_sic_from_rss
+from tensor_abess.utils.init import InitStrategy, _mode_slice_scores, initial_support
 
 
 @dataclass
@@ -44,6 +45,99 @@ class TensorBcdAdaptiveResult:
     loss_history: list[float] = field(default_factory=list)
     sic_history: list[float] = field(default_factory=list)
     n_cycles: int = 0
+
+
+def _candidate_size_triples(
+    s1_max: int,
+    s2_max: int,
+    s3_max: int,
+    max_params: int,
+    *,
+    window: int = 3,
+) -> list[tuple[int, int, int]]:
+    def values_for_cap(s_max: int) -> list[int]:
+        cap = int(s_max)
+        near_cap = range(max(1, cap - window + 1), cap + 1)
+        anchors = {1, max(1, round(0.4 * cap)), max(1, round(0.6 * cap))}
+        return sorted({*near_cap, *anchors})
+
+    ranges = [values_for_cap(s_max) for s_max in (s1_max, s2_max, s3_max)]
+    triples = [
+        (s1, s2, s3)
+        for s1 in ranges[0]
+        for s2 in ranges[1]
+        for s3 in ranges[2]
+        if s1 * s2 * s3 <= max_params
+    ]
+    return triples or [(1, 1, 1)]
+
+
+def _marginal_supports_for_size(
+    X: np.ndarray,
+    y: np.ndarray,
+    sizes: tuple[int, int, int],
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    return tuple(
+        np.sort(np.argsort(-_mode_slice_scores(X, y, mode))[:s])
+        for mode, s in enumerate(sizes, start=1)
+    )  # type: ignore[return-value]
+
+
+def _refine_msic_global_candidates(
+    X: np.ndarray,
+    y: np.ndarray,
+    result: TensorBcdAdaptiveResult,
+    *,
+    s1_max: int,
+    s2_max: int,
+    s3_max: int,
+    max_cycles: int,
+    m_max: int,
+    k_max: int | None,
+    tensor_criterion_fn,
+) -> TensorBcdAdaptiveResult:
+    n, p1, p2, p3 = X.shape
+    current_score = tensor_criterion_fn(
+        result.rss, result.s1, result.s2, result.s3, n, p1, p2, p3
+    )
+    best = result
+    best_score = current_score
+    max_params = max(1, int(np.floor(0.7 * n)))
+
+    for sizes in _candidate_size_triples(s1_max, s2_max, s3_max, max_params):
+        S1_init, S2_init, S3_init = _marginal_supports_for_size(X, y, sizes)
+        fixed = tensor_bcd(
+            X,
+            y,
+            *sizes,
+            max_cycles=max_cycles,
+            m_max=m_max,
+            k_max=k_max,
+            S1_init=S1_init,
+            S2_init=S2_init,
+            S3_init=S3_init,
+        )
+        rss = 2.0 * n * fixed.loss
+        score = tensor_criterion_fn(rss, *sizes, n, p1, p2, p3)
+        if score < best_score:
+            best_score = score
+            best = TensorBcdAdaptiveResult(
+                B=fixed.B,
+                S1=fixed.S1,
+                S2=fixed.S2,
+                S3=fixed.S3,
+                s1=sizes[0],
+                s2=sizes[1],
+                s3=sizes[2],
+                loss=fixed.loss,
+                rss=rss,
+                sic=score,
+                loss_history=fixed.loss_history,
+                sic_history=[*result.sic_history, score],
+                n_cycles=result.n_cycles + fixed.n_cycles,
+            )
+
+    return best
 
 
 def tensor_bcd(
@@ -171,6 +265,7 @@ def tensor_bcd_adaptive(
     k_max: int | None = None,
     tau: float | None = None,
     eps: float = 1e-8,
+    information_criterion: Literal["sic", "msic"] = "msic",
 ) -> TensorBcdAdaptiveResult:
     """Algorithm 5.2': revised adaptive BCD + GroupBESS.Adaptive outer loop."""
     X = np.asarray(X, dtype=float)
@@ -184,7 +279,11 @@ def tensor_bcd_adaptive(
     B = refit_tensor_coefficients(X, y, S1, S2, S3)
     loss = tensor_loss(X, y, B)
     rss = 2.0 * n * loss
-    sic = compute_tensor_sic_from_rss(rss, len(S1), len(S2), len(S3), n, p1, p2, p3)
+    tensor_criterion_fn = {
+        "sic": compute_tensor_sic_from_rss,
+        "msic": compute_tensor_msic_from_rss,
+    }[information_criterion]
+    sic = tensor_criterion_fn(rss, len(S1), len(S2), len(S3), n, p1, p2, p3)
     loss_history = [loss]
     sic_history = [sic]
 
@@ -205,6 +304,7 @@ def tensor_bcd_adaptive(
             block_size=d1,
             groups_warm=S1,
             tau=tau,
+            information_criterion=information_criterion,
         )
         S1 = np.sort(res1.active_groups)
 
@@ -221,6 +321,7 @@ def tensor_bcd_adaptive(
             block_size=d2,
             groups_warm=S2,
             tau=tau,
+            information_criterion=information_criterion,
         )
         S2 = np.sort(res2.active_groups)
 
@@ -237,13 +338,14 @@ def tensor_bcd_adaptive(
             block_size=d3,
             groups_warm=S3,
             tau=tau,
+            information_criterion=information_criterion,
         )
         S3 = np.sort(res3.active_groups)
 
         B = refit_tensor_coefficients(X, y, S1, S2, S3)
         loss = tensor_loss(X, y, B)
         rss = 2.0 * n * loss
-        sic = compute_tensor_sic_from_rss(rss, len(S1), len(S2), len(S3), n, p1, p2, p3)
+        sic = tensor_criterion_fn(rss, len(S1), len(S2), len(S3), n, p1, p2, p3)
         loss_history.append(loss)
         sic_history.append(sic)
 
@@ -253,7 +355,7 @@ def tensor_bcd_adaptive(
             and np.array_equal(S3, prev_supports[2])
         )
         if unchanged or abs(prev_sic - sic) < eps:
-            return TensorBcdAdaptiveResult(
+            result = TensorBcdAdaptiveResult(
                 B=B,
                 S1=S1,
                 S2=S2,
@@ -268,8 +370,22 @@ def tensor_bcd_adaptive(
                 sic_history=sic_history,
                 n_cycles=cycle + 1,
             )
+            if information_criterion == "msic":
+                return _refine_msic_global_candidates(
+                    X,
+                    y,
+                    result,
+                    s1_max=s1_max,
+                    s2_max=s2_max,
+                    s3_max=s3_max,
+                    max_cycles=max_cycles,
+                    m_max=m_max,
+                    k_max=k_max,
+                    tensor_criterion_fn=tensor_criterion_fn,
+                )
+            return result
 
-    return TensorBcdAdaptiveResult(
+    result = TensorBcdAdaptiveResult(
         B=B,
         S1=S1,
         S2=S2,
@@ -284,3 +400,17 @@ def tensor_bcd_adaptive(
         sic_history=sic_history,
         n_cycles=max_cycles,
     )
+    if information_criterion == "msic":
+        return _refine_msic_global_candidates(
+            X,
+            y,
+            result,
+            s1_max=s1_max,
+            s2_max=s2_max,
+            s3_max=s3_max,
+            max_cycles=max_cycles,
+            m_max=m_max,
+            k_max=k_max,
+            tensor_criterion_fn=tensor_criterion_fn,
+        )
+    return result

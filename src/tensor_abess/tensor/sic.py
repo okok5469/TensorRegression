@@ -32,6 +32,27 @@ def compute_mode_sic_from_rss(
     )
 
 
+def compute_mode_msic_from_rss(
+    rss: float,
+    s: int,
+    n: int,
+    J: int,
+    block_size: int,
+    *,
+    alpha: float = 1.0,
+    gamma: float = 1.0,
+) -> float:
+    """Finite-sample modified conditional SIC with log-log df penalty."""
+    eps = np.finfo(float).tiny
+    log_n = max(np.log(n), np.e)
+    loglog_n = np.log(log_n)
+    return (
+        n * np.log(max(rss / n, eps))
+        + alpha * s * block_size * loglog_n
+        + gamma * loglog_n * log_binomial(J, s)
+    )
+
+
 def compute_tensor_sic_from_rss(
     rss: float,
     s1: int,
@@ -49,6 +70,32 @@ def compute_tensor_sic_from_rss(
         n * np.log(max(rss / n, eps))
         + s1 * s2 * s3 * np.log(n)
         + np.log(log_n)
+        * (log_binomial(p1, s1) + log_binomial(p2, s2) + log_binomial(p3, s3))
+    )
+
+
+def compute_tensor_msic_from_rss(
+    rss: float,
+    s1: int,
+    s2: int,
+    s3: int,
+    n: int,
+    p1: int,
+    p2: int,
+    p3: int,
+    *,
+    alpha: float = 1.0,
+    gamma: float = 1.0,
+) -> float:
+    """Finite-sample modified tensor SIC with log-log df penalty."""
+    eps = np.finfo(float).tiny
+    log_n = max(np.log(n), np.e)
+    loglog_n = np.log(log_n)
+    return (
+        n * np.log(max(rss / n, eps))
+        + alpha * s1 * s2 * s3 * loglog_n
+        + gamma
+        * loglog_n
         * (log_binomial(p1, s1) + log_binomial(p2, s2) + log_binomial(p3, s3))
     )
 
