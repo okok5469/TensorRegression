@@ -67,6 +67,9 @@ def tensor_abess(
     max_iter: int = 500,
     tol: float = 1e-6,
     adaptive_criterion: Literal["sic", "msic"] = "msic",
+    msic_refine_alpha: float = 1.5,
+    msic_refine_gamma: float = 1.0,
+    msic_refine_one_se_scale: float = 1.0,
     max_cycles: int = 30,
     m_max: int = 15,
 ) -> TensorAbessResult:
@@ -142,6 +145,9 @@ def tensor_abess(
         tau=tau,
         eps=eps,
         information_criterion=adaptive_criterion,
+        msic_refine_alpha=msic_refine_alpha,
+        msic_refine_gamma=msic_refine_gamma,
+        msic_refine_one_se_scale=msic_refine_one_se_scale,
     )
     return TensorAbessResult(
         B=bcd_res.B,

@@ -96,7 +96,14 @@ class TensorAdaptiveTests(unittest.TestCase):
         seen = []
 
         def fake_tensor_bcd_adaptive(*args, **kwargs):
-            seen.append(kwargs["information_criterion"])
+            seen.append(
+                (
+                    kwargs["information_criterion"],
+                    kwargs["msic_refine_alpha"],
+                    kwargs["msic_refine_gamma"],
+                    kwargs["msic_refine_one_se_scale"],
+                )
+            )
             return TensorBcdAdaptiveResult(
                 B=np.zeros(X.shape[1:], dtype=float),
                 S1=np.array([0]),
@@ -122,9 +129,12 @@ class TensorAdaptiveTests(unittest.TestCase):
                 n_lambdas=8,
                 max_iter=200,
                 adaptive_criterion="msic",
+                msic_refine_alpha=1.7,
+                msic_refine_gamma=0.9,
+                msic_refine_one_se_scale=2.0,
             )
 
-        self.assertEqual(seen, ["msic"])
+        self.assertEqual(seen, [("msic", 1.7, 0.9, 2.0)])
 
     def test_tensor_bcd_adaptive_msic_refines_against_global_candidates(self) -> None:
         X = np.ones((8, 2, 2, 2), dtype=float)
@@ -171,6 +181,61 @@ class TensorAdaptiveTests(unittest.TestCase):
                 )
 
         self.assertEqual((result.s1, result.s2, result.s3), (2, 1, 2))
+
+    def test_msic_global_refine_prefers_smaller_model_within_one_se_band(self) -> None:
+        X = np.ones((16, 2, 2, 2), dtype=float)
+        y = np.arange(1.0, 17.0)
+
+        def fake_group_bess_adaptive(*args, **kwargs):
+            return GroupAbessResult(
+                beta=np.ones(1, dtype=float),
+                active_groups=np.array([0]),
+                s=1,
+                sic=0.0,
+                rss=1.0,
+                loss=0.1,
+                sic_path={1: 0.0},
+                bess_path={},
+            )
+
+        def fake_tensor_bcd(*args, **kwargs):
+            s1, s2, s3 = (int(v) for v in args[2:5])
+            return TensorBcdResult(
+                B=np.zeros(X.shape[1:], dtype=float),
+                S1=np.arange(s1),
+                S2=np.arange(s2),
+                S3=np.arange(s3),
+                loss=0.1,
+                loss_history=[0.1],
+                n_cycles=1,
+            )
+
+        def fake_tensor_msic(rss, s1, s2, s3, n, p1, p2, p3, **kwargs):
+            scores = {
+                (2, 2, 2): 100.0,
+                (2, 1, 2): 110.0,
+            }
+            return scores.get((int(s1), int(s2), int(s3)), 200.0)
+
+        with patch("tensor_abess.tensor.bcd.group_bess_adaptive", fake_group_bess_adaptive):
+            with patch("tensor_abess.tensor.bcd.tensor_bcd", fake_tensor_bcd):
+                with patch("tensor_abess.tensor.bcd.compute_tensor_msic_from_rss", fake_tensor_msic):
+                    result = tensor_bcd_adaptive(
+                        X,
+                        y,
+                        s1_max=2,
+                        s2_max=2,
+                        s3_max=2,
+                        S1_init=np.array([0]),
+                        S2_init=np.array([0]),
+                        S3_init=np.array([0]),
+                        max_cycles=1,
+                        information_criterion="msic",
+                        msic_refine_one_se_scale=3.0,
+                    )
+
+        self.assertEqual((result.s1, result.s2, result.s3), (2, 1, 2))
+        self.assertEqual(result.sic, 110.0)
 
     def test_global_refine_candidates_include_mid_sparsity_shapes(self) -> None:
         candidates = _candidate_size_triples(6, 7, 7, max_params=280)

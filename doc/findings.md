@@ -1,0 +1,23 @@
+# LEMON 实施依据
+
+- 核心 API：tensor_abess(X,y,target_sparsity=None,c=3.0,criterion='bic',k_max=1,n_lambdas=20,cv_folds=5,max_iter=500,tol=1e-6,max_cycles=6,m_max=15,eps=1e-8,adaptive_criterion='msic',msic_refine_alpha=1.5,msic_refine_gamma=1.0,msic_refine_one_se_scale=1.0)。
+- 终版基线位于 numerical_simulation.methods：tensor_glasso、run_vector_lasso_method；禁止复用包含 Oracle 的 run_all_methods。
+- 当前数据目录 实证分析/nm000179 只有 sub-010002 到 sub-010006；完整下载路径已向用户询问。
+- EEG JSON 提供 S210=EC、S200=EO；TSV 的 value 分别为4、3，与 VMRK 的 S  4、S  3 对应；以逐条样本时刻与代码一致性验证，不根据编号猜测。
+- 同状态事件约每2秒重复，必须先合并同状态触发，再按状态切换构造区间。
+- TMT.csv 227个唯一ID，226个正数，sub-010092 的原始值为逗号字符串；保留原值并按原规范记录排除，不自动纠正。
+- 路径相对配置文件目录解析；CLI 从仓库根通过 python -m empirical_analysis.lemon 调用；PYTHONPATH=src 明确提供核心包。
+- 正式模型模式要求明确协变量字段及编码；缺失时停止，pilot 必须显式选择，不能自动降级。
+- 用户最新要求：从manifest按明确文件问题排除、数值ID排序选前150，构建支持.part/HTTP Range/已存在校验跳过的下载器，实际数据之后再下。
+- 稳定bytes_url可用；不使用manifest临时签名url；元数据Git blob SHA1与本地文件吻合，可按清单算法验证。
+- 2026-09-14 新授权覆盖此前“之后再下载”：下载现有150人计划到 `D:\数据集\LEMON原始EEG`，不运行分析阶段；目标在工作区写权限之外，需要实际执行命令的权限批准。
+- 实际发现已有完全匹配的下载进程，因此无需新建写入目标盘的进程；第一项为633,640,000字节的sub-010002 EEG，3个共享元数据按现有plan顺序位于末尾。
+- 日志计数：成功为downloaded/resumed/restarted/completed_partial；跳过为skipped；失败为failed；未完成总数=1053-成功-跳过（包含失败），未尝试=1053-日志条数。
+- 真实试跑已验证5人张量为(5,61,16,5)，峰值进程驻留内存250.84 MiB；单人smoke含两次完整计算，不能把16.961秒称为一次处理耗时。
+- sub-010005实际有17个候选25秒窗口，按既定规则选前16个；其余4人候选均16个，5人各处理400秒EC信号。
+- 本次输入先做全文件清单校验，因此耗时不是冷缓存基准；峰值是每阶段独立进程的Windows PeakWorkingSetSize，含进程导入，不含其他进程和系统文件缓存。
+- 不应把活跃下载目录直接设为eeg_root：现有指纹遍历全部文件，.part会变化，且.eeg.part因非.eeg后缀被整块读取。试跑明确使用不含.part的稳定C盘目录，未修改该既有逻辑。
+- 下载器现默认180秒socket超时，每文件最多额外5次重试（共6次尝试），等待2/4/8/16/32秒；Transient异常仅由opener/read网络边界产生，写盘/校验失败不得触发重试。
+- IncompleteRead.partial可能携带尚未写盘的尾部字节，必须保存后更新Range；新回归测试曾捕获13字节丢失并验证修复。
+- 转正前检查exists再os.replace存在竞态；现Windows使用原子不覆盖rename，POSIX使用link后unlink，即使进度回调模拟同名正式文件出现也不会覆盖。
+- 新增20项下载测试后总48项通过；日志记录attempts/retry_history，正常下载和已校验跳过的文件尝试数均为1，重试计数不含首次尝试。

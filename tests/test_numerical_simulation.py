@@ -236,7 +236,12 @@ class NumericalSimulationTests(unittest.TestCase):
         self.assertGreaterEqual(result.s1 * result.s2 * result.s3, 12)
 
     def test_tensor_abess_method_can_run_adaptive_mode(self) -> None:
-        config = _small_config(tensor_abess_mode="adaptive")
+        config = _small_config(
+            tensor_abess_mode="adaptive",
+            msic_refine_alpha=1.7,
+            msic_refine_gamma=0.9,
+            msic_refine_one_se_scale=1.5,
+        )
         X = np.ones((config.n_train, *config.dims), dtype=float)
         y = np.ones(config.n_train, dtype=float)
         seen = {}
@@ -263,6 +268,9 @@ class NumericalSimulationTests(unittest.TestCase):
 
         self.assertIsNone(seen["target_sparsity"])
         self.assertEqual(seen["adaptive_criterion"], "msic")
+        self.assertEqual(seen["msic_refine_alpha"], config.msic_refine_alpha)
+        self.assertEqual(seen["msic_refine_gamma"], config.msic_refine_gamma)
+        self.assertEqual(seen["msic_refine_one_se_scale"], config.msic_refine_one_se_scale)
 
     def test_run_single_repetition_returns_all_methods_and_metrics(self) -> None:
         config = _small_config()

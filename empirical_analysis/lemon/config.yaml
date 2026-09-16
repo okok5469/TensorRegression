@@ -1,0 +1,67 @@
+seed: 20260908
+output_dir: outputs
+data:
+  eeg_root: ../../实证分析/nm000179
+  tmt_csv: ../../实证分析/TMT.csv
+  manifest_file: ../../实证分析/manifest.json
+  participants_file: ../../实证分析/nm000179/participants.tsv
+  participants_json: ../../实证分析/nm000179/participants.json
+  subject_selection_file: outputs_download/plan.json
+response:
+  column: TMT_5
+  primary_transform: log
+channels:
+  eog_names: [VEOG]
+  reference_subject: sub-010002
+  min_common_eeg_channels: 58
+events:
+  min_diagnostic_subjects: 5
+  trim_edge_sec: 5.0
+  window_sec: 25.0
+  n_windows: 16
+preprocess:
+  l_freq: 1.0
+  h_freq: 45.0
+  target_sfreq: 250.0
+  average_reference: true
+bands:
+  delta: [1.0, 4.0]
+  theta: [4.0, 8.0]
+  alpha: [8.0, 13.0]
+  beta: [13.0, 30.0]
+  gamma: [30.0, 45.0]
+psd:
+  method: welch
+  segment_sec: 4.0
+  overlap: 0.5
+  average: median
+  log_epsilon: 1.0e-20
+confounds:
+  id_column: participant_id
+  age_column: age
+  sex_column: sex
+  # Fill this mapping only from participants.json or a verified codebook.
+  sex_mapping: null
+analysis:
+  mode: adjusted
+  min_samples: 100
+  formal_cv_folds: 5
+  run_tensor_glasso: true
+  run_vector_lasso: true
+model:
+  k_max: 1
+  c: 3.0
+  criterion: bic
+  n_lambdas: 20
+  cv_folds: 5
+  max_iter: 500
+  tol: 1.0e-6
+  max_cycles: 6
+  m_max: 15
+  eps: 1.0e-8
+  adaptive_criterion: msic
+  msic_refine_alpha: 1.5
+  msic_refine_gamma: 1.0
+  msic_refine_one_se_scale: 1.0
+report:
+  channel_plot: barplot

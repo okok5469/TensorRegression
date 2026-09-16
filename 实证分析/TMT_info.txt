@@ -1,0 +1,47 @@
+TMT
+Trail Making Test – visual/spatial search & reaction change
+
+Reference:
+Reitan, R.M. (1992): Trail Making Test. Reitan Neuropsychology Laboratory
+
+Aim:
+Visual/spatial search & reaction change
+
+Tasks (paper & pen version (DIN-A-4))
+TMT_A: only numbers (1-25)
+Participant has to connect numbers as fast as possible in an ascending order.
+
+TMT_B: numbers and letters (1-13, A-L)
+Participant has to connect numbers and letters in an alternating and ascending order as fast as possible.
+
+
+Interpretation of score:
+“Based in the extensive studies performed, the correct score ranges for adults suggested for correlations with brain functions are as follows (Reitan & Wolfs, 1988)”
+
+Trails A:
+Perfectly normal= 0-26 sec.;
+Normal= 27-39 sec.;
+Mild/Moderately Impaired= 40-51 sec.;
+Moderately/Severely Impaired= 52 sec.+
+
+Trails B:  
+Perfectly normal= 0-65 sec.;
+Normal= 66-85 sec.;
+Mild/Moderately Impaired= 86-120 sec.;
+Moderately/Severely Impaired= 121 sec.+
+
+Coding brain functions:
+Perfectly normal= 1
+Normal= 2
+Mild/Moderately Impaired= 3
+Moderately/Severely Impaired= 4
+
+Column names in the csv file:
+TMT_1 = time it took to connect numbers (seconds. milliseconds)
+TMT_2 = brain functions based on performance for Trail A (Reitan & Wolfson, 1988)
+TMT_3 = how many errors did the pp. make
+TMT_4 = comments
+TMT_5 = time it took to connect numbers and letters (seconds. milliseconds)
+TMT_6 = brain functions based on performance for Trail B (Reitan & Wolfson, 1988)
+TMT_7 = how many errors did the pp. make
+TMT_8 = comments

@@ -38,3 +38,8 @@ Thumbs.db
 
 # Meeting notes / admin files at repo root
 文字转写_*.txt
+
+# Local LEMON inputs and download manifest (not analysis source)
+/实证分析/nm000179/
+/实证分析/TMT.csv
+/实证分析/manifest.json

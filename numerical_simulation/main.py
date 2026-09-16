@@ -112,6 +112,24 @@ def _build_parser() -> argparse.ArgumentParser:
         default=None,
         help="Use fixed true sparsity or adaptive MSIC sparsity for Tensor-ABESS.",
     )
+    parser.add_argument(
+        "--msic-refine-alpha",
+        type=float,
+        default=None,
+        help="DF penalty multiplier used only by adaptive Tensor-ABESS global MSIC refinement.",
+    )
+    parser.add_argument(
+        "--msic-refine-gamma",
+        type=float,
+        default=None,
+        help="Model-space penalty multiplier used only by adaptive Tensor-ABESS global MSIC refinement.",
+    )
+    parser.add_argument(
+        "--msic-refine-one-se-scale",
+        type=float,
+        default=None,
+        help="Tolerance scale for preferring the smallest adaptive Tensor-ABESS model within the MSIC band.",
+    )
     return parser
 
 
@@ -127,6 +145,12 @@ def main(argv: list[str] | None = None) -> int:
         base_config = replace(base_config, support_shape=args.support_shape)
     if args.tensor_abess_mode is not None:
         base_config = replace(base_config, tensor_abess_mode=args.tensor_abess_mode)
+    if args.msic_refine_alpha is not None:
+        base_config = replace(base_config, msic_refine_alpha=float(args.msic_refine_alpha))
+    if args.msic_refine_gamma is not None:
+        base_config = replace(base_config, msic_refine_gamma=float(args.msic_refine_gamma))
+    if args.msic_refine_one_se_scale is not None:
+        base_config = replace(base_config, msic_refine_one_se_scale=float(args.msic_refine_one_se_scale))
 
     selected = set(args.experiments)
     experiments = tuple(exp for exp in all_experiments if exp.name in selected)

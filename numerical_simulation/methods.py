@@ -191,6 +191,9 @@ def run_tensor_abess_method(
         max_cycles=config.max_cycles,
         eps=1e-8,
         adaptive_criterion="msic",
+        msic_refine_alpha=config.msic_refine_alpha,
+        msic_refine_gamma=config.msic_refine_gamma,
+        msic_refine_one_se_scale=config.msic_refine_one_se_scale,
     )
     runtime = perf_counter() - start
     n_cycles = 1 if result.bcd_result is None else int(result.bcd_result.n_cycles)
@@ -208,7 +211,13 @@ def run_tensor_abess_method(
         runtime_sec=float(runtime),
         n_cycles=n_cycles,
         sic=float(result.sic),
-        details={"random_state": int(random_state), "tensor_abess_mode": config.tensor_abess_mode},
+        details={
+            "random_state": int(random_state),
+            "tensor_abess_mode": config.tensor_abess_mode,
+            "msic_refine_alpha": float(config.msic_refine_alpha),
+            "msic_refine_gamma": float(config.msic_refine_gamma),
+            "msic_refine_one_se_scale": float(config.msic_refine_one_se_scale),
+        },
     )
 
 

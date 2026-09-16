@@ -34,6 +34,9 @@ class TensorSimulationConfig:
     abess_init_criterion: str = "bic"
     abess_init_c: float = 3.0
     tensor_abess_mode: TensorAbessMode = "fixed"
+    msic_refine_alpha: float = 1.5
+    msic_refine_gamma: float = 1.0
+    msic_refine_one_se_scale: float = 1.0
     random_state: int = 2026
     test_batch_size: int = 100
 
