@@ -1,0 +1,18 @@
+{
+  "status": "complete",
+  "cohort": "historical",
+  "plan_id": "889780a394bf8a9fa93c60302521b37557a143abde079f9b3a4316f2a5d736b7",
+  "datasets": 27,
+  "analysis_sha256": "e64d1264c4a3a5442f4c642e6925e2b9613c993933eb2d9c98b3e962d6e04ceb",
+  "regret_mean": 0.4509779261192474,
+  "regret_max": 9.933975831924528,
+  "same_minimum_count": 24,
+  "full_minimum_B_missing_count": 3,
+  "full_selected_B_missing_count": 5,
+  "same_minimum_missing_one_se_smaller_model_count": 4,
+  "truth_shape_omitted_count": 2,
+  "truth_positions_omitted_count": 0,
+  "inference": "Paired descriptive conditional effects, not independently estimated population interactions; scenarios and seeds balanced.",
+  "runtime_note": "Observed elapsed time depends on shared-cache group order. Estimated standalone cost adds cached fixed fit durations and is not an independent cold-fit timing measurement.",
+  "scope": "Search mechanisms only; no MSIC/confirmation execution or formal-version adoption"
+}

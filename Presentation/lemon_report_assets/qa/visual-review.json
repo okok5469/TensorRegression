@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "scope": "Final report figures inspected panel by panel and as complete figures",
+  "minimum_pdf_text_pt": 14,
+  "data_integrity": {
+    "final_participants": 145,
+    "subject_ids": "Final manifest ordered against saved analysis IDs; no duplicates or further exclusions",
+    "response": "Saved log response verified against positive raw TMT-B times",
+    "model_oof": "All 435 stored predictions recomputed against original metrics with tolerance 1e-12",
+    "baseline": "Saved nuisance coefficients verified independently against training-only least squares, then used for held-out predictions; each participant appears once",
+    "support": "All 61 channels accounted for: 7 nonzero counts drawn, 54 zero counts explicitly stated; all 16 windows and 5 bands drawn"
+  },
+  "panels": [
+    {"figure": "age_distribution", "panel": "single", "claim": "The analyzed cohort covers seven recorded age categories unevenly", "summary": "Counts of participants", "spread": "None: cohort description", "unit": "Participant", "labels": "All category labels and count annotations legible", "alignment": "NOT APPLICABLE", "collision": "PASS, 0 fail, 0 warn", "visual": "PASS"},
+    {"figure": "tmt_distribution", "panel": "a", "claim": "Raw TMT-B completion times have a long right tail", "summary": "Histogram counts, all 145 participants included", "spread": "None: empirical distribution", "unit": "Participant", "labels": "Seconds stated on axis, complete histogram range", "alignment": "PASS: common plot-area top, bottom and height", "collision": "PASS, 0 fail, 0 warn", "visual": "PASS"},
+    {"figure": "tmt_distribution", "panel": "b", "claim": "The natural log transform reduces the long right tail", "summary": "Histogram counts, same 145 participants", "spread": "None: empirical distribution", "unit": "Participant", "labels": "Natural log scale stated, shared count axis", "alignment": "PASS: common plot-area top, bottom and height", "collision": "PASS, 0 fail, 0 warn", "visual": "PASS"},
+    {"figure": "oof_metrics", "panel": "single", "claim": "The age/sex-only diagnostic has lower RMSE than the three EEG models in this partition", "summary": "Pooled OOF RMSE over 145 held-out predictions", "spread": "None: one fixed five-fold partition, no CI inferred", "unit": "Participant", "labels": "Four model labels and four-decimal values legible; lower is better stated", "alignment": "NOT APPLICABLE", "collision": "PASS, 0 fail, 0 warn", "visual": "PASS; final label revision re-exported and rechecked separately"},
+    {"figure": "oof_prediction", "panel": "single", "claim": "Held-out predictions vary around the identity line", "summary": "Every ABESS OOF prediction shown", "spread": "None: individual observations", "unit": "Participant", "labels": "Observed/predicted axes share limits and equal physical scale; no points clipped", "alignment": "NOT APPLICABLE", "collision": "PASS, 0 fail, 0 warn", "visual": "PASS"},
+    {"figure": "support_stability", "panel": "a", "claim": "No selected channel is present in all five outer fits", "summary": "Fold selection counts for all seven nonzero channels", "spread": "None: discrete selection counts out of five", "unit": "Outer fit", "labels": "All seven channels legible; 54 zero-selected channels stated; blue indicates final support", "alignment": "PASS: equal widths, heights, top/bottom edges and gutters", "collision": "PASS, 0 fail, 0 warn", "visual": "PASS"},
+    {"figure": "support_stability", "panel": "b", "claim": "The selected ordinal window varies across outer fits", "summary": "All sixteen windows, selected count at most one", "spread": "None: discrete selection counts out of five", "unit": "Outer fit", "labels": "Closed-eye ordinal windows stated; blue indicates final support", "alignment": "PASS: equal widths, heights, top/bottom edges and gutters", "collision": "PASS, 0 fail, 0 warn", "visual": "PASS"},
+    {"figure": "support_stability", "panel": "c", "claim": "Gamma is selected in three fits, theta and beta in one each", "summary": "All five frequency bands", "spread": "None: discrete selection counts out of five", "unit": "Outer fit", "labels": "Standard Greek band symbols legible; blue indicates final support", "alignment": "PASS: equal widths, heights, top/bottom edges and gutters", "collision": "PASS, 0 fail, 0 warn", "visual": "PASS"}
+  ],
+  "source_warning_reviews": {
+    "EXPORT-RASTER": "PNG is the requested slide preview. PDF/SVG are vector deliverables; TIFF is unnecessary for this PDF presentation.",
+    "FINAL-WIDTH": "Figures are explicitly slide-sized, not final journal-production figures.",
+    "LOG-GUARD": "The source asserts that every final raw TMT-B time is positive before using np.log; detector does not recognize the column expression.",
+    "UNCERTAINTY-ENCODING": "The metrics are pooled OOF values on one fixed partition. Support panels are counts of the five fits. Neither is displayed as a mean with an invented interval."
+  },
+  "exports": "Five editable PDF/SVG figures and 300-dpi PNG previews; all exported PDFs have selectable text and mandatory geometry checks passed."
+}

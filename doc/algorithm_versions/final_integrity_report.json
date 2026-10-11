@@ -1,0 +1,16 @@
+{
+  "protected_files_checked": 1738,
+  "protected_results_unchanged": true,
+  "original_source_files_checked": 32,
+  "current_source_files_checked": 32,
+  "changed_core_files": [
+    "tensor_abess/tensor/bcd.py"
+  ],
+  "python39_grammar_files_checked": 38,
+  "cluster_script_lf": true,
+  "final_patch_sha256": "d2e6cac68ad7e37ec131cf2ff3d52eec4e7ec4498d30cea484d513fe2b7b37ee",
+  "full_preflight_plan_id": "51cf91b654b909298529b358f344e55eae82a6971b2e4640f5b09f5dc1a6cb6a",
+  "full_preflight_task0_complete": true,
+  "full_preflight_resume_verified": true,
+  "cluster_script_bash_syntax_passed": true
+}

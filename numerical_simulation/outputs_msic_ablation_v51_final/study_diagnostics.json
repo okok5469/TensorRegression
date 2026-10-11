@@ -1,0 +1,28 @@
+{
+  "complete": true,
+  "paired_default": {
+    "paired_datasets": 27,
+    "selected_B_changed": 6,
+    "q_hat_fixed_minus_original_mean": 3.2222222222222223,
+    "exact_recovery_fixed_minus_original_mean": 0.0,
+    "mode_f1_macro_fixed_minus_original_mean": 0.0017636684303350989,
+    "element_f1_fixed_minus_original_mean": 0.006407995296884196,
+    "pmse_fixed_minus_original_mean": 0.30206918399006544,
+    "fixed_pmse_wins_ties_losses": [
+      2,
+      21,
+      4
+    ],
+    "r2_test_fixed_minus_original_mean": -0.077282524314353,
+    "q_over_fixed_minus_original_mean": 0.037037037037037035,
+    "q_under_fixed_minus_original_mean": -0.07407407407407407,
+    "q_small_fixed_minus_original_mean": 0.037037037037037035,
+    "q_near_cap_fixed_minus_original_mean": 0.037037037037037035
+  },
+  "fixed_candidates_checked": 3051,
+  "fixed_candidates_best_visited_and_accepted_monotone": true,
+  "true_size_within_caps_datasets": 18,
+  "true_size_present_in_pool_datasets": 9,
+  "exact_true_support_present_in_pool_datasets": 3,
+  "interpretation": "3 replicates/scenario are exploratory; CV comparable only on matched n200 subset; different fixed shapes confound size-only interpretation"
+}

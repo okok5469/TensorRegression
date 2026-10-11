@@ -1,12 +1,12 @@
 seed: 20260908
-output_dir: outputs
+output_dir: outputs_lemon_adjusted
 data:
-  eeg_root: ../../实证分析/nm000179
-  tmt_csv: ../../实证分析/TMT.csv
-  manifest_file: ../../实证分析/manifest.json
-  participants_file: ../../实证分析/nm000179/participants.tsv
-  participants_json: ../../实证分析/nm000179/participants.json
-  subject_selection_file: outputs_download/plan.json
+  eeg_root: D:/数据集/LEMON原始EEG
+  tmt_csv: ../TMT.csv
+  manifest_file: ../manifest.json
+  participants_file: outputs_demographics/participants.tsv
+  participants_json: outputs_demographics/participants.json
+  subject_selection_file: selection_149.json
 response:
   column: TMT_5
   primary_transform: log
@@ -38,10 +38,24 @@ psd:
   log_epsilon: 1.0e-20
 confounds:
   id_column: participant_id
-  age_column: age
+  age_column: age_band
   sex_column: sex
-  # Fill this mapping only from participants.json or a verified codebook.
-  sex_mapping: null
+  # Official source: 1=female, 2=male; encode female=0, male=1.
+  sex_mapping: {'1': 0, '2': 1}
+  age_encoding: categorical
+  age_categories: ['20-25', '25-30', '30-40', '55-65', '65-70', '70-75', '75-80']
+  age_reference: '20-25'
+  # User-approved adjacent pooling avoids singleton categories in CV.
+  age_mapping:
+    '20-25': '20-25'
+    '25-30': '25-30'
+    '30-35': '30-40'
+    '35-40': '30-40'
+    '55-60': '55-65'
+    '60-65': '55-65'
+    '65-70': '65-70'
+    '70-75': '70-75'
+    '75-80': '75-80'
 analysis:
   mode: adjusted
   min_samples: 100

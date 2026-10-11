@@ -1,0 +1,17 @@
+{
+  "status": "complete",
+  "checks_passed": true,
+  "plan_id": "bbe68b14511ae56597bb40e24b7ea2e1ef9fe3e79553dcf04fdb190863883d34",
+  "confirmation_search_plan_id": "be7b227228164e6dbbf3d7305e93717c62128e6982f5ff36000a1f1218fd973c",
+  "dataset_count": 90,
+  "rule_rows": 180,
+  "rule_count": 2,
+  "default_exact_replays": 90,
+  "pool_fingerprints_unchanged": true,
+  "locked_model_numerics_checked": 90,
+  "lock_sha256": "c42f78f63a370b500310497e32ba7903ad37314721dc591fb445ed1d298e8d0b",
+  "research_only": true,
+  "rule_selection_performed": false,
+  "new_model_fitting": false,
+  "interpretation": "Independent confirmation of prior lock; parent A0/A2 comparators retained; no confirmation-based rule tuning or formal adoption."
+}

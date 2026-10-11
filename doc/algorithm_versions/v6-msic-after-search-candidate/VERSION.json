@@ -1,0 +1,125 @@
+{
+  "version": "v6-msic-after-search-candidate",
+  "schema_version": 1,
+  "role": "research_global_rule_wrapper_not_formal_algorithm",
+  "research_only": true,
+  "release_approved": false,
+  "base_version": "v5.2-candidate-search",
+  "created_utc": "2026-10-10T15:18:36.299816+00:00",
+  "production_defaults_changed": false,
+  "production_default_rule": {
+    "adaptive_mode_alpha": 1.0,
+    "global_alpha": 1.5,
+    "gamma": 1.0,
+    "one_se_scale": 1.0
+  },
+  "production_bcd_raw_sha256": "c5e67a666c8c120bfcd9ff000a5c6b1bcd7c0be37e0b549a0a34ca61ecfbd737",
+  "core_reference_path": "doc/algorithm_versions/v5.2-candidate-search/src",
+  "base_identity_path": "doc/algorithm_versions/v5.2-candidate-search/VERSION.json",
+  "base_identity_sha256": "427745e74b8bea5d19752ac9fa6537232c66610fef02af11d39d198370896813",
+  "base_core_source_sha256": {
+    "tensor_abess/__init__.py": "f09ee71e1a5b9a9c9deddbfcdec0d028cd34803af58318af1beca9e9a3aa5dbe",
+    "tensor_abess/baselines/__init__.py": "2e25cb27c0deae528eefec64946bc7aafd241b235145c3fb2bbc32da983bd00a",
+    "tensor_abess/baselines/base.py": "296af75c1a2afbce822d401f3ba81a231b176aa8ff7d51a3fa3575ad03303306",
+    "tensor_abess/baselines/cp.py": "164b04db1ab6ac6b163366957d5a3e5e3db9d9e117fe62a1bf63d6378e936fbb",
+    "tensor_abess/baselines/group_lasso.py": "28acbc2c67ef3a462b7c8c9551c6d08eca076877100494f23ed5b60aeb24ab75",
+    "tensor_abess/baselines/lasso.py": "b0ce26433580f51c4a56a99d3748fbd609a7527469669475ff774bab3e1393f0",
+    "tensor_abess/baselines/tucker.py": "a90c90b46ded263dd57fc99b926b6d82abb410b4541d9d898fc5b907037b0283",
+    "tensor_abess/common/__init__.py": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+    "tensor_abess/common/ranks.py": "4684b9504f033aee9cee10a40ab652d8ad76f2e871833fe3f123a883b2a32aa4",
+    "tensor_abess/group/__init__.py": "ceb9fc92074ba440ef5c2082453aeba1f67db8da03a49309937e0e5efc32d3e1",
+    "tensor_abess/group/adaptive.py": "453f0b2e9568f3a611977151ab20943a120bb9603adb90838d52d4ca5a306376",
+    "tensor_abess/group/bess_fix.py": "6577bc8b26b99b45b8a4bd7f154135fd10c0627c520c6a379f8a6616ab9c87fb",
+    "tensor_abess/group/sacrifices.py": "b05f00ea51a5d91e01961e468e15ec3ca8046af649f8f2bbb51addd264376155",
+    "tensor_abess/group/splicing.py": "0ac340129f4f38f1aaf2c4d7c778f5c763964c9b6792485bcd017147b4d4641c",
+    "tensor_abess/metrics/__init__.py": "34ad9b63350042207d203b6c33c481bcf8fbb8e113216a094766e82778ac9eee",
+    "tensor_abess/metrics/support.py": "18495d2a039e6d9df9c650c4532a52e8cb59a05594755946098eede234054dd8",
+    "tensor_abess/tensor/__init__.py": "a7a284698fe7934f052f95d6b93f595b46262a0b4b81f7e3cbf806fa13850667",
+    "tensor_abess/tensor/abess.py": "81906d0355135964da69650d6fc19e6cbc96b534ee94e5eddfae32175b68c6a0",
+    "tensor_abess/tensor/bcd.py": "92f02fc69c598e0439fba05f836d4830c5640d53e916997c0a3680d747812e8d",
+    "tensor_abess/tensor/candidate_search.py": "0a7075f894f50d3953d4799da0cb01d8ba733ec15b0649a2799dfac3e0294143",
+    "tensor_abess/tensor/ops.py": "cc0140752af901e792dc48811d320cb928f0dc917bbc9ccf3f8e8ae1cd9ee0fa",
+    "tensor_abess/tensor/reduction.py": "8b8a66856d5e8c8a0a887fb97f911687d6f48b8d25079430abb7ffe550774076",
+    "tensor_abess/tensor/sic.py": "84637e426a8ad8d9c471d8f81787135052f10f954475127403d5a9b2b4f51d9f",
+    "tensor_abess/utils/__init__.py": "969942a09ec95253bd97eddd57740fea3da8bb1ca0cb9c69074d9244b168e343",
+    "tensor_abess/utils/data.py": "67696c6f1327a0f7f9e6c7980a1c7a648d4bf6a9165ce7ea673948891f63937c",
+    "tensor_abess/utils/glasso.py": "05cf440fdf5c5cce814264ec35cc6c7b0397cdf229889452abe2e90cd650097d",
+    "tensor_abess/utils/init.py": "6fc58919fd76fdbdd0b4cedfe5ce446a3f1f01ad37b48a2218505364b09a5c9f",
+    "tensor_abess/utils/validation.py": "d6500d0a227854dfc963f33fb47f97d10ef67527b15a599426c4d1202e669dbe",
+    "tensor_abess/vector/__init__.py": "7f8f788a7915a4540f753f8e9a5e9917008ca725cb5b9fb23a8e575e75ab59f7",
+    "tensor_abess/vector/abess.py": "901efc50fc964801b44e9e12e90980ea065e15a303b9375f142fc8f0eb0527f0",
+    "tensor_abess/vector/sacrifices.py": "2462c4f8f3e447e98218eb2c68811893a24c547b78007848e047c6afd79db9f2",
+    "tensor_abess/vector/sic.py": "f562d2736186173f0939de7677a6f14a64c7a2d202bd414929e7aee310c1487b",
+    "tensor_abess/vector/splicing.py": "c14f4e47e7c8506ee63422016c69693a303ae5638f7c6ddd097d9baffa8b7e63"
+  },
+  "wrapper_source_sha256": {
+    "numerical_simulation/candidate_search_study/msic_after_search.py": "88f4dbd82572d9fc8e5c0a988fc466d5707173cec02cd81a623f204f9a9df913",
+    "numerical_simulation/candidate_search_study/msic_refit.py": "5cd82f4b3942d721382e370444e8f0faf112dfb5cf260ee9aedfd0ae591e7a33",
+    "numerical_simulation/candidate_search_study/msic_confirmation.py": "16095d1b5124649f07b700638b37347e10073a1d2d4f68a4278bc47052b5e99e"
+  },
+  "wrapper_test_sha256": {
+    "tests/test_msic_after_search.py": "52e00cbbe21a62c6bbc74fb99ef3cccce6b398007657cda0d296839d65bea76d",
+    "tests/test_msic_refit.py": "fef80a881db21ef5be0a43983d7e06c4d1f4e96cd906cecc19f917fb4fe0815f",
+    "tests/test_msic_confirmation.py": "f94bca5defa11672a84547229a8ebf78427ce34c00918ea117b688acde6d894d"
+  },
+  "locked_research_candidate": {
+    "id": "msic-alpha2-scale0",
+    "criterion": "msic",
+    "alpha": 2.0,
+    "gamma": 1.0,
+    "scale": 0.0
+  },
+  "lock_path": "numerical_simulation/outputs_msic_after_search/LOCK.json",
+  "lock_sha256": "c42f78f63a370b500310497e32ba7903ad37314721dc591fb445ed1d298e8d0b",
+  "source_parent_plan_ids": {
+    "development_search_plan_id": "950d722abda2a20f84581a969759ad85a338d0cc86e1681ee24a9e98b1767427",
+    "development_msic_plan_id": "beb5602479334d5233df89f4b401f48c8af4403e98dd43aa88ccd7bab2635b6b",
+    "confirmation_search_plan_id": "be7b227228164e6dbbf3d7305e93717c62128e6982f5ff36000a1f1218fd973c",
+    "historical_search_plan_id": "889780a394bf8a9fa93c60302521b37557a143abde079f9b3a4316f2a5d736b7"
+  },
+  "confirmation_status": "in_progress_not_yet_validated",
+  "confirmation_evidence": "No partial confirmation scoring or rule reselection performed by this identity task. Full source cohort plus two-rule LOCK scoring must complete before reporting confirmation evidence.",
+  "test_evidence": {
+    "wrapper_limited_tests": 31,
+    "wrapper_test_counts": {
+      "tests/test_msic_after_search.py": 9,
+      "tests/test_msic_refit.py": 9,
+      "tests/test_msic_confirmation.py": 13
+    },
+    "base_limited_tests": 100,
+    "total_limited_tests": 131,
+    "scope": "Named wrapper and base regression suites only; not the entire repository suite.",
+    "pass_evidence": "31 wrapper tests passed as reported by the dedicated test owners; base 100 recorded in v5.2 identity."
+  },
+  "python39_static_validation": {
+    "files_checked": 6,
+    "paths": [
+      "numerical_simulation/candidate_search_study/msic_after_search.py",
+      "numerical_simulation/candidate_search_study/msic_refit.py",
+      "numerical_simulation/candidate_search_study/msic_confirmation.py",
+      "tests/test_msic_after_search.py",
+      "tests/test_msic_refit.py",
+      "tests/test_msic_confirmation.py"
+    ],
+    "grammar_passed": true,
+    "actual_cluster_run_performed": false,
+    "interpretation": "Parsing with Python3.9 grammar is not execution under the cluster libraries."
+  },
+  "actual_local_environment": {
+    "python": "3.12.8",
+    "numpy": "1.26.4",
+    "scipy": "1.16.1"
+  },
+  "user_cluster_reference_environment": {
+    "python": "3.9.25",
+    "numpy": "2.0.2",
+    "scipy": "1.13.1",
+    "packages_updated_by_this_task": false
+  },
+  "previous_task2_identity_path": "doc/algorithm_versions/v6-msic-candidate/VERSION.json",
+  "previous_task2_identity_raw_sha256": "e5982d924890600c8d2deb5a44bfe078f0cf71aed19a4dce995091f2b0270da2",
+  "previous_task2_identity_preserved": true,
+  "dependency_policy": "References existing isolated 33-file v5.2 core and existing Phase D run/worker/scoring/data modules. This identity does not copy core sources or package data. Six-file patch adds only wrappers and tests.",
+  "study_patch_relative_path": "doc/team_sync/v6-msic-after-search-candidate/msic-study.patch",
+  "study_patch_sha256": "9d56aede75a153e80353ff33d9e4bac0fd8cf2cfae43e9cc58dd347398441f24"
+}

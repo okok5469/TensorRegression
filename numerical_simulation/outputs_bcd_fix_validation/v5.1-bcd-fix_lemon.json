@@ -1,0 +1,6168 @@
+{
+  "version": "v5.1-bcd-fix",
+  "global_q": 1,
+  "global_rss": 8.956317546553995,
+  "global_sic": -281.52486604882915,
+  "diagnostic_outer_test_rmse": 0.3575831777188588,
+  "fixed80_rss_history": [
+    2.2172021957856867
+  ],
+  "fixed80_return_rss": 2.2172021957856867,
+  "fixed80_accepted_monotone": true,
+  "fixed80_stop_reason": "no_improvement",
+  "fixed80_best_iteration": 0,
+  "fixed80_visited_rss": [
+    2.2172021957856867,
+    2.2172021957856867,
+    2.2172021957856867,
+    2.2172021957856867
+  ],
+  "trace": {
+    "initialization": {
+      "supports": [
+        [
+          2
+        ],
+        [
+          7
+        ],
+        [
+          2,
+          3,
+          4
+        ]
+      ],
+      "sizes": [
+        1,
+        1,
+        3
+      ],
+      "caps": [
+        4,
+        4,
+        5
+      ],
+      "candidate_set_sizes": [
+        23,
+        16,
+        5
+      ],
+      "marginal_floor": 5,
+      "max_rectangular_params": 81,
+      "glasso_fits": {
+        "1": {
+          "lambda": 0.2873093857576441,
+          "rss": 9.843257426665769,
+          "active_group_count": 0
+        },
+        "2": {
+          "lambda": 0.11492374564989878,
+          "rss": 9.843257426665769,
+          "active_group_count": 0
+        },
+        "3": {
+          "lambda": 0.006052618285050663,
+          "rss": 8.489877549734523,
+          "active_group_count": 3
+        }
+      }
+    },
+    "mode_updates": [
+      {
+        "cycle": 1,
+        "mode": 1,
+        "previous_support": [
+          2
+        ],
+        "selected_support": [
+          2
+        ],
+        "selected_s": 1,
+        "selected_rss": 8.46928344777714,
+        "selected_msic": -292.50359462389014,
+        "block_size": 3,
+        "candidates": [
+          {
+            "s": 1,
+            "rss": 8.46928344777714,
+            "msic": -292.50359462389014
+          },
+          {
+            "s": 2,
+            "rss": 8.26059264403415,
+            "msic": -285.4189174095146
+          },
+          {
+            "s": 3,
+            "rss": 8.185795871528903,
+            "msic": -277.15349350571864
+          },
+          {
+            "s": 4,
+            "rss": 8.004281648150226,
+            "msic": -270.9092273407484
+          }
+        ]
+      },
+      {
+        "cycle": 1,
+        "mode": 2,
+        "previous_support": [
+          7
+        ],
+        "selected_support": [
+          7
+        ],
+        "selected_s": 1,
+        "selected_rss": 8.46928344777714,
+        "selected_msic": -294.58984754879737,
+        "block_size": 3,
+        "candidates": [
+          {
+            "s": 1,
+            "rss": 8.46928344777714,
+            "msic": -294.58984754879737
+          },
+          {
+            "s": 2,
+            "rss": 8.03104403196794,
+            "msic": -292.93535337093243
+          },
+          {
+            "s": 3,
+            "rss": 7.871920997328406,
+            "msic": -288.17869266933826
+          },
+          {
+            "s": 4,
+            "rss": 7.639172503486626,
+            "msic": -285.1460758722439
+          }
+        ]
+      },
+      {
+        "cycle": 1,
+        "mode": 3,
+        "previous_support": [
+          2,
+          3,
+          4
+        ],
+        "selected_support": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "selected_s": 5,
+        "selected_rss": 8.430202698238892,
+        "selected_msic": -296.3307466322748,
+        "block_size": 1,
+        "candidates": [
+          {
+            "s": 1,
+            "rss": 8.956317546553995,
+            "msic": -293.0349470728124
+          },
+          {
+            "s": 2,
+            "rss": 8.661365475340778,
+            "msic": -294.2799647601327
+          },
+          {
+            "s": 3,
+            "rss": 8.46928344777714,
+            "msic": -295.3225362826903
+          },
+          {
+            "s": 4,
+            "rss": 8.463755610162812,
+            "msic": -294.9199204195046
+          },
+          {
+            "s": 5,
+            "rss": 8.430202698238892,
+            "msic": -296.3307466322748
+          }
+        ]
+      },
+      {
+        "cycle": 2,
+        "mode": 1,
+        "previous_support": [
+          2
+        ],
+        "selected_support": [
+          2
+        ],
+        "selected_s": 1,
+        "selected_rss": 8.430202698238892,
+        "selected_msic": -289.922304698394,
+        "block_size": 5,
+        "candidates": [
+          {
+            "s": 1,
+            "rss": 8.430202698238892,
+            "msic": -289.922304698394
+          },
+          {
+            "s": 2,
+            "rss": 7.82326192719929,
+            "msic": -285.493106578086
+          },
+          {
+            "s": 3,
+            "rss": 7.535870514014121,
+            "msic": -277.3963185853909
+          },
+          {
+            "s": 4,
+            "rss": 7.401534147559417,
+            "msic": -267.51958583637975
+          }
+        ]
+      },
+      {
+        "cycle": 2,
+        "mode": 2,
+        "previous_support": [
+          7
+        ],
+        "selected_support": [
+          7
+        ],
+        "selected_s": 1,
+        "selected_rss": 8.430202698238892,
+        "selected_msic": -292.0085576233012,
+        "block_size": 5,
+        "candidates": [
+          {
+            "s": 1,
+            "rss": 8.430202698238892,
+            "msic": -292.0085576233012
+          },
+          {
+            "s": 2,
+            "rss": 7.937814432658037,
+            "msic": -288.05423355942867
+          },
+          {
+            "s": 3,
+            "rss": 7.588561981727187,
+            "msic": -283.0778531523847
+          },
+          {
+            "s": 4,
+            "rss": 6.915516841016871,
+            "msic": -284.219378076225
+          }
+        ]
+      },
+      {
+        "cycle": 2,
+        "mode": 3,
+        "previous_support": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "selected_support": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "selected_s": 5,
+        "selected_rss": 8.430202698238892,
+        "selected_msic": -296.3307466322748,
+        "block_size": 1,
+        "candidates": [
+          {
+            "s": 1,
+            "rss": 8.956317546553995,
+            "msic": -293.0349470728124
+          },
+          {
+            "s": 2,
+            "rss": 8.661365475340778,
+            "msic": -294.2799647601327
+          },
+          {
+            "s": 3,
+            "rss": 8.46928344777714,
+            "msic": -295.3225362826903
+          },
+          {
+            "s": 4,
+            "rss": 8.463755610162812,
+            "msic": -294.9199204195046
+          },
+          {
+            "s": 5,
+            "rss": 8.430202698238892,
+            "msic": -296.3307466322748
+          }
+        ]
+      }
+    ],
+    "candidates": [
+      {
+        "source": "adaptive_before_refinement",
+        "sizes": [
+          1,
+          1,
+          5
+        ],
+        "q": 5,
+        "s_sum": 7,
+        "score": -281.7028652837761,
+        "fit_term": -304.1252474435634,
+        "df_penalty": 11.691751216932962,
+        "support_penalty": 10.730630942854354,
+        "supports": [
+          [
+            2
+          ],
+          [
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "rss": 8.430202698238892,
+        "loss_history": [
+          0.03650553210248768,
+          0.036337080595857295,
+          0.036337080595857295
+        ],
+        "rss_history": [
+          8.46928344777714,
+          8.430202698238892,
+          8.430202698238892
+        ],
+        "sic": -285.6001156894204,
+        "initial_supports": null,
+        "ols": {
+          "n": 116,
+          "q": 5,
+          "rank": 5,
+          "full_column_rank": true,
+          "singular_max": 19.114143812021357,
+          "singular_min": 4.110074454678057,
+          "condition_number": 4.650559016094167,
+          "joint_rank": 5,
+          "residual_df_joint": 111,
+          "rss": 8.430202698238892,
+          "coefficient_l2": 0.13648699227093747,
+          "normal_equation_residual_l2": 6.7928050155739895e-15,
+          "solver_prediction_max_difference": 2.220446049250313e-16,
+          "solver_rss_max_difference": 1.7763568394002505e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          1,
+          1,
+          1
+        ],
+        "q": 1,
+        "s_sum": 3,
+        "score": -281.52486604882915,
+        "fit_term": -297.10280025790735,
+        "df_penalty": 2.3383502433865924,
+        "support_penalty": 13.239583965691612,
+        "supports": [
+          [
+            2
+          ],
+          [
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "rss": 8.956317546553995,
+        "loss_history": [
+          0.0386048170110086
+        ],
+        "rss_history": [
+          8.956317546553995
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2
+          ],
+          [
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 1,
+          "rank": 1,
+          "full_column_rank": true,
+          "singular_max": 10.72380529476361,
+          "singular_min": 10.72380529476361,
+          "condition_number": 1.0,
+          "joint_rank": 1,
+          "residual_df_joint": 115,
+          "rss": 8.956317546553995,
+          "coefficient_l2": 0.08782095818552718,
+          "normal_equation_residual_l2": 6.661338147750939e-16,
+          "solver_prediction_max_difference": 0.0,
+          "solver_rss_max_difference": 0.0,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          1,
+          1,
+          2
+        ],
+        "q": 2,
+        "s_sum": 4,
+        "score": -281.9904336550206,
+        "fit_term": -300.9872653597288,
+        "df_penalty": 4.676700486773185,
+        "support_penalty": 14.320131217934998,
+        "supports": [
+          [
+            2
+          ],
+          [
+            7
+          ],
+          [
+            2,
+            4
+          ]
+        ],
+        "rss": 8.661365475340778,
+        "loss_history": [
+          0.03834647033617081,
+          0.03733347187646887
+        ],
+        "rss_history": [
+          8.896381117991627,
+          8.661365475340778
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2
+          ],
+          [
+            7
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 2,
+          "rank": 2,
+          "full_column_rank": true,
+          "singular_max": 11.55865058874047,
+          "singular_min": 9.818227771212563,
+          "condition_number": 1.1772644573016422,
+          "joint_rank": 2,
+          "residual_df_joint": 114,
+          "rss": 8.661365475340778,
+          "coefficient_l2": 0.1089643919291725,
+          "normal_equation_residual_l2": 5.4256293657021965e-15,
+          "solver_prediction_max_difference": 2.498001805406602e-16,
+          "solver_rss_max_difference": 1.7763568394002505e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          1,
+          1,
+          3
+        ],
+        "q": 3,
+        "s_sum": 5,
+        "score": -282.25355509644936,
+        "fit_term": -303.58873704454413,
+        "df_penalty": 7.0150507301597775,
+        "support_penalty": 14.320131217934998,
+        "supports": [
+          [
+            2
+          ],
+          [
+            7
+          ],
+          [
+            2,
+            3,
+            4
+          ]
+        ],
+        "rss": 8.46928344777714,
+        "loss_history": [
+          0.03733149827703987,
+          0.03650553210248768
+        ],
+        "rss_history": [
+          8.66090760027325,
+          8.46928344777714
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2
+          ],
+          [
+            7
+          ],
+          [
+            0,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 3,
+          "rank": 3,
+          "full_column_rank": true,
+          "singular_max": 15.166488429801717,
+          "singular_min": 4.239794910870939,
+          "condition_number": 3.577175016393945,
+          "joint_rank": 3,
+          "residual_df_joint": 113,
+          "rss": 8.46928344777714,
+          "coefficient_l2": 0.1258059625841574,
+          "normal_equation_residual_l2": 4.711585604760359e-15,
+          "solver_prediction_max_difference": 2.220446049250313e-16,
+          "solver_rss_max_difference": 1.7763568394002505e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          1,
+          1,
+          4
+        ],
+        "q": 4,
+        "s_sum": 6,
+        "score": -279.5451737960088,
+        "fit_term": -302.13815873524675,
+        "df_penalty": 9.35340097354637,
+        "support_penalty": 13.239583965691612,
+        "supports": [
+          [
+            2
+          ],
+          [
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "rss": 8.57585667339239,
+        "loss_history": [
+          0.03696489945427755
+        ],
+        "rss_history": [
+          8.57585667339239
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2
+          ],
+          [
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 4,
+          "rank": 4,
+          "full_column_rank": true,
+          "singular_max": 16.899575197206108,
+          "singular_min": 4.589096363544707,
+          "condition_number": 3.6825496477813227,
+          "joint_rank": 4,
+          "residual_df_joint": 112,
+          "rss": 8.57585667339239,
+          "coefficient_l2": 0.13273712108938696,
+          "normal_equation_residual_l2": 7.984734490200351e-15,
+          "solver_prediction_max_difference": 4.996003610813204e-16,
+          "solver_rss_max_difference": 0.0,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          1,
+          1,
+          5
+        ],
+        "q": 5,
+        "s_sum": 7,
+        "score": -281.7028652837761,
+        "fit_term": -304.1252474435634,
+        "df_penalty": 11.691751216932962,
+        "support_penalty": 10.730630942854354,
+        "supports": [
+          [
+            2
+          ],
+          [
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "rss": 8.430202698238892,
+        "loss_history": [
+          0.036337080595857295
+        ],
+        "rss_history": [
+          8.430202698238892
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2
+          ],
+          [
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 5,
+          "rank": 5,
+          "full_column_rank": true,
+          "singular_max": 19.114143812021357,
+          "singular_min": 4.110074454678057,
+          "condition_number": 4.650559016094167,
+          "joint_rank": 5,
+          "residual_df_joint": 111,
+          "rss": 8.430202698238892,
+          "coefficient_l2": 0.13648699227093747,
+          "normal_equation_residual_l2": 6.7928050155739895e-15,
+          "solver_prediction_max_difference": 2.220446049250313e-16,
+          "solver_rss_max_difference": 1.7763568394002505e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          1,
+          2,
+          1
+        ],
+        "q": 2,
+        "s_sum": 4,
+        "score": -279.61605847054074,
+        "fit_term": -300.6733755686625,
+        "df_penalty": 4.676700486773185,
+        "support_penalty": 16.38061661134854,
+        "supports": [
+          [
+            2
+          ],
+          [
+            6,
+            15
+          ],
+          [
+            4
+          ]
+        ],
+        "rss": 8.684834405228745,
+        "loss_history": [
+          0.038203251582137165,
+          0.037434631057020454
+        ],
+        "rss_history": [
+          8.863154367055822,
+          8.684834405228745
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 2,
+          "rank": 2,
+          "full_column_rank": true,
+          "singular_max": 13.595556006779868,
+          "singular_min": 6.720182800081548,
+          "condition_number": 2.023093182318625,
+          "joint_rank": 2,
+          "residual_df_joint": 114,
+          "rss": 8.684834405228745,
+          "coefficient_l2": 0.07953335651003873,
+          "normal_equation_residual_l2": 4.1317602818954125e-15,
+          "solver_prediction_max_difference": 2.7755575615628914e-16,
+          "solver_rss_max_difference": 1.7763568394002505e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          1,
+          2,
+          2
+        ],
+        "q": 4,
+        "s_sum": 5,
+        "score": -276.8133400171609,
+        "fit_term": -303.6279048542992,
+        "df_penalty": 9.35340097354637,
+        "support_penalty": 17.461163863591924,
+        "supports": [
+          [
+            2
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        "rss": 8.466424247041124,
+        "loss_history": [
+          0.037769061738803664,
+          0.03649320796138415
+        ],
+        "rss_history": [
+          8.76242232340245,
+          8.466424247041124
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 4,
+          "rank": 4,
+          "full_column_rank": true,
+          "singular_max": 19.772735457374853,
+          "singular_min": 1.6157675500345023,
+          "condition_number": 12.237363881303741,
+          "joint_rank": 4,
+          "residual_df_joint": 112,
+          "rss": 8.466424247041122,
+          "coefficient_l2": 0.3929275394967134,
+          "normal_equation_residual_l2": 2.9624445261614194e-15,
+          "solver_prediction_max_difference": 3.3306690738754696e-16,
+          "solver_rss_max_difference": 1.7763568394002505e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          1,
+          2,
+          3
+        ],
+        "q": 6,
+        "s_sum": 6,
+        "score": -284.32894875968407,
+        "fit_term": -315.82021408359554,
+        "df_penalty": 14.030101460319555,
+        "support_penalty": 17.461163863591924,
+        "supports": [
+          [
+            2
+          ],
+          [
+            6,
+            10
+          ],
+          [
+            0,
+            2,
+            4
+          ]
+        ],
+        "rss": 7.621720553714721,
+        "loss_history": [
+          0.036834389114277916,
+          0.03285224376601173
+        ],
+        "rss_history": [
+          8.545578274512476,
+          7.621720553714721
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 6,
+          "rank": 6,
+          "full_column_rank": true,
+          "singular_max": 16.626041399405718,
+          "singular_min": 3.8045522729621077,
+          "condition_number": 4.370038891977476,
+          "joint_rank": 6,
+          "residual_df_joint": 110,
+          "rss": 7.621720553714722,
+          "coefficient_l2": 0.2955032604781945,
+          "normal_equation_residual_l2": 4.989322578458417e-14,
+          "solver_prediction_max_difference": 4.218847493575595e-15,
+          "solver_rss_max_difference": 8.881784197001252e-16,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          1,
+          2,
+          4
+        ],
+        "q": 8,
+        "s_sum": 7,
+        "score": -275.54432455761145,
+        "fit_term": -310.63174311605275,
+        "df_penalty": 18.70680194709274,
+        "support_penalty": 16.38061661134854,
+        "supports": [
+          [
+            2
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "rss": 7.9703653839036575,
+        "loss_history": [
+          0.03632355381449392,
+          0.03435502320648128
+        ],
+        "rss_history": [
+          8.427064484962589,
+          7.9703653839036575
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 8,
+          "rank": 8,
+          "full_column_rank": true,
+          "singular_max": 24.442488853671332,
+          "singular_min": 1.3187220533024262,
+          "condition_number": 18.53498149398573,
+          "joint_rank": 8,
+          "residual_df_joint": 108,
+          "rss": 7.970365383903658,
+          "coefficient_l2": 0.5219748293724354,
+          "normal_equation_residual_l2": 2.8120274844148782e-14,
+          "solver_prediction_max_difference": 1.5543122344752192e-15,
+          "solver_rss_max_difference": 8.881784197001252e-16,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          1,
+          2,
+          5
+        ],
+        "q": 10,
+        "s_sum": 8,
+        "score": -273.85129081425913,
+        "fit_term": -311.10645683663637,
+        "df_penalty": 23.383502433865925,
+        "support_penalty": 13.871663588511282,
+        "supports": [
+          [
+            2
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "rss": 7.937814432658037,
+        "loss_history": [
+          0.03421471738214671
+        ],
+        "rss_history": [
+          7.937814432658037
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 10,
+          "rank": 10,
+          "full_column_rank": true,
+          "singular_max": 26.805727361028,
+          "singular_min": 1.273989285195994,
+          "condition_number": 21.040779284814892,
+          "joint_rank": 10,
+          "residual_df_joint": 106,
+          "rss": 7.937814432658037,
+          "coefficient_l2": 0.5043033654908554,
+          "normal_equation_residual_l2": 1.2127860618831466e-14,
+          "solver_prediction_max_difference": 6.661338147750939e-16,
+          "solver_rss_max_difference": 1.7763568394002505e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          1,
+          3,
+          1
+        ],
+        "q": 3,
+        "s_sum": 5,
+        "score": -274.25758734200093,
+        "fit_term": -300.05465470779086,
+        "df_penalty": 7.0150507301597775,
+        "support_penalty": 18.782016635630168,
+        "supports": [
+          [
+            2
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "rss": 8.731281338760322,
+        "loss_history": [
+          0.037634833356725524
+        ],
+        "rss_history": [
+          8.731281338760322
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 3,
+          "rank": 3,
+          "full_column_rank": true,
+          "singular_max": 17.977907893427364,
+          "singular_min": 2.486381791383399,
+          "condition_number": 7.2305500127655895,
+          "joint_rank": 3,
+          "residual_df_joint": 113,
+          "rss": 8.731281338760322,
+          "coefficient_l2": 0.1647015901513739,
+          "normal_equation_residual_l2": 7.264965584222909e-15,
+          "solver_prediction_max_difference": 2.220446049250313e-16,
+          "solver_rss_max_difference": 0.0,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          1,
+          3,
+          2
+        ],
+        "q": 6,
+        "s_sum": 6,
+        "score": -273.72362909510787,
+        "fit_term": -307.61629444330094,
+        "df_penalty": 14.030101460319555,
+        "support_penalty": 19.862563887873552,
+        "supports": [
+          [
+            2
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            2,
+            4
+          ]
+        ],
+        "rss": 8.180273488326698,
+        "loss_history": [
+          0.03696293261357557,
+          0.03525979951864956
+        ],
+        "rss_history": [
+          8.575400366349532,
+          8.180273488326698
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 6,
+          "rank": 6,
+          "full_column_rank": true,
+          "singular_max": 19.601484611694712,
+          "singular_min": 2.4393781971359676,
+          "condition_number": 8.035443062788904,
+          "joint_rank": 6,
+          "residual_df_joint": 110,
+          "rss": 8.1802734883267,
+          "coefficient_l2": 0.2559919445913542,
+          "normal_equation_residual_l2": 3.113423470524878e-14,
+          "solver_prediction_max_difference": 8.326672684688674e-16,
+          "solver_rss_max_difference": 1.7763568394002505e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          1,
+          3,
+          3
+        ],
+        "q": 9,
+        "s_sum": 7,
+        "score": -274.19835215265556,
+        "fit_term": -315.1060682310084,
+        "df_penalty": 21.04515219047933,
+        "support_penalty": 19.862563887873552,
+        "supports": [
+          [
+            2
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            2,
+            3,
+            4
+          ]
+        ],
+        "rss": 7.668787875652336,
+        "loss_history": [
+          0.035010582512075165,
+          0.033055120153673866
+        ],
+        "rss_history": [
+          8.122455142801439,
+          7.668787875652336
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 9,
+          "rank": 9,
+          "full_column_rank": true,
+          "singular_max": 25.762980552146512,
+          "singular_min": 1.3227218674430241,
+          "condition_number": 19.477247020909516,
+          "joint_rank": 9,
+          "residual_df_joint": 107,
+          "rss": 7.668787875652336,
+          "coefficient_l2": 0.5445188756241894,
+          "normal_equation_residual_l2": 1.6852366357019667e-14,
+          "solver_prediction_max_difference": 1.3322676295501878e-15,
+          "solver_rss_max_difference": 0.0,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          1,
+          3,
+          4
+        ],
+        "q": 12,
+        "s_sum": 8,
+        "score": -264.17315365247447,
+        "fit_term": -311.0153732087437,
+        "df_penalty": 28.06020292063911,
+        "support_penalty": 18.782016635630168,
+        "supports": [
+          [
+            2
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "rss": 7.944049681480836,
+        "loss_history": [
+          0.03424159345465878
+        ],
+        "rss_history": [
+          7.944049681480836
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 12,
+          "rank": 12,
+          "full_column_rank": true,
+          "singular_max": 28.218040562364184,
+          "singular_min": 2.0162671843846587,
+          "condition_number": 13.995189120223667,
+          "joint_rank": 12,
+          "residual_df_joint": 104,
+          "rss": 7.944049681480836,
+          "coefficient_l2": 0.2920441815290467,
+          "normal_equation_residual_l2": 2.0142025400591035e-14,
+          "solver_prediction_max_difference": 8.326672684688674e-16,
+          "solver_rss_max_difference": 8.881784197001252e-16,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          1,
+          3,
+          5
+        ],
+        "q": 15,
+        "s_sum": 9,
+        "score": -267.1141273571547,
+        "fit_term": -318.46244462074645,
+        "df_penalty": 35.075253650798885,
+        "support_penalty": 16.27306361279291,
+        "supports": [
+          [
+            2
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "rss": 7.45007641364061,
+        "loss_history": [
+          0.0321123983346578
+        ],
+        "rss_history": [
+          7.45007641364061
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 15,
+          "rank": 15,
+          "full_column_rank": true,
+          "singular_max": 32.15626825432202,
+          "singular_min": 1.2678838020644883,
+          "condition_number": 25.362157164530494,
+          "joint_rank": 15,
+          "residual_df_joint": 101,
+          "rss": 7.450076413640611,
+          "coefficient_l2": 0.5595041178547676,
+          "normal_equation_residual_l2": 4.0428978093138124e-14,
+          "solver_prediction_max_difference": 2.6645352591003757e-15,
+          "solver_rss_max_difference": 8.881784197001252e-16,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          1,
+          4,
+          1
+        ],
+        "q": 4,
+        "s_sum": 6,
+        "score": -270.208675705139,
+        "fit_term": -300.1814987793584,
+        "df_penalty": 9.35340097354637,
+        "support_penalty": 20.619422100673038,
+        "supports": [
+          [
+            2
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "rss": 8.72173904588898,
+        "loss_history": [
+          0.03759370278400422
+        ],
+        "rss_history": [
+          8.72173904588898
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 4,
+          "rank": 4,
+          "full_column_rank": true,
+          "singular_max": 20.68662474268902,
+          "singular_min": 2.285892851375328,
+          "condition_number": 9.049691340625492,
+          "joint_rank": 4,
+          "residual_df_joint": 112,
+          "rss": 8.72173904588898,
+          "coefficient_l2": 0.16180373809212034,
+          "normal_equation_residual_l2": 8.156173184961845e-15,
+          "solver_prediction_max_difference": 3.3306690738754696e-16,
+          "solver_rss_max_difference": 0.0,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          1,
+          4,
+          2
+        ],
+        "q": 8,
+        "s_sum": 7,
+        "score": -265.45680136583667,
+        "fit_term": -305.8635726658458,
+        "df_penalty": 18.70680194709274,
+        "support_penalty": 21.699969352916426,
+        "supports": [
+          [
+            2
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "rss": 8.304813233168977,
+        "loss_history": [
+          0.03579660876365938
+        ],
+        "rss_history": [
+          8.304813233168977
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 8,
+          "rank": 8,
+          "full_column_rank": true,
+          "singular_max": 24.702850169308107,
+          "singular_min": 2.0718104652176677,
+          "condition_number": 11.923315662329559,
+          "joint_rank": 8,
+          "residual_df_joint": 108,
+          "rss": 8.304813233168977,
+          "coefficient_l2": 0.22200157946572174,
+          "normal_equation_residual_l2": 2.656623655005493e-14,
+          "solver_prediction_max_difference": 5.551115123125783e-16,
+          "solver_rss_max_difference": 1.7763568394002505e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          1,
+          4,
+          3
+        ],
+        "q": 12,
+        "s_sum": 8,
+        "score": -263.974680157526,
+        "fit_term": -313.7348524310815,
+        "df_penalty": 28.06020292063911,
+        "support_penalty": 21.699969352916426,
+        "supports": [
+          [
+            2
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            4
+          ]
+        ],
+        "rss": 7.75997718634411,
+        "loss_history": [
+          0.0334481775273453
+        ],
+        "rss_history": [
+          7.75997718634411
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 12,
+          "rank": 12,
+          "full_column_rank": true,
+          "singular_max": 26.43708231934,
+          "singular_min": 2.0027514182979758,
+          "condition_number": 13.200381274380707,
+          "joint_rank": 12,
+          "residual_df_joint": 104,
+          "rss": 7.75997718634411,
+          "coefficient_l2": 0.3054759708044107,
+          "normal_equation_residual_l2": 1.779879601417417e-13,
+          "solver_prediction_max_difference": 3.885780586188048e-15,
+          "solver_rss_max_difference": 8.881784197001252e-16,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          1,
+          4,
+          4
+        ],
+        "q": 16,
+        "s_sum": 9,
+        "score": -260.3446642334817,
+        "fit_term": -318.3776902283402,
+        "df_penalty": 37.41360389418548,
+        "support_penalty": 20.619422100673038,
+        "supports": [
+          [
+            2
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "rss": 7.4555217363063395,
+        "loss_history": [
+          0.032135869553044566
+        ],
+        "rss_history": [
+          7.4555217363063395
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 16,
+          "rank": 16,
+          "full_column_rank": true,
+          "singular_max": 31.96828174874402,
+          "singular_min": 1.82751078818767,
+          "condition_number": 17.492800565323474,
+          "joint_rank": 16,
+          "residual_df_joint": 100,
+          "rss": 7.4555217363063395,
+          "coefficient_l2": 0.34406581179376244,
+          "normal_equation_residual_l2": 1.6898729831292734e-14,
+          "solver_prediction_max_difference": 7.216449660063518e-16,
+          "solver_rss_max_difference": 0.0,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          1,
+          4,
+          5
+        ],
+        "q": 20,
+        "s_sum": 10,
+        "score": -262.47084819087877,
+        "fit_term": -327.34832213644637,
+        "df_penalty": 46.76700486773185,
+        "support_penalty": 18.11046907783578,
+        "supports": [
+          [
+            2
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "rss": 6.900693382878526,
+        "loss_history": [
+          0.02974436802964882
+        ],
+        "rss_history": [
+          6.900693382878526
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 20,
+          "rank": 20,
+          "full_column_rank": true,
+          "singular_max": 36.54940871470138,
+          "singular_min": 1.2057175241320266,
+          "condition_number": 30.31340922162727,
+          "joint_rank": 20,
+          "residual_df_joint": 96,
+          "rss": 6.900693382878526,
+          "coefficient_l2": 0.6274926964935182,
+          "normal_equation_residual_l2": 1.046103760343523e-13,
+          "solver_prediction_max_difference": 2.6645352591003757e-15,
+          "solver_rss_max_difference": 8.881784197001252e-16,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          2,
+          1,
+          1
+        ],
+        "q": 2,
+        "s_sum": 4,
+        "score": -278.8124877995161,
+        "fit_term": -302.03089940212465,
+        "df_penalty": 4.676700486773185,
+        "support_penalty": 18.541711115835376,
+        "supports": [
+          [
+            2,
+            15
+          ],
+          [
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "rss": 8.583790001529582,
+        "loss_history": [
+          0.03858810730983939,
+          0.036999094834179236
+        ],
+        "rss_history": [
+          8.952440895882738,
+          8.583790001529582
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            40
+          ],
+          [
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 2,
+          "rank": 2,
+          "full_column_rank": true,
+          "singular_max": 12.271711280897609,
+          "singular_min": 8.910954058813818,
+          "condition_number": 1.3771489786505708,
+          "joint_rank": 2,
+          "residual_df_joint": 114,
+          "rss": 8.583790001529582,
+          "coefficient_l2": 0.12203414710663037,
+          "normal_equation_residual_l2": 4.768792382073734e-15,
+          "solver_prediction_max_difference": 1.6653345369377348e-16,
+          "solver_rss_max_difference": 0.0,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          2,
+          1,
+          2
+        ],
+        "q": 4,
+        "s_sum": 5,
+        "score": -273.14661713039624,
+        "fit_term": -302.1222764720213,
+        "df_penalty": 9.35340097354637,
+        "support_penalty": 19.622258368078764,
+        "supports": [
+          [
+            2,
+            40
+          ],
+          [
+            7
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "rss": 8.577030926304069,
+        "loss_history": [
+          0.036969960889241676
+        ],
+        "rss_history": [
+          8.577030926304069
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            40
+          ],
+          [
+            7
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 4,
+          "rank": 4,
+          "full_column_rank": true,
+          "singular_max": 17.10246518743336,
+          "singular_min": 5.341299602518177,
+          "condition_number": 3.201929578968073,
+          "joint_rank": 4,
+          "residual_df_joint": 112,
+          "rss": 8.577030926304067,
+          "coefficient_l2": 0.1499752091124585,
+          "normal_equation_residual_l2": 2.466850855151274e-14,
+          "solver_prediction_max_difference": 9.43689570931383e-16,
+          "solver_rss_max_difference": 1.7763568394002505e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          2,
+          1,
+          3
+        ],
+        "q": 6,
+        "s_sum": 6,
+        "score": -277.4315619123371,
+        "fit_term": -311.0839217407354,
+        "df_penalty": 14.030101460319555,
+        "support_penalty": 19.622258368078764,
+        "supports": [
+          [
+            2,
+            40
+          ],
+          [
+            7
+          ],
+          [
+            0,
+            2,
+            4
+          ]
+        ],
+        "rss": 7.9393566463294825,
+        "loss_history": [
+          0.03422136485486846
+        ],
+        "rss_history": [
+          7.9393566463294825
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            40
+          ],
+          [
+            7
+          ],
+          [
+            0,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 6,
+          "rank": 6,
+          "full_column_rank": true,
+          "singular_max": 18.90455069301618,
+          "singular_min": 2.2156985228683928,
+          "condition_number": 8.532095182580516,
+          "joint_rank": 6,
+          "residual_df_joint": 110,
+          "rss": 7.939356646329484,
+          "coefficient_l2": 0.2742897750853472,
+          "normal_equation_residual_l2": 4.217538258963162e-14,
+          "solver_prediction_max_difference": 7.632783294297951e-16,
+          "solver_rss_max_difference": 8.881784197001252e-16,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          2,
+          1,
+          4
+        ],
+        "q": 8,
+        "s_sum": 7,
+        "score": -275.1447722705753,
+        "fit_term": -312.3932853335034,
+        "df_penalty": 18.70680194709274,
+        "support_penalty": 18.541711115835376,
+        "supports": [
+          [
+            2,
+            40
+          ],
+          [
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "rss": 7.850244108119082,
+        "loss_history": [
+          0.03383725908672018
+        ],
+        "rss_history": [
+          7.850244108119082
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            40
+          ],
+          [
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 8,
+          "rank": 8,
+          "full_column_rank": true,
+          "singular_max": 22.85129245590323,
+          "singular_min": 1.883323848895594,
+          "condition_number": 12.133490726676419,
+          "joint_rank": 8,
+          "residual_df_joint": 108,
+          "rss": 7.850244108119083,
+          "coefficient_l2": 0.24945629562398278,
+          "normal_equation_residual_l2": 1.436613150185001e-14,
+          "solver_prediction_max_difference": 4.996003610813204e-16,
+          "solver_rss_max_difference": 1.7763568394002505e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          2,
+          1,
+          5
+        ],
+        "q": 10,
+        "s_sum": 8,
+        "score": -277.14740006636976,
+        "fit_term": -316.5636605932338,
+        "df_penalty": 23.383502433865925,
+        "support_penalty": 16.03275809299812,
+        "supports": [
+          [
+            2,
+            40
+          ],
+          [
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "rss": 7.573028981131875,
+        "loss_history": [
+          0.03264236629798222
+        ],
+        "rss_history": [
+          7.573028981131875
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            40
+          ],
+          [
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 10,
+          "rank": 10,
+          "full_column_rank": true,
+          "singular_max": 25.64323425322107,
+          "singular_min": 1.6714757871779844,
+          "condition_number": 15.341672580561582,
+          "joint_rank": 10,
+          "residual_df_joint": 106,
+          "rss": 7.573028981131876,
+          "coefficient_l2": 0.3917145474638738,
+          "normal_equation_residual_l2": 4.516373754803969e-14,
+          "solver_prediction_max_difference": 1.3322676295501878e-15,
+          "solver_rss_max_difference": 8.881784197001252e-16,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          2,
+          2,
+          1
+        ],
+        "q": 4,
+        "s_sum": 5,
+        "score": -274.6091826801934,
+        "fit_term": -305.64532741523203,
+        "df_penalty": 9.35340097354637,
+        "support_penalty": 21.682743761492304,
+        "supports": [
+          [
+            2,
+            44
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "rss": 8.32045282060918,
+        "loss_history": [
+          0.03813663038894455,
+          0.03586402077848785
+        ],
+        "rss_history": [
+          8.847698250235135,
+          8.32045282060918
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            40
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 4,
+          "rank": 4,
+          "full_column_rank": true,
+          "singular_max": 18.60206270443103,
+          "singular_min": 1.9631833984949232,
+          "condition_number": 9.475458440964978,
+          "joint_rank": 4,
+          "residual_df_joint": 112,
+          "rss": 8.32045282060918,
+          "coefficient_l2": 0.3637681425703704,
+          "normal_equation_residual_l2": 2.296256865924154e-14,
+          "solver_prediction_max_difference": 7.771561172376096e-16,
+          "solver_rss_max_difference": 0.0,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          2,
+          2,
+          2
+        ],
+        "q": 8,
+        "s_sum": 6,
+        "score": -262.39565375535216,
+        "fit_term": -303.8657467161806,
+        "df_penalty": 18.70680194709274,
+        "support_penalty": 22.76329101373569,
+        "supports": [
+          [
+            2,
+            40
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "rss": 8.44908280616723,
+        "loss_history": [
+          0.03641846037141047
+        ],
+        "rss_history": [
+          8.44908280616723
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            40
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 8,
+          "rank": 8,
+          "full_column_rank": true,
+          "singular_max": 23.890217437409987,
+          "singular_min": 1.3710795681601524,
+          "condition_number": 17.424384399125863,
+          "joint_rank": 8,
+          "residual_df_joint": 108,
+          "rss": 8.44908280616723,
+          "coefficient_l2": 0.17924580226952025,
+          "normal_equation_residual_l2": 2.3481741893098777e-14,
+          "solver_prediction_max_difference": 1.0408340855860843e-15,
+          "solver_rss_max_difference": 1.7763568394002505e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          2,
+          2,
+          3
+        ],
+        "q": 12,
+        "s_sum": 7,
+        "score": -267.88961172231217,
+        "fit_term": -318.71310565668693,
+        "df_penalty": 28.06020292063911,
+        "support_penalty": 22.76329101373569,
+        "supports": [
+          [
+            2,
+            40
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            4
+          ]
+        ],
+        "rss": 7.433995140610115,
+        "loss_history": [
+          0.032043082502629806
+        ],
+        "rss_history": [
+          7.433995140610115
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            40
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 12,
+          "rank": 12,
+          "full_column_rank": true,
+          "singular_max": 26.490472506044604,
+          "singular_min": 1.2537427081553347,
+          "condition_number": 21.12911391925122,
+          "joint_rank": 12,
+          "residual_df_joint": 104,
+          "rss": 7.433995140610116,
+          "coefficient_l2": 0.38926392529333426,
+          "normal_equation_residual_l2": 4.182316057851349e-14,
+          "solver_prediction_max_difference": 1.304512053934559e-15,
+          "solver_rss_max_difference": 8.881784197001252e-16,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          2,
+          2,
+          4
+        ],
+        "q": 16,
+        "s_sum": 8,
+        "score": -264.795424316136,
+        "fit_term": -323.8917719718138,
+        "df_penalty": 37.41360389418548,
+        "support_penalty": 21.682743761492304,
+        "supports": [
+          [
+            2,
+            40
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "rss": 7.1094134439227705,
+        "loss_history": [
+          0.030644023465184356
+        ],
+        "rss_history": [
+          7.1094134439227705
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            40
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 16,
+          "rank": 16,
+          "full_column_rank": true,
+          "singular_max": 32.0694052297929,
+          "singular_min": 1.2029233963704504,
+          "condition_number": 26.659557313919642,
+          "joint_rank": 16,
+          "residual_df_joint": 100,
+          "rss": 7.1094134439227705,
+          "coefficient_l2": 0.34748164067148396,
+          "normal_equation_residual_l2": 7.706652955373309e-14,
+          "solver_prediction_max_difference": 2.220446049250313e-15,
+          "solver_rss_max_difference": 8.881784197001252e-16,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          2,
+          2,
+          5
+        ],
+        "q": 20,
+        "s_sum": 9,
+        "score": -266.0932366119644,
+        "fit_term": -332.0340322183513,
+        "df_penalty": 46.76700486773185,
+        "support_penalty": 19.173790738655047,
+        "supports": [
+          [
+            2,
+            40
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "rss": 6.627501227515152,
+        "loss_history": [
+          0.028566815635841174
+        ],
+        "rss_history": [
+          6.627501227515152
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            40
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 20,
+          "rank": 20,
+          "full_column_rank": true,
+          "singular_max": 36.237667448799,
+          "singular_min": 0.9762520760216615,
+          "condition_number": 37.119170692544515,
+          "joint_rank": 20,
+          "residual_df_joint": 96,
+          "rss": 6.627501227515152,
+          "coefficient_l2": 0.6666351644384669,
+          "normal_equation_residual_l2": 2.986133016462325e-13,
+          "solver_prediction_max_difference": 6.217248937900877e-15,
+          "solver_rss_max_difference": 1.7763568394002505e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          2,
+          3,
+          1
+        ],
+        "q": 6,
+        "s_sum": 6,
+        "score": -280.4457465497662,
+        "fit_term": -318.5599917958597,
+        "df_penalty": 14.030101460319555,
+        "support_penalty": 24.084143785773932,
+        "supports": [
+          [
+            2,
+            15
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "rss": 7.44381409958718,
+        "loss_history": [
+          0.037172552774068966,
+          0.03208540560166888
+        ],
+        "rss_history": [
+          8.624032243584,
+          7.44381409958718
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            40
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 6,
+          "rank": 6,
+          "full_column_rank": true,
+          "singular_max": 20.581610034679507,
+          "singular_min": 1.6682854648971905,
+          "condition_number": 12.336983368699352,
+          "joint_rank": 6,
+          "residual_df_joint": 110,
+          "rss": 7.443814099587179,
+          "coefficient_l2": 0.450094837369071,
+          "normal_equation_residual_l2": 4.573704530093055e-14,
+          "solver_prediction_max_difference": 1.3322676295501878e-15,
+          "solver_rss_max_difference": 8.881784197001252e-16,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          2,
+          3,
+          2
+        ],
+        "q": 12,
+        "s_sum": 7,
+        "score": -254.53566784487012,
+        "fit_term": -307.7605618035265,
+        "df_penalty": 28.06020292063911,
+        "support_penalty": 25.16469103801732,
+        "supports": [
+          [
+            2,
+            40
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "rss": 8.170106135727533,
+        "loss_history": [
+          0.035215974722963506
+        ],
+        "rss_history": [
+          8.170106135727533
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            40
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 12,
+          "rank": 12,
+          "full_column_rank": true,
+          "singular_max": 28.40427306126845,
+          "singular_min": 1.2995653735613388,
+          "condition_number": 21.85674813990247,
+          "joint_rank": 12,
+          "residual_df_joint": 104,
+          "rss": 8.170106135727533,
+          "coefficient_l2": 0.3608867601794886,
+          "normal_equation_residual_l2": 6.884266985163743e-14,
+          "solver_prediction_max_difference": 1.4432899320127035e-15,
+          "solver_rss_max_difference": 0.0,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          2,
+          3,
+          3
+        ],
+        "q": 18,
+        "s_sum": 8,
+        "score": -256.14688106273155,
+        "fit_term": -323.4018764817076,
+        "df_penalty": 42.09030438095866,
+        "support_penalty": 25.16469103801732,
+        "supports": [
+          [
+            2,
+            40
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            4
+          ]
+        ],
+        "rss": 7.139501671849402,
+        "loss_history": [
+          0.030773714102799145
+        ],
+        "rss_history": [
+          7.139501671849402
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            40
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 18,
+          "rank": 18,
+          "full_column_rank": true,
+          "singular_max": 31.411372890810064,
+          "singular_min": 1.0688291496756113,
+          "condition_number": 29.388581795643756,
+          "joint_rank": 18,
+          "residual_df_joint": 98,
+          "rss": 7.139501671849401,
+          "coefficient_l2": 0.6126624818917907,
+          "normal_equation_residual_l2": 4.191952987596701e-14,
+          "solver_prediction_max_difference": 1.7763568394002505e-15,
+          "solver_rss_max_difference": 8.881784197001252e-16,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          2,
+          3,
+          4
+        ],
+        "q": 24,
+        "s_sum": 9,
+        "score": -250.76421756863905,
+        "fit_term": -330.9687671956912,
+        "df_penalty": 56.12040584127822,
+        "support_penalty": 24.084143785773932,
+        "supports": [
+          [
+            2,
+            40
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "rss": 6.688644003642886,
+        "loss_history": [
+          0.02883036208466761
+        ],
+        "rss_history": [
+          6.688644003642886
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            40
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 24,
+          "rank": 24,
+          "full_column_rank": true,
+          "singular_max": 38.356745531613704,
+          "singular_min": 0.9968685495781631,
+          "condition_number": 38.477235085653795,
+          "joint_rank": 24,
+          "residual_df_joint": 92,
+          "rss": 6.688644003642886,
+          "coefficient_l2": 0.6437194657818003,
+          "normal_equation_residual_l2": 3.587642235072806e-13,
+          "solver_prediction_max_difference": 4.718447854656915e-15,
+          "solver_rss_max_difference": 8.881784197001252e-16,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          2,
+          3,
+          5
+        ],
+        "q": 30,
+        "s_sum": 10,
+        "score": -250.49515364003153,
+        "fit_term": -342.220851704566,
+        "df_penalty": 70.15050730159777,
+        "support_penalty": 21.575190762936675,
+        "supports": [
+          [
+            2,
+            40
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "rss": 6.070314616017154,
+        "loss_history": [
+          0.02616514920697049
+        ],
+        "rss_history": [
+          6.070314616017154
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            40
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 30,
+          "rank": 30,
+          "full_column_rank": true,
+          "singular_max": 43.36519253584756,
+          "singular_min": 0.9201248241358013,
+          "condition_number": 47.12968436274608,
+          "joint_rank": 30,
+          "residual_df_joint": 86,
+          "rss": 6.0703146160171535,
+          "coefficient_l2": 0.8730535074401956,
+          "normal_equation_residual_l2": 6.554165359225379e-14,
+          "solver_prediction_max_difference": 7.549516567451064e-15,
+          "solver_rss_max_difference": 1.7763568394002505e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          2,
+          4,
+          1
+        ],
+        "q": 8,
+        "s_sum": 7,
+        "score": -276.74886993377146,
+        "fit_term": -321.377221131681,
+        "df_penalty": 18.70680194709274,
+        "support_penalty": 25.921549250816806,
+        "supports": [
+          [
+            2,
+            15
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "rss": 7.265207843479818,
+        "loss_history": [
+          0.03641030560493076,
+          0.03131555104948197
+        ],
+        "rss_history": [
+          8.447190900343937,
+          7.265207843479818
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            40
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 8,
+          "rank": 8,
+          "full_column_rank": true,
+          "singular_max": 23.4751240664832,
+          "singular_min": 1.6011132895785778,
+          "condition_number": 14.661750807565895,
+          "joint_rank": 8,
+          "residual_df_joint": 108,
+          "rss": 7.265207843479818,
+          "coefficient_l2": 0.4679443180303703,
+          "normal_equation_residual_l2": 6.3425030992632e-14,
+          "solver_prediction_max_difference": 1.4988010832439613e-15,
+          "solver_rss_max_difference": 0.0,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          2,
+          4,
+          2
+        ],
+        "q": 16,
+        "s_sum": 8,
+        "score": -249.76731901382217,
+        "fit_term": -314.18301941106785,
+        "df_penalty": 37.41360389418548,
+        "support_penalty": 27.002096503060194,
+        "supports": [
+          [
+            2,
+            40
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "rss": 7.730054289829719,
+        "loss_history": [
+          0.0333191995251281
+        ],
+        "rss_history": [
+          7.730054289829719
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            40
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 16,
+          "rank": 16,
+          "full_column_rank": true,
+          "singular_max": 32.346886042144796,
+          "singular_min": 1.267698753924576,
+          "condition_number": 25.516224530476528,
+          "joint_rank": 16,
+          "residual_df_joint": 100,
+          "rss": 7.73005428982972,
+          "coefficient_l2": 0.4648673112782616,
+          "normal_equation_residual_l2": 6.504732179549016e-14,
+          "solver_prediction_max_difference": 1.4432899320127035e-15,
+          "solver_rss_max_difference": 8.881784197001252e-16,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          2,
+          4,
+          3
+        ],
+        "q": 24,
+        "s_sum": 9,
+        "score": -253.7599814263726,
+        "fit_term": -336.882483770711,
+        "df_penalty": 56.12040584127822,
+        "support_penalty": 27.002096503060194,
+        "supports": [
+          [
+            2,
+            40
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            4
+          ]
+        ],
+        "rss": 6.356200850109815,
+        "loss_history": [
+          0.027397417457369892
+        ],
+        "rss_history": [
+          6.356200850109815
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            40
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 24,
+          "rank": 24,
+          "full_column_rank": true,
+          "singular_max": 35.58867996845586,
+          "singular_min": 0.9993515255479927,
+          "condition_number": 35.61177329362745,
+          "joint_rank": 24,
+          "residual_df_joint": 92,
+          "rss": 6.356200850109815,
+          "coefficient_l2": 0.8217111101323712,
+          "normal_equation_residual_l2": 6.853140558336388e-14,
+          "solver_prediction_max_difference": 2.1094237467877974e-15,
+          "solver_rss_max_difference": 0.0,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          2,
+          4,
+          4
+        ],
+        "q": 32,
+        "s_sum": 10,
+        "score": -246.53419864659983,
+        "fit_term": -347.2829556857876,
+        "df_penalty": 74.82720778837096,
+        "support_penalty": 25.921549250816806,
+        "supports": [
+          [
+            2,
+            40
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "rss": 5.811110029509658,
+        "loss_history": [
+          0.025047888058231285
+        ],
+        "rss_history": [
+          5.811110029509658
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            40
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 32,
+          "rank": 32,
+          "full_column_rank": true,
+          "singular_max": 43.673203196094015,
+          "singular_min": 0.9366494016728318,
+          "condition_number": 46.62705503051066,
+          "joint_rank": 32,
+          "residual_df_joint": 84,
+          "rss": 5.811110029509657,
+          "coefficient_l2": 0.9482289709574553,
+          "normal_equation_residual_l2": 9.192085250962693e-14,
+          "solver_prediction_max_difference": 7.327471962526033e-15,
+          "solver_rss_max_difference": 8.881784197001252e-16,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          2,
+          4,
+          5
+        ],
+        "q": 40,
+        "s_sum": 11,
+        "score": -240.5797200599964,
+        "fit_term": -357.52632602343965,
+        "df_penalty": 93.5340097354637,
+        "support_penalty": 23.41259622797955,
+        "supports": [
+          [
+            2,
+            40
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "rss": 5.319964821886275,
+        "loss_history": [
+          0.022930882852958082
+        ],
+        "rss_history": [
+          5.319964821886275
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            40
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 40,
+          "rank": 40,
+          "full_column_rank": true,
+          "singular_max": 49.54961666026904,
+          "singular_min": 0.7904407149526926,
+          "condition_number": 62.68606325932306,
+          "joint_rank": 40,
+          "residual_df_joint": 76,
+          "rss": 5.319964821886274,
+          "coefficient_l2": 1.0475990049323822,
+          "normal_equation_residual_l2": 2.8499753772695797e-13,
+          "solver_prediction_max_difference": 5.773159728050814e-15,
+          "solver_rss_max_difference": 8.881784197001252e-16,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          3,
+          1,
+          1
+        ],
+        "q": 3,
+        "s_sum": 5,
+        "score": -275.6081892699746,
+        "fit_term": -305.8087980238233,
+        "df_penalty": 7.0150507301597775,
+        "support_penalty": 23.185558023688884,
+        "supports": [
+          [
+            2,
+            8,
+            51
+          ],
+          [
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "rss": 8.308735652031055,
+        "loss_history": [
+          0.037498740730664046,
+          0.03581351574151317
+        ],
+        "rss_history": [
+          8.69970784951406,
+          8.308735652031055
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 3,
+          "rank": 3,
+          "full_column_rank": true,
+          "singular_max": 14.623965735817281,
+          "singular_min": 7.510037255355169,
+          "condition_number": 1.9472560839015007,
+          "joint_rank": 3,
+          "residual_df_joint": 113,
+          "rss": 8.308735652031055,
+          "coefficient_l2": 0.13042102069616082,
+          "normal_equation_residual_l2": 4.2711132545550575e-15,
+          "solver_prediction_max_difference": 3.3306690738754696e-16,
+          "solver_rss_max_difference": 0.0,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          3,
+          1,
+          2
+        ],
+        "q": 6,
+        "s_sum": 6,
+        "score": -270.8199828130379,
+        "fit_term": -309.1161895492897,
+        "df_penalty": 14.030101460319555,
+        "support_penalty": 24.266105275932272,
+        "supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            7
+          ],
+          [
+            2,
+            4
+          ]
+        ],
+        "rss": 8.075182371927305,
+        "loss_history": [
+          0.03624159708601597,
+          0.034806820568652176
+        ],
+        "rss_history": [
+          8.408050523955705,
+          8.075182371927305
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            7
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 6,
+          "rank": 6,
+          "full_column_rank": true,
+          "singular_max": 19.07106021242732,
+          "singular_min": 1.2341148765493717,
+          "condition_number": 15.453229334493294,
+          "joint_rank": 6,
+          "residual_df_joint": 110,
+          "rss": 8.075182371927305,
+          "coefficient_l2": 0.31054004042243066,
+          "normal_equation_residual_l2": 4.2610946901687384e-14,
+          "solver_prediction_max_difference": 1.609823385706477e-15,
+          "solver_rss_max_difference": 1.7763568394002505e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          3,
+          1,
+          3
+        ],
+        "q": 9,
+        "s_sum": 7,
+        "score": -269.4350408415885,
+        "fit_term": -314.74629830800006,
+        "df_penalty": 21.04515219047933,
+        "support_penalty": 24.266105275932272,
+        "supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            7
+          ],
+          [
+            0,
+            2,
+            4
+          ]
+        ],
+        "rss": 7.692609273236459,
+        "loss_history": [
+          0.03315779859153646
+        ],
+        "rss_history": [
+          7.692609273236459
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            7
+          ],
+          [
+            0,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 9,
+          "rank": 9,
+          "full_column_rank": true,
+          "singular_max": 22.986610136110784,
+          "singular_min": 1.1046881907823678,
+          "condition_number": 20.808233787518894,
+          "joint_rank": 9,
+          "residual_df_joint": 107,
+          "rss": 7.69260927323646,
+          "coefficient_l2": 0.32385779244749635,
+          "normal_equation_residual_l2": 1.743618537026272e-14,
+          "solver_prediction_max_difference": 1.2212453270876722e-15,
+          "solver_rss_max_difference": 0.0,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          3,
+          1,
+          4
+        ],
+        "q": 12,
+        "s_sum": 8,
+        "score": -264.2117981661363,
+        "fit_term": -315.4575591104643,
+        "df_penalty": 28.06020292063911,
+        "support_penalty": 23.185558023688884,
+        "supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "rss": 7.64558589898071,
+        "loss_history": [
+          0.032955111633537544
+        ],
+        "rss_history": [
+          7.64558589898071
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 12,
+          "rank": 12,
+          "full_column_rank": true,
+          "singular_max": 27.9327985836971,
+          "singular_min": 0.9934882967868112,
+          "condition_number": 28.115880855404875,
+          "joint_rank": 12,
+          "residual_df_joint": 104,
+          "rss": 7.645585898980711,
+          "coefficient_l2": 0.2934718827307698,
+          "normal_equation_residual_l2": 3.3130383858903285e-14,
+          "solver_prediction_max_difference": 8.049116928532385e-16,
+          "solver_rss_max_difference": 0.0,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          3,
+          1,
+          5
+        ],
+        "q": 15,
+        "s_sum": 9,
+        "score": -263.38589128643366,
+        "fit_term": -319.13774993808414,
+        "df_penalty": 35.075253650798885,
+        "support_penalty": 20.676605000851627,
+        "supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "rss": 7.406831067581102,
+        "loss_history": [
+          0.031925995980953026
+        ],
+        "rss_history": [
+          7.406831067581102
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 15,
+          "rank": 15,
+          "full_column_rank": true,
+          "singular_max": 31.21489423182648,
+          "singular_min": 0.9739855391121592,
+          "condition_number": 32.0486218514913,
+          "joint_rank": 15,
+          "residual_df_joint": 101,
+          "rss": 7.406831067581101,
+          "coefficient_l2": 0.4578822612782949,
+          "normal_equation_residual_l2": 1.2995212670810112e-14,
+          "solver_prediction_max_difference": 1.3322676295501878e-15,
+          "solver_rss_max_difference": 8.881784197001252e-16,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          3,
+          2,
+          1
+        ],
+        "q": 6,
+        "s_sum": 6,
+        "score": -264.7780273147538,
+        "fit_term": -305.13471944441915,
+        "df_penalty": 14.030101460319555,
+        "support_penalty": 26.326590669345812,
+        "supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "rss": 8.35715845639491,
+        "loss_history": [
+          0.036022234725840124
+        ],
+        "rss_history": [
+          8.35715845639491
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 6,
+          "rank": 6,
+          "full_column_rank": true,
+          "singular_max": 22.84427154285221,
+          "singular_min": 1.3271818496348908,
+          "condition_number": 17.21261600219796,
+          "joint_rank": 6,
+          "residual_df_joint": 110,
+          "rss": 8.35715845639491,
+          "coefficient_l2": 0.32694501575690915,
+          "normal_equation_residual_l2": 5.558748209579836e-14,
+          "solver_prediction_max_difference": 5.6066262743570405e-15,
+          "solver_rss_max_difference": 0.0,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          3,
+          2,
+          2
+        ],
+        "q": 12,
+        "s_sum": 7,
+        "score": -253.72246957709666,
+        "fit_term": -309.18981041932494,
+        "df_penalty": 28.06020292063911,
+        "support_penalty": 27.4071379215892,
+        "supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "rss": 8.070058981084895,
+        "loss_history": [
+          0.03478473698743489
+        ],
+        "rss_history": [
+          8.070058981084895
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 12,
+          "rank": 12,
+          "full_column_rank": true,
+          "singular_max": 28.894308335794662,
+          "singular_min": 1.2988907994269998,
+          "condition_number": 22.245371472752954,
+          "joint_rank": 12,
+          "residual_df_joint": 104,
+          "rss": 8.070058981084895,
+          "coefficient_l2": 0.34647951362340185,
+          "normal_equation_residual_l2": 2.298035952936289e-14,
+          "solver_prediction_max_difference": 1.3322676295501878e-15,
+          "solver_rss_max_difference": 1.7763568394002505e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          3,
+          2,
+          3
+        ],
+        "q": 18,
+        "s_sum": 8,
+        "score": -255.45667307149017,
+        "fit_term": -324.95411537403805,
+        "df_penalty": 42.09030438095866,
+        "support_penalty": 27.4071379215892,
+        "supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            4
+          ]
+        ],
+        "rss": 7.0446017217963135,
+        "loss_history": [
+          0.030364662593949626
+        ],
+        "rss_history": [
+          7.0446017217963135
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 18,
+          "rank": 18,
+          "full_column_rank": true,
+          "singular_max": 32.43850623203566,
+          "singular_min": 0.7273367818644924,
+          "condition_number": 44.59901800769807,
+          "joint_rank": 18,
+          "residual_df_joint": 98,
+          "rss": 7.0446017217963135,
+          "coefficient_l2": 0.647588914060573,
+          "normal_equation_residual_l2": 5.763353046869904e-14,
+          "solver_prediction_max_difference": 1.7208456881689926e-15,
+          "solver_rss_max_difference": 8.881784197001252e-16,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          3,
+          2,
+          4
+        ],
+        "q": 24,
+        "s_sum": 9,
+        "score": -248.52901396477114,
+        "fit_term": -330.9760104753952,
+        "df_penalty": 56.12040584127822,
+        "support_penalty": 26.326590669345812,
+        "supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "rss": 6.688226363929074,
+        "loss_history": [
+          0.028828561913487386
+        ],
+        "rss_history": [
+          6.688226363929074
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 24,
+          "rank": 24,
+          "full_column_rank": true,
+          "singular_max": 39.291441492808644,
+          "singular_min": 0.6947367125699611,
+          "condition_number": 56.5558732997746,
+          "joint_rank": 24,
+          "residual_df_joint": 92,
+          "rss": 6.688226363929075,
+          "coefficient_l2": 0.6754073320536039,
+          "normal_equation_residual_l2": 2.680044753899838e-13,
+          "solver_prediction_max_difference": 3.6914915568786455e-15,
+          "solver_rss_max_difference": 8.881784197001252e-16,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          3,
+          2,
+          5
+        ],
+        "q": 30,
+        "s_sum": 10,
+        "score": -248.94379797073157,
+        "fit_term": -342.9119429188379,
+        "df_penalty": 70.15050730159777,
+        "support_penalty": 23.817637646508555,
+        "supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "rss": 6.034257122750196,
+        "loss_history": [
+          0.026009728977371534
+        ],
+        "rss_history": [
+          6.034257122750196
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 30,
+          "rank": 30,
+          "full_column_rank": true,
+          "singular_max": 44.24648434271507,
+          "singular_min": 0.6406082971898859,
+          "condition_number": 69.06948370292456,
+          "joint_rank": 30,
+          "residual_df_joint": 86,
+          "rss": 6.034257122750196,
+          "coefficient_l2": 0.9144948615085917,
+          "normal_equation_residual_l2": 2.7275944922637517e-13,
+          "solver_prediction_max_difference": 1.2434497875801753e-14,
+          "solver_rss_max_difference": 1.7763568394002505e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          3,
+          3,
+          1
+        ],
+        "q": 9,
+        "s_sum": 7,
+        "score": -258.1539202876127,
+        "fit_term": -307.92706317171945,
+        "df_penalty": 21.04515219047933,
+        "support_penalty": 28.72799069362744,
+        "supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "rss": 8.158387531979974,
+        "loss_history": [
+          0.03516546349991368
+        ],
+        "rss_history": [
+          8.158387531979974
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 9,
+          "rank": 9,
+          "full_column_rank": true,
+          "singular_max": 27.370089826921227,
+          "singular_min": 1.1723079155750467,
+          "condition_number": 23.347185038408195,
+          "joint_rank": 9,
+          "residual_df_joint": 107,
+          "rss": 8.158387531979974,
+          "coefficient_l2": 0.4296941577024132,
+          "normal_equation_residual_l2": 4.310257698840771e-14,
+          "solver_prediction_max_difference": 1.1102230246251565e-15,
+          "solver_rss_max_difference": 0.0,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          3,
+          3,
+          2
+        ],
+        "q": 18,
+        "s_sum": 8,
+        "score": -256.6453002919149,
+        "fit_term": -328.54414261874444,
+        "df_penalty": 42.09030438095866,
+        "support_penalty": 29.808537945870828,
+        "supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            2,
+            4
+          ]
+        ],
+        "rss": 6.829920949919753,
+        "loss_history": [
+          0.033429122679376144,
+          0.02943931443930928
+        ],
+        "rss_history": [
+          7.7555564616152655,
+          6.829920949919753
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 18,
+          "rank": 18,
+          "full_column_rank": true,
+          "singular_max": 32.417050800889065,
+          "singular_min": 0.6820849493797677,
+          "condition_number": 47.526412700304384,
+          "joint_rank": 18,
+          "residual_df_joint": 98,
+          "rss": 6.829920949919753,
+          "coefficient_l2": 1.2633030245721704,
+          "normal_equation_residual_l2": 8.469779325817893e-14,
+          "solver_prediction_max_difference": 2.1371793224034263e-15,
+          "solver_rss_max_difference": 0.0,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          3,
+          3,
+          3
+        ],
+        "q": 27,
+        "s_sum": 9,
+        "score": -242.72064426341657,
+        "fit_term": -335.6646387807254,
+        "df_penalty": 63.135456571438,
+        "support_penalty": 29.808537945870828,
+        "supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            4
+          ]
+        ],
+        "rss": 6.423283990786642,
+        "loss_history": [
+          0.02768656892580449
+        ],
+        "rss_history": [
+          6.423283990786642
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 27,
+          "rank": 27,
+          "full_column_rank": true,
+          "singular_max": 38.716331396912864,
+          "singular_min": 0.6456087911907984,
+          "condition_number": 59.9687177826408,
+          "joint_rank": 27,
+          "residual_df_joint": 89,
+          "rss": 6.4232839907866435,
+          "coefficient_l2": 1.2711446628839536,
+          "normal_equation_residual_l2": 2.18575546110227e-13,
+          "solver_prediction_max_difference": 2.886579864025407e-15,
+          "solver_rss_max_difference": 2.6645352591003757e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          3,
+          3,
+          4
+        ],
+        "q": 36,
+        "s_sum": 10,
+        "score": -230.15531793914087,
+        "fit_term": -343.06391739468563,
+        "df_penalty": 84.18060876191733,
+        "support_penalty": 28.72799069362744,
+        "supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "rss": 6.0263566693136426,
+        "loss_history": [
+          0.0259756752987657
+        ],
+        "rss_history": [
+          6.0263566693136426
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 36,
+          "rank": 36,
+          "full_column_rank": true,
+          "singular_max": 47.20078762253702,
+          "singular_min": 0.5693637867956483,
+          "condition_number": 82.90093033169666,
+          "joint_rank": 36,
+          "residual_df_joint": 80,
+          "rss": 6.0263566693136426,
+          "coefficient_l2": 1.1990775304700645,
+          "normal_equation_residual_l2": 6.656847846517236e-13,
+          "solver_prediction_max_difference": 7.216449660063518e-15,
+          "solver_rss_max_difference": 8.881784197001252e-16,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          3,
+          3,
+          5
+        ],
+        "q": 45,
+        "s_sum": 11,
+        "score": -225.85120569957087,
+        "fit_term": -357.2960043227577,
+        "df_penalty": 105.22576095239666,
+        "support_penalty": 26.219037670790183,
+        "supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "rss": 5.330538275250748,
+        "loss_history": [
+          0.022976458082977363
+        ],
+        "rss_history": [
+          5.330538275250748
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 45,
+          "rank": 45,
+          "full_column_rank": true,
+          "singular_max": 53.22135867236044,
+          "singular_min": 0.4724590181201999,
+          "condition_number": 112.64756652146326,
+          "joint_rank": 45,
+          "residual_df_joint": 71,
+          "rss": 5.330538275250744,
+          "coefficient_l2": 1.4660569140402793,
+          "normal_equation_residual_l2": 5.032892015168413e-13,
+          "solver_prediction_max_difference": 7.105427357601002e-15,
+          "solver_rss_max_difference": 4.440892098500626e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          3,
+          4,
+          1
+        ],
+        "q": 12,
+        "s_sum": 8,
+        "score": -251.27325736394315,
+        "fit_term": -309.89885644325255,
+        "df_penalty": 28.06020292063911,
+        "support_penalty": 30.565396158670314,
+        "supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "rss": 8.020881473206963,
+        "loss_history": [
+          0.03457276497071966
+        ],
+        "rss_history": [
+          8.020881473206963
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 12,
+          "rank": 12,
+          "full_column_rank": true,
+          "singular_max": 31.48427084259008,
+          "singular_min": 1.1623198953764022,
+          "condition_number": 27.08744035771177,
+          "joint_rank": 12,
+          "residual_df_joint": 104,
+          "rss": 8.020881473206963,
+          "coefficient_l2": 0.4917223712466436,
+          "normal_equation_residual_l2": 4.771670235945865e-14,
+          "solver_prediction_max_difference": 1.3877787807814457e-15,
+          "solver_rss_max_difference": 0.0,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          3,
+          4,
+          2
+        ],
+        "q": 24,
+        "s_sum": 9,
+        "score": -233.54585939016707,
+        "fit_term": -321.312208642359,
+        "df_penalty": 56.12040584127822,
+        "support_penalty": 31.645943410913702,
+        "supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "rss": 7.269280788575759,
+        "loss_history": [
+          0.031333106847309306
+        ],
+        "rss_history": [
+          7.269280788575759
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 24,
+          "rank": 24,
+          "full_column_rank": true,
+          "singular_max": 39.11000295498672,
+          "singular_min": 1.0796736537755551,
+          "condition_number": 36.223911566445416,
+          "joint_rank": 24,
+          "residual_df_joint": 92,
+          "rss": 7.269280788575758,
+          "coefficient_l2": 0.5785925223397849,
+          "normal_equation_residual_l2": 9.914732274264581e-14,
+          "solver_prediction_max_difference": 3.4416913763379853e-15,
+          "solver_rss_max_difference": 8.881784197001252e-16,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          3,
+          4,
+          3
+        ],
+        "q": 36,
+        "s_sum": 10,
+        "score": -239.06247615644057,
+        "fit_term": -354.8890283292716,
+        "df_penalty": 84.18060876191733,
+        "support_penalty": 31.645943410913702,
+        "supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            4
+          ]
+        ],
+        "rss": 5.442301361776687,
+        "loss_history": [
+          0.023458195524899514
+        ],
+        "rss_history": [
+          5.442301361776687
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 36,
+          "rank": 36,
+          "full_column_rank": true,
+          "singular_max": 44.02781223317983,
+          "singular_min": 0.549437248625013,
+          "condition_number": 80.1325580734853,
+          "joint_rank": 36,
+          "residual_df_joint": 80,
+          "rss": 5.442301361776689,
+          "coefficient_l2": 1.6031363158921872,
+          "normal_equation_residual_l2": 1.0315543136985876e-13,
+          "solver_prediction_max_difference": 5.384581669432009e-15,
+          "solver_rss_max_difference": 8.881784197001252e-16,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          3,
+          4,
+          4
+        ],
+        "q": 48,
+        "s_sum": 11,
+        "score": -226.45896224754327,
+        "fit_term": -369.26517008877005,
+        "df_penalty": 112.24081168255644,
+        "support_penalty": 30.565396158670314,
+        "supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "rss": 4.807945006764934,
+        "loss_history": [
+          0.02072390089122816
+        ],
+        "rss_history": [
+          4.807945006764934
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 48,
+          "rank": 48,
+          "full_column_rank": true,
+          "singular_max": 53.85783027860105,
+          "singular_min": 0.4812447701135861,
+          "condition_number": 111.91359080305273,
+          "joint_rank": 48,
+          "residual_df_joint": 68,
+          "rss": 4.807945006764935,
+          "coefficient_l2": 1.756990575208934,
+          "normal_equation_residual_l2": 2.633792181348463e-13,
+          "solver_prediction_max_difference": 4.413136522884997e-15,
+          "solver_rss_max_difference": 1.7763568394002505e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          3,
+          4,
+          5
+        ],
+        "q": 60,
+        "s_sum": 12,
+        "score": -220.12454873010725,
+        "fit_term": -388.48200646913585,
+        "df_penalty": 140.30101460319554,
+        "support_penalty": 28.056443135833057,
+        "supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "rss": 4.0739269086658005,
+        "loss_history": [
+          0.0175600297787319
+        ],
+        "rss_history": [
+          4.0739269086658005
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 60,
+          "rank": 60,
+          "full_column_rank": true,
+          "singular_max": 60.945353018436265,
+          "singular_min": 0.39332701494121347,
+          "condition_number": 154.94830180313227,
+          "joint_rank": 60,
+          "residual_df_joint": 56,
+          "rss": 4.0739269086658005,
+          "coefficient_l2": 1.9908755945454095,
+          "normal_equation_residual_l2": 5.455649952453024e-13,
+          "solver_prediction_max_difference": 1.84297022087776e-14,
+          "solver_rss_max_difference": 2.6645352591003757e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          4,
+          1,
+          1
+        ],
+        "q": 4,
+        "s_sum": 6,
+        "score": -264.09235092312423,
+        "fit_term": -300.80004068385176,
+        "df_penalty": 9.35340097354637,
+        "support_penalty": 27.354288787181204,
+        "supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "rss": 8.675356257248222,
+        "loss_history": [
+          0.037393776970897505
+        ],
+        "rss_history": [
+          8.675356257248222
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 4,
+          "rank": 4,
+          "full_column_rank": true,
+          "singular_max": 18.69112512157418,
+          "singular_min": 2.4085469065884344,
+          "condition_number": 7.76033261816315,
+          "joint_rank": 4,
+          "residual_df_joint": 112,
+          "rss": 8.675356257248222,
+          "coefficient_l2": 0.16085741635243175,
+          "normal_equation_residual_l2": 5.131104433915887e-15,
+          "solver_prediction_max_difference": 3.7470027081099033e-16,
+          "solver_rss_max_difference": 1.7763568394002505e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          4,
+          1,
+          2
+        ],
+        "q": 8,
+        "s_sum": 7,
+        "score": -263.48004522255474,
+        "fit_term": -310.6216832090721,
+        "df_penalty": 18.70680194709274,
+        "support_penalty": 28.434836039424596,
+        "supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            7
+          ],
+          [
+            2,
+            4
+          ]
+        ],
+        "rss": 7.97105663055238,
+        "loss_history": [
+          0.03621121637819355,
+          0.03435800271789819
+        ],
+        "rss_history": [
+          8.401002199740903,
+          7.97105663055238
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            7
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 8,
+          "rank": 8,
+          "full_column_rank": true,
+          "singular_max": 22.302175987801405,
+          "singular_min": 1.1746347889947701,
+          "condition_number": 18.98647664512574,
+          "joint_rank": 8,
+          "residual_df_joint": 108,
+          "rss": 7.97105663055238,
+          "coefficient_l2": 0.3580429963624032,
+          "normal_equation_residual_l2": 5.365433473851586e-14,
+          "solver_prediction_max_difference": 3.4555691641457997e-15,
+          "solver_rss_max_difference": 8.881784197001252e-16,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          4,
+          1,
+          3
+        ],
+        "q": 12,
+        "s_sum": 8,
+        "score": -259.58305214081497,
+        "fit_term": -316.0780911008787,
+        "df_penalty": 28.06020292063911,
+        "support_penalty": 28.434836039424596,
+        "supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            7
+          ],
+          [
+            0,
+            2,
+            4
+          ]
+        ],
+        "rss": 7.604795696055292,
+        "loss_history": [
+          0.032779291793341776
+        ],
+        "rss_history": [
+          7.604795696055292
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            7
+          ],
+          [
+            0,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 12,
+          "rank": 12,
+          "full_column_rank": true,
+          "singular_max": 26.864227917184852,
+          "singular_min": 1.0753335670808781,
+          "condition_number": 24.98222759855904,
+          "joint_rank": 12,
+          "residual_df_joint": 104,
+          "rss": 7.604795696055293,
+          "coefficient_l2": 0.34711806536177064,
+          "normal_equation_residual_l2": 4.567867058233487e-14,
+          "solver_prediction_max_difference": 2.4424906541753444e-15,
+          "solver_rss_max_difference": 1.7763568394002505e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          4,
+          1,
+          4
+        ],
+        "q": 16,
+        "s_sum": 9,
+        "score": -252.2872551056322,
+        "fit_term": -317.0551477869989,
+        "df_penalty": 37.41360389418548,
+        "support_penalty": 27.354288787181204,
+        "supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "rss": 7.5410102500306255,
+        "loss_history": [
+          0.032504354525994074
+        ],
+        "rss_history": [
+          7.5410102500306255
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 16,
+          "rank": 16,
+          "full_column_rank": true,
+          "singular_max": 32.576530101612136,
+          "singular_min": 0.9502342248780453,
+          "condition_number": 34.282631848787666,
+          "joint_rank": 16,
+          "residual_df_joint": 100,
+          "rss": 7.541010250030625,
+          "coefficient_l2": 0.32160985699193956,
+          "normal_equation_residual_l2": 3.063653911195335e-14,
+          "solver_prediction_max_difference": 7.494005416219807e-16,
+          "solver_rss_max_difference": 8.881784197001252e-16,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          4,
+          1,
+          5
+        ],
+        "q": 20,
+        "s_sum": 10,
+        "score": -250.85017479140467,
+        "fit_term": -322.46251542348045,
+        "df_penalty": 46.76700486773185,
+        "support_penalty": 24.845335764343947,
+        "supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "rss": 7.197551654556285,
+        "loss_history": [
+          0.03102392954550123
+        ],
+        "rss_history": [
+          7.197551654556285
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 20,
+          "rank": 20,
+          "full_column_rank": true,
+          "singular_max": 36.39376830609397,
+          "singular_min": 0.9344185287840381,
+          "condition_number": 38.94803793483558,
+          "joint_rank": 20,
+          "residual_df_joint": 96,
+          "rss": 7.197551654556285,
+          "coefficient_l2": 0.5699623532258724,
+          "normal_equation_residual_l2": 3.7572187976029317e-13,
+          "solver_prediction_max_difference": 5.2735593669694936e-15,
+          "solver_rss_max_difference": 8.881784197001252e-16,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          4,
+          2,
+          1
+        ],
+        "q": 8,
+        "s_sum": 7,
+        "score": -258.7671351947568,
+        "fit_term": -307.9692585746877,
+        "df_penalty": 18.70680194709274,
+        "support_penalty": 30.495321432838132,
+        "supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "rss": 8.155420429853658,
+        "loss_history": [
+          0.035152674266610597
+        ],
+        "rss_history": [
+          8.155420429853658
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 8,
+          "rank": 8,
+          "full_column_rank": true,
+          "singular_max": 26.422702329773124,
+          "singular_min": 1.0618326380029257,
+          "condition_number": 24.884055532017204,
+          "joint_rank": 8,
+          "residual_df_joint": 108,
+          "rss": 8.155420429853658,
+          "coefficient_l2": 0.3319731099035187,
+          "normal_equation_residual_l2": 5.5091119059908794e-14,
+          "solver_prediction_max_difference": 7.771561172376096e-16,
+          "solver_rss_max_difference": 1.7763568394002505e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          4,
+          2,
+          2
+        ],
+        "q": 16,
+        "s_sum": 8,
+        "score": -243.98485895452373,
+        "fit_term": -312.97433153379075,
+        "df_penalty": 37.41360389418548,
+        "support_penalty": 31.57586868508152,
+        "supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "rss": 7.811020404626599,
+        "loss_history": [
+          0.03366819139925258
+        ],
+        "rss_history": [
+          7.811020404626599
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 16,
+          "rank": 16,
+          "full_column_rank": true,
+          "singular_max": 33.8955850187035,
+          "singular_min": 1.0216865170002416,
+          "condition_number": 33.176110729369135,
+          "joint_rank": 16,
+          "residual_df_joint": 100,
+          "rss": 7.811020404626599,
+          "coefficient_l2": 0.3841916848491695,
+          "normal_equation_residual_l2": 5.307549741499022e-14,
+          "solver_prediction_max_difference": 1.887379141862766e-15,
+          "solver_rss_max_difference": 1.7763568394002505e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          4,
+          2,
+          3
+        ],
+        "q": 24,
+        "s_sum": 9,
+        "score": -241.91368176452042,
+        "fit_term": -329.6099562908802,
+        "df_penalty": 56.12040584127822,
+        "support_penalty": 31.57586868508152,
+        "supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            4
+          ]
+        ],
+        "rss": 6.767454713133957,
+        "loss_history": [
+          0.02917006341868085
+        ],
+        "rss_history": [
+          6.767454713133957
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 24,
+          "rank": 24,
+          "full_column_rank": true,
+          "singular_max": 37.94805009725931,
+          "singular_min": 0.6687701068542713,
+          "condition_number": 56.74304175429958,
+          "joint_rank": 24,
+          "residual_df_joint": 92,
+          "rss": 6.767454713133956,
+          "coefficient_l2": 0.7015514436655331,
+          "normal_equation_residual_l2": 5.320263313558335e-14,
+          "solver_prediction_max_difference": 2.4980018054066022e-15,
+          "solver_rss_max_difference": 0.0,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          4,
+          2,
+          4
+        ],
+        "q": 32,
+        "s_sum": 10,
+        "score": -231.9445921561528,
+        "fit_term": -337.2671213773619,
+        "df_penalty": 74.82720778837096,
+        "support_penalty": 30.495321432838132,
+        "supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "rss": 6.335159599954653,
+        "loss_history": [
+          0.02730672241359764
+        ],
+        "rss_history": [
+          6.335159599954653
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 32,
+          "rank": 32,
+          "full_column_rank": true,
+          "singular_max": 45.79705819123813,
+          "singular_min": 0.6408073741434684,
+          "condition_number": 71.4677452837563,
+          "joint_rank": 32,
+          "residual_df_joint": 84,
+          "rss": 6.335159599954652,
+          "coefficient_l2": 0.7953815849699095,
+          "normal_equation_residual_l2": 5.2698746226180284e-14,
+          "solver_prediction_max_difference": 3.6637359812630166e-15,
+          "solver_rss_max_difference": 8.881784197001252e-16,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          4,
+          2,
+          5
+        ],
+        "q": 40,
+        "s_sum": 11,
+        "score": -232.45891427841957,
+        "fit_term": -353.97929242388415,
+        "df_penalty": 93.5340097354637,
+        "support_penalty": 27.986368410000875,
+        "supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "rss": 5.485150691668822,
+        "loss_history": [
+          0.02364289091236561
+        ],
+        "rss_history": [
+          5.485150691668822
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 40,
+          "rank": 40,
+          "full_column_rank": true,
+          "singular_max": 51.53960661598589,
+          "singular_min": 0.5579881090112717,
+          "condition_number": 92.36685474769635,
+          "joint_rank": 40,
+          "residual_df_joint": 76,
+          "rss": 5.485150691668821,
+          "coefficient_l2": 1.1503876582733543,
+          "normal_equation_residual_l2": 4.3371354406937836e-13,
+          "solver_prediction_max_difference": 7.993605777301127e-15,
+          "solver_rss_max_difference": 1.7763568394002505e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          4,
+          3,
+          1
+        ],
+        "q": 12,
+        "s_sum": 8,
+        "score": -249.85573576586754,
+        "fit_term": -310.8126601436264,
+        "df_penalty": 28.06020292063911,
+        "support_penalty": 32.89672145711976,
+        "supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "rss": 7.957944255239625,
+        "loss_history": [
+          0.03430148385879149
+        ],
+        "rss_history": [
+          7.957944255239625
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 12,
+          "rank": 12,
+          "full_column_rank": true,
+          "singular_max": 31.680236228229685,
+          "singular_min": 1.0298472443060898,
+          "condition_number": 30.762073116557982,
+          "joint_rank": 12,
+          "residual_df_joint": 104,
+          "rss": 7.957944255239625,
+          "coefficient_l2": 0.41306665989931374,
+          "normal_equation_residual_l2": 1.4328545409761255e-14,
+          "solver_prediction_max_difference": 1.3322676295501878e-15,
+          "solver_rss_max_difference": 8.881784197001252e-16,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          4,
+          3,
+          2
+        ],
+        "q": 24,
+        "s_sum": 9,
+        "score": -233.30106460199846,
+        "fit_term": -323.39873915263985,
+        "df_penalty": 56.12040584127822,
+        "support_penalty": 33.97726870936315,
+        "supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "rss": 7.139694768996193,
+        "loss_history": [
+          0.03077454641808704
+        ],
+        "rss_history": [
+          7.139694768996193
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 24,
+          "rank": 24,
+          "full_column_rank": true,
+          "singular_max": 40.40461939019275,
+          "singular_min": 0.9348624074254341,
+          "condition_number": 43.219856814507196,
+          "joint_rank": 24,
+          "residual_df_joint": 92,
+          "rss": 7.139694768996193,
+          "coefficient_l2": 0.6682888394013797,
+          "normal_equation_residual_l2": 2.7521007166194373e-13,
+          "solver_prediction_max_difference": 4.6629367034256575e-15,
+          "solver_rss_max_difference": 1.7763568394002505e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          4,
+          3,
+          3
+        ],
+        "q": 36,
+        "s_sum": 10,
+        "score": -227.95175908545139,
+        "fit_term": -346.10963655673186,
+        "df_penalty": 84.18060876191733,
+        "support_penalty": 33.97726870936315,
+        "supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            4
+          ]
+        ],
+        "rss": 5.870186632844404,
+        "loss_history": [
+          0.02530252858984657
+        ],
+        "rss_history": [
+          5.870186632844404
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 36,
+          "rank": 36,
+          "full_column_rank": true,
+          "singular_max": 45.486326072845536,
+          "singular_min": 0.5569589184678734,
+          "condition_number": 81.66908647045803,
+          "joint_rank": 36,
+          "residual_df_joint": 80,
+          "rss": 5.870186632844403,
+          "coefficient_l2": 1.3017333003339704,
+          "normal_equation_residual_l2": 2.2899293521480733e-13,
+          "solver_prediction_max_difference": 2.886579864025407e-15,
+          "solver_rss_max_difference": 8.881784197001252e-16,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          4,
+          3,
+          4
+        ],
+        "q": 48,
+        "s_sum": 11,
+        "score": -214.62619371651547,
+        "fit_term": -359.7637268561917,
+        "df_penalty": 112.24081168255644,
+        "support_penalty": 32.89672145711976,
+        "supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "rss": 5.218336916141308,
+        "loss_history": [
+          0.022492831535091844
+        ],
+        "rss_history": [
+          5.218336916141308
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 48,
+          "rank": 48,
+          "full_column_rank": true,
+          "singular_max": 55.16167282109247,
+          "singular_min": 0.5120689326901467,
+          "condition_number": 107.72313901431477,
+          "joint_rank": 48,
+          "residual_df_joint": 68,
+          "rss": 5.218336916141308,
+          "coefficient_l2": 1.549222052168408,
+          "normal_equation_residual_l2": 3.4429155404475424e-13,
+          "solver_prediction_max_difference": 3.941291737419306e-15,
+          "solver_rss_max_difference": 1.7763568394002505e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          4,
+          3,
+          5
+        ],
+        "q": 60,
+        "s_sum": 12,
+        "score": -220.81732673734822,
+        "fit_term": -391.50610977482626,
+        "df_penalty": 140.30101460319554,
+        "support_penalty": 30.387768434282503,
+        "supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "rss": 3.969092664661077,
+        "loss_history": [
+          0.01710815803733223
+        ],
+        "rss_history": [
+          3.969092664661077
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 60,
+          "rank": 60,
+          "full_column_rank": true,
+          "singular_max": 62.18293540808225,
+          "singular_min": 0.3652508735623164,
+          "condition_number": 170.24719147584204,
+          "joint_rank": 60,
+          "residual_df_joint": 56,
+          "rss": 3.969092664661077,
+          "coefficient_l2": 2.3491335043264807,
+          "normal_equation_residual_l2": 5.922664898251768e-13,
+          "solver_prediction_max_difference": 1.5987211554602254e-14,
+          "solver_rss_max_difference": 2.6645352591003757e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          4,
+          4,
+          1
+        ],
+        "q": 16,
+        "s_sum": 9,
+        "score": -241.44503730179892,
+        "fit_term": -313.59276811814703,
+        "df_penalty": 37.41360389418548,
+        "support_penalty": 34.73412692216263,
+        "supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "rss": 7.769487932489733,
+        "loss_history": [
+          0.03348917212280057
+        ],
+        "rss_history": [
+          7.769487932489733
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 16,
+          "rank": 16,
+          "full_column_rank": true,
+          "singular_max": 36.507593999749275,
+          "singular_min": 0.948622753868985,
+          "condition_number": 38.48483904782171,
+          "joint_rank": 16,
+          "residual_df_joint": 100,
+          "rss": 7.769487932489733,
+          "coefficient_l2": 0.5070414423233996,
+          "normal_equation_residual_l2": 1.0154232339052601e-13,
+          "solver_prediction_max_difference": 1.4432899320127035e-15,
+          "solver_rss_max_difference": 1.7763568394002505e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          4,
+          4,
+          2
+        ],
+        "q": 32,
+        "s_sum": 10,
+        "score": -223.33977037372256,
+        "fit_term": -333.98165233649956,
+        "df_penalty": 74.82720778837096,
+        "support_penalty": 35.81467417440602,
+        "supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "rss": 6.517155552489449,
+        "loss_history": [
+          0.028091187726247625
+        ],
+        "rss_history": [
+          6.517155552489449
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 32,
+          "rank": 32,
+          "full_column_rank": true,
+          "singular_max": 46.08390728619838,
+          "singular_min": 0.8468665666434841,
+          "condition_number": 54.4169637831492,
+          "joint_rank": 32,
+          "residual_df_joint": 84,
+          "rss": 6.517155552489448,
+          "coefficient_l2": 0.8645761793735458,
+          "normal_equation_residual_l2": 1.8205081687827196e-13,
+          "solver_prediction_max_difference": 5.662137425588298e-15,
+          "solver_rss_max_difference": 8.881784197001252e-16,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          4,
+          4,
+          3
+        ],
+        "q": 48,
+        "s_sum": 11,
+        "score": -221.75306690611,
+        "fit_term": -369.8085527630725,
+        "df_penalty": 112.24081168255644,
+        "support_penalty": 35.81467417440602,
+        "supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            4
+          ]
+        ],
+        "rss": 4.785475657437203,
+        "loss_history": [
+          0.020627050247574153
+        ],
+        "rss_history": [
+          4.785475657437203
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 48,
+          "rank": 48,
+          "full_column_rank": true,
+          "singular_max": 51.90547422844869,
+          "singular_min": 0.4647793630420868,
+          "condition_number": 111.67766548134912,
+          "joint_rank": 48,
+          "residual_df_joint": 68,
+          "rss": 4.785475657437203,
+          "coefficient_l2": 1.6649403018632203,
+          "normal_equation_residual_l2": 2.0566820815769748e-13,
+          "solver_prediction_max_difference": 7.716050021144838e-15,
+          "solver_rss_max_difference": 1.7763568394002505e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          4,
+          4,
+          4
+        ],
+        "q": 64,
+        "s_sum": 12,
+        "score": -219.14671691693854,
+        "fit_term": -403.5352594158431,
+        "df_penalty": 149.6544155767419,
+        "support_penalty": 34.73412692216263,
+        "supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "rss": 3.578121545566444,
+        "loss_history": [
+          0.015422937696407086
+        ],
+        "rss_history": [
+          3.578121545566444
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 64,
+          "rank": 64,
+          "full_column_rank": true,
+          "singular_max": 63.050299364640374,
+          "singular_min": 0.3638154234353486,
+          "condition_number": 173.30298635853367,
+          "joint_rank": 64,
+          "residual_df_joint": 52,
+          "rss": 3.578121545566445,
+          "coefficient_l2": 2.4728144733549198,
+          "normal_equation_residual_l2": 4.0519903560698756e-13,
+          "solver_prediction_max_difference": 8.049116928532385e-15,
+          "solver_rss_max_difference": 1.7763568394002505e-15,
+          "finite": true
+        }
+      },
+      {
+        "source": "global_fixed_candidate",
+        "sizes": [
+          4,
+          4,
+          5
+        ],
+        "q": 80,
+        "s_sum": 13,
+        "score": -239.7587178451341,
+        "fit_term": -459.0519112153869,
+        "df_penalty": 187.0680194709274,
+        "support_penalty": 32.22517389932538,
+        "supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "rss": 2.2172021957856867,
+        "loss_history": [
+          0.009556906016317614
+        ],
+        "rss_history": [
+          2.2172021957856867
+        ],
+        "sic": null,
+        "initial_supports": [
+          [
+            2,
+            8,
+            40,
+            44
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "ols": {
+          "n": 116,
+          "q": 80,
+          "rank": 80,
+          "full_column_rank": true,
+          "singular_max": 71.30450452555868,
+          "singular_min": 0.22904840900991796,
+          "condition_number": 311.30757394813924,
+          "joint_rank": 80,
+          "residual_df_joint": 36,
+          "rss": 2.217202195785687,
+          "coefficient_l2": 3.1686629041477827,
+          "normal_equation_residual_l2": 4.641643456006929e-13,
+          "solver_prediction_max_difference": 9.769962616701378e-15,
+          "solver_rss_max_difference": 4.440892098500626e-16,
+          "finite": true
+        }
+      }
+    ],
+    "before_refinement": {
+      "sizes": [
+        1,
+        1,
+        5
+      ],
+      "q": 5,
+      "supports": [
+        [
+          2
+        ],
+        [
+          7
+        ],
+        [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      ],
+      "rss": 8.430202698238892,
+      "loss_history": [
+        0.03650553210248768,
+        0.036337080595857295,
+        0.036337080595857295
+      ],
+      "rss_history": [
+        8.46928344777714,
+        8.430202698238892,
+        8.430202698238892
+      ],
+      "sic": -285.6001156894204
+    },
+    "one_se": {
+      "minimum_index": 8,
+      "minimum_score": -284.32894875968407,
+      "q_best": 6,
+      "tolerance": 5.340556258166202,
+      "threshold": -278.98839250151786,
+      "eligible_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        31
+      ],
+      "selected_index": 1
+    },
+    "after_refinement": {
+      "sizes": [
+        1,
+        1,
+        1
+      ],
+      "q": 1,
+      "supports": [
+        [
+          2
+        ],
+        [
+          7
+        ],
+        [
+          4
+        ]
+      ],
+      "rss": 8.956317546553995,
+      "loss_history": [
+        0.0386048170110086
+      ],
+      "rss_history": [
+        8.956317546553995
+      ],
+      "sic": -281.52486604882915
+    }
+  },
+  "source_bcd_sha256": "77c359823f956c275f0b4a54599c3878cb21e1f7f62473b6671debd4c0b4a054"
+}

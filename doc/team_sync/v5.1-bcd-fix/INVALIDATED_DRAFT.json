@@ -1,0 +1,6 @@
+{
+  "scope": "historical warm-only draft, not this final patch",
+  "invalidated_patch_sha256": "117525df77d602e6a085b98c25ea363158324ab722a72bd9eb034bd90ec47a28",
+  "final_patch_sha256": "d2e6cac68ad7e37ec131cf2ff3d52eec4e7ec4498d30cea484d513fe2b7b37ee",
+  "final_release_approved": true
+}

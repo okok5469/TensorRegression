@@ -1,0 +1,77 @@
+{
+  "status": "complete",
+  "checks_passed": true,
+  "plan_id": "be7b227228164e6dbbf3d7305e93717c62128e6982f5ff36000a1f1218fd973c",
+  "created_utc": "2026-10-10T16:12:12.001459+00:00",
+  "selected_model_count": 450,
+  "task_count": 90,
+  "runtime_sec": 32.811407300061546,
+  "scope": "Selected original-MSIC model per dataset/group only; not all candidate matrices. Training tensors regenerated with exact fingerprints. No coefficients or supports changed.",
+  "tolerances": {
+    "relative_scaled_rss_and_prediction": 1e-09,
+    "normal_equation_relative_residual": 1e-08
+  },
+  "rank_deficient_count": 0,
+  "groups": {
+    "A0": {
+      "selected_model_count": 90,
+      "rank_deficient_count": 0,
+      "condition_number_min": 1.0,
+      "condition_number_median": 5.445451852803361,
+      "condition_number_max": 12.602407649653568,
+      "max_q": 125,
+      "max_rss_relative_difference": 4.005287500988905e-16,
+      "max_ols_rss_relative_difference": 0.0,
+      "max_normal_equation_relative_residual": 1.988831288653142e-15,
+      "total_audit_seconds": 0.6980506995460019
+    },
+    "A1": {
+      "selected_model_count": 90,
+      "rank_deficient_count": 0,
+      "condition_number_min": 1.0,
+      "condition_number_median": 6.142706277997782,
+      "condition_number_max": 17.332758668127752,
+      "max_q": 140,
+      "max_rss_relative_difference": 6.087082300483176e-16,
+      "max_ols_rss_relative_difference": 0.0,
+      "max_normal_equation_relative_residual": 2.0738284123004923e-15,
+      "total_audit_seconds": 0.7691828004317358
+    },
+    "A2": {
+      "selected_model_count": 90,
+      "rank_deficient_count": 0,
+      "condition_number_min": 1.0,
+      "condition_number_median": 5.100157143520002,
+      "condition_number_max": 12.602407649653568,
+      "max_q": 125,
+      "max_rss_relative_difference": 4.005287500988905e-16,
+      "max_ols_rss_relative_difference": 0.0,
+      "max_normal_equation_relative_residual": 1.7611524021562109e-15,
+      "total_audit_seconds": 0.6480382002191618
+    },
+    "A3": {
+      "selected_model_count": 90,
+      "rank_deficient_count": 0,
+      "condition_number_min": 1.0,
+      "condition_number_median": 5.932597267320723,
+      "condition_number_max": 17.332758668127752,
+      "max_q": 140,
+      "max_rss_relative_difference": 6.087082300483176e-16,
+      "max_ols_rss_relative_difference": 0.0,
+      "max_normal_equation_relative_residual": 1.972559803530317e-15,
+      "total_audit_seconds": 0.7201728996587917
+    },
+    "A4": {
+      "selected_model_count": 90,
+      "rank_deficient_count": 0,
+      "condition_number_min": 1.0,
+      "condition_number_median": 5.932597267320723,
+      "condition_number_max": 17.332758668127752,
+      "max_q": 140,
+      "max_rss_relative_difference": 6.087082300483176e-16,
+      "max_ols_rss_relative_difference": 0.0,
+      "max_normal_equation_relative_residual": 1.972559803530317e-15,
+      "total_audit_seconds": 0.7377143002813682
+    }
+  }
+}

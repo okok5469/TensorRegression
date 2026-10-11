@@ -6,6 +6,9 @@ import tempfile
 import unittest
 from pathlib import Path
 
+import numpy as np
+import pandas as pd
+
 from empirical_analysis.lemon.config import load_config
 
 
@@ -95,6 +98,31 @@ class LemonPipelineTests(unittest.TestCase):
             cfg['seed'] = 99
             with self.assertRaisesRegex(ValueError, 'changed'):
                 pipeline.run_stage(cfg, 'tmt')
+
+    def test_dataset_saves_covariate_column_order_for_prediction(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            for name in ('tensors', 'diagnostics', 'qc'):
+                (root / name).mkdir()
+            np.save(root / 'tensors/X_unstandardized.npy', np.ones((2, 2, 2, 2)))
+            pd.DataFrame({'subject_id': ['b', 'a']}).to_csv(root / 'tensors/tensor_subject_ids.csv', index=False)
+            pd.DataFrame({'subject_id': ['a', 'b'], 'tmt5_raw': [20., 30.], 'tmt5_log': np.log([20., 30.])}).to_csv(root / 'diagnostics/tmt_clean.csv', index=False)
+            pd.DataFrame({'subject_id': ['b', 'a'], 'include_primary': [True, True], 'exclusion_reason': ['', '']}).to_csv(root / 'qc/subject_qc.csv', index=False)
+            people = root / 'people.tsv'
+            people.write_text('id\tage\tsex\na\t25\tF\nb\t30\tM\n', encoding='utf-8')
+            codebook = root / 'people.json'
+            codebook.write_text('{"sex":{"Levels":{"F":"female","M":"male"}}}', encoding='utf-8')
+            cfg = {'paths': {'participants_file': people, 'participants_json': codebook},
+                   'analysis': {'mode': 'adjusted'}, 'response': {'primary_transform': 'log'},
+                   'confounds': {'id_column': 'id', 'age_column': 'age', 'sex_column': 'sex', 'sex_mapping': {'F': 0, 'M': 1}}}
+            self.module()._dataset(cfg, root)
+            design_path = root / 'qc/covariate_design.json'
+            self.assertTrue(design_path.exists(), 'Saved covariate design must describe C columns')
+            design = json.loads(design_path.read_text(encoding='utf-8'))
+            self.assertEqual(design['columns'], ['intercept', 'age', 'sex'])
+            self.assertEqual(design['encoding'], cfg['confounds'])
+            with np.load(root / 'qc/analysis_dataset.npz') as result:
+                np.testing.assert_array_equal(result['C'], [[1., 30., 1.], [1., 25., 0.]])
 
 
 if __name__ == '__main__':

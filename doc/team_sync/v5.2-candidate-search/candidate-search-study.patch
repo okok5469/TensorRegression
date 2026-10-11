@@ -1,0 +1,2236 @@
+diff --git a/numerical_simulation/candidate_search_study/__init__.py b/numerical_simulation/candidate_search_study/__init__.py
+new file mode 100644
+--- /dev/null
++++ b/numerical_simulation/candidate_search_study/__init__.py
+@@ -0,0 +1 @@
++"""Version-isolated candidate coverage experiments; production defaults untouched."""
+diff --git a/numerical_simulation/candidate_search_study/analyse.py b/numerical_simulation/candidate_search_study/analyse.py
+new file mode 100644
+--- /dev/null
++++ b/numerical_simulation/candidate_search_study/analyse.py
+@@ -0,0 +1,104 @@
++"""Balanced descriptive comparisons; shared cache costs are explicitly separated."""
++from __future__ import annotations
++import argparse
++import csv
++import json
++from pathlib import Path
++import numpy as np
++
++
++def dataset_rows(report,groups):
++    rows=report['rows']
++    if len(rows)!=len(groups) or sorted(r['group'] for r in rows)!=sorted(groups):
++        raise ValueError('Every dataset must contain exactly the same one-rule groups')
++    config=report['config'];truth=config['sparsity'];qtrue=int(np.prod(truth));qmax=int(np.floor(.7*config['n_train']))
++    extended=[]
++    for raw in rows:
++        row=dict(raw);info=report['groups'][row['group']];meta=info['search_metadata']
++        fixed=[c for c in info['candidates'] if c['kind']=='global-fixed']
++        cached_cost=sum(c['fit_seconds'] for c in fixed if c['cache_hit'])
++        row.update(q_over=float(row['q_hat']>qtrue),q_under=float(row['q_hat']<qtrue),
++            q_small=float(row['q_hat']==1),q_near_cap=float(row['q_hat']>=.9*qmax),
++            true_size_reachable=float(all(s<=cap for s,cap in zip(truth,info['s_max']))),
++            true_size_in_pool=float(info['true_size_in_pool']),true_support_in_pool=float(info['true_support_in_pool']),
++            candidate_count=info['candidate_count'],legal_shape_count=len(meta['legal_shapes']),
++            searched_shape_count=len(meta['size_grid']),excluded_legal_shape_count=len(meta['excluded_legal_shapes']),
++            cached_fixed_fit_cost_sec=cached_cost,standalone_cost_estimate_sec=row['runtime_sec']+cached_cost,
++            fixed_fit_cost_sum_sec=sum(c['fit_seconds'] for c in fixed),
++            n_train=config['n_train'],snr=config['snr'])
++        extended.append(row)
++    return extended
++
++
++def build_overview(reports,groups):
++    if not reports:raise ValueError('No complete datasets')
++    rows=[r for report in reports for r in dataset_rows(report,groups)]
++    metrics=('q_hat','exact_recovery','mode_f1_macro','element_f1','pmse','r2_test','rss_train','runtime_sec',
++        'q_over','q_under','q_small','q_near_cap','true_size_reachable','true_size_in_pool','true_support_in_pool',
++        'candidate_count','legal_shape_count','searched_shape_count','excluded_legal_shape_count',
++        'cached_fixed_fit_cost_sec','standalone_cost_estimate_sec','fixed_fit_cost_sum_sec')
++    output=[]
++    for group in groups:
++        selected=[r for r in rows if r['group']==group];record={'group':group,'n_datasets':len(selected)}
++        for metric in metrics:
++            values=np.asarray([float(r[metric]) for r in selected])
++            if not np.isfinite(values).all():raise ValueError('Nonfinite comparison metric')
++            record[metric+'_mean']=float(values.mean())
++            record[metric+'_sample_sd']=float(values.std(ddof=1)) if len(values)>1 else 0.
++        output.append(record)
++    return output
++
++
++def build_pairs(reports,groups):
++    if 'A0' not in groups:raise ValueError('A0 paired comparator required')
++    metrics=('q_hat','exact_recovery','mode_f1_macro','element_f1','pmse','r2_test','rss_train',
++             'true_size_in_pool','true_support_in_pool','standalone_cost_estimate_sec')
++    output=[]
++    for group in groups:
++        if group=='A0':continue
++        row={'group':group,'n_datasets':len(reports)}
++        differences={m:[] for m in metrics}
++        for report in reports:
++            by_group={r['group']:r for r in dataset_rows(report,groups)}
++            for metric in metrics:differences[metric].append(float(by_group[group][metric])-float(by_group['A0'][metric]))
++        for metric,values in differences.items():
++            row[metric+'_minus_A0_mean']=float(np.mean(values))
++            row[metric+'_minus_A0_sample_sd']=float(np.std(values,ddof=1)) if len(values)>1 else 0.
++        values=differences['pmse']
++        row.update(pmse_wins=sum(v< -1e-10 for v in values),pmse_ties=sum(abs(v)<=1e-10 for v in values),
++                   pmse_losses=sum(v>1e-10 for v in values))
++        output.append(row)
++    return output
++
++
++def write_csv(path,rows):
++    with path.open('x',encoding='utf8',newline='') as f:
++        w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
++
++
++def analyse(output):
++    from numerical_simulation.candidate_search_study.run import load_plan,validate_result
++    output=Path(output);plan=load_plan(output)
++    integrity=json.loads((output/'integrity_report.json').read_text(encoding='utf8'))
++    if not integrity['integrity_checks_passed'] or integrity['completed_tasks']!=len(plan['tasks']):
++        raise ValueError('Only complete audited cohorts may be summarized')
++    reports=[validate_result(output,plan,t) for t in plan['tasks']]
++    overview=build_overview(reports,plan['groups']);pairs=build_pairs(reports,plan['groups'])
++    scenarios=[]
++    for n,snr in sorted({(r['config']['n_train'],r['config']['snr']) for r in reports}):
++        selected=[r for r in reports if r['config']['n_train']==n and r['config']['snr']==snr]
++        scenarios.extend(dict(r,n_train=n,snr=snr) for r in build_overview(selected,plan['groups']))
++    write_csv(output/'mechanism_overview.csv',overview)
++    write_csv(output/'mechanism_scenarios.csv',scenarios)
++    write_csv(output/'mechanism_paired_overview.csv',pairs)
++    diagnostics={'status':'complete','cohort':plan['cohort'],'plan_id':plan['plan_id'],'datasets':len(reports),
++        'groups':plan['groups'],'scope':'Descriptive, balanced paired mechanisms; no automatic formal-version selection',
++        'runtime_note':'Observed runtime depends on shared-cache group order. Standalone estimate adds cached fixed fit durations; it is not an independent timing measurement.',
++        'fixed_candidates_checked':sum(c['kind']=='global-fixed' for r in reports for g in r['groups'].values() for c in g['candidates'])}
++    with (output/'mechanism_diagnostics.json').open('x',encoding='utf8') as f:json.dump(diagnostics,f,indent=2)
++    print(json.dumps(diagnostics,indent=2))
++
++
++if __name__=='__main__':
++    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output-dir',required=True)
++    analyse(parser.parse_args().output_dir)
+diff --git a/numerical_simulation/candidate_search_study/contrasts.py b/numerical_simulation/candidate_search_study/contrasts.py
+new file mode 100644
+--- /dev/null
++++ b/numerical_simulation/candidate_search_study/contrasts.py
+@@ -0,0 +1,211 @@
++"""Complete-cohort paired cap/grid contrasts and nested coarse-search diagnostics."""
++from __future__ import annotations
++
++import argparse
++import csv
++import hashlib
++import json
++from pathlib import Path
++
++import numpy as np
++
++
++METRICS = ("q_hat", "exact_recovery", "mode_f1_macro", "element_f1", "pmse", "r2_test",
++           "rss_train", "candidate_count", "true_size_in_pool", "true_support_in_pool",
++           "runtime_sec", "standalone_cost_estimate_sec")
++
++
++def require(condition, message):
++    if not condition:
++        raise ValueError(message)
++
++
++def factorial_effects(values):
++    require(set(values) == {"A0", "A1", "A2", "A3"}, "All four balanced groups are required")
++    require(np.isfinite(list(values.values())).all(), "Nonfinite comparison values")
++    return {"cap_at_legacy_grid": values["A1"] - values["A0"],
++            "cap_at_full_grid": values["A3"] - values["A2"],
++            "grid_at_legacy_cap": values["A2"] - values["A0"],
++            "grid_at_candidate_cap": values["A3"] - values["A1"],
++            "interaction": (values["A3"] - values["A2"]) - (values["A1"] - values["A0"])}
++
++
++def candidate_identity(candidate):
++    return (tuple(candidate["sizes"]), tuple(tuple(S) for S in candidate["supports"]), candidate["B_fingerprint"])
++
++
++def score_tolerance(a, b):
++    return 1e-10 * max(1., abs(a), abs(b))
++
++
++def coarse_diagnostics(report):
++    groups = report["groups"]
++    require("A3" in groups and "A4" in groups, "Full and coarse candidate-cap groups required")
++    full, coarse = groups["A3"], groups["A4"]
++    rows = {row["group"]: row for row in report["rows"]}
++    full_row, coarse_row = rows["A3"], rows["A4"]
++    full_pool, coarse_pool = full["candidates"], coarse["candidates"]
++    full_by_id = {candidate_identity(c): c for c in full_pool}
++    coarse_ids = {candidate_identity(c) for c in coarse_pool}
++    require(coarse_ids <= set(full_by_id), "Coarse candidate pool is not nested in full pool")
++    for candidate in coarse_pool:
++        other = full_by_id[candidate_identity(candidate)]
++        require(abs(candidate["score"] - other["score"]) <= score_tolerance(candidate["score"], other["score"]),
++                "Shared candidates have different training scores")
++    full_selection, coarse_selection = full_row["selection"], coarse_row["selection"]
++    full_minimum = float(full_selection["minimum_score"])
++    coarse_minimum = float(coarse_selection["minimum_score"])
++    raw_regret = coarse_minimum - full_minimum
++    tolerance = score_tolerance(full_minimum, coarse_minimum)
++    require(raw_regret >= -tolerance, "Coarse minimum score is better than its full superset")
++    same_minimum = abs(raw_regret) <= tolerance
++    minimum = full_pool[full_selection["minimum_index"]]
++    selected = full_pool[full_selection["selected_index"]]
++    selected_present = candidate_identity(selected) in coarse_ids
++    minimum_present = candidate_identity(minimum) in coarse_ids
++    coarse_shapes = {tuple(c["sizes"]) for c in coarse_pool}
++    true_shape = tuple(report["config"]["sparsity"])
++    result = {"full_minimum_score": full_minimum, "coarse_minimum_score": coarse_minimum,
++        "minimum_score_delta_raw": raw_regret, "minimum_score_regret": max(raw_regret, 0.),
++        "minimum_score_equal_within_tolerance": same_minimum, "score_tolerance": tolerance,
++        "full_minimum_sizes": minimum["sizes"], "full_minimum_q": int(np.prod(minimum["sizes"])),
++        "full_minimum_shape_in_coarse_pool": tuple(minimum["sizes"]) in coarse_shapes,
++        "full_minimum_B_in_coarse_pool": minimum_present,
++        "full_selected_sizes": selected["sizes"], "full_selected_q": int(full_row["q_hat"]),
++        "full_selected_shape_in_coarse_pool": tuple(selected["sizes"]) in coarse_shapes,
++        "full_selected_B_in_coarse_pool": selected_present,
++        "coarse_selected_q": int(coarse_row["q_hat"]),
++        "full_one_se_tolerance": full_selection["tolerance"], "coarse_one_se_tolerance": coarse_selection["tolerance"],
++        "same_minimum_missing_one_se_smaller_model": bool(same_minimum and not selected_present
++            and full_row["q_hat"] < coarse_row["q_hat"]),
++        "coarse_misses_full_selected_B": not selected_present,
++        "truth_shape_in_full_pool": bool(full["true_size_in_pool"]),
++        "truth_shape_in_coarse_pool": true_shape in coarse_shapes,
++        "truth_shape_omitted_by_coarse": bool(full["true_size_in_pool"] and true_shape not in coarse_shapes),
++        "truth_positions_in_full_pool": bool(full["true_support_in_pool"]),
++        "truth_positions_in_coarse_pool": bool(coarse["true_support_in_pool"]),
++        "truth_positions_omitted_by_coarse": bool(full["true_support_in_pool"] and not coarse["true_support_in_pool"]),
++        "full_candidate_count": len(full_pool), "coarse_candidate_count": len(coarse_pool),
++        "candidate_fraction": len(coarse_pool) / len(full_pool),
++        "coarse_minus_full_pmse": float(coarse_row.get("pmse", 0.) - full_row.get("pmse", 0.)),
++        "coarse_minus_full_exact_recovery": float(coarse_row.get("exact_recovery", 0.) - full_row.get("exact_recovery", 0.)),
++        "coarse_minus_full_q": float(coarse_row["q_hat"] - full_row["q_hat"])}
++    for name, group in (("full", full), ("coarse", coarse)):
++        fixed = [c for c in group["candidates"] if c["kind"] == "global-fixed"]
++        cached_cost = sum(c.get("fit_seconds", 0.) for c in fixed if c.get("cache_hit", False))
++        result[name + "_observed_runtime_sec"] = group["runtime_sec"]
++        result[name + "_standalone_cost_estimate_sec"] = group["runtime_sec"] + cached_cost
++        result[name + "_fixed_fit_duration_sum_sec"] = sum(c.get("fit_seconds", 0.) for c in fixed)
++    return result
++
++
++def extended_rows(report):
++    rows = {row["group"]: dict(row) for row in report["rows"]}
++    for name, row in rows.items():
++        group = report["groups"][name]
++        fixed = [candidate for candidate in group["candidates"] if candidate["kind"] == "global-fixed"]
++        row["standalone_cost_estimate_sec"] = row["runtime_sec"] + sum(
++            c["fit_seconds"] for c in fixed if c["cache_hit"])
++    return rows
++
++
++def build_contrasts(plan, reports):
++    require(len(reports) == len(plan["tasks"]), "Only complete cohort contrasts are allowed")
++    differences, coarse = [], []
++    for task, report in zip(plan["tasks"], reports):
++        tags = {"task_id": task["task_id"], "scenario_id": task["scenario_id"], "replicate": task["replicate"],
++                "n_train": report["config"]["n_train"], "snr": report["config"]["snr"], "seed": report["seed"]}
++        rows = extended_rows(report)
++        for metric in METRICS:
++            values = {name: float(rows[name][metric]) for name in ("A0", "A1", "A2", "A3")}
++            differences.append({**tags, "metric": metric, **factorial_effects(values)})
++        coarse.append({**tags, **coarse_diagnostics(report)})
++    return differences, coarse
++
++
++def summarize_differences(differences):
++    effects = ("cap_at_legacy_grid", "cap_at_full_grid", "grid_at_legacy_cap", "grid_at_candidate_cap", "interaction")
++    summary = []
++    scopes = [("all", differences)]
++    scenarios = sorted({(row["n_train"], row["snr"]) for row in differences})
++    scopes += [(f"n{n}-snr{snr:g}", [r for r in differences if r["n_train"] == n and r["snr"] == snr]) for n, snr in scenarios]
++    for scope, members in scopes:
++        for metric in METRICS:
++            selected = [row for row in members if row["metric"] == metric]
++            for effect in effects:
++                values = np.asarray([row[effect] for row in selected], dtype=float)
++                summary.append({"scope": scope, "metric": metric, "effect": effect, "n_datasets": len(values),
++                    "paired_difference_mean": float(values.mean()),
++                    "paired_difference_sample_sd": float(values.std(ddof=1)) if len(values) > 1 else 0.,
++                    "negative_count": int(np.sum(values < -1e-10)), "tie_count": int(np.sum(abs(values) <= 1e-10)),
++                    "positive_count": int(np.sum(values > 1e-10))})
++    return summary
++
++
++def verify_npz_metadata(report, path):
++    from numerical_simulation.candidate_search_study.worker import array_fingerprint
++    with np.load(path, allow_pickle=False) as arrays:
++        require(array_fingerprint(arrays["B_true"]) == report["fingerprints"]["B_true"], "True tensor NPZ fingerprint differs")
++        truth = [np.flatnonzero(np.any(arrays["B_true"] != 0, axis=tuple(axis for axis in range(3) if axis != mode)))
++                 for mode in range(3)]
++        rows = {row["group"]: row for row in report["rows"]}
++        for name, group in report["groups"].items():
++            pool = group["candidates"]
++            actual_truth_present = any(all(np.array_equal(S, T) for S, T in zip(candidate["supports"], truth)) for candidate in pool)
++            require(actual_truth_present == group["true_support_in_pool"], "Truth positions coverage differs")
++            for index in {rows[name]["selection"]["selected_index"], rows[name]["selection"]["minimum_index"]}:
++                candidate = pool[index]
++                require(array_fingerprint(arrays[f"{name}_candidate_{index}_B"]) == candidate["B_fingerprint"], "Selected/minimum B NPZ differs")
++                for mode in (1, 2, 3):
++                    require(np.array_equal(arrays[f"{name}_candidate_{index}_S{mode}"], candidate["supports"][mode - 1]),
++                            "Selected/minimum support NPZ differs")
++
++
++def write_csv(path, rows):
++    from numerical_simulation.candidate_search_study.run import write_csv as immutable_write
++    immutable_write(path, rows)
++
++
++def analyse(output):
++    from numerical_simulation.candidate_search_study.run import load_plan, validate_result, result_path, write_json
++    output = Path(output)
++    plan = load_plan(output)
++    integrity_path = output / "integrity_report.json"
++    require(integrity_path.is_file(), "Incomplete cohort; wait for audited summary")
++    integrity = json.loads(integrity_path.read_text(encoding="utf8"))
++    require(integrity["integrity_checks_passed"] and integrity["completed_tasks"] == len(plan["tasks"]), "Incomplete cohort")
++    require(integrity["plan_id"] == plan["plan_id"], "Integrity plan differs")
++    require((output / "mechanism_overview.csv").is_file(), "Complete mechanism analysis required first")
++    names = ("factorial_dataset_contrasts.csv", "factorial_contrast_summary.csv", "coarse_search_diagnostics.csv", "factorial_integrity.json")
++    if any((output / name).exists() for name in names):
++        raise FileExistsError("Immutable factorial analysis already exists")
++    reports = []
++    for task in plan["tasks"]:
++        report = validate_result(output, plan, task)
++        verify_npz_metadata(report, result_path(output, task).with_suffix(".npz"))
++        reports.append(report)
++    differences, coarse = build_contrasts(plan, reports)
++    summary = summarize_differences(differences)
++    for name, values in zip(names[:3], (differences, summary, coarse)):
++        write_csv(output / name, values)
++    diagnostics = {"status": "complete", "cohort": plan["cohort"], "plan_id": plan["plan_id"], "datasets": len(reports),
++        "analysis_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
++        "regret_mean": float(np.mean([row["minimum_score_regret"] for row in coarse])),
++        "regret_max": max(row["minimum_score_regret"] for row in coarse),
++        "same_minimum_count": sum(row["minimum_score_equal_within_tolerance"] for row in coarse),
++        "full_minimum_B_missing_count": sum(not row["full_minimum_B_in_coarse_pool"] for row in coarse),
++        "full_selected_B_missing_count": sum(not row["full_selected_B_in_coarse_pool"] for row in coarse),
++        "same_minimum_missing_one_se_smaller_model_count": sum(row["same_minimum_missing_one_se_smaller_model"] for row in coarse),
++        "truth_shape_omitted_count": sum(row["truth_shape_omitted_by_coarse"] for row in coarse),
++        "truth_positions_omitted_count": sum(row["truth_positions_omitted_by_coarse"] for row in coarse),
++        "inference": "Paired descriptive conditional effects, not independently estimated population interactions; scenarios and seeds balanced.",
++        "runtime_note": "Observed elapsed time depends on shared-cache group order. Estimated standalone cost adds cached fixed fit durations and is not an independent cold-fit timing measurement.",
++        "scope": "Search mechanisms only; no MSIC/confirmation execution or formal-version adoption"}
++    write_json(output / names[3], diagnostics)
++    return diagnostics
++
++
++if __name__ == "__main__":
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--output-dir", required=True, type=Path)
++    print(json.dumps(analyse(parser.parse_args().output_dir), indent=2))
+diff --git a/numerical_simulation/candidate_search_study/numerics.py b/numerical_simulation/candidate_search_study/numerics.py
+new file mode 100644
+--- /dev/null
++++ b/numerical_simulation/candidate_search_study/numerics.py
+@@ -0,0 +1,176 @@
++"""Read-only selected-model OLS diagnostics for complete frozen cohorts.
++
++No candidate fitting, model selection, coefficient replacement or numerical
++rescue is performed. Rank and conditioning concern selected models only.
++"""
++from __future__ import annotations
++
++import argparse
++import csv
++from datetime import datetime, timezone
++import json
++from pathlib import Path
++from time import perf_counter
++
++import numpy as np
++
++
++def require(condition, message):
++    if not condition:
++        raise ValueError(message)
++
++
++def rectangular_design(X, supports):
++    X = np.asarray(X, dtype=float)
++    require(X.ndim == 4 and len(supports) == 3, 'Expected tensor samples and three supports')
++    indices = [np.asarray(support, dtype=int) for support in supports]
++    require(all(len(S) > 0 and len(np.unique(S)) == len(S)
++                and np.all((S >= 0) & (S < dimension))
++                for S, dimension in zip(indices, X.shape[1:])), 'Invalid rectangular supports')
++    return X[:, indices[0]][:, :, indices[1]][:, :, :, indices[2]].reshape(len(X), -1)
++
++
++def audit_selected_model(X, y, B, supports, *, expected_rss, expected_loss=None):
++    started = perf_counter()
++    X = np.asarray(X, dtype=float)
++    y = np.asarray(y, dtype=float).ravel()
++    B = np.asarray(B, dtype=float)
++    require(X.ndim == 4 and len(y) == len(X) and B.shape == X.shape[1:], 'Misaligned audit arrays')
++    require(np.isfinite(X).all() and np.isfinite(y).all() and np.isfinite(B).all()
++            and np.isfinite(expected_rss), 'Nonfinite audit input')
++    indices = [np.asarray(S, dtype=int) for S in supports]
++    D = rectangular_design(X, indices)
++    n, q = D.shape
++    require(q <= int(np.floor(.7*n)), 'Selected candidate exceeds q capacity')
++    beta = B[np.ix_(*indices)].ravel()
++    mask = np.zeros(B.shape, dtype=bool); mask[np.ix_(*indices)] = True
++    require(np.count_nonzero(B[~mask]) == 0, 'Nonzero coefficients outside reported rectangle')
++    rectangular_prediction = D @ beta
++    tensor_prediction = np.einsum('nijk,ijk->n', X, B)
++    rss = float(np.sum((y-rectangular_prediction)**2))
++    tensor_rss = float(np.sum((y-tensor_prediction)**2))
++    rss_scale = max(1.0, abs(float(expected_rss)))
++    tolerance = 1e-9
++    require(abs(rss-float(expected_rss)) <= tolerance*rss_scale,
++            f'Selected coefficient RSS differs from stored RSS: actual={rss}, expected={expected_rss}')
++    if expected_loss is not None:
++        require(np.isfinite(expected_loss) and abs(2*n*expected_loss-float(expected_rss)) <= tolerance*rss_scale,
++                'Stored RSS/loss inconsistent')
++    prediction_gap = float(np.max(np.abs(rectangular_prediction-tensor_prediction)))
++    prediction_scale = max(1.0, float(np.max(np.abs(tensor_prediction))))
++    require(prediction_gap <= tolerance*prediction_scale
++            and abs(rss-tensor_rss) <= tolerance*rss_scale, 'Tensor and rectangle predictions differ')
++    singular = np.linalg.svd(D, compute_uv=False)
++    rank_tolerance = float(singular[0]*max(D.shape)*np.finfo(float).eps)
++    rank = int(np.count_nonzero(singular > rank_tolerance))
++    rank_deficient = rank < q
++    condition = None if rank_deficient else float(singular[0]/singular[-1])
++    independent_beta, _, independent_rank, _ = np.linalg.lstsq(D, y, rcond=None)
++    independent_rss = float(np.sum((y-D @ independent_beta)**2))
++    require(int(independent_rank) == rank, 'Independent OLS rank differs from SVD numerical rank')
++    require(abs(rss-independent_rss) <= tolerance*rss_scale,
++            f'Selected RSS differs from independent OLS RSS: selected={rss}, OLS={independent_rss}')
++    normal = float(np.linalg.norm(D.T @ (y-rectangular_prediction)))
++    normal_relative = normal/max(float(singular[0]*np.linalg.norm(y)), np.finfo(float).tiny)
++    require(normal_relative <= 1e-8, f'Selected fit violates normal equations: relative={normal_relative}')
++    beta_gap = float(np.linalg.norm(beta-independent_beta))
++    return {
++        'n_train': n, 'q_hat': q, 'sizes': list(map(len, indices)),
++        'rank': rank, 'rank_deficient': rank_deficient,
++        'rank_tolerance': rank_tolerance, 'singular_max': float(singular[0]),
++        'singular_min': float(singular[-1]), 'singular_values': singular.tolist(),
++        'condition_number': condition,
++        'rss_stored': float(expected_rss), 'rss_rectangular': rss, 'rss_tensor': tensor_rss,
++        'rss_independent_ols': independent_rss,
++        'rss_relative_difference': abs(rss-float(expected_rss))/rss_scale,
++        'ols_rss_relative_difference': abs(rss-independent_rss)/rss_scale,
++        'prediction_max_abs_difference': prediction_gap,
++        'normal_equation_residual': normal, 'normal_equation_relative_residual': normal_relative,
++        'beta_l2_difference_from_independent_ols': beta_gap,
++        'beta_relative_difference_from_independent_ols': beta_gap/max(1.0, float(np.linalg.norm(independent_beta))),
++        'coefficients_nonunique': rank_deficient,
++        'checks_passed': True, 'audit_seconds': perf_counter()-started,
++    }
++
++
++def audit_cohort(output_dir):
++    from numerical_simulation.candidate_search_study.run import read_json, validate_result
++    from numerical_simulation.data_generation import TensorSimulationConfig, generate_simulation_dataset
++    from numerical_simulation.version_validation.worker import array_fingerprint
++
++    output = Path(output_dir).resolve()
++    require(not (output/'STOPPED_FOR_AUDIT.json').exists(), 'Stopped cohort is excluded from numerical auditing')
++    integrity = read_json(output/'integrity_report.json')
++    plan = read_json(output/'plan.json')
++    require(integrity['status'] == 'complete' and integrity['integrity_checks_passed']
++            and integrity['plan_id'] == plan['plan_id']
++            and integrity['completed_tasks'] == len(plan['tasks']), 'Cohort is not complete and validated')
++    targets = [output/'selected_model_numerics.csv', output/'numerics_diagnostics.json']
++    require(not any(path.exists() for path in targets), 'Immutable numerical diagnostics already exist')
++    rows = []
++    started = perf_counter()
++    for task in plan['tasks']:
++        report = validate_result(output, plan, task)
++        config_values = dict(report['config'])
++        for key in ('dims', 'sparsity', 'rho'):
++            config_values[key] = tuple(config_values[key])
++        dataset = generate_simulation_dataset(TensorSimulationConfig(**config_values), seed=int(report['seed']))
++        for key, value in (('X_train', dataset.X_train), ('y_train', dataset.y_train)):
++            require(array_fingerprint(value) == report['fingerprints'][key], f'Regenerated training fingerprint differs: {key}')
++        cache_path = output/'jobs'/f"task_{task['task_id']:03d}.npz"
++        with np.load(cache_path, allow_pickle=False) as arrays:
++            for selected in report['rows']:
++                group = selected['group']; index = int(selected['selection']['selected_index'])
++                candidate = report['groups'][group]['candidates'][index]
++                prefix = f'{group}_candidate_{index}_'
++                B = arrays[prefix+'B']; supports = [arrays[prefix+f'S{mode}'] for mode in (1, 2, 3)]
++                require(array_fingerprint(B) == selected['B_fingerprint'] == candidate['B_fingerprint'], 'Selected B fingerprint mismatch')
++                require([S.tolist() for S in supports] == selected['supports'] == candidate['supports'], 'Selected support cache mismatch')
++                diagnostics = audit_selected_model(dataset.X_train, dataset.y_train, B, supports,
++                    expected_rss=selected['rss_train'], expected_loss=selected['loss_train'])
++                rows.append({'task_id': task['task_id'], 'seed': report['seed'], 'snr': report['config']['snr'],
++                    'group': group, 'cap_policy': report['groups'][group]['cap_policy'],
++                    'grid_policy': report['groups'][group]['grid_policy'], 'candidate_index': index,
++                    'candidate_kind': candidate['kind'], **diagnostics})
++        print(f"Numerics: {len(rows)} selected fits audited after task {task['task_id']}", flush=True)
++    summary = {'status': 'complete', 'checks_passed': True, 'plan_id': plan['plan_id'],
++        'created_utc': datetime.now(timezone.utc).isoformat(), 'selected_model_count': len(rows),
++        'task_count': len(plan['tasks']), 'runtime_sec': perf_counter()-started,
++        'scope': 'Selected original-MSIC model per dataset/group only; not all candidate matrices. Training tensors regenerated with exact fingerprints. No coefficients or supports changed.',
++        'tolerances': {'relative_scaled_rss_and_prediction': 1e-9, 'normal_equation_relative_residual': 1e-8},
++        'rank_deficient_count': sum(row['rank_deficient'] for row in rows), 'groups': {}}
++    for group in plan['groups']:
++        group_rows = [row for row in rows if row['group'] == group]
++        finite_conditions = [row['condition_number'] for row in group_rows if row['condition_number'] is not None]
++        summary['groups'][group] = {
++            'selected_model_count': len(group_rows), 'rank_deficient_count': sum(row['rank_deficient'] for row in group_rows),
++            'condition_number_min': min(finite_conditions) if finite_conditions else None,
++            'condition_number_median': float(np.median(finite_conditions)) if finite_conditions else None,
++            'condition_number_max': max(finite_conditions) if finite_conditions else None,
++            'max_q': max(row['q_hat'] for row in group_rows),
++            'max_rss_relative_difference': max(row['rss_relative_difference'] for row in group_rows),
++            'max_ols_rss_relative_difference': max(row['ols_rss_relative_difference'] for row in group_rows),
++            'max_normal_equation_relative_residual': max(row['normal_equation_relative_residual'] for row in group_rows),
++            'total_audit_seconds': sum(row['audit_seconds'] for row in group_rows),
++        }
++    with targets[0].open('x', encoding='utf-8', newline='') as handle:
++        writer = csv.DictWriter(handle, fieldnames=list(rows[0])); writer.writeheader()
++        for row in rows:
++            writer.writerow({key: json.dumps(value, separators=(',', ':')) if isinstance(value, list) else value
++                             for key, value in row.items()})
++    with targets[1].open('x', encoding='utf-8') as handle:
++        json.dump(summary, handle, indent=2, ensure_ascii=False, allow_nan=False); handle.write('\n')
++    return summary
++
++
++def main(argv=None):
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument('--output-dir', required=True, type=Path)
++    args = parser.parse_args(argv)
++    summary = audit_cohort(args.output_dir)
++    print(f"Selected numerical checks passed: {summary['selected_model_count']} models", flush=True)
++    return 0
++
++
++if __name__ == '__main__':
++    raise SystemExit(main())
+diff --git a/numerical_simulation/candidate_search_study/run.py b/numerical_simulation/candidate_search_study/run.py
+new file mode 100644
+--- /dev/null
++++ b/numerical_simulation/candidate_search_study/run.py
+@@ -0,0 +1,342 @@
++"""Immutable paired candidate mechanism plans; no formal 700-task experiment."""
++from __future__ import annotations
++
++import argparse
++from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
++import csv
++from datetime import datetime, timezone
++import hashlib
++import json
++import os
++from pathlib import Path
++import platform
++import subprocess
++import sys
++
++import numpy as np
++import scipy
++
++from numerical_simulation.candidate_search_study.worker import GROUPS, VERSION
++
++
++THREADS = ("OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS", "OMP_NUM_THREADS", "NUMEXPR_NUM_THREADS")
++METRICS = ("q_hat", "exact_recovery", "mode_f1_macro", "element_f1", "pmse", "r2_test",
++           "rss_train", "runtime_sec", "candidate_count", "true_size_in_pool", "true_support_in_pool")
++
++
++def root():
++    return Path(__file__).resolve().parents[2]
++
++
++def canonical(value):
++    return json.dumps(value, sort_keys=True, ensure_ascii=False, allow_nan=False, separators=(",", ":"))
++
++
++def digest(value):
++    return hashlib.sha256(canonical(value).encode("utf-8")).hexdigest()
++
++
++def file_hash(path):
++    return hashlib.sha256(path.read_bytes()).hexdigest()
++
++
++def read_json(path):
++    return json.loads(Path(path).read_text(encoding="utf-8"))
++
++
++def require(condition, message):
++    if not condition:
++        raise ValueError(message)
++
++
++def environment():
++    return {"libraries": {"python": platform.python_version(), "numpy": np.__version__, "scipy": scipy.__version__},
++            "platform": platform.system(), "machine": platform.machine(),
++            "worker_thread_environment": {key: "1" for key in THREADS}}
++
++
++def source_manifests():
++    source = root() / "doc/algorithm_versions" / VERSION / "src"
++    paths = sorted((source / "tensor_abess").rglob("*.py"))
++    require(bool(paths), "Missing isolated v5.2 core sources")
++    experiment = [Path(__file__), Path(__file__).with_name("worker.py"), Path(__file__).with_name("__init__.py"),
++                  root() / "numerical_simulation/version_validation/worker.py",
++                  root() / "numerical_simulation/data_generation.py", root() / "numerical_simulation/metrics.py",
++                  root() / "numerical_simulation/known_s_cluster/profiles.json"]
++    return {"core": {p.relative_to(source).as_posix(): file_hash(p) for p in paths},
++            "experiment": {p.relative_to(root()).as_posix(): file_hash(p) for p in experiment}}
++
++
++def build_tasks(cohort, n_reps, groups):
++    require(cohort in {"historical", "development", "confirmation"}, "Invalid cohort")
++    require(isinstance(n_reps, int) and 1 <= n_reps <= 10, "n_reps must be in 1..10")
++    require(bool(groups) and len(groups) == len(set(groups)) and set(groups) <= set(GROUPS), "Invalid/duplicate groups")
++    require(cohort != "historical" or n_reps == 3, "Historical cohort has exactly 3 repetitions")
++    baseline = read_json(root() / "numerical_simulation/known_s_cluster/profiles.json")["profiles"]["full"]["base_config"]
++    historical = root() / "numerical_simulation/outputs_msic_ablation_v51_final"
++    tasks = []
++    for scenario, (n, snr) in enumerate((n, snr) for n in (100, 200, 400) for snr in (.5, 2.0, 4.0)):
++        for replicate in range(n_reps):
++            task_id = len(tasks)
++            request_file = f"requests/task_{task_id:03d}.json"
++            if cohort == "historical":
++                original = read_json(historical / request_file)
++                request = {key: original[key] for key in ("config", "seed", "test_seed")}
++            else:
++                base_seed = {"development": 20361010, "confirmation": 20461010}[cohort]
++                seed = base_seed + 1000 * scenario + replicate
++                request = {"config": {**baseline, "n_train": n, "snr": snr},
++                           "seed": seed, "test_seed": seed + 1_000_000}
++            request.update(groups=list(groups), fit_options={"candidate_budget": 2000,
++                "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
++                "cache": "explicit shared fixed-candidate dictionary per dataset; frozen group order"})
++            tasks.append({"task_id": task_id, "scenario_id": scenario, "replicate": replicate,
++                          "request_file": request_file, "request": request, "request_id": digest(request)})
++    return tasks
++
++
++def build_plan(cohort, n_reps, groups):
++    tasks = build_tasks(cohort, n_reps, groups)
++    git = subprocess.run(["git", "rev-parse", "HEAD"], cwd=root(), capture_output=True, text=True)
++    body = {"schema_version": 1, "version": VERSION, "cohort": cohort, "n_reps": n_reps,
++        "groups": list(groups), "tasks": tasks, "sources": source_manifests(), "environment": environment(),
++        "git_commit": git.stdout.strip() if git.returncode == 0 else None,
++        "purpose": "Phase D search mechanism comparison only; original MSIC unchanged; no parameter selection",
++        "seed_definition": "historical exact 27 prior requests; development20361010 or confirmation20461010 +1000*scenario+rep; independent test +1000000",
++        "scenario_order": "n=(100,200,400) outer,SNR=(.5,2,4) inner",
++        "completion_requirement": "all frozen datasets/groups and identical input/test fingerprints before summary"}
++    return {**body, "plan_id": digest(body)}
++
++
++def write_json(path, value):
++    with Path(path).open("x", encoding="utf-8") as handle:
++        json.dump(value, handle, indent=2, ensure_ascii=False, allow_nan=False)
++        handle.write("\n")
++
++
++def create_plan(output, cohort, n_reps, groups):
++    output = Path(output)
++    output.mkdir(parents=True, exist_ok=True)
++    if any(output.iterdir()):
++        raise FileExistsError("Plan requires a new empty output directory")
++    plan = build_plan(cohort, n_reps, groups)
++    for name in ("requests", "jobs", "logs", "failures"):
++        (output / name).mkdir()
++    for task in plan["tasks"]:
++        write_json(output / task["request_file"], task["request"])
++    write_json(output / "plan.json", plan)
++    return plan
++
++
++def load_plan(output):
++    output = Path(output)
++    plan = read_json(output / "plan.json")
++    require(plan["plan_id"] == digest({key: value for key, value in plan.items() if key != "plan_id"}), "Plan checksum mismatch")
++    expected = build_plan(plan["cohort"], plan["n_reps"], plan["groups"])
++    for key in ("tasks", "sources", "environment", "groups", "version", "git_commit"):
++        require(plan[key] == expected[key], f"Frozen {key} changed; use a fresh plan")
++    for task in plan["tasks"]:
++        request = read_json(output / task["request_file"])
++        require(request == task["request"] and digest(request) == task["request_id"], "Frozen request changed")
++    return plan
++
++
++def validate_group_pairing(report):
++    groups = list(report["groups"].values())
++    require(bool(groups), "No group results")
++    for group in groups[1:]:
++        for key in ("X_train", "y_train", "B_true", "independent_test"):
++            require(group["fingerprints"][key] == groups[0]["fingerprints"][key], f"Group {key} fingerprint differs")
++
++
++def result_path(output, task):
++    return Path(output) / "jobs" / f"task_{task['task_id']:03d}.json"
++
++
++def validate_result(output, plan, task):
++    path = result_path(output, task)
++    npz = path.with_suffix(".npz")
++    require(path.is_file() and npz.is_file(), f"Incomplete result/cache task {task['task_id']}")
++    report = read_json(path)
++    request = task["request"]
++    for key in ("config", "seed", "test_seed", "fit_options"):
++        require(canonical(report[key]) == canonical(request[key]), f"Result request mismatch {key}")
++    require(report["version"] == plan["version"] and report["status"] == "complete", "Result incomplete/version differs")
++    require(report["group_order"] == plan["groups"] and set(report["groups"]) == set(plan["groups"]), "Result groups differ")
++    require(report["environment"] == plan["environment"]["libraries"], "Result environment differs")
++    require(report["fingerprints"]["core_sources"] == plan["sources"]["core"], "Result source differs")
++    require(report["array_cache"] == npz.name and report["array_cache_sha256"] == file_hash(npz), "Array cache checksum differs")
++    require(len(report["rows"]) == len(plan["groups"]), "Phase D must have exactly one original MSIC row per group")
++    require({row["group"] for row in report["rows"]} == set(plan["groups"]), "Missing/duplicate group rows")
++    require(all(row["rule"] == "msic-alpha1.5-scale1" for row in report["rows"]), "Unexpected MSIC ablation in Phase D")
++    require(report["fingerprints"]["independent_test"]["n_observations"] == request["config"]["n_test"], "Incomplete test stream")
++    validate_group_pairing(report)
++    require(all(group["environment"] == report["environment"] for group in report["groups"].values()),
++            "Group environment differs")
++    require(all(group["fingerprints"][key] == report["fingerprints"][key]
++                for group in report["groups"].values() for key in ("X_train", "y_train", "B_true", "independent_test")),
++            "Group/dataset fingerprint differs")
++    return report
++
++
++def execute_task(output, plan, task):
++    output = Path(output)
++    job_id = f"task_{task['task_id']:03d}"
++    command = [sys.executable, "-m", "numerical_simulation.candidate_search_study.worker", "--request",
++               str((output / task["request_file"]).resolve()), "--output", str(result_path(output, task).resolve())]
++    child_env = dict(os.environ)
++    child_env.update(plan["environment"]["worker_thread_environment"])
++    completed = subprocess.run(command, cwd=root(), env=child_env, capture_output=True, text=True, encoding="utf-8", errors="replace")
++    for name, value in (("stdout", completed.stdout), ("stderr", completed.stderr)):
++        with (output / "logs" / f"{job_id}.{name}.txt").open("x", encoding="utf-8") as handle:
++            handle.write(value)
++    try:
++        require(completed.returncode == 0, f"Worker returned {completed.returncode}: {completed.stderr}")
++        validate_result(output, plan, task)
++    except Exception as exc:
++        write_json(output / "failures" / f"{job_id}.json", {"status": "failed", "task_id": task["task_id"],
++            "plan_id": plan["plan_id"], "error": str(exc), "utc_time": datetime.now(timezone.utc).isoformat()})
++        raise
++    return task["task_id"]
++
++
++def run_plan(output, workers=1, task_ids=None):
++    require(isinstance(workers, int) and 1 <= workers <= 64, "workers must be in 1..64")
++    output = Path(output)
++    plan = load_plan(output)
++    require(not any((output / "failures").iterdir()), "Recorded failure prevents further execution")
++    selected = plan["tasks"] if task_ids is None else [task for task in plan["tasks"] if task["task_id"] in set(task_ids)]
++    require(task_ids is None or len(selected) == len(set(task_ids)), "Unknown task-id")
++    pending, complete = [], 0
++    for task in selected:
++        path = result_path(output, task)
++        if path.exists() or path.with_suffix(".npz").exists():
++            try:
++                validate_result(output, plan, task)
++            except Exception as exc:
++                write_json(output / "failures" / f"task_{task['task_id']:03d}_resume.json", {"status": "resume-validation-failed",
++                    "task_id": task["task_id"], "plan_id": plan["plan_id"], "error": str(exc)})
++                raise
++            complete += 1
++        else:
++            pending.append(task)
++    iterator = iter(pending)
++    with ThreadPoolExecutor(max_workers=workers) as executor:
++        active = {}
++        for _ in range(min(workers, len(pending))):
++            task = next(iterator)
++            active[executor.submit(execute_task, output, plan, task)] = task
++        while active:
++            done, _ = wait(active, return_when=FIRST_COMPLETED)
++            errors = []
++            for future in done:
++                task = active.pop(future)
++                try:
++                    future.result()
++                    complete += 1
++                    print(f"Completed {complete}/{len(selected)}: task {task['task_id']}", flush=True)
++                except Exception as exc:
++                    errors.append(exc)
++            if errors:
++                for future in active:
++                    future.cancel()
++                raise errors[0]
++            for _ in done:
++                task = next(iterator, None)
++                if task is not None:
++                    active[executor.submit(execute_task, output, plan, task)] = task
++    return {"plan_id": plan["plan_id"], "status": "complete-selected-tasks", "completed_tasks": complete,
++            "selected_tasks": len(selected), "expected_full_tasks": len(plan["tasks"])}
++
++
++def summarize_reports(plan, records):
++    ids = [record["task_id"] for record in records]
++    require(len(ids) == len(set(ids)), "Duplicate datasets")
++    require(set(ids) == {task["task_id"] for task in plan["tasks"]}, "incomplete frozen plan")
++    by_id = {record["task_id"]: record["report"] for record in records}
++    rows, pairs, coverage = [], [], []
++    for task in plan["tasks"]:
++        report = by_id[task["task_id"]]
++        validate_group_pairing(report)
++        tags = {"task_id": task["task_id"], "scenario_id": task["scenario_id"], "replicate": task["replicate"]}
++        group_rows = {row["group"]: row for row in report["rows"]}
++        rows.extend({**tags, **row} for row in report["rows"])
++        for group, info in report["groups"].items():
++            coverage.append({**tags, "group": group, "n_train": task["request"]["config"]["n_train"],
++                "snr": task["request"]["config"]["snr"], "seed": task["request"]["seed"],
++                **{key: info[key] for key in ("candidate_count", "cache_hits", "new_fixed_fits", "true_size_in_grid",
++                    "true_size_in_pool", "true_support_in_pool", "true_size_exclusion_reasons")},
++                **{key: info["search_metadata"][key] for key in ("caps", "grid_complete")}})
++        if "A0" in group_rows:
++            base = group_rows["A0"]
++            for group, row in group_rows.items():
++                if group != "A0":
++                    pairs.append({**tags, "group": group, "n_train": row["n_train"], "snr": row["snr"], "seed": row["seed"],
++                        **{f"{metric}_minus_A0": row[metric] - base[metric] for metric in METRICS},
++                        "selected_B_changed": int(row["B_fingerprint"] != base["B_fingerprint"])})
++    grouped = {}
++    for row in rows:
++        grouped.setdefault((row["group"], row["n_train"], row["snr"]), []).append(row)
++    summary = []
++    for (group, n, snr), members in sorted(grouped.items()):
++        item = {"group": group, "n_train": n, "snr": snr, "n_reps": len(members)}
++        for metric in METRICS:
++            values = np.asarray([row[metric] for row in members], dtype=float)
++            item[f"{metric}_mean"] = float(values.mean())
++            item[f"{metric}_sample_sd"] = float(values.std(ddof=1)) if len(values) > 1 else 0.0
++        summary.append(item)
++    integrity = {"status": "complete", "integrity_checks_passed": True, "plan_id": plan["plan_id"],
++                 "completed_tasks": len(records), "expected_tasks": len(plan["tasks"]), "paired_group_rows": len(rows),
++                 "cohort": plan["cohort"], "scope": "Phase D mechanisms only; default MSIC unchanged; no formal adoption"}
++    return rows, summary, pairs, coverage, integrity
++
++
++def write_csv(path, rows):
++    columns = list(dict.fromkeys(key for row in rows for key in row))
++    with Path(path).open("x", encoding="utf-8", newline="") as handle:
++        writer = csv.DictWriter(handle, fieldnames=columns)
++        writer.writeheader()
++        for row in rows:
++            writer.writerow({key: canonical(value) if isinstance(value, (tuple, list, dict)) else value for key, value in row.items()})
++
++
++def summarize(output):
++    output = Path(output)
++    plan = load_plan(output)
++    require(not any((output / "failures").iterdir()), "Recorded failures prevent summary")
++    names = ("raw_results.csv", "summary_results.csv", "paired_group_diff.csv", "candidate_coverage.csv", "integrity_report.json")
++    if any((output / name).exists() for name in names):
++        raise FileExistsError("Immutable summary already exists")
++    records = [{"task_id": task["task_id"], "report": validate_result(output, plan, task)} for task in plan["tasks"]]
++    rows, summary, pairs, coverage, integrity = summarize_reports(plan, records)
++    for name, values in zip(names[:4], (rows, summary, pairs, coverage)):
++        write_csv(output / name, values)
++    write_json(output / names[4], integrity)
++    return integrity
++
++
++def main(argv=None):
++    parser = argparse.ArgumentParser(description=__doc__)
++    commands = parser.add_subparsers(dest="command", required=True)
++    for command in ("plan", "run", "summarize"):
++        sub = commands.add_parser(command)
++        sub.add_argument("--output-dir", type=Path, required=True)
++        if command == "plan":
++            sub.add_argument("--cohort", choices=("historical", "development", "confirmation"), required=True)
++            sub.add_argument("--n-reps", type=int, default=10)
++            sub.add_argument("--groups", nargs="+", choices=tuple(GROUPS), default=["A0", "A1", "A2", "A3"])
++        if command == "run":
++            sub.add_argument("--workers", type=int, default=1)
++            sub.add_argument("--task-id", type=int, action="append")
++    args = parser.parse_args(argv)
++    operations = {"plan": lambda: create_plan(args.output_dir, args.cohort, args.n_reps, args.groups),
++                  "run": lambda: run_plan(args.output_dir, args.workers, args.task_id),
++                  "summarize": lambda: summarize(args.output_dir)}
++    result = operations[args.command]()
++    print(canonical({"command": args.command, "plan_id": result["plan_id"], "status": result.get("status", "planned"),
++                     "tasks": len(result["tasks"]) if "tasks" in result else result.get("completed_tasks")}), flush=True)
++    return 0
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())
+diff --git a/numerical_simulation/candidate_search_study/stability.py b/numerical_simulation/candidate_search_study/stability.py
+new file mode 100644
+--- /dev/null
++++ b/numerical_simulation/candidate_search_study/stability.py
+@@ -0,0 +1,36 @@
++"""Training-only, predeclared multistart support search; Oracle is evaluation only."""
++from __future__ import annotations
++from time import perf_counter
++import numpy as np
++
++
++def make_initializations(X, y, sizes, *, training_seed):
++    from tensor_abess.utils.init import initial_support
++    sizes=tuple(int(s) for s in sizes)
++    if len(sizes)!=3 or any(s<1 or s>d for s,d in zip(sizes,X.shape[1:])):
++        raise ValueError('Fixed sizes must be within tensor dimensions')
++    strategies=[('marginal','marginal',0),('random_0','random',int(training_seed)+30_000_000),
++                ('random_1','random',int(training_seed)+31_000_000)]
++    return [{'strategy':name,'random_seed':seed,'supports':initial_support(X,y,*sizes,strategy=strategy,random_state=seed)}
++            for name,strategy,seed in strategies]
++
++
++def fit_multistart(X,y,sizes,*,training_seed,max_cycles=6,k_max=1,m_max=15):
++    from tensor_abess.tensor.bcd import tensor_bcd
++    sizes=tuple(int(s) for s in sizes)
++    if int(np.prod(sizes))>max(1,int(np.floor(.7*len(y)))):
++        raise ValueError('Predeclared size exceeds the candidate-level parameter capacity')
++    records=[]
++    for start in make_initializations(X,y,sizes,training_seed=training_seed):
++        began=perf_counter()
++        result=tensor_bcd(X,y,*sizes,max_cycles=max_cycles,k_max=k_max,m_max=m_max,
++                         **{f'S{i}_init':S for i,S in enumerate(start['supports'],1)})
++        records.append({'strategy':start['strategy'],'random_seed':start['random_seed'],
++            'initial_supports':tuple(S.copy() for S in start['supports']),
++            'supports':tuple(getattr(result,f'S{i}').copy() for i in (1,2,3)),
++            'sizes':sizes,'B':result.B.copy(),'rss':float(2*len(y)*result.loss),
++            'loss':float(result.loss),'loss_history':list(result.loss_history),
++            'visited_loss_history':list(result.visited_loss_history),'best_iteration':result.best_iteration,
++            'stop_reason':result.stop_reason,'n_cycles':result.n_cycles,'runtime_sec':perf_counter()-began})
++    winner=min(range(len(records)),key=lambda i:(records[i]['rss'],i))
++    return dict(records[winner],selected_start=winner),records
+diff --git a/numerical_simulation/candidate_search_study/stability_run.py b/numerical_simulation/candidate_search_study/stability_run.py
+new file mode 100644
+--- /dev/null
++++ b/numerical_simulation/candidate_search_study/stability_run.py
+@@ -0,0 +1,306 @@
++"""Immutable, training-selected-size multistart experiment; Oracle is evaluation only."""
++from __future__ import annotations
++
++import argparse
++from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
++import csv
++import hashlib
++import json
++import os
++from pathlib import Path
++import subprocess
++import sys
++from time import perf_counter
++
++import numpy as np
++
++from numerical_simulation.candidate_search_study import run as candidate_run
++from numerical_simulation.candidate_search_study.stability import fit_multistart
++from numerical_simulation.version_validation.worker import array_fingerprint, evaluate_shared_test
++
++
++GROUPS = ('A0', 'A3')
++CORE = 'doc/algorithm_versions/v5.1-bcd-fix/src'
++
++
++def selected_sizes(job):
++    candidate_run.require(job['status'] == 'complete', 'Incomplete candidate job')
++    result = {}
++    for group in GROUPS:
++        rows = [r for r in job['rows'] if r['group'] == group and r['rule'] == 'msic-alpha1.5-scale1']
++        candidate_run.require(len(rows) == 1, f'Missing/duplicate training default {group}')
++        candidate = job['groups'][group]['candidates'][rows[0]['selection']['selected_index']]
++        sizes = tuple(int(s) for s in candidate['sizes'])
++        candidate_run.require(len(sizes) == 3 and all(1 <= s <= p for s, p in zip(sizes, job['config']['dims']))
++                              and np.prod(sizes) <= np.floor(.7 * job['config']['n_train']), 'Illegal selected sizes')
++        result[group] = sizes
++    return result
++
++
++def validate_artifact(report, arrays, identity):
++    candidate_run.require(report['status'] == 'complete' and report['identity'] == identity, 'Result identity mismatch')
++    candidate_run.require(set(arrays) == set(report['array_fingerprints']), 'Result array keys mismatch')
++    for key, expected in report['array_fingerprints'].items():
++        candidate_run.require(array_fingerprint(arrays[key]) == expected, f'Result array fingerprint mismatch: {key}')
++    for record in report['records']:
++        index = record['record_index']
++        candidate_run.require(array_fingerprint(arrays[f'record_{index}_B']) == record['B_fingerprint'], 'Record B differs')
++        supports = [arrays[f'record_{index}_S{m}'].tolist() for m in (1, 2, 3)]
++        candidate_run.require(supports == record['supports'], 'Record supports differ')
++
++
++def sources():
++    root = candidate_run.root()
++    source = root / CORE
++    files = sorted((source / 'tensor_abess').rglob('*.py'))
++    candidate_run.require(bool(files), 'Missing frozen v5.1 core')
++    experiment = [Path(__file__), Path(__file__).with_name('stability.py'),
++                  root/'numerical_simulation/data_generation.py', root/'numerical_simulation/metrics.py',
++                  root/'numerical_simulation/version_validation/worker.py', Path(candidate_run.__file__)]
++    return {'core': {p.relative_to(source).as_posix(): candidate_run.file_hash(p) for p in files},
++            'experiment': {p.relative_to(root).as_posix(): candidate_run.file_hash(p) for p in experiment}}
++
++
++def configure_core():
++    source = (candidate_run.root()/CORE).resolve()
++    loaded = sys.modules.get('tensor_abess')
++    candidate_run.require(loaded is None or Path(loaded.__file__).resolve().parent == source/'tensor_abess',
++                          'Different core already loaded; use an isolated worker')
++    sys.path.insert(0, str(source))
++
++
++def create_plan(candidate_dir, output):
++    candidate_dir, output = Path(candidate_dir).resolve(), Path(output)
++    plan = candidate_run.load_plan(candidate_dir)
++    candidate_run.require(plan['cohort'] == 'historical' and len(plan['tasks']) == 27, 'Expected historical 27-task plan')
++    candidate_run.require(set(GROUPS) <= set(plan['groups']), 'Plan lacks A0/A3')
++    output.mkdir(parents=True, exist_ok=True)
++    candidate_run.require(not any(output.iterdir()), 'Stability plan requires empty output directory')
++    body = {'schema_version': 1, 'candidate_dir': str(candidate_dir), 'candidate_plan_sha256': candidate_run.file_hash(candidate_dir/'plan.json'),
++            'candidate_plan_id': plan['plan_id'], 'tasks': plan['tasks'], 'sources': sources(),
++            'environment': candidate_run.environment(), 'core': CORE,
++            'selection': 'A0/A3 original MSIC-selected sizes, marginal/random(seed+30000000)/random(seed+31000000); minimum training RSS; Oracle evaluation only',
++            'fit_options': {'m_max': 15}, 'duplicate_shapes': 'Reuse identical fixed-size multistart fits explicitly within each dataset'}
++    value = {**body, 'plan_id': candidate_run.digest(body)}
++    for name in ('jobs', 'logs', 'failures'):
++        (output/name).mkdir()
++    candidate_run.write_json(output/'plan.json', value)
++    return value
++
++
++def load_plan(output):
++    plan = candidate_run.read_json(Path(output)/'plan.json')
++    candidate_run.require(plan['plan_id'] == candidate_run.digest({k: v for k, v in plan.items() if k != 'plan_id'}), 'Stability plan checksum mismatch')
++    candidate_run.require(plan['sources'] == sources(), 'Frozen stability source changed')
++    candidate_run.require(plan['environment'] == candidate_run.environment(), 'Stability environment changed')
++    candidate_dir = Path(plan['candidate_dir'])
++    candidate_run.require(candidate_run.file_hash(candidate_dir/'plan.json') == plan['candidate_plan_sha256'], 'Candidate plan changed')
++    original = candidate_run.load_plan(candidate_dir)
++    candidate_run.require(original['plan_id'] == plan['candidate_plan_id'] and original['tasks'] == plan['tasks'], 'Candidate task identity changed')
++    return plan, original
++
++
++def identity_for(plan, task, candidate_path):
++    return {'plan_id': plan['plan_id'], 'task_id': task['task_id'], 'request_id': task['request_id'],
++            'candidate_json_sha256': candidate_run.file_hash(candidate_path),
++            'candidate_npz_sha256': candidate_run.file_hash(candidate_path.with_suffix('.npz'))}
++
++
++def evaluate_job(job, original_arrays):
++    from numerical_simulation.data_generation import TensorSimulationConfig, generate_simulation_dataset
++    from numerical_simulation.metrics import compute_support_metrics, compute_coefficient_metrics
++    from tensor_abess.tensor.ops import refit_tensor_coefficients, tensor_loss
++    config = TensorSimulationConfig(**job['config'])
++    dataset = generate_simulation_dataset(config, seed=int(job['seed']))
++    fingerprints = {name: array_fingerprint(getattr(dataset, name)) for name in ('X_train', 'y_train', 'B_true')}
++    candidate_run.require(all(fingerprints[k] == job['fingerprints'][k] for k in fingerprints), 'Recreated training inputs differ')
++    sizes = selected_sizes(job)
++    records, groups, cache = [], {}, {}
++    for group in GROUPS:
++        oldrow = next(r for r in job['rows'] if r['group'] == group and r['rule'] == 'msic-alpha1.5-scale1')
++        ci = oldrow['selection']['selected_index']
++        candidate = job['groups'][group]['candidates'][ci]
++        B = original_arrays[f'{group}_candidate_{ci}_B'].copy()
++        S = tuple(original_arrays[f'{group}_candidate_{ci}_S{m}'].copy() for m in (1, 2, 3))
++        candidate_run.require(array_fingerprint(B) == candidate['B_fingerprint'] and [s.tolist() for s in S] == candidate['supports'], 'Original training selection cache differs')
++        original_index = len(records)
++        records.append({'strategy': 'candidate_selected', 'group_owner': group, 'sizes': sizes[group], 'B': B,
++                        'supports': S, 'initial_supports': None, 'rss': candidate['rss'], 'loss': candidate['loss'],
++                        'runtime_sec': 0.0, 'runtime_scope': 'Imported completed candidate fit; no new fitting cost'})
++        if sizes[group] not in cache:
++            selected, starts = fit_multistart(dataset.X_train, dataset.y_train, sizes[group], training_seed=int(job['seed']),
++                max_cycles=config.max_cycles, k_max=config.k_max, m_max=15)
++            indices = list(range(len(records), len(records)+len(starts)))
++            records.extend(dict(start, group_owner=group) for start in starts)
++            cache[sizes[group]] = (group, indices, indices[selected['selected_start']])
++        owner, indices, winner = cache[sizes[group]]
++        groups[group] = {'sizes': list(sizes[group]), 'original_record': original_index, 'start_records': indices,
++                         'marginal_record': indices[0], 'selected_record': winner,
++                         'reused_from': owner if owner != group else None,
++                         'selection_scope': 'minimum training RSS among three predeclared starts; deterministic earliest tie',
++                         'incremental_fit_sec': sum(records[i]['runtime_sec'] for i in indices) if owner == group else 0.0}
++    # Oracle is deliberately outside training candidate construction and selection.
++    oracle_started = perf_counter()
++    oracle_B = refit_tensor_coefficients(dataset.X_train, dataset.y_train, *dataset.supports_true)
++    oracle_loss = tensor_loss(dataset.X_train, dataset.y_train, oracle_B)
++    oracle_index = len(records)
++    records.append({'strategy': 'oracle_ols', 'group_owner': 'evaluation_only', 'sizes': tuple(config.sparsity),
++                    'B': oracle_B, 'supports': dataset.supports_true, 'initial_supports': None,
++                    'rss': float(2*config.n_train*oracle_loss), 'loss': float(oracle_loss), 'runtime_sec': perf_counter()-oracle_started,
++                    'runtime_scope': 'Oracle reference, excluded from all training selection'})
++    predictions, test_hash = evaluate_shared_test(dataset, [r['B'] for r in records], int(job['test_seed']))
++    candidate_run.require(test_hash == job['fingerprints']['independent_test'], 'Independent test stream differs')
++    arrays, metadata = {'B_true': dataset.B_true}, []
++    for index, (record, prediction) in enumerate(zip(records, predictions)):
++        B, S = record['B'], record['supports']
++        rss = float(np.sum((dataset.y_train - np.einsum('nijk,ijk->n', dataset.X_train, B))**2))
++        candidate_run.require(np.isclose(rss, record['rss'], rtol=1e-10, atol=1e-9), 'Stability RSS inconsistent')
++        arrays[f'record_{index}_B'] = B
++        for mode, support in enumerate(S, 1):
++            arrays[f'record_{index}_S{mode}'] = np.asarray(support)
++        metadata.append({k: v for k, v in record.items() if k != 'B'} | {'record_index': index,
++            'B_fingerprint': array_fingerprint(B), **prediction, **compute_support_metrics(*S, *dataset.supports_true),
++            **compute_coefficient_metrics(B, dataset.B_true)})
++    return {'status': 'complete', 'config': job['config'], 'seed': job['seed'], 'test_seed': job['test_seed'],
++            'groups': groups, 'oracle_record': oracle_index, 'records': metadata,
++            'fingerprints': {**fingerprints, 'independent_test': test_hash},
++            'array_fingerprints': {key: array_fingerprint(value) for key, value in arrays.items()}}, arrays
++
++
++def job_path(output, task):
++    return Path(output)/'jobs'/f"task_{task['task_id']:03d}.json"
++
++
++def validate_result(output, plan, original_plan, task):
++    oldpath = candidate_run.result_path(plan['candidate_dir'], task)
++    candidate_run.validate_result(plan['candidate_dir'], original_plan, task)
++    path = job_path(output, task)
++    report = candidate_run.read_json(path)
++    candidate_run.require(report['report_id'] == candidate_run.digest({k: v for k, v in report.items() if k != 'report_id'}), 'Stability report checksum differs')
++    candidate_run.require(report['array_cache_sha256'] == candidate_run.file_hash(path.with_suffix('.npz')), 'Stability NPZ checksum differs')
++    with np.load(path.with_suffix('.npz'), allow_pickle=False) as arrays:
++        validate_artifact(report, arrays, identity_for(plan, task, oldpath))
++    return report
++
++
++def worker(output, task_id):
++    plan, original_plan = load_plan(output)
++    task = next(t for t in plan['tasks'] if t['task_id'] == task_id)
++    job = candidate_run.validate_result(plan['candidate_dir'], original_plan, task)
++    oldpath = candidate_run.result_path(plan['candidate_dir'], task)
++    path = job_path(output, task)
++    candidate_run.require(not path.exists() and not path.with_suffix('.npz').exists(), 'Immutable stability output exists')
++    configure_core()
++    with np.load(oldpath.with_suffix('.npz'), allow_pickle=False) as original_arrays:
++        report, arrays = evaluate_job(job, original_arrays)
++    from numerical_simulation.candidate_search_study.worker import jsonable
++    report = jsonable(report | {'identity': identity_for(plan, task, oldpath), 'task_id': task_id,
++                               'source_fingerprints': plan['sources'], 'environment': plan['environment']})
++    with path.with_suffix('.npz').open('xb') as handle:
++        np.savez_compressed(handle, **arrays)
++    report.update(array_cache=path.with_suffix('.npz').name, array_cache_sha256=candidate_run.file_hash(path.with_suffix('.npz')))
++    report['report_id'] = candidate_run.digest(report)
++    candidate_run.write_json(path, report)
++    validate_result(output, plan, original_plan, task)
++
++
++def execute(output, task_id):
++    env = dict(os.environ)
++    env.update({key: '1' for key in candidate_run.THREADS})
++    command = [sys.executable, '-m', 'numerical_simulation.candidate_search_study.stability_run',
++               'worker', '--output-dir', str(Path(output).resolve()), '--task-id', str(task_id)]
++    completed = subprocess.run(command, cwd=candidate_run.root(), env=env, capture_output=True, text=True, encoding='utf-8')
++    for name, value in (('stdout', completed.stdout), ('stderr', completed.stderr)):
++        with (Path(output)/'logs'/f'task_{task_id:03d}.{name}.txt').open('x', encoding='utf-8') as handle:
++            handle.write(value)
++    if completed.returncode:
++        candidate_run.write_json(Path(output)/'failures'/f'task_{task_id:03d}.json',
++                                 {'task_id': task_id, 'error': completed.stderr, 'returncode': completed.returncode})
++        raise RuntimeError(f'Stability task {task_id} failed: {completed.stderr}')
++    print(f'Completed stability task {task_id}', flush=True)
++
++
++def run(output, workers, task_ids=None):
++    plan, original = load_plan(output)
++    candidate_run.require(1 <= workers <= 64, 'workers must be in 1..64')
++    candidate_run.require(not any((Path(output)/'failures').iterdir()), 'Recorded failure prevents execution')
++    selected = plan['tasks'] if task_ids is None else [t for t in plan['tasks'] if t['task_id'] in set(task_ids)]
++    candidate_run.require(task_ids is None or len(selected) == len(set(task_ids)), 'Unknown task-id')
++    pending = []
++    for task in selected:
++        # Missing candidate inputs fail before any dependent stability work starts.
++        candidate_run.validate_result(plan['candidate_dir'], original, task)
++        path = job_path(output, task)
++        if path.exists() or path.with_suffix('.npz').exists():
++            validate_result(output, plan, original, task)
++        else:
++            candidate_run.require(not any((Path(output)/'logs').glob(f"task_{task['task_id']:03d}.*")),
++                                  'Orphaned immutable worker logs require investigation')
++            pending.append(task['task_id'])
++    iterator = iter(pending)
++    with ThreadPoolExecutor(max_workers=workers) as executor:
++        active = {executor.submit(execute, output, next(iterator)) for _ in range(min(workers, len(pending)))}
++        while active:
++            done, active = wait(active, return_when=FIRST_COMPLETED)
++            errors = [future.exception() for future in done if future.exception() is not None]
++            if errors:
++                for future in active:
++                    future.cancel()
++                raise errors[0]
++            for _ in done:
++                task_id = next(iterator, None)
++                if task_id is not None:
++                    active.add(executor.submit(execute, output, task_id))
++
++
++def summarize(output):
++    plan, original = load_plan(output)
++    reports = [validate_result(output, plan, original, task) for task in plan['tasks']]
++    rows, paired = [], []
++    for report in reports:
++        for group, info in report['groups'].items():
++            start, winner, baseline = [report['records'][info[k]] for k in ('marginal_record', 'selected_record', 'original_record')]
++            row = {'task_id': report['task_id'], 'group': group, 'n_train': report['config']['n_train'],
++                   'snr': report['config']['snr'], 'seed': report['seed'], 'sizes': json.dumps(info['sizes']),
++                   'reused_from': info['reused_from'], 'selected_strategy': winner['strategy'],
++                   'incremental_fit_sec': info['incremental_fit_sec']}
++            for key in ('rss', 'pmse', 'r2_test', 'exact_recovery', 'mode_f1_macro', 'element_f1'):
++                row.update({f'{prefix}_{key}': value[key] for prefix, value in [('candidate', baseline), ('marginal', start), ('multistart', winner)]})
++                row[f'multistart_minus_marginal_{key}'] = winner[key]-start[key]
++            paired.append(row)
++        rows.extend({'task_id': report['task_id'], 'n_train': report['config']['n_train'], 'snr': report['config']['snr'],
++                     **{k: v for k, v in record.items() if k not in ('loss_history', 'visited_loss_history')}} for record in report['records'])
++    for name, values in [('all_starts.csv', rows), ('paired_multistart.csv', paired)]:
++        path = Path(output)/name
++        candidate_run.require(not path.exists(), 'Immutable summary exists')
++        keys = list(dict.fromkeys(k for row in values for k in row))
++        with path.open('x', encoding='utf-8-sig', newline='') as handle:
++            writer = csv.DictWriter(handle, fieldnames=keys)
++            writer.writeheader()
++            writer.writerows({k: json.dumps(v) if isinstance(v, (dict, list)) else v for k, v in row.items()} for row in values)
++    return paired
++
++
++def main(argv=None):
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument('action', choices=('create', 'run', 'worker', 'summarize'))
++    parser.add_argument('--candidate-dir', type=Path)
++    parser.add_argument('--output-dir', required=True, type=Path)
++    parser.add_argument('--task-id', type=int, action='append')
++    parser.add_argument('--workers', type=int, default=1)
++    args = parser.parse_args(argv)
++    if args.action == 'create':
++        candidate_run.require(args.candidate_dir is not None, 'create requires --candidate-dir')
++        create_plan(args.candidate_dir, args.output_dir)
++    elif args.action == 'worker':
++        candidate_run.require(args.task_id is not None and len(args.task_id) == 1, 'worker requires one task-id')
++        worker(args.output_dir, args.task_id[0])
++    elif args.action == 'summarize':
++        summarize(args.output_dir)
++    else:
++        run(args.output_dir, args.workers, args.task_id)
++    return 0
++
++
++if __name__ == '__main__':
++    raise SystemExit(main())
+diff --git a/numerical_simulation/candidate_search_study/test_contrasts.py b/numerical_simulation/candidate_search_study/test_contrasts.py
+new file mode 100644
+--- /dev/null
++++ b/numerical_simulation/candidate_search_study/test_contrasts.py
+@@ -0,0 +1,71 @@
++"""Paired mechanism effects and nested-pool one-SE failure examples."""
++import unittest
++
++from numerical_simulation.candidate_search_study import contrasts
++
++
++def candidate(name, q, score):
++    return {"kind": "global-fixed", "sizes": [1, 1, q], "q": q,
++            "supports": [[0], [0], list(range(q))], "B_fingerprint": name, "score": score}
++
++
++def coarse_report(full, coarse, full_selected=0, coarse_selected=0):
++    def group(pool):
++        return {"candidates": pool, "runtime_sec": 1.0, "true_size_in_pool": False,
++                "true_support_in_pool": False, "search_metadata": {"size_grid": [c["sizes"] for c in pool]}}
++    def row(name, pool, selected):
++        minimum = min(range(len(pool)), key=lambda i: pool[i]["score"])
++        return {"group": name, "q_hat": pool[selected]["q"], "B_fingerprint": pool[selected]["B_fingerprint"],
++                "selection": {"selected_index": selected, "minimum_index": minimum,
++                    "minimum_score": pool[minimum]["score"], "tolerance": 10.0}}
++    return {"config": {"sparsity": [1, 1, 1]}, "groups": {"A3": group(full), "A4": group(coarse)},
++            "rows": [row("A3", full, full_selected), row("A4", coarse, coarse_selected)]}
++
++
++class ContrastTests(unittest.TestCase):
++    def test_conditional_effects_and_interaction_are_paired_per_dataset(self):
++        rows = [{"task_id": 0, "values": {"A0": 0., "A1": 2., "A2": 4., "A3": 9.}},
++                {"task_id": 1, "values": {"A0": 10., "A1": 9., "A2": 13., "A3": 15.}}]
++        first = contrasts.factorial_effects(rows[0]["values"])
++        self.assertEqual(first, {"cap_at_legacy_grid": 2., "cap_at_full_grid": 5.,
++                                "grid_at_legacy_cap": 4., "grid_at_candidate_cap": 7., "interaction": 3.})
++        interactions = [contrasts.factorial_effects(row["values"])["interaction"] for row in rows]
++        self.assertEqual(sum(interactions) / len(interactions), 3.)
++
++    def test_missing_group_cannot_be_pooled_as_balanced_comparison(self):
++        with self.assertRaisesRegex(ValueError, "four"):
++            contrasts.factorial_effects({"A0": 1., "A1": 2., "A3": 3.})
++
++    def test_same_minimum_can_omit_one_se_smaller_model(self):
++        large = candidate("large", 100, 0.)
++        small = candidate("small", 1, 8.)
++        result = contrasts.coarse_diagnostics(coarse_report([large, small], [large], 1, 0))
++        self.assertEqual(result["minimum_score_regret"], 0.)
++        self.assertTrue(result["same_minimum_missing_one_se_smaller_model"])
++        self.assertFalse(result["full_selected_B_in_coarse_pool"])
++        self.assertTrue(result["full_minimum_B_in_coarse_pool"])
++
++    def test_pool_membership_includes_support_positions_not_just_q(self):
++        first = candidate("same-coefficient", 1, 0.)
++        second = candidate("same-coefficient", 1, 0.)
++        second["supports"] = [[1], [0], [0]]
++        self.assertNotEqual(contrasts.candidate_identity(first), contrasts.candidate_identity(second))
++        with self.assertRaisesRegex(ValueError, "nested"):
++            contrasts.coarse_diagnostics(coarse_report([first], [second]))
++
++    def test_coarse_cannot_have_better_minimum_than_its_full_superset(self):
++        first = candidate("same", 1, 1.)
++        second = candidate("same", 1, -1.)
++        with self.assertRaises(ValueError):
++            contrasts.coarse_diagnostics(coarse_report([first], [second]))
++
++    def test_small_roundoff_regret_is_normalized_but_raw_delta_retained(self):
++        first = candidate("same", 1, 1.)
++        second = candidate("same", 1, 1. - 1e-12)
++        result = contrasts.coarse_diagnostics(coarse_report([first], [second]))
++        self.assertEqual(result["minimum_score_regret"], 0.)
++        self.assertLess(result["minimum_score_delta_raw"], 0.)
++
++
++if __name__ == "__main__":
++    unittest.main()
+diff --git a/numerical_simulation/candidate_search_study/test_run.py b/numerical_simulation/candidate_search_study/test_run.py
+new file mode 100644
+--- /dev/null
++++ b/numerical_simulation/candidate_search_study/test_run.py
+@@ -0,0 +1,229 @@
++"""Frozen plans, paired inputs, immutable outputs, and pure rescoring contracts."""
++from pathlib import Path
++import tempfile
++import unittest
++from unittest.mock import patch
++
++from numerical_simulation.candidate_search_study import run, worker
++
++
++class PlanTests(unittest.TestCase):
++    def test_historical_requests_reuse_exact_data_seeds_without_cv(self):
++        tasks = run.build_tasks("historical", 3, ["A0", "A1", "A2", "A3"])
++        self.assertEqual(len(tasks), 27)
++        for task in tasks:
++            original = run.read_json(run.root() / "numerical_simulation/outputs_msic_ablation_v51_final" / task["request_file"])
++            self.assertEqual(task["request"]["config"], original["config"])
++            self.assertEqual(task["request"]["seed"], original["seed"])
++            self.assertEqual(task["request"]["test_seed"], original["test_seed"])
++            self.assertNotIn("include_cv", task["request"])
++
++    def test_development_confirmation_seeds_do_not_overlap(self):
++        cohorts = [run.build_tasks(cohort, 10, ["A0", "A3"]) for cohort in ("development", "confirmation")]
++        train = [set(t["request"]["seed"] for t in tasks) for tasks in cohorts]
++        test = [set(t["request"]["test_seed"] for t in tasks) for tasks in cohorts]
++        self.assertEqual(len(train[0]), 90)
++        self.assertFalse(train[0] & train[1])
++        self.assertFalse(train[0] & test[0] | train[1] & test[1])
++        self.assertFalse(test[0] & test[1])
++
++    def test_seed_does_not_depend_on_number_replicates(self):
++        one = run.build_tasks("development", 1, ["A0"])
++        ten = run.build_tasks("development", 10, ["A0"])
++        self.assertEqual([t["request"] for t in one], [t["request"] for t in ten if t["replicate"] == 0])
++
++    def test_groups_and_counts_rejected_before_fitting(self):
++        for groups in (["A0", "A0"], ["wrong"], []):
++            with self.assertRaises(ValueError):
++                run.build_tasks("development", 1, groups)
++        with self.assertRaises(ValueError):
++            run.build_tasks("historical", 10, ["A0"])
++        with self.assertRaises(ValueError):
++            run.build_tasks("development", 0, ["A0"])
++
++    def test_plan_immutable_and_request_corruption_rejected(self):
++        with tempfile.TemporaryDirectory() as temporary, patch.object(run, "source_manifests", return_value={"core": {}, "experiment": {}}):
++            output = Path(temporary) / "study"
++            plan = run.create_plan(output, "development", 1, ["A0", "A3"])
++            self.assertEqual(run.load_plan(output)["plan_id"], plan["plan_id"])
++            with self.assertRaises(FileExistsError):
++                run.create_plan(output, "development", 1, ["A0"])
++            (output / plan["tasks"][0]["request_file"]).write_text("{}", encoding="utf-8")
++            with self.assertRaisesRegex(ValueError, "request"):
++                run.load_plan(output)
++
++    def test_frozen_source_change_rejected(self):
++        with tempfile.TemporaryDirectory() as temporary, patch.object(run, "source_manifests", return_value={"core": {}, "experiment": {}}):
++            output = Path(temporary) / "study"
++            run.create_plan(output, "development", 1, ["A0"])
++            with patch.object(run, "source_manifests", return_value={"core": {"changed": "sha"}, "experiment": {}}):
++                with self.assertRaisesRegex(ValueError, "sources"):
++                    run.load_plan(output)
++
++    def test_summary_requires_all_datasets(self):
++        plan = {"tasks": [{"task_id": 0}, {"task_id": 1}]}
++        with self.assertRaisesRegex(ValueError, "incomplete"):
++            run.summarize_reports(plan, [])
++        with self.assertRaisesRegex(ValueError, "Duplicate"):
++            run.summarize_reports(plan, [{"task_id": 0}, {"task_id": 0}])
++
++    def test_worker_rejects_other_loaded_source(self):
++        import sys
++        import types
++        fake = types.SimpleNamespace(__file__=str(run.root() / "src/tensor_abess/__init__.py"))
++        with patch.dict(sys.modules, {"tensor_abess": fake}), self.assertRaisesRegex(RuntimeError, "different core"):
++            worker.configure_core()
++
++    def test_pure_rescoring_keeps_pool_unchanged(self):
++        import numpy as np
++        pool = [{"B": np.zeros((2, 2, 2)), "supports": [np.array([0])] * 3,
++                 "sizes": (1, 1, 1), "rss": 5.0, "loss": .025},
++                {"B": np.ones((2, 2, 2)), "supports": [np.array([0, 1])] * 3,
++                 "sizes": (2, 2, 2), "rss": 4.0, "loss": .02}]
++        before = worker.pool_fingerprint(pool)
++        with patch.object(worker, "score_pool", side_effect=lambda values, *a, **k: (values[0], {"selected_index": 0})):
++            worker.rescore_pool(pool, 100, (2, 2, 2))
++        self.assertEqual(worker.pool_fingerprint(pool), before)
++
++    def test_support_capacity_audit_rejects_illegal_candidate(self):
++        import numpy as np
++        candidate = {"B": np.zeros((3, 3, 3)), "supports": [np.arange(3)] * 3,
++                     "sizes": (3, 3, 3), "rss": 1.0, "loss": .05}
++        with self.assertRaisesRegex(ValueError, "capacity"):
++            worker.audit_pool([candidate], 10, (3, 3, 3))
++
++    def valid_fixed_candidate(self):
++        import numpy as np
++        return {"kind": "global-fixed", "B": np.zeros((3, 3, 3)),
++                "supports": [np.arange(2), np.arange(2), np.array([0])],
++                "sizes": (2, 2, 1), "rss": 240.0, "loss": .6,
++                "loss_history": [.8, .6], "visited_loss_history": [.8, .6, .75],
++                "best_iteration": 1}
++
++    def adaptive_regression_candidate(self):
++        import numpy as np
++        loss = .5812287699242976
++        return {"kind": "adaptive-stage", "B": np.zeros((32, 20, 25)),
++                "supports": [np.array([2]), np.array([2, 10]), np.array([4])],
++                "sizes": (1, 2, 1), "rss": 400 * loss, "loss": loss,
++                "loss_history": [.6752636237588817, .563123772752786, loss, loss],
++                "msic_history": [77.9073052082144, 54.91255636363953, 53.336726944828875, 53.336726944828875],
++                "sizes_history": [(1, 1, 1), (2, 2, 1), (1, 2, 1), (1, 2, 1)],
++                "visited_loss_history": [], "best_iteration": None}
++
++    def test_regression_adaptive_smaller_q_can_increase_rss_and_improve_msic(self):
++        candidate = self.adaptive_regression_candidate()
++        self.assertGreater(candidate["loss_history"][2], candidate["loss_history"][1])
++        self.assertLess(candidate["msic_history"][2], candidate["msic_history"][1])
++        worker.audit_pool([candidate], 200, (32, 20, 25))
++
++    def test_same_increasing_history_is_rejected_for_fixed_candidate(self):
++        candidate = self.valid_fixed_candidate()
++        candidate["loss_history"] = self.adaptive_regression_candidate()["loss_history"]
++        with self.assertRaisesRegex(ValueError, "training loss increased"):
++            worker.audit_pool([candidate], 200, (3, 3, 3))
++
++    def test_fixed_requires_nonempty_visited_history(self):
++        candidate = self.valid_fixed_candidate()
++        candidate["visited_loss_history"] = []
++        with self.assertRaisesRegex(ValueError, "visited"):
++            worker.audit_pool([candidate], 200, (3, 3, 3))
++
++    def test_fixed_returns_minimum_visited_loss(self):
++        candidate = self.valid_fixed_candidate()
++        candidate["visited_loss_history"] = [.8, .55, .6]
++        candidate["best_iteration"] = 2
++        with self.assertRaisesRegex(ValueError, "minimum"):
++            worker.audit_pool([candidate], 200, (3, 3, 3))
++
++    def test_fixed_best_iteration_identifies_returned_loss(self):
++        for index in (0, -1, 99, None, 1.5, True):
++            candidate = self.valid_fixed_candidate()
++            candidate["best_iteration"] = index
++            with self.subTest(index=index), self.assertRaisesRegex(ValueError, "best_iteration"):
++                worker.audit_pool([candidate], 200, (3, 3, 3))
++
++    def test_fixed_and_adaptive_histories_must_be_finite(self):
++        for kind in ("global-fixed", "adaptive-stage"):
++            for history in ("loss_history", "visited_loss_history"):
++                candidate = self.valid_fixed_candidate()
++                candidate["kind"] = kind
++                candidate[history] = [.8, float("inf")]
++                with self.subTest(kind=kind, history=history), self.assertRaisesRegex(ValueError, "Nonfinite"):
++                    worker.audit_pool([candidate], 200, (3, 3, 3))
++
++    def test_unknown_candidate_kind_is_rejected(self):
++        candidate = self.valid_fixed_candidate()
++        candidate["kind"] = "unrecognized"
++        with self.assertRaisesRegex(ValueError, "kind"):
++            worker.audit_pool([candidate], 200, (3, 3, 3))
++
++    def test_valid_fixed_best_visited_candidate_passes(self):
++        worker.audit_pool([self.valid_fixed_candidate()], 200, (3, 3, 3))
++
++    def test_groups_must_share_test_fingerprint(self):
++        report = {"groups": {"A0": {"fingerprints": {"X_train": "a", "y_train": "b", "B_true": "c", "independent_test": "d"}},
++                              "A3": {"fingerprints": {"X_train": "a", "y_train": "b", "B_true": "c", "independent_test": "different"}}}}
++        with self.assertRaisesRegex(ValueError, "fingerprint"):
++            run.validate_group_pairing(report)
++
++    def fixture_result(self, output):
++        request = {"config": {"n_test": 20}, "seed": 1, "test_seed": 1000001, "fit_options": {"candidate_budget": 2000}}
++        task = {"task_id": 0, "request": request}
++        libraries = {"python": "3.9.25", "numpy": "2.0.2", "scipy": "1.13.1"}
++        plan = {"version": worker.VERSION, "groups": ["A0"], "environment": {"libraries": libraries}, "sources": {"core": {}}}
++        fingerprints = {"X_train": "x", "y_train": "y", "B_true": "b", "independent_test": {"sha256": "t", "n_observations": 20}}
++        (output / "jobs").mkdir()
++        npz = output / "jobs/task_000.npz"
++        npz.write_bytes(b"immutable-cache")
++        report = {**request, "version": worker.VERSION, "status": "complete", "group_order": ["A0"],
++            "environment": libraries, "fingerprints": {**fingerprints, "core_sources": {}},
++            "groups": {"A0": {"fingerprints": fingerprints, "environment": libraries}},
++            "array_cache": npz.name, "array_cache_sha256": run.file_hash(npz),
++            "rows": [{"group": "A0", "rule": "msic-alpha1.5-scale1"}]}
++        run.write_json(output / "jobs/task_000.json", report)
++        return plan, task, report
++
++    def test_result_cache_tamper_is_rejected(self):
++        with tempfile.TemporaryDirectory() as temporary:
++            output = Path(temporary)
++            plan, task, _ = self.fixture_result(output)
++            run.validate_result(output, plan, task)
++            (output / "jobs/task_000.npz").write_bytes(b"changed-cache")
++            with self.assertRaisesRegex(ValueError, "checksum"):
++                run.validate_result(output, plan, task)
++
++    def test_result_seed_and_extra_msic_rows_are_rejected(self):
++        with tempfile.TemporaryDirectory() as temporary:
++            output = Path(temporary)
++            plan, task, report = self.fixture_result(output)
++            path = output / "jobs/task_000.json"
++            report["seed"] = 999
++            path.write_text(run.canonical(report), encoding="utf-8")
++            with self.assertRaisesRegex(ValueError, "seed"):
++                run.validate_result(output, plan, task)
++            report["seed"] = 1
++            report["rows"].append({"group": "A0", "rule": "msic-alpha2-scale1"})
++            path.write_text(run.canonical(report), encoding="utf-8")
++            with self.assertRaisesRegex(ValueError, "Phase D"):
++                run.validate_result(output, plan, task)
++
++    def test_partial_cache_is_rejected_without_overwrite(self):
++        with tempfile.TemporaryDirectory() as temporary:
++            output = Path(temporary)
++            plan, task, _ = self.fixture_result(output)
++            path = output / "jobs/task_000.json"
++            before = path.read_bytes()
++            (output / "jobs/task_000.npz").unlink()
++            with self.assertRaisesRegex(ValueError, "Incomplete"):
++                run.validate_result(output, plan, task)
++            self.assertEqual(path.read_bytes(), before)
++
++    def test_python39_syntax(self):
++        import ast
++        for name in ("__init__.py", "run.py", "worker.py", "test_run.py"):
++            ast.parse(Path(__file__).with_name(name).read_text(encoding="utf-8"), feature_version=(3, 9))
++
++
++if __name__ == "__main__":
++    unittest.main()
+diff --git a/numerical_simulation/candidate_search_study/worker.py b/numerical_simulation/candidate_search_study/worker.py
+new file mode 100644
+--- /dev/null
++++ b/numerical_simulation/candidate_search_study/worker.py
+@@ -0,0 +1,238 @@
++"""One isolated dataset, explicit candidate caches, and shared independent testing."""
++from __future__ import annotations
++
++import argparse
++from dataclasses import asdict
++import hashlib
++import json
++from pathlib import Path
++import platform
++import sys
++from time import perf_counter
++
++import numpy as np
++
++from numerical_simulation.version_validation.worker import (
++    array_fingerprint, evaluate_shared_test, select_candidate as score_pool,
++)
++
++
++GROUPS = {"A0": ("legacy", "legacy"), "A1": ("candidate", "legacy"),
++          "A2": ("legacy", "full"), "A3": ("candidate", "full"),
++          "A4": ("candidate", "coarse_to_fine")}
++VERSION = "v5.2-candidate-search"
++AUDIT_REVISION = "2-stage-objectives"
++
++
++def root():
++    return Path(__file__).resolve().parents[2]
++
++
++def configure_core():
++    source = root() / "doc/algorithm_versions" / VERSION / "src"
++    loaded = sys.modules.get("tensor_abess")
++    if loaded is not None and Path(loaded.__file__).resolve().parent != source / "tensor_abess":
++        raise RuntimeError("A different core is loaded; each dataset requires an isolated worker.")
++    if not (source / "tensor_abess/tensor/bcd.py").is_file():
++        raise FileNotFoundError(f"Missing isolated core {source}")
++    sys.path.insert(0, str(source))
++    return source
++
++
++def require(condition, message):
++    if not condition:
++        raise ValueError(message)
++
++
++def pool_fingerprint(pool):
++    h = hashlib.sha256()
++    for candidate in pool:
++        for value in (candidate["B"], *candidate["supports"]):
++            h.update(array_fingerprint(value).encode("ascii"))
++        h.update(json.dumps({key: candidate[key] for key in ("sizes", "rss", "loss")},
++                            sort_keys=True, allow_nan=False).encode("utf-8"))
++    return h.hexdigest()
++
++
++def rescore_pool(pool, n, dims):
++    before = pool_fingerprint(pool)
++    choices = []
++    for alpha in (1.5, 2.0, 3.0):
++        for scale in (0.0, 0.5, 1.0):
++            selected, info = score_pool(pool, n, dims, alpha=alpha, scale=scale)
++            choices.append((f"msic-alpha{alpha:g}-scale{scale:g}", selected, info))
++    require(pool_fingerprint(pool) == before, "Rescoring altered frozen training pool")
++    return choices
++
++
++def audit_pool(pool, n, dims):
++    require(bool(pool), "Empty training candidate pool")
++    for candidate in pool:
++        sizes = tuple(int(s) for s in candidate["sizes"])
++        supports = candidate["supports"]
++        require(int(np.prod(sizes)) <= int(np.floor(.7 * n)), "Candidate exceeds model capacity")
++        require(len(supports) == 3 and all(len(s) == size for s, size in zip(supports, sizes)),
++                "Candidate size/support mismatch")
++        require(all(len(np.unique(S)) == len(S) and np.all(np.asarray(S) >= 0)
++                    and np.all(np.asarray(S) < p) for S, p in zip(supports, dims)), "Invalid support")
++        require(np.asarray(candidate["B"]).shape == tuple(dims), "Invalid coefficient tensor shape")
++        require(np.isfinite(candidate["rss"]) and np.isfinite(candidate["loss"])
++                and np.all(np.isfinite(candidate["B"])), "Nonfinite candidate")
++        require(np.isclose(candidate["rss"], 2 * n * candidate["loss"], atol=1e-10, rtol=1e-10),
++                "Candidate RSS/loss inconsistent")
++        kind = candidate.get("kind")
++        require(kind in {"adaptive-stage", "global-fixed"}, "Unknown candidate kind")
++        history = candidate.get("loss_history", [])
++        visited = candidate.get("visited_loss_history", [])
++        require(np.all(np.isfinite(history)) and np.all(np.isfinite(visited)), "Nonfinite candidate history")
++        if kind != "global-fixed":
++            continue
++        require(bool(history), "Fixed candidate requires accepted loss history")
++        require(all(b <= a + 1e-10 * max(1, abs(a), abs(b)) for a, b in zip(history, history[1:])),
++                "Accepted training loss increased")
++        require(bool(visited), "Fixed candidate requires nonempty visited history")
++        require(np.isclose(candidate["loss"], min(visited), atol=1e-10, rtol=1e-10),
++                "Fixed candidate did not return minimum visited loss")
++        index = candidate.get("best_iteration")
++        require(isinstance(index, (int, np.integer)) and not isinstance(index, (bool, np.bool_))
++                and 0 <= index < len(visited), "Invalid fixed candidate best_iteration")
++        require(np.isclose(candidate["loss"], visited[index], atol=1e-10, rtol=1e-10),
++                "Fixed candidate best_iteration does not identify returned loss")
++
++
++def candidate_json(candidate, index):
++    result = {key: value for key, value in candidate.items() if key not in {"B", "supports"}}
++    result.update(candidate_index=index, supports=[S.tolist() for S in candidate["supports"]],
++                  q=int(np.prod(candidate["sizes"])), B_fingerprint=array_fingerprint(candidate["B"]))
++    return result
++
++
++def jsonable(value):
++    if isinstance(value, np.ndarray):
++        return value.tolist()
++    if isinstance(value, np.generic):
++        return value.item()
++    if isinstance(value, dict):
++        return {key: jsonable(item) for key, item in value.items()}
++    if isinstance(value, (tuple, list)):
++        return [jsonable(item) for item in value]
++    return value
++
++
++def run_request(request):
++    source = configure_core()
++    from numerical_simulation.data_generation import TensorSimulationConfig, generate_simulation_dataset
++    from numerical_simulation.metrics import compute_coefficient_metrics, compute_support_metrics
++    from tensor_abess.tensor.abess import tensor_abess
++    import scipy
++    values = dict(request["config"])
++    for key in ("dims", "sparsity", "rho"):
++        values[key] = tuple(values[key])
++    config = TensorSimulationConfig(**values)
++    dataset = generate_simulation_dataset(config, seed=int(request["seed"]))
++    fingerprints = {"X_train": array_fingerprint(dataset.X_train), "y_train": array_fingerprint(dataset.y_train),
++                    "B_true": array_fingerprint(dataset.B_true)}
++    environment = {"python": platform.python_version(), "numpy": np.__version__, "scipy": scipy.__version__}
++    cache, groups, choices, arrays = {}, {}, [], {"B_true": dataset.B_true}
++    for group in request["groups"]:
++        cap, grid = GROUPS[group]
++        started = perf_counter()
++        result = tensor_abess(dataset.X_train, dataset.y_train, k_max=config.k_max,
++            c=config.abess_init_c, criterion=config.abess_init_criterion, n_lambdas=config.n_lambdas,
++            cv_folds=config.cv_folds, max_iter=config.max_iter, tol=config.tol,
++            max_cycles=config.max_cycles, eps=1e-8, adaptive_criterion="msic",
++            msic_refine_alpha=1.5, msic_refine_gamma=1.0, msic_refine_one_se_scale=1.0,
++            cap_policy=cap, grid_policy=grid, candidate_budget=request["fit_options"]["candidate_budget"],
++            fixed_candidate_cache=cache)
++        elapsed = perf_counter() - started
++        pool = result.bcd_result.candidate_records
++        audit_pool(pool, config.n_train, config.dims)
++        before = pool_fingerprint(pool)
++        default, default_info = score_pool(pool, config.n_train, config.dims, alpha=1.5, scale=1.0)
++        rescored = [("msic-alpha1.5-scale1", default, default_info)]
++        require(pool_fingerprint(pool) == before, "Default selection altered training pool")
++        require(np.array_equal(default["B"], result.B), "Default rescoring differs from returned training selection")
++        metadata = result.bcd_result.search_metadata
++        grid_sizes = [list(size) for size in metadata["size_grid"]]
++        true_shape = list(config.sparsity)
++        actual_support = any(all(np.array_equal(np.sort(S), np.sort(T)) for S, T in
++                             zip(candidate["supports"], dataset.supports_true)) for candidate in pool)
++        truth_reasons = []
++        if int(np.prod(config.sparsity)) > int(np.floor(.7 * config.n_train)):
++            truth_reasons.append("product_capacity")
++        if any(s > cap_value for s, cap_value in zip(config.sparsity, metadata["caps"])):
++            truth_reasons.append("mode_cap")
++        if true_shape not in grid_sizes:
++            truth_reasons.append("grid_omission")
++        groups[group] = {"cap_policy": cap, "grid_policy": grid, "runtime_sec": elapsed,
++            "pool_fingerprint": before, "candidate_count": len(pool),
++            "cache_hits": sum(bool(candidate.get("cache_hit")) for candidate in pool),
++            "new_fixed_fits": sum(candidate.get("kind") == "global-fixed" and not candidate.get("cache_hit") for candidate in pool),
++            "cache_entries_after_group": len(cache), "search_metadata": metadata,
++            "init_supports": result.init_supports, "s_max": result.s_max,
++            "true_size_in_grid": true_shape in grid_sizes,
++            "true_size_in_pool": any(list(candidate["sizes"]) == true_shape for candidate in pool),
++            "true_support_in_pool": actual_support, "true_size_exclusion_reasons": truth_reasons,
++            "candidates": [candidate_json(candidate, i) for i, candidate in enumerate(pool)],
++            "fingerprints": dict(fingerprints), "environment": dict(environment)}
++        for i, candidate in enumerate(pool):
++            arrays[f"{group}_candidate_{i}_B"] = candidate["B"]
++            for mode, S in enumerate(candidate["supports"], start=1):
++                arrays[f"{group}_candidate_{i}_S{mode}"] = S
++        for rule, selected, info in rescored:
++            choices.append((group, rule, selected, info, elapsed))
++    predictions, test_fingerprint = evaluate_shared_test(dataset, [item[2]["B"] for item in choices], int(request["test_seed"]))
++    for group in groups.values():
++        group["fingerprints"]["independent_test"] = test_fingerprint
++    rows = []
++    for (group, rule, selected, info, elapsed), prediction in zip(choices, predictions):
++        supports = selected["supports"]
++        rows.append({"group": group, "rule": rule, "method": f"{group}/{rule}",
++            "n_train": config.n_train, "snr": config.snr, "seed": int(request["seed"]),
++            "test_seed": int(request["test_seed"]), "q_true": int(np.prod(config.sparsity)),
++            **compute_support_metrics(*supports, *dataset.supports_true),
++            **compute_coefficient_metrics(selected["B"], dataset.B_true), **prediction,
++            "rss_train": float(selected["rss"]), "loss_train": float(selected["loss"]),
++            "runtime_sec": elapsed, "selection": info, "supports": [S.tolist() for S in supports],
++            "B_fingerprint": array_fingerprint(selected["B"]),
++            "candidate_count": groups[group]["candidate_count"],
++            "true_size_in_pool": int(groups[group]["true_size_in_pool"]),
++            "true_support_in_pool": int(groups[group]["true_support_in_pool"])})
++    report = {"schema_version": 1, "version": VERSION, "status": "complete", "config": asdict(config),
++        "validation_rules": {"revision": AUDIT_REVISION,
++            "all_candidates": "capacity/support/finite arrays and histories/RSS=2n*loss",
++            "global-fixed": "accepted loss nonincreasing; returned loss=min visited; best_iteration consistent",
++            "adaptive-stage": "q can change under criterion selection; RSS monotonicity is not required"},
++        "seed": int(request["seed"]), "test_seed": int(request["test_seed"]), "group_order": request["groups"],
++        "fit_options": request["fit_options"], "groups": groups, "rows": rows,
++        "fingerprints": {**fingerprints, "independent_test": test_fingerprint,
++            "core_sources": {p.relative_to(source).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
++                             for p in sorted((source / "tensor_abess").rglob("*.py"))}},
++        "environment": environment,
++        "runtime_interpretation": "Groups run in frozen order and explicitly share identical fixed training fits; cached runtime is not an independent cold-fit comparison. All rescoring rules share one training pool per group. Test data and truth never determine caps, grids, initialization, candidates, or training selection."}
++    return jsonable(report), arrays
++
++
++def main(argv=None):
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--request", required=True, type=Path)
++    parser.add_argument("--output", required=True, type=Path)
++    args = parser.parse_args(argv)
++    npz = args.output.with_suffix(".npz")
++    if args.output.exists() or npz.exists():
++        raise FileExistsError("Immutable candidate experiment output already exists")
++    request = json.loads(args.request.read_text(encoding="utf-8"))
++    report, arrays = run_request(request)
++    with npz.open("xb") as handle:
++        np.savez_compressed(handle, **arrays)
++    report["array_cache"] = npz.name
++    report["array_cache_sha256"] = hashlib.sha256(npz.read_bytes()).hexdigest()
++    with args.output.open("x", encoding="utf-8") as handle:
++        json.dump(report, handle, indent=2, ensure_ascii=False, allow_nan=False)
++        handle.write("\n")
++    print(f"Completed seed {request['seed']}: {len(report['groups'])} paired groups, {len(report['rows'])} rules", flush=True)
++    return 0
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())
+diff --git a/numerical_simulation/candidate_search_study/README.md b/numerical_simulation/candidate_search_study/README.md
+new file mode 100644
+--- /dev/null
++++ b/numerical_simulation/candidate_search_study/README.md
+@@ -0,0 +1,55 @@
++# 任务卡3：独立候选搜索研究
++
++正式生产src保持v5.1；研究核心在doc/algorithm_versions/v5.2-candidate-search/src，不能直接替换队友正式代码。Group-BESS/固定BCD/原MSIC数学定义不变。最终有效研究目录使用outputs_candidate_search_study下historical_final、development_final、confirmation_final；早期无_final的三个目录因错误验证器已STOPPED，不能resume、混用或当完整结果。
++
++A0旧caps/旧网格，A1去除caps乘积压缩/旧网格，A2旧caps/全整数，A3新版caps/全整数，A4新版caps/训练原MSIC top3邻域±1一次。所有模型q≤floor(.7n)，新版adaptive每mode动态限制smax；预算2000超过就停止，不偷偷截断。完整枚举仅针对当前caps内合法三元组，位置仍由fixed BCD搜索，非所有位置穷举，也不保证所有维度内合法形状都可达。
++
++先在项目根准备现有环境，不升级或安装：
++
++```bash
++cd /public/home/xjh/xmx/tensor-sparse-regression-main
++module load anaconda3
++source activate myenv
++export PYTHONPATH="$PWD/src"
++export OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 OMP_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
++```
++
++本机最终计划绑定Py3.12.8/NumPy1.26.4/SciPy1.16.1，不能拿本机plan在Py3.9.25/NumPy2.0.2/SciPy1.13.1直接resume；集群须同一代码在全新输出目录重新plan。以下NEW目录不能已有产物，plan只一次，run完成后才summarize；已有同版本完整任务会校验后跳过，错误/半成品拒绝修补。
++
++```bash
++python -m numerical_simulation.candidate_search_study.run plan --cohort historical --n-reps 3 --groups A0 A1 A2 A3 A4 --output-dir numerical_simulation/outputs_candidate_search_study/cluster_historical
++python -m numerical_simulation.candidate_search_study.run run --output-dir numerical_simulation/outputs_candidate_search_study/cluster_historical --workers 8
++python -m numerical_simulation.candidate_search_study.run summarize --output-dir numerical_simulation/outputs_candidate_search_study/cluster_historical
++python -m numerical_simulation.candidate_search_study.analyse --output-dir numerical_simulation/outputs_candidate_search_study/cluster_historical
++
++python -m numerical_simulation.candidate_search_study.run plan --cohort development --n-reps 10 --groups A0 A1 A2 A3 A4 --output-dir numerical_simulation/outputs_candidate_search_study/cluster_development
++python -m numerical_simulation.candidate_search_study.run run --output-dir numerical_simulation/outputs_candidate_search_study/cluster_development --workers 8
++python -m numerical_simulation.candidate_search_study.run summarize --output-dir numerical_simulation/outputs_candidate_search_study/cluster_development
++python -m numerical_simulation.candidate_search_study.analyse --output-dir numerical_simulation/outputs_candidate_search_study/cluster_development
++```
++
++这两套是27历史和90开发数据，每数据5组；不是700正式full模拟。开发base20361010、确认base20461010，各+1000scenario+rep，test+1e6。确认集在机制固定和阶段门槛决定后才运行，不提前根据确认结果调规则；MSIC消融由另模块在阶段E执行，不混入本模块默认PhaseD。
++
++同一批候选在各组显式复用训练缓存，因此runtime_sec受组顺序影响；mechanism_overview中的standalone_cost_estimate_sec将缓存fixed fit秒数加回，只是估计，不是独立实测。候选数、真三元组、q、真位置必须分别看。
++
++位置稳定性（历史候选27完整后）：
++
++```bash
++python -m numerical_simulation.candidate_search_study.stability_run create --candidate-dir numerical_simulation/outputs_candidate_search_study/cluster_historical --output-dir numerical_simulation/outputs_support_search_stability/cluster_historical
++python -m numerical_simulation.candidate_search_study.stability_run run --output-dir numerical_simulation/outputs_support_search_stability/cluster_historical --workers 8
++python -m numerical_simulation.candidate_search_study.stability_run summarize --output-dir numerical_simulation/outputs_support_search_stability/cluster_historical
++```
++
++三初始化marginal/random(seed+30m)/random(seed+31m)，同shape以训练RSS选best；Oracle真实位置OLS只作评价。旧稳定性无_final历史目录的两预检也已STOPPED，最终须与_final新candidate计划绑定。
++
++算法测试不要求pytest安装；不同核心版本分别使用独立Python进程：
++
++```bash
++python -m unittest tests.test_candidate_search_core -v
++python -m unittest numerical_simulation.candidate_search_study.test_run tests.test_candidate_study_analysis -v
++PYTHONPATH="$PWD/doc/algorithm_versions/v5.1-bcd-fix/src:$PWD/src" python -m unittest tests.test_support_search_stability tests.test_stability_run -v
++```
++
++Python3.9源码兼容已静态检查，本机实测另注明；不宣称已经在集群实际运行。最小增量部署需要独立研究source包33文件（可用已一致v5.1源码复制后更新四个研究文件，但必须保留独立目录）、本candidate_search_study模块、版本说明；stability还要v5.1冻结32source包。沿用既有data_generation、metrics、version_validation/worker.py、known_s_cluster/profiles.json（如版本不同才重传）。历史精确复现还要旧outputs_msic_ablation_v51_final/requests的27个JSON，开发/确认无需旧训练原始数据。不要传test_tools、失败目录或大型旧结果，不制作ZIP，不替换生产src。
++
++诊断误检记录：验证器revision1把可变q adaptive-stage也当fixed accepted RSS，dev033 q4→2时RSS增但MSIC降导致假失败；revision2-stage-objectives仅fixed强制RSS非增并加强best visited，adaptive共同容量/支持/有限/RSS一致，不改算法或数值容差。旧source与输出全部保留STOPPED，新同seed整批重跑，不作结果后处理。
+diff --git a/tests/test_candidate_search_core.py b/tests/test_candidate_search_core.py
+new file mode 100644
+--- /dev/null
++++ b/tests/test_candidate_search_core.py
+@@ -0,0 +1,164 @@
++"""Independent candidate-search research core regressions (not production)."""
++from pathlib import Path
++import sys
++import unittest
++from unittest.mock import patch
++from types import SimpleNamespace
++import inspect
++import json
++import os
++import subprocess
++import numpy as np
++
++sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'doc' / 'algorithm_versions' / 'v5.2-candidate-search' / 'src'))
++from tensor_abess.tensor.bcd import _candidate_size_triples
++from tensor_abess.tensor.bcd import tensor_bcd_adaptive, tensor_bcd
++from tensor_abess.tensor.abess import tensor_abess
++from tensor_abess.tensor.ops import tensor_loss
++from tensor_abess.utils.init import tensor_init_glasso
++
++
++class CandidateGridTests(unittest.TestCase):
++    def test_full_covers_all_legal_shapes(self):
++        expected = [(a, b, c) for a in range(1, 5) for b in range(1, 4) for c in range(1, 6) if a*b*c <= 30]
++        actual = _candidate_size_triples(4, 3, 5, 30, grid_policy='full')
++        self.assertEqual(actual, expected)
++
++    def test_full_budget_is_explicit(self):
++        with self.assertRaisesRegex(ValueError, 'budget'):
++            _candidate_size_triples(10, 10, 10, 1000, grid_policy='full', candidate_budget=20)
++
++    def test_n400_old_grid_excludes_legal_true_shape(self):
++        shape = (4, 3, 5)  # Regression fixture; never passed to the solver.
++        self.assertNotIn(shape, _candidate_size_triples(7, 6, 6, 280))
++        self.assertIn(shape, _candidate_size_triples(7, 6, 6, 280, grid_policy='full'))
++
++    def test_full_sorted_unique_and_capacity(self):
++        grid = _candidate_size_triples(10, 10, 15, 280, grid_policy='full')
++        self.assertEqual(len(grid), 1044)
++        self.assertEqual(grid, sorted(set(grid)))
++        self.assertTrue(all(np.prod(shape) <= 280 for shape in grid))
++
++
++class CandidateCapacityTests(unittest.TestCase):
++    def test_n100_precompression_caps_retained(self):
++        X = np.zeros((100, 8, 7, 8))
++        y = np.ones(100)
++        fit = SimpleNamespace(active_groups=np.array([0]))
++        with patch('tensor_abess.utils.init._select_group_lasso_fit', return_value=fit):
++            legacy = tensor_init_glasso(X, y)
++            candidate = tensor_init_glasso(X, y, cap_policy='candidate')
++        self.assertEqual((legacy.s1_max, legacy.s2_max, legacy.s3_max), (4, 4, 4))
++        self.assertEqual((candidate.s1_max, candidate.s2_max, candidate.s3_max), (5, 5, 5))
++        self.assertFalse(5 <= legacy.s3_max)
++        self.assertIn((4, 3, 5), _candidate_size_triples(5, 5, 5, 70, grid_policy='full'))
++        for name in ('S1_init', 'S2_init', 'S3_init'):
++            np.testing.assert_array_equal(getattr(candidate, name), getattr(legacy, name))
++
++    def test_overcapacity_initialization_fails_without_clipping(self):
++        X = np.zeros((20, 4, 4, 4)); y = np.ones(20)
++        with self.assertRaisesRegex(ValueError, 'Illegal initial.*Q=14'):
++            tensor_bcd_adaptive(X, y, s1_max=4, s2_max=4, s3_max=4,
++                S1_init=np.arange(3), S2_init=np.arange(3), S3_init=np.arange(2),
++                cap_policy='candidate', max_cycles=0)
++
++    def test_dynamic_caps_bound_each_conditional_parameter_count(self):
++        rng = np.random.default_rng(171)
++        X = rng.normal(size=(20, 4, 4, 4)); y = rng.normal(size=20)
++        def proposal(*args, **kwargs):
++            return SimpleNamespace(active_groups=np.arange(kwargs['s_max']))
++        with patch('tensor_abess.tensor.bcd.group_bess_adaptive', side_effect=proposal):
++            result = tensor_bcd_adaptive(X, y, s1_max=4, s2_max=4, s3_max=4,
++                S1_init=np.arange(2), S2_init=np.arange(2), S3_init=np.arange(2),
++                cap_policy='candidate', information_criterion='sic', max_cycles=1)
++        caps = result.search_metadata['dynamic_cap_history']
++        self.assertEqual([row['s_max'] for row in caps], [3, 2, 2])
++        self.assertTrue(all(row['s_max']*row['block_size'] <= 14 for row in caps))
++        self.assertLessEqual(result.s1*result.s2*result.s3, 14)
++
++    def test_no_truth_or_test_arguments_in_research_search(self):
++        for solver in (tensor_abess, tensor_bcd_adaptive, _candidate_size_triples):
++            names = inspect.signature(solver).parameters
++            self.assertFalse(any('truth' in name or 'test' in name for name in names))
++
++
++class CandidateFitTests(unittest.TestCase):
++    @classmethod
++    def setUpClass(cls):
++        rng = np.random.default_rng(708)
++        cls.X = rng.normal(size=(40, 4, 3, 4))
++        cls.y = 2*cls.X[:, 0, 0, 0] + rng.normal(size=40)
++        cls.kw = dict(s1_max=4, s2_max=3, s3_max=4,
++                      S1_init=np.array([0]), S2_init=np.array([0]), S3_init=np.array([0]),
++                      max_cycles=1, m_max=2, k_max=1, cap_policy='candidate')
++        cls.cache = {}
++        cls.full = tensor_bcd_adaptive(cls.X, cls.y, **cls.kw, grid_policy='full',
++                                      fixed_candidate_cache=cls.cache)
++
++    def test_each_fixed_candidate_is_best_visited_OLS_state(self):
++        for record in self.full.candidate_records:
++            if record['kind'] != 'global-fixed':
++                continue
++            self.assertAlmostEqual(record['loss'], tensor_loss(self.X, self.y, record['B']), places=12)
++            self.assertAlmostEqual(record['rss'], 80*record['loss'], places=12)
++            visited = record['visited_loss_history']
++            self.assertEqual(record['loss'], min(visited))
++            self.assertEqual(record['loss'], visited[record['best_iteration']])
++            self.assertTrue(all(b <= a for a, b in zip(record['loss_history'], record['loss_history'][1:])))
++            self.assertEqual(tuple(map(len, record['supports'])), record['sizes'])
++            fitted = record['B'][np.ix_(*record['supports'])].ravel()
++            design = self.X[:, record['supports'][0]][:, :, record['supports'][1]][:, :, :, record['supports'][2]].reshape(40, -1)
++            np.testing.assert_allclose(design.T @ (self.y-design @ fitted), 0, atol=1e-10)
++
++    def test_full_grid_ledger_and_reproducible_cache(self):
++        repeated = tensor_bcd_adaptive(self.X, self.y, **self.kw, grid_policy='full',
++                                      fixed_candidate_cache=self.cache)
++        np.testing.assert_array_equal(repeated.B, self.full.B)
++        self.assertEqual(repeated.sic, self.full.sic)
++        meta = repeated.search_metadata
++        self.assertTrue(meta['grid_complete'])
++        self.assertEqual(meta['excluded_legal_shapes'], [])
++        self.assertEqual(meta['size_grid'], meta['legal_shapes'])
++        self.assertTrue(all(rec['cache_hit'] for rec in repeated.candidate_records if rec['kind']=='global-fixed'))
++
++    def test_training_change_cannot_reuse_cached_fit(self):
++        changed = tensor_bcd_adaptive(self.X, self.y+0.123, **{**self.kw, 'max_cycles': 0},
++                                     grid_policy='legacy', fixed_candidate_cache=self.cache)
++        self.assertNotEqual(changed.search_metadata['training_fingerprint'], self.full.search_metadata['training_fingerprint'])
++        self.assertTrue(all(not rec['cache_hit'] for rec in changed.candidate_records if rec['kind']=='global-fixed'))
++
++    def test_coarse_to_fine_excluded_shapes_are_traceable(self):
++        rng = np.random.default_rng(812)
++        X = rng.normal(size=(60, 6, 6, 6)); y = X[:, 0, 0, 0] + rng.normal(size=60)
++        result = tensor_bcd_adaptive(X, y, s1_max=6, s2_max=6, s3_max=6,
++            S1_init=np.array([0]), S2_init=np.array([0]), S3_init=np.array([0]),
++            max_cycles=0, cap_policy='candidate', grid_policy='coarse_to_fine')
++        meta = result.search_metadata
++        evaluated, excluded, legal = map(set, (meta['size_grid'], meta['excluded_legal_shapes'], meta['legal_shapes']))
++        self.assertFalse(evaluated & excluded)
++        self.assertEqual(evaluated | excluded, legal)
++        self.assertEqual(len(meta['size_grid']), len(evaluated))
++        self.assertTrue(excluded)
++        self.assertFalse(meta['grid_complete'])
++        self.assertTrue(set(meta['initial_size_grid']) <= evaluated)
++        self.assertFalse(set(meta['initial_size_grid']) & set(meta['refinement_size_grid']))
++
++    def test_A0_exactly_matches_production_v51(self):
++        kwargs = dict(criterion='bic', n_lambdas=2, max_iter=3, max_cycles=1, m_max=2, k_max=1)
++        current = tensor_abess(self.X, self.y, **kwargs)
++        script = """import json, numpy as np
++from tensor_abess.tensor.abess import tensor_abess
++rng=np.random.default_rng(708); X=rng.normal(size=(40,4,3,4)); y=2*X[:,0,0,0]+rng.normal(size=40)
++r=tensor_abess(X,y,criterion='bic',n_lambdas=2,max_iter=3,max_cycles=1,m_max=2,k_max=1)
++print(json.dumps({'B':r.B.tolist(),'sizes':[r.s1,r.s2,r.s3],'sic':r.sic,'rss':r.rss}))
++"""
++        env = dict(os.environ, PYTHONPATH=str(Path(__file__).resolve().parents[1]/'src'))
++        expected = json.loads(subprocess.check_output([sys.executable, '-c', script], env=env, text=True))
++        np.testing.assert_array_equal(current.B, expected['B'])
++        self.assertEqual([current.s1,current.s2,current.s3], expected['sizes'])
++        self.assertEqual(current.sic, expected['sic'])
++        self.assertEqual(current.rss, expected['rss'])
++
++
++if __name__ == '__main__':
++    unittest.main()
+diff --git a/tests/test_candidate_numerics.py b/tests/test_candidate_numerics.py
+new file mode 100644
+--- /dev/null
++++ b/tests/test_candidate_numerics.py
+@@ -0,0 +1,60 @@
++"""Selected-model OLS audit, without numerical rescue or coefficient replacement."""
++import unittest
++import numpy as np
++
++from numerical_simulation.candidate_search_study.numerics import (
++    audit_selected_model, rectangular_design,
++)
++
++
++class SelectedNumericsTests(unittest.TestCase):
++    def test_rectangular_design_preserves_tensor_beta_order(self):
++        X = np.arange(3*4*3*2, dtype=float).reshape(3, 4, 3, 2)
++        supports = [np.array([1, 3]), np.array([0, 2]), np.array([0, 1])]
++        expected = np.array([[X[n, i, j, k] for i in supports[0] for j in supports[1]
++                              for k in supports[2]] for n in range(3)])
++        np.testing.assert_array_equal(rectangular_design(X, supports), expected)
++
++    def test_independent_ols_and_tensor_predictions_agree(self):
++        rng = np.random.default_rng(4901)
++        X = rng.normal(size=(30, 4, 3, 2)); y = rng.normal(size=30)
++        supports = [np.array([1, 3]), np.array([0, 2]), np.array([1])]
++        D = rectangular_design(X, supports)
++        beta = np.linalg.lstsq(D, y, rcond=None)[0]
++        B = np.zeros(X.shape[1:]); B[np.ix_(*supports)] = beta.reshape(2, 2, 1)
++        rss = float(np.sum((y-D @ beta)**2))
++        result = audit_selected_model(X, y, B, supports, expected_rss=rss)
++        self.assertEqual(result['rank'], 4)
++        self.assertFalse(result['rank_deficient'])
++        self.assertTrue(result['checks_passed'])
++        self.assertLess(result['normal_equation_relative_residual'], 1e-12)
++        self.assertLess(result['prediction_max_abs_difference'], 1e-12)
++
++    def test_corrupted_coefficient_cannot_pass_by_refitting(self):
++        rng = np.random.default_rng(4902)
++        X = rng.normal(size=(30, 2, 2, 2)); y = rng.normal(size=30)
++        supports = [np.array([0]), np.array([1]), np.array([0])]
++        D = rectangular_design(X, supports)
++        beta = np.linalg.lstsq(D, y, rcond=None)[0]
++        B = np.zeros(X.shape[1:]); B[0, 1, 0] = beta[0]
++        rss = float(np.sum((y-D @ beta)**2)); B[0, 1, 0] += 1
++        with self.assertRaisesRegex(ValueError, 'RSS'):
++            audit_selected_model(X, y, B, supports, expected_rss=rss)
++
++    def test_rank_deficiency_is_reported_without_rescue(self):
++        x = np.linspace(0.3, 2.0, 12)
++        X = np.stack([x, x], axis=-1).reshape(12, 1, 1, 2)
++        y = 2*x
++        supports = [np.array([0]), np.array([0]), np.array([0, 1])]
++        # An alternative OLS solution; nonunique coefficients are not rewritten.
++        B = np.array([[[2.0, 0.0]]]); before = B.copy()
++        result = audit_selected_model(X, y, B, supports, expected_rss=0.0)
++        self.assertEqual(result['rank'], 1)
++        self.assertTrue(result['rank_deficient'])
++        self.assertTrue(result['checks_passed'])
++        self.assertIsNone(result['condition_number'])
++        np.testing.assert_array_equal(B, before)
++
++
++if __name__ == '__main__':
++    unittest.main()
+diff --git a/tests/test_candidate_study_analysis.py b/tests/test_candidate_study_analysis.py
+new file mode 100644
+--- /dev/null
++++ b/tests/test_candidate_study_analysis.py
+@@ -0,0 +1,28 @@
++"""Guard balanced comparison and truthful shared-cache cost accounting."""
++import importlib.util
++from pathlib import Path
++import unittest
++
++class AnalysisTests(unittest.TestCase):
++    def module(self):
++        p=Path(__file__).resolve().parents[1]/'numerical_simulation/candidate_search_study/analyse.py'
++        self.assertTrue(p.is_file(),'Cohort analysis is missing')
++        spec=importlib.util.spec_from_file_location('candidate_analysis',p)
++        m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);return m
++    def fixture(self):
++        row={'group':'A0','q_hat':60,'exact_recovery':0,'mode_f1_macro':.5,'element_f1':.4,'pmse':2.,'r2_test':.2,'rss_train':90.,'runtime_sec':1.}
++        group={'s_max':[5,5,5],'true_size_in_pool':False,'true_support_in_pool':False,'candidate_count':2,'cache_hits':1,'new_fixed_fits':0,'search_metadata':{'legal_shapes':[[1,1,1],[4,3,5]],'size_grid':[[1,1,1]],'excluded_legal_shapes':[[4,3,5]]},'candidates':[{'kind':'adaptive-stage','fit_seconds':2,'cache_hit':False},{'kind':'global-fixed','fit_seconds':9,'cache_hit':True}]}
++        return {'config':{'n_train':200,'snr':2,'sparsity':[4,3,5]},'rows':[row],'groups':{'A0':group}}
++    def test_unbalanced_groups_are_rejected(self):
++        m=self.module()
++        with self.assertRaises(ValueError):m.build_overview([self.fixture()],['A0','A1'])
++    def test_q60_is_not_mistaken_for_true_shape(self):
++        m=self.module();r=m.build_overview([self.fixture()],['A0'])[0]
++        self.assertEqual(r['q_over_mean'],0);self.assertEqual(r['q_under_mean'],0)
++        self.assertEqual(r['true_size_in_pool_mean'],0);self.assertEqual(r['exact_recovery_mean'],0)
++    def test_shared_cache_walltime_does_not_claim_standalone_cost(self):
++        m=self.module();r=m.build_overview([self.fixture()],['A0'])[0]
++        self.assertEqual(r['runtime_sec_mean'],1)
++        self.assertEqual(r['cached_fixed_fit_cost_sec_mean'],9)
++        self.assertEqual(r['standalone_cost_estimate_sec_mean'],10)
++if __name__=='__main__':unittest.main()
+diff --git a/tests/test_stability_run.py b/tests/test_stability_run.py
+new file mode 100644
+--- /dev/null
++++ b/tests/test_stability_run.py
+@@ -0,0 +1,73 @@
++"""Independent runner checks: training-selected shapes and immutable artifacts."""
++import importlib
++import unittest
++import numpy as np
++
++
++class StabilityRunnerTests(unittest.TestCase):
++    def runner(self):
++        name = 'numerical_simulation.candidate_search_study.stability_run'
++        spec = importlib.util.find_spec(name)
++        self.assertIsNotNone(spec, 'Independent stability runner is not implemented')
++        return importlib.import_module(name)
++
++    def job(self):
++        candidates = [{'sizes': [2, 1, 1], 'supports': [[0, 1], [0], [0]]}]
++        return {'status': 'complete', 'groups': {g: {'candidates': candidates} for g in ('A0', 'A3')},
++                'rows': [{'group': g, 'rule': 'msic-alpha1.5-scale1',
++                          'selection': {'selected_index': 0}} for g in ('A0', 'A3')],
++                'config': {'sparsity': [4, 3, 5], 'dims': [5, 5, 5], 'n_train': 20}}
++
++    def test_sizes_come_from_training_default_not_truth(self):
++        self.assertEqual(self.runner().selected_sizes(self.job()), {'A0': (2, 1, 1), 'A3': (2, 1, 1)})
++
++    def test_incomplete_pair_is_rejected(self):
++        job = self.job()
++        job['rows'] = job['rows'][:1]
++        with self.assertRaisesRegex(ValueError, 'A3'):
++            self.runner().selected_sizes(job)
++
++    def test_resume_rejects_changed_candidate_identity(self):
++        report = {'status': 'complete', 'identity': {'candidate_json_sha256': 'old'},
++                  'records': [], 'array_fingerprints': {}}
++        with self.assertRaisesRegex(ValueError, 'identity'):
++            self.runner().validate_artifact(report, {}, {'candidate_json_sha256': 'new'})
++
++    def test_resume_rejects_changed_coefficient_cache(self):
++        report = {'status': 'complete', 'identity': {'seed': 7}, 'records': [],
++                  'array_fingerprints': {'B': 'incorrect'}}
++        with self.assertRaisesRegex(ValueError, 'array'):
++            self.runner().validate_artifact(report, {'B': np.zeros((2, 2, 2))}, {'seed': 7})
++
++    def test_actual_multistart_reuses_shape_and_excludes_oracle(self):
++        from numerical_simulation.data_generation import TensorSimulationConfig, generate_simulation_dataset
++        from numerical_simulation.version_validation.worker import array_fingerprint, evaluate_shared_test
++        from tensor_abess.tensor.bcd import tensor_bcd
++        config = TensorSimulationConfig(n_train=24, n_test=9, dims=(3, 3, 3), sparsity=(2, 1, 1),
++                                        max_cycles=2, k_max=1, test_batch_size=3)
++        data = generate_simulation_dataset(config, seed=91)
++        fixed = tensor_bcd(data.X_train, data.y_train, 1, 1, 1, max_cycles=2, k_max=1)
++        candidate = {'sizes': [1, 1, 1], 'supports': [getattr(fixed, f'S{m}').tolist() for m in (1, 2, 3)],
++                     'B_fingerprint': array_fingerprint(fixed.B), 'rss': 48*fixed.loss, 'loss': fixed.loss}
++        from dataclasses import asdict
++        job = self.job() | {'config': asdict(config), 'seed': 91, 'test_seed': 1000091,
++                            'groups': {g: {'candidates': [candidate]} for g in ('A0', 'A3')}}
++        _, test_hash = evaluate_shared_test(data, [fixed.B], job['test_seed'])
++        job['fingerprints'] = {k: array_fingerprint(getattr(data, k)) for k in ('X_train', 'y_train', 'B_true')}
++        job['fingerprints']['independent_test'] = test_hash
++        arrays = {f'{g}_candidate_0_B': fixed.B for g in ('A0', 'A3')}
++        arrays.update({f'{g}_candidate_0_S{m}': getattr(fixed, f'S{m}') for g in ('A0', 'A3') for m in (1, 2, 3)})
++        report, cache = self.runner().evaluate_job(job, arrays)
++        self.assertEqual(len(report['records']), 6)
++        self.assertEqual(report['groups']['A3']['reused_from'], 'A0')
++        self.assertEqual(report['groups']['A0']['start_records'], report['groups']['A3']['start_records'])
++        for group in report['groups'].values():
++            chosen = group['selected_record']
++            self.assertNotEqual(chosen, report['oracle_record'])
++            self.assertEqual(report['records'][chosen]['rss'], min(report['records'][i]['rss'] for i in group['start_records']))
++        self.assertEqual(report['fingerprints']['independent_test'], test_hash)
++        self.assertIn('record_5_B', cache)
++
++
++if __name__ == '__main__':
++    unittest.main()
+diff --git a/tests/test_support_search_stability.py b/tests/test_support_search_stability.py
+new file mode 100644
+--- /dev/null
++++ b/tests/test_support_search_stability.py
+@@ -0,0 +1,62 @@
++"""Independent training-only multistart support-search contracts."""
++from __future__ import annotations
++import importlib.util
++import inspect
++import unittest
++import numpy as np
++
++class SupportStabilityTests(unittest.TestCase):
++    def module(self):
++        path=__import__('pathlib').Path(__file__).resolve().parents[1]/'numerical_simulation/candidate_search_study/stability.py'
++        self.assertTrue(path.is_file(),'Independent support-stability implementation is missing')
++        spec=importlib.util.spec_from_file_location('stability',path)
++        module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
++        return module
++
++    def sample(self):
++        rng=np.random.default_rng(809)
++        X=rng.normal(size=(90,4,4,3));B=np.zeros((4,4,3));B[np.ix_([0,2],[1],[0,2])]=1
++        y=np.einsum('nijk,ijk->n',X,B)+rng.normal(scale=.05,size=90)
++        return X,y
++
++    def test_no_true_or_test_inputs_to_search(self):
++        f=self.module().fit_multistart
++        args=set(inspect.signature(f).parameters)
++        self.assertFalse(args.intersection({'B_true','supports_true','X_test','y_test'}))
++
++    def test_predeclared_starts_are_reproducible_and_fixed_size(self):
++        m=self.module();X,y=self.sample()
++        a=m.make_initializations(X,y,(2,1,2),training_seed=71)
++        b=m.make_initializations(X,y,(2,1,2),training_seed=71)
++        self.assertEqual([x['strategy'] for x in a],['marginal','random_0','random_1'])
++        for row,other in zip(a,b):
++            for s,t,size,dim in zip(row['supports'],other['supports'],(2,1,2),X.shape[1:]):
++                np.testing.assert_array_equal(s,t);self.assertEqual(len(s),size)
++                self.assertEqual(len(np.unique(s)),size)
++                self.assertTrue(np.all((s>=0)&(s<dim)))
++
++    def test_best_training_rss_is_selected_and_ols_consistent(self):
++        m=self.module();X,y=self.sample()
++        selected,records=m.fit_multistart(X,y,(2,1,2),training_seed=71,max_cycles=4,k_max=1,m_max=15)
++        self.assertEqual(len(records),3)
++        self.assertAlmostEqual(selected['rss'],min(r['rss'] for r in records),places=10)
++        residual=y-np.einsum('nijk,ijk->n',X,selected['B'])
++        self.assertAlmostEqual(selected['rss'],float(residual@residual),places=10)
++        self.assertLessEqual(selected['rss'],records[0]['rss']+1e-12)
++        for r in records:
++            self.assertTrue(np.all(np.diff(r['loss_history'])<=1e-12))
++            self.assertAlmostEqual(r['loss'],min(r['visited_loss_history']),places=12)
++
++    def test_search_does_not_mutate_training_data(self):
++        m=self.module();X,y=self.sample();a=X.copy();b=y.copy()
++        m.fit_multistart(X,y,(2,1,2),training_seed=71,max_cycles=2,k_max=1,m_max=15)
++        np.testing.assert_array_equal(X,a);np.testing.assert_array_equal(y,b)
++
++    def test_full_search_is_reproducible(self):
++        m=self.module();X,y=self.sample()
++        a,ar=m.fit_multistart(X,y,(2,1,2),training_seed=71,max_cycles=3,k_max=1,m_max=15)
++        b,br=m.fit_multistart(X,y,(2,1,2),training_seed=71,max_cycles=3,k_max=1,m_max=15)
++        np.testing.assert_array_equal(a['B'],b['B'])
++        self.assertEqual([r['rss'] for r in ar],[r['rss'] for r in br])
++
++if __name__=='__main__':unittest.main()

@@ -1,0 +1,23 @@
+{
+  "backend": "python",
+  "purpose": "10-minute report slides",
+  "archetype": "quantitative grid",
+  "cohort": "All 145 final analysis participants; excludes the 4 recorded failures from the 149-subject analysis selection",
+  "plots": {
+    "age_distribution": "Describe the seven age categories of the actual analyzed cohort",
+    "tmt_distribution": "Show raw time skew and the response transformation with aligned count axes",
+    "oof_metrics": "Age/sex-only control bounds any claim of added EEG prediction value",
+    "oof_prediction": "Show all 145 subject-level held-out predictions on common observed/predicted axes",
+    "support_stability": "Expose all selected channel, window and band counts across the same five folds"
+  },
+  "uncertainty": "No CI or significance test; OOF metrics use one fixed partition and support counts use five outer fits",
+  "support_display": "All nonzero-selected channels; zero-count channels explicitly enumerated by count, all 16 windows and all 5 bands shown",
+  "baseline_formula": "C_test @ saved y_nuisance_coef + saved y_mean; training-only OLS parameters verified independently",
+  "export": "Editable PDF/SVG text; 300-dpi PNG; slide-size fonts 14-16 pt",
+  "source_warning_reviews": {
+    "EXPORT-RASTER": "PNG is the requested presentation preview; PDF/SVG are the authoritative vector exports, no TIFF required",
+    "FINAL-WIDTH": "These are slide-sized exports, not journal production figures",
+    "LOG-GUARD": "An explicit assertion of final.tmt5_raw > 0 precedes independent np.log validation",
+    "UNCERTAINTY-ENCODING": "Pooled OOF metrics use one fixed partition; selected-support counts describe the five fits and are not interval summaries"
+  }
+}

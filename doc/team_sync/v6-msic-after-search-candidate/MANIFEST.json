@@ -1,0 +1,92 @@
+{
+  "version": "v6-msic-after-search-candidate",
+  "research_only": true,
+  "release_approved": false,
+  "base_version": "v5.2-candidate-search",
+  "created_utc": "2026-10-10T15:18:36.299816+00:00",
+  "patch": "msic-study.patch",
+  "patch_sha256": "9d56aede75a153e80353ff33d9e4bac0fd8cf2cfae43e9cc58dd347398441f24",
+  "patch_new_file_count": 6,
+  "patch_files": [
+    "numerical_simulation/candidate_search_study/msic_after_search.py",
+    "numerical_simulation/candidate_search_study/msic_refit.py",
+    "numerical_simulation/candidate_search_study/msic_confirmation.py",
+    "tests/test_msic_after_search.py",
+    "tests/test_msic_refit.py",
+    "tests/test_msic_confirmation.py"
+  ],
+  "source_sha256": {
+    "numerical_simulation/candidate_search_study/msic_after_search.py": "88f4dbd82572d9fc8e5c0a988fc466d5707173cec02cd81a623f204f9a9df913",
+    "numerical_simulation/candidate_search_study/msic_refit.py": "5cd82f4b3942d721382e370444e8f0faf112dfb5cf260ee9aedfd0ae591e7a33",
+    "numerical_simulation/candidate_search_study/msic_confirmation.py": "16095d1b5124649f07b700638b37347e10073a1d2d4f68a4278bc47052b5e99e",
+    "tests/test_msic_after_search.py": "52e00cbbe21a62c6bbc74fb99ef3cccce6b398007657cda0d296839d65bea76d",
+    "tests/test_msic_refit.py": "fef80a881db21ef5be0a43983d7e06c4d1f4e96cd906cecc19f917fb4fe0815f",
+    "tests/test_msic_confirmation.py": "f94bca5defa11672a84547229a8ebf78427ce34c00918ea117b688acde6d894d"
+  },
+  "patch_check_passed": true,
+  "patch_application_passed": true,
+  "applied_file_byte_comparison_passed": true,
+  "applied_file_sha256": {
+    "numerical_simulation/candidate_search_study/msic_after_search.py": "88f4dbd82572d9fc8e5c0a988fc466d5707173cec02cd81a623f204f9a9df913",
+    "numerical_simulation/candidate_search_study/msic_refit.py": "5cd82f4b3942d721382e370444e8f0faf112dfb5cf260ee9aedfd0ae591e7a33",
+    "numerical_simulation/candidate_search_study/msic_confirmation.py": "16095d1b5124649f07b700638b37347e10073a1d2d4f68a4278bc47052b5e99e",
+    "tests/test_msic_after_search.py": "52e00cbbe21a62c6bbc74fb99ef3cccce6b398007657cda0d296839d65bea76d",
+    "tests/test_msic_refit.py": "fef80a881db21ef5be0a43983d7e06c4d1f4e96cd906cecc19f917fb4fe0815f",
+    "tests/test_msic_confirmation.py": "f94bca5defa11672a84547229a8ebf78427ce34c00918ea117b688acde6d894d"
+  },
+  "patch_verification_copy": "doc/team_sync/v6-msic-after-search-candidate/patch_check",
+  "git_index_or_branch_modified": false,
+  "git_repository_created": false,
+  "archive_created": false,
+  "production_sources_changed": false,
+  "production_defaults_changed": false,
+  "existing_v52_core_reference": "doc/algorithm_versions/v5.2-candidate-search/src",
+  "required_v52_core_files": 33,
+  "prior_dependency_patch_sha256": {
+    "candidate-search-core.patch": "1eda5aa33593717e32cb8a86257d38136908d26a62e0fcb353d48046d310ff18",
+    "candidate-search-study.patch": "6f14d0ab6b3c8776d407dffe90f9f04f0c8dbdf54538afad1eec367fecf224e3"
+  },
+  "explicit_existing_module_dependencies": [
+    "numerical_simulation/candidate_search_study/run.py",
+    "numerical_simulation/candidate_search_study/worker.py",
+    "numerical_simulation/candidate_search_study/numerics.py",
+    "numerical_simulation/version_validation/worker.py",
+    "numerical_simulation/data_generation.py",
+    "numerical_simulation/metrics.py"
+  ],
+  "lock_path": "numerical_simulation/outputs_msic_after_search/LOCK.json",
+  "lock_sha256": "c42f78f63a370b500310497e32ba7903ad37314721dc591fb445ed1d298e8d0b",
+  "locked_rule": {
+    "id": "msic-alpha2-scale0",
+    "criterion": "msic",
+    "alpha": 2.0,
+    "gamma": 1.0,
+    "scale": 0.0
+  },
+  "source_parent_plan_ids": {
+    "development_search_plan_id": "950d722abda2a20f84581a969759ad85a338d0cc86e1681ee24a9e98b1767427",
+    "development_msic_plan_id": "beb5602479334d5233df89f4b401f48c8af4403e98dd43aa88ccd7bab2635b6b",
+    "confirmation_search_plan_id": "be7b227228164e6dbbf3d7305e93717c62128e6982f5ff36000a1f1218fd973c",
+    "historical_search_plan_id": "889780a394bf8a9fa93c60302521b37557a143abde079f9b3a4316f2a5d736b7"
+  },
+  "identity_path": "doc/algorithm_versions/v6-msic-after-search-candidate/VERSION.json",
+  "identity_sha256": "b7660b6850269334dbd36ab553bd44e988395387b45183cd282e4e7c7e41619b",
+  "limited_tests_total": 131,
+  "wrapper_limited_tests": 31,
+  "grammar_checked_files": 6,
+  "grammar_python_version": "3.9",
+  "actual_environment": {
+    "python": "3.12.8",
+    "numpy": "1.26.4",
+    "scipy": "1.16.1"
+  },
+  "cluster_execution_verified": false,
+  "confirmation_status": "in_progress_not_yet_validated",
+  "scope_warning": "Research wrappers only, not a formal MSIC parameter change or approved v6/HCP/NKI algorithm. Confirmation still incomplete. README and reports are maintained separately by root.",
+  "documentation_diff": {
+    "path": "doc/team_sync/v6-msic-after-search-candidate/readme-update.patch",
+    "sha256": "8fff4744842d6b5ec8c2f22a487e01ad92e0ab04d1f3773b6a84748b7401fc78",
+    "actual_application_verified": true,
+    "readme_sha256": "931ae52895336ace8c37fc06c193dc91725156fddd3f032e33de964de8627713"
+  }
+}

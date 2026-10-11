@@ -1,0 +1,209 @@
+% !TEX program = xelatex
+\documentclass[11pt]{beamer}
+
+\definecolor{BNUBlue}{RGB}{0, 78, 161}
+\usecolortheme[named=BNUBlue]{structure}
+\setbeamertemplate{itemize items}[circle]
+\setbeamercolor{itemize item}{fg=BNUBlue}
+\setbeamertemplate{enumerate item}{\color{BNUBlue}\insertenumlabel.}
+\setbeamercolor{enumerate item}{fg=BNUBlue}
+
+\usepackage{ctex}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{braket}
+\usepackage{graphicx}
+% \graphicspath{{pics/}}
+\usepackage{subfigure}
+\setbeamertemplate{caption}[numbered]
+\usefonttheme{serif}
+\usepackage{caption}
+\usepackage[english]{babel}
+\usepackage{calligra}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage{etoolbox}
+\makeatletter
+\defbeamertemplate*{footnote}{nonumber}{
+    \parindent 1em\noindent
+    \raggedright
+    \insertfootnotetext\par
+}
+\setbeamertemplate{footnote}[nonumber]
+\makeatother
+
+\usepackage{times}
+\usetheme{CambridgeUS}
+\usecolortheme{dolphin}
+
+\pgfdeclareimage[height=0.6cm]{BNU001}{BNU001}
+\logo{\pgfuseimage{BNU001}}
+
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\usepackage{xeCJK}
+\setCJKmainfont{SimSun}[BoldFont= SimHei, ItalicFont = KaiTi]
+
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\E}{E}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\Ga}{\mathrm{Gamma}}
+\newcommand{\Be}{\mathrm{Beta}}
+\newcommand{\Exp}{\mathrm{Exp}}
+
+\AtBeginSection[]{
+    \begin{frame}[shrink]
+        \frametitle{本节内容}
+        \footnotesize
+        \tableofcontents[currentsection]
+    \end{frame}
+}
+
+\title[学术汇报]
+{学术汇报}
+
+\author[Xiang Mingxu]
+{\fontsize{8}{10}\selectfont
+    讲解人：Xiang Mingxu
+    \\[10pt]
+    \textnormal{\href{mailto:202411079392@mail.bnu.edu.cn}}
+    {Email: \textit{202411079392@mail.bnu.edu.cn}}}
+
+\institute[BNU]
+{\fontsize{6}{10}\selectfont
+    北京师范大学文理学院统计系\\
+    Department of Statistics, Faculty of Arts and Sciences\\
+    Beijing Normal University}
+
+\date[August 2026]
+{\fontsize{8}{10}
+    \selectfont August 2026}
+
+\begin{document}
+
+\logo{}
+\begin{frame}
+    \titlepage
+    \begin{center}
+        \vspace{-15pt}
+        \includegraphics[width=0.3\linewidth]{BNU001.png}
+    \end{center}
+\end{frame}
+
+\logo{\pgfuseimage{BNU001}}
+\begin{frame}[shrink]
+    \frametitle{目录}
+    \footnotesize
+    \tableofcontents[hideallsubsections]
+\end{frame}
+\logo{}
+
+\section{数理统计基本概念}
+
+\subsection{统计量的定义与性质}
+
+\begin{frame}
+    \frametitle{统计量的定义}
+    \small
+    \textbf{定义：}由样本算出的量称为统计量（statistic），即统计量是样本的函数，不依赖于任何未知参数。
+
+    \pause
+    \vspace{0.5em}
+    \textbf{说明：}
+    \begin{enumerate}
+        \item 统计量只与样本有关，不能与未知参数有关
+        \item 样本具有两重性（具体数/随机变量），统计量也具有两重性；正因为统计量可视为随机变量，才有概率分布，这是统计推断的依据
+        \item 选用什么统计量取决于问题性质，好的统计量应尽可能集中样本中与所讨论问题有关的信息
+    \end{enumerate}
+
+    \pause
+    \vspace{0.3em}
+    例：设 $X \sim N(\mu,\sigma^2)$，$X_1,\ldots,X_n$ 为 i.i.d.\ 样本，则
+    $\bar{X}$, $\sum X_i^2$ 是统计量；\\
+    $\sum (X_i-\mu)$, $\sum X_i/\sigma^2$
+    当 $\mu,\sigma^2$ 未知时不是统计量.
+\end{frame}
+
+\subsection{常用统计量}
+
+\begin{frame}
+    \frametitle{样本均值和样本方差}
+    \small
+    \textbf{样本均值：}$\displaystyle \bar{X} = \frac{1}{n}\sum_{i=1}^n X_i$
+
+    \textbf{样本方差：}$\displaystyle S^2 = \frac{1}{n-1}\sum_{i=1}^n (X_i - \bar{X})^2$
+
+    \textbf{样本标准差：}$S = \sqrt{S^2}$
+
+    \pause
+    \vspace{0.3em}
+    \textbf{基本性质：}
+    \begin{enumerate}
+        \item $\sum_{i=1}^n (X_i - \bar{X}) = 0$
+        \item 设 $Y_i = aX_i + b$（$a \neq 0$），则
+            $\bar{Y} = a\bar{X} + b$，$S_Y^2 = a^2 S_X^2$
+        \item 对任意常数 $c$，有
+            $\sum_{i=1}^n (X_i - c)^2 \ge \sum_{i=1}^n (X_i - \bar{X})^2$，
+            等号仅当 $c = \bar{X}$ 时成立
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \frametitle{性质 3 的证明：偏差平方和的最小性}
+    \small
+    思路：加减 $\bar{X}$，平方展开即可。
+
+    \begin{align*}
+        \sum_{i=1}^n (X_i - c)^2 &= \sum_{i=1}^n \bigl[(X_i - \bar{X}) + (\bar{X} - c)\bigr]^2 \\
+        &= \sum_{i=1}^n (X_i - \bar{X})^2 + 2(\bar{X} - c)\underbrace{\sum_{i=1}^n (X_i - \bar{X})}_{=0} + \sum_{i=1}^n (\bar{X} - c)^2 \\
+        &= \sum_{i=1}^n (X_i - \bar{X})^2 + n(\bar{X} - c)^2 \\
+        &\ge \sum_{i=1}^n (X_i - \bar{X})^2.
+    \end{align*}
+
+    \pause
+    交叉项为零（性质1），$n(\bar{X} - c)^2 \ge 0$ 恒成立，等号仅当 $c = \bar{X}$。
+
+    结论：在偏差平方和最小的意义下，样本均值 $\bar{X}$ 是总体均值的最优估计。
+\end{frame}
+
+\begin{frame}
+    \frametitle{样本矩}
+    \small
+    \textbf{样本 $k$ 阶原点矩：}
+    \[
+        a_{n,k} = \frac{1}{n}\sum_{i=1}^n X_i^k, \quad k = 1,2,\ldots
+    \]
+    当 $k = 1$ 时，$a_{n,1} = \bar{X}$，即样本均值。
+
+    \pause
+    \vspace{0.3em}
+    \textbf{样本 $k$ 阶中心矩：}
+    \[
+        m_{n,k} = \frac{1}{n}\sum_{i=1}^n (X_i - \bar{X})^k, \quad k = 1,2,\ldots
+    \]
+    当 $k = 2$ 时，$m_{n,2} = \frac{n-1}{n}S^2$。
+\end{frame}
+
+\begin{frame}
+    \frametitle{样本相关系数：从余弦相似度看线性关系}
+    \small
+    记中心化向量：
+    \[
+        \tilde{\mathbf{x}} = (X_1-\bar{X},\ldots,X_n-\bar{X})^\top,\quad
+        \tilde{\mathbf{y}} = (Y_1-\bar{Y},\ldots,Y_n-\bar{Y})^\top.
+    \]
+
+    两个向量的余弦相似度定义为：
+    \[
+        \cos\theta = \frac{\tilde{\mathbf{x}}^\top\tilde{\mathbf{y}}}{\|\tilde{\mathbf{x}}\|\cdot\|\tilde{\mathbf{y}}\|}
+        = \frac{\sum (X_i-\bar{X})(Y_i-\bar{Y})}{\sqrt{\sum (X_i-\bar{X})^2 \cdot \sum (Y_i-\bar{Y})^2}} = r.
+    \]
+    这正是样本相关系数 $r$。
+
+    分子：两个中心化向量的内积；分母：两向量模长（长度）的乘积。
+    本质：$\tilde{\mathbf{x}}$ 与 $\tilde{\mathbf{y}}$ 夹角的余弦值。
+\end{frame}
+
+
+\end{document}

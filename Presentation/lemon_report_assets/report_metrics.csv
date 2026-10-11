@@ -1,0 +1,5 @@
+model,n,response_scale,rmse,mae,r2,provenance
+Tensor-ABESS,145,log,0.3264174997303672,0.2671045135046993,0.3318410830738089,Stored model OOF predictions
+Tensor-GLasso,145,log,0.43386929052999534,0.33244920490742996,-0.18045850137446662,Stored model OOF predictions
+Vector Lasso,145,log,0.3682701300210048,0.29457863044929655,0.1495165023759184,Stored model OOF predictions
+Age + sex only,145,log,0.3149351491095703,0.25438514839158716,0.3780217922442529,New diagnostic reconstructed from saved outer-fold nuisance parameters; no model refit

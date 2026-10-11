@@ -1,0 +1,17 @@
+{
+  "status": "complete",
+  "checks_passed": true,
+  "plan_id": "beb5602479334d5233df89f4b401f48c8af4403e98dd43aa88ccd7bab2635b6b",
+  "input_plan_id": "950d722abda2a20f84581a969759ad85a338d0cc86e1681ee24a9e98b1767427",
+  "source_plan_id": "950d722abda2a20f84581a969759ad85a338d0cc86e1681ee24a9e98b1767427",
+  "dataset_count": 90,
+  "rule_rows": 990,
+  "default_exact_replays": 90,
+  "pool_fingerprints_unchanged": true,
+  "research_only": true,
+  "rule_selection_performed": false,
+  "confirmation_performed": false,
+  "new_model_fitting": false,
+  "runtime_sec": 614.9509369999869,
+  "interpretation": "Nine scenarios and pooled results are descriptive development/historical evidence; pooled SE does not assume one homogeneous population. Source A3 runtime shares prior caches and is not a new cold-fit benchmark."
+}

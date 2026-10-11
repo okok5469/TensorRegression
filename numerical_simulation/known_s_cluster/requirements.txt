@@ -1,0 +1,4 @@
+# Existing cluster environment record only; do not install or upgrade for this experiment.
+# Python 3.9.25; no sklearn, matplotlib or third-party abess required.
+numpy==2.0.2
+scipy==1.13.1

@@ -1,0 +1,29 @@
+source_dir: ../outputs_lemon_adjusted
+tmt_csv: ../../TMT.csv
+participants_file: ../outputs_demographics/participants.tsv
+output_dir: ../outputs_eeg_incremental
+outer_folds: 5
+outer_repeats: 3
+outer_seeds: [20260908, 20261009, 20261010]
+inner_folds: 3
+inner_seed: 20261009
+models: [Covariates Only, Tensor-ABESS, Vector Lasso, Tensor-GLasso, Ridge]
+lambda_ratios: [1.0, 0.6951927962, 0.4832930239, 0.3359818286, 0.2335721469, 0.1623776739, 0.1128837892, 0.0784759970, 0.0545559478, 0.0379269019, 0.0263665090, 0.0183298071, 0.0127427499, 0.0088586679, 0.0061584821, 0.0042813324, 0.0029763514, 0.0020691381, 0.0014384499, 0.001]
+ridge_lambdas: [0.0001, 0.0002636651, 0.0006951928, 0.0018329807, 0.0048329302, 0.0127427499, 0.0335981829, 0.0885866790, 0.2335721469, 0.6158482111, 1.6237767392, 4.2813323987, 11.2883789168, 29.7635144163, 78.4759970351, 206.9138081115, 545.5594781169, 1438.4498882877, 3792.6901907323, 10000.0]
+bootstrap_seed: 20261009
+bootstrap_samples: 2000
+model:
+  k_max: 1
+  c: 3.0
+  criterion: bic
+  n_lambdas: 20
+  cv_folds: 3
+  max_iter: 500
+  tol: 1.0e-6
+  max_cycles: 6
+  m_max: 15
+  eps: 1.0e-8
+  adaptive_criterion: msic
+  msic_refine_alpha: 1.5
+  msic_refine_gamma: 1.0
+  msic_refine_one_se_scale: 1.0

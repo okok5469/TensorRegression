@@ -1,0 +1,10 @@
+{
+  "status": "complete",
+  "integrity_checks_passed": true,
+  "plan_id": "a47340bbd48545833f6c281d35cfe95141945c47b6214bd97ca2e9f94eaa8f57",
+  "expected_jobs": 54,
+  "completed_jobs": 54,
+  "paired_datasets": 27,
+  "method_rows": 333,
+  "scope": "Exploratory 9-scenario study; no v6 formal selection; original results retained"
+}

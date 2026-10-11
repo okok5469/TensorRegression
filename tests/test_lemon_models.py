@@ -50,6 +50,26 @@ class LemonModelTests(unittest.TestCase):
         for key, value in pre.to_arrays().items():
             np.testing.assert_array_equal(value, arrays[key])
 
+    def test_categorical_age_design_uses_training_only_nuisance_fit(self):
+        mod = self.module('confounds')
+        rng = np.random.default_rng(317)
+        groups = np.tile(np.arange(4), 12)
+        sex = (np.arange(48) // 4) % 2
+        C = np.column_stack([np.ones(48)] + [(groups == k).astype(float) for k in (1, 2, 3)] + [sex])
+        X = rng.normal(size=(48, 2, 2, 2)) + (C @ np.array([0., 2., -1., 3., .5]))[:, None, None, None]
+        y = C @ np.array([4., .4, -.2, .6, .1]) + rng.normal(size=48)
+        pre = mod.fit_preprocessor(X[:32], y[:32], C[:32])
+        np.testing.assert_allclose(C[:32].T @ pre.apply(X[:32], C[:32]).reshape(32, -1), 0., atol=1e-10)
+        heldout = pre.predict(np.zeros((2, 2, 2)), X[32:], C[32:])
+        expected = C[32:] @ np.linalg.lstsq(C[:32], y[:32], rcond=None)[0]
+        np.testing.assert_allclose(heldout, expected, atol=1e-10)
+        # A category present only in held-out subjects must stop, never be imputed.
+        singleton = C.copy()
+        singleton[:, 3] = 0.
+        singleton[-1, 3] = 1.
+        with self.assertRaisesRegex(ValueError, 'rank'):
+            mod.fit_preprocessor(X[:32], y[:32], singleton[:32])
+
     def test_predictions_restore_the_input_response_scale(self):
         mod = self.module("confounds")
         X, y, C = self.data()

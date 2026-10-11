@@ -1,0 +1,60 @@
+{
+  "n_subjects": 145,
+  "tensor_shape": [
+    145,
+    61,
+    16,
+    5
+  ],
+  "n_features_per_subject": 4880,
+  "sex_counts": {
+    "Female": 66,
+    "Male": 79
+  },
+  "age_counts": {
+    "20-25": 46,
+    "25-30": 43,
+    "30-40": 10,
+    "55-65": 13,
+    "65-70": 17,
+    "70-75": 12,
+    "75-80": 4
+  },
+  "response_statistics": {
+    "tmt5_raw": {
+      "count": 145.0,
+      "mean": 62.93986206896551,
+      "std": 26.93090095725971,
+      "median": 56.9,
+      "min": 24.13,
+      "max": 161.15,
+      "skew": 1.276397547282959
+    },
+    "tmt5_log": {
+      "count": 145.0,
+      "mean": 4.0604829425654,
+      "std": 0.4007156503964165,
+      "median": 4.041295341132285,
+      "min": 3.1834558796369405,
+      "max": 5.082335608261447,
+      "skew": 0.23136512961885405
+    }
+  },
+  "n_outer_folds": 5,
+  "n_train_per_fold": 116,
+  "n_test_per_fold": 29,
+  "baseline_provenance": "New saved-parameter diagnostic, independently verified against each training-only nuisance OLS; no EEG model refit",
+  "final_support": {
+    "channels": [
+      "F7",
+      "AF8"
+    ],
+    "windows_1_based": [
+      16
+    ],
+    "bands": [
+      "gamma"
+    ]
+  },
+  "excluded_source_rows": "Final manifest include_primary=False; no further exclusions in these figures"
+}

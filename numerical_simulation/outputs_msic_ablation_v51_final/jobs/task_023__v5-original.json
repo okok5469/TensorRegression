@@ -1,0 +1,241 @@
+{
+  "schema_version": 1,
+  "status": "complete",
+  "version": "v5-original",
+  "config": {
+    "n_train": 400,
+    "n_test": 500,
+    "dims": [
+      32,
+      20,
+      25
+    ],
+    "sparsity": [
+      4,
+      3,
+      5
+    ],
+    "rho": [
+      0.3,
+      0.3,
+      0.3
+    ],
+    "snr": 2.0,
+    "support_shape": "continuous",
+    "sigma": 1,
+    "k_max": 1,
+    "max_cycles": 6,
+    "n_lambdas": 20,
+    "cv_folds": 5,
+    "max_iter": 500,
+    "tol": 1e-06,
+    "abess_init_criterion": "bic",
+    "abess_init_c": 3,
+    "tensor_abess_mode": "adaptive",
+    "msic_refine_alpha": 1.5,
+    "msic_refine_gamma": 1,
+    "msic_refine_one_se_scale": 1,
+    "random_state": 2026,
+    "test_batch_size": 100
+  },
+  "seed": 20268012,
+  "test_seed": 21268012,
+  "rows": [
+    {
+      "method": "v5-original/adaptive-default",
+      "version": "v5-original",
+      "rule": "adaptive-default",
+      "n_train": 400,
+      "snr": 2.0,
+      "seed": 20268012,
+      "test_seed": 21268012,
+      "mode_precision_1": 1.0,
+      "mode_precision_2": 0.75,
+      "mode_precision_3": 1.0,
+      "mode_tpr_1": 1.0,
+      "mode_tpr_2": 1.0,
+      "mode_tpr_3": 1.0,
+      "mode_f1_1": 1.0,
+      "mode_f1_2": 0.8571428571428571,
+      "mode_f1_3": 1.0,
+      "mode_precision_macro": 0.9166666666666666,
+      "mode_tpr_macro": 1.0,
+      "mode_f1_macro": 0.9523809523809524,
+      "exact_recovery": 0.0,
+      "element_precision": 0.75,
+      "element_recall": 1.0,
+      "element_f1": 0.8571428571428571,
+      "element_fdr": 0.25,
+      "s1_hat": 4.0,
+      "s2_hat": 4.0,
+      "s3_hat": 5.0,
+      "q_hat": 80.0,
+      "ree": 0.4785878858756948,
+      "pmse": 1.30385167905892,
+      "signal_mse": 0.28209052527686496,
+      "r2_test": 0.5555981194323838,
+      "loss_train": 0.4212719331736477,
+      "rss_train": 337.01754653891817,
+      "q_true": 60,
+      "q_max": 280,
+      "q_over": 1,
+      "q_under": 0,
+      "q_small": 0,
+      "q_near_cap": 0,
+      "shared_training_sec": 150.7110137999989,
+      "scoring_sec": 0.0,
+      "runtime_sec": 150.7110137999989,
+      "selection": {
+        "selected_score": 199.76140143940063,
+        "selected_index": 0
+      },
+      "loss_history": [
+        0.5543786122683834,
+        0.4212719331736477,
+        0.4212719331736477
+      ],
+      "stop_reason": null,
+      "best_iteration": null
+    }
+  ],
+  "candidates": [
+    {
+      "sizes": [
+        4,
+        4,
+        5
+      ],
+      "rss": 337.01754653891817,
+      "loss": 0.4212719331736477,
+      "origin": "original-selected",
+      "fit_sec": 0.0,
+      "loss_history": [
+        0.5543786122683834,
+        0.4212719331736477,
+        0.4212719331736477
+      ],
+      "n_cycles": 4,
+      "best_iteration": null,
+      "best_rss": null,
+      "stop_reason": null,
+      "visited_loss_history": [],
+      "initial_supports": null,
+      "candidate_index": 0,
+      "supports": [
+        [
+          7,
+          8,
+          9,
+          10
+        ],
+        [
+          8,
+          9,
+          10,
+          11
+        ],
+        [
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      ],
+      "B_fingerprint": "dcb511f58a2d855bf0f89e203e9dddc93d674720f6669dcfefd49dccaf9d0e4d",
+      "q": 80
+    }
+  ],
+  "cv": null,
+  "trace": {
+    "init_supports": [
+      [
+        9
+      ],
+      [
+        9
+      ],
+      [
+        3,
+        6,
+        8,
+        9,
+        10
+      ]
+    ],
+    "s_max": [
+      6,
+      6,
+      7
+    ],
+    "returned_loss_history": [
+      0.5543786122683834,
+      0.4212719331736477,
+      0.4212719331736477
+    ],
+    "returned_sic_history": [
+      404.1966639266906,
+      121.08556033586933,
+      121.08556033586933,
+      199.76140143940063
+    ],
+    "stage_alpha": 1.0,
+    "stage_gamma": 1.0,
+    "default_global_alpha": 1.5,
+    "default_global_gamma": 1.0,
+    "default_one_se_scale": 1.0
+  },
+  "fingerprints": {
+    "X_train": "d63cd2a7bde4a42ce7f3ba07509dca36548c456e9c0323c6bb7b139e57583499",
+    "y_train": "6e2b4614fe51d3cabf11afa34d09df145a1a821dfc66538fdc844aadc700999d",
+    "B_true": "ba88b653d4c05a4d942bf42a2c4054b0a578f9845758c9aa5b34bb348f5229de",
+    "independent_test": {
+      "sha256": "4511bda922ec2056a70f67887554f0d055a10cb9ace681e186a4b41ac3e9cb0e",
+      "n_observations": 500,
+      "n_batches": 5,
+      "definition": "SHA256 of shape/dtype/bytes array digests of X,y,signal in each shared batch"
+    },
+    "core_sources": {
+      "tensor_abess/__init__.py": "f09ee71e1a5b9a9c9deddbfcdec0d028cd34803af58318af1beca9e9a3aa5dbe",
+      "tensor_abess/baselines/__init__.py": "2e25cb27c0deae528eefec64946bc7aafd241b235145c3fb2bbc32da983bd00a",
+      "tensor_abess/baselines/base.py": "296af75c1a2afbce822d401f3ba81a231b176aa8ff7d51a3fa3575ad03303306",
+      "tensor_abess/baselines/cp.py": "164b04db1ab6ac6b163366957d5a3e5e3db9d9e117fe62a1bf63d6378e936fbb",
+      "tensor_abess/baselines/group_lasso.py": "28acbc2c67ef3a462b7c8c9551c6d08eca076877100494f23ed5b60aeb24ab75",
+      "tensor_abess/baselines/lasso.py": "b0ce26433580f51c4a56a99d3748fbd609a7527469669475ff774bab3e1393f0",
+      "tensor_abess/baselines/tucker.py": "a90c90b46ded263dd57fc99b926b6d82abb410b4541d9d898fc5b907037b0283",
+      "tensor_abess/common/__init__.py": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+      "tensor_abess/common/ranks.py": "4684b9504f033aee9cee10a40ab652d8ad76f2e871833fe3f123a883b2a32aa4",
+      "tensor_abess/group/__init__.py": "ceb9fc92074ba440ef5c2082453aeba1f67db8da03a49309937e0e5efc32d3e1",
+      "tensor_abess/group/adaptive.py": "453f0b2e9568f3a611977151ab20943a120bb9603adb90838d52d4ca5a306376",
+      "tensor_abess/group/bess_fix.py": "6577bc8b26b99b45b8a4bd7f154135fd10c0627c520c6a379f8a6616ab9c87fb",
+      "tensor_abess/group/sacrifices.py": "b05f00ea51a5d91e01961e468e15ec3ca8046af649f8f2bbb51addd264376155",
+      "tensor_abess/group/splicing.py": "0ac340129f4f38f1aaf2c4d7c778f5c763964c9b6792485bcd017147b4d4641c",
+      "tensor_abess/metrics/__init__.py": "34ad9b63350042207d203b6c33c481bcf8fbb8e113216a094766e82778ac9eee",
+      "tensor_abess/metrics/support.py": "18495d2a039e6d9df9c650c4532a52e8cb59a05594755946098eede234054dd8",
+      "tensor_abess/tensor/__init__.py": "a7a284698fe7934f052f95d6b93f595b46262a0b4b81f7e3cbf806fa13850667",
+      "tensor_abess/tensor/abess.py": "fc0a87f201f2f6aa18f62667d881cddfddc5d969b70c7b83cf95213c5cc7ee45",
+      "tensor_abess/tensor/bcd.py": "4f9486d32f01a2798a55fbe7216d6a05d789f56f8f85608f03598c2926bce6fa",
+      "tensor_abess/tensor/ops.py": "cc0140752af901e792dc48811d320cb928f0dc917bbc9ccf3f8e8ae1cd9ee0fa",
+      "tensor_abess/tensor/reduction.py": "8b8a66856d5e8c8a0a887fb97f911687d6f48b8d25079430abb7ffe550774076",
+      "tensor_abess/tensor/sic.py": "84637e426a8ad8d9c471d8f81787135052f10f954475127403d5a9b2b4f51d9f",
+      "tensor_abess/utils/__init__.py": "969942a09ec95253bd97eddd57740fea3da8bb1ca0cb9c69074d9244b168e343",
+      "tensor_abess/utils/data.py": "67696c6f1327a0f7f9e6c7980a1c7a648d4bf6a9165ce7ea673948891f63937c",
+      "tensor_abess/utils/glasso.py": "05cf440fdf5c5cce814264ec35cc6c7b0397cdf229889452abe2e90cd650097d",
+      "tensor_abess/utils/init.py": "fb019d1a09c5f421db24ff8ae6821d5c7e01b7e440f0efe177727117a5762962",
+      "tensor_abess/utils/validation.py": "d6500d0a227854dfc963f33fb47f97d10ef67527b15a599426c4d1202e669dbe",
+      "tensor_abess/vector/__init__.py": "7f8f788a7915a4540f753f8e9a5e9917008ca725cb5b9fb23a8e575e75ab59f7",
+      "tensor_abess/vector/abess.py": "901efc50fc964801b44e9e12e90980ea065e15a303b9375f142fc8f0eb0527f0",
+      "tensor_abess/vector/sacrifices.py": "2462c4f8f3e447e98218eb2c68811893a24c547b78007848e047c6afd79db9f2",
+      "tensor_abess/vector/sic.py": "f562d2736186173f0939de7677a6f14a64c7a2d202bd414929e7aee310c1487b",
+      "tensor_abess/vector/splicing.py": "c14f4e47e7c8506ee63422016c69693a303ae5638f7c6ddd097d9baffa8b7e63"
+    }
+  },
+  "environment": {
+    "python": "3.12.8",
+    "numpy": "1.26.4",
+    "scipy": "1.16.1"
+  },
+  "runtime_interpretation": "Rescoring methods share the complete candidate search cost; their runtime values must not be summed as independent fits.",
+  "array_cache": "task_023__v5-original.npz",
+  "array_cache_sha256": "b44347b13fb29ba7afc41db812dec2edb31cd5e3cb3391d70d4c68dd4e82e640"
+}

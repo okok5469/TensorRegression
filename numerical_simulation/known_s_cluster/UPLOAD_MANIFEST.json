@@ -1,0 +1,224 @@
+{
+  "schema_version": 1,
+  "files": [
+    {
+      "path": "src/tensor_abess/__init__.py",
+      "bytes": 762,
+      "sha256": "f09ee71e1a5b9a9c9deddbfcdec0d028cd34803af58318af1beca9e9a3aa5dbe"
+    },
+    {
+      "path": "src/tensor_abess/baselines/__init__.py",
+      "bytes": 986,
+      "sha256": "2e25cb27c0deae528eefec64946bc7aafd241b235145c3fb2bbc32da983bd00a"
+    },
+    {
+      "path": "src/tensor_abess/baselines/base.py",
+      "bytes": 330,
+      "sha256": "296af75c1a2afbce822d401f3ba81a231b176aa8ff7d51a3fa3575ad03303306"
+    },
+    {
+      "path": "src/tensor_abess/baselines/cp.py",
+      "bytes": 1795,
+      "sha256": "164b04db1ab6ac6b163366957d5a3e5e3db9d9e117fe62a1bf63d6378e936fbb"
+    },
+    {
+      "path": "src/tensor_abess/baselines/group_lasso.py",
+      "bytes": 2640,
+      "sha256": "28acbc2c67ef3a462b7c8c9551c6d08eca076877100494f23ed5b60aeb24ab75"
+    },
+    {
+      "path": "src/tensor_abess/baselines/lasso.py",
+      "bytes": 1114,
+      "sha256": "b0ce26433580f51c4a56a99d3748fbd609a7527469669475ff774bab3e1393f0"
+    },
+    {
+      "path": "src/tensor_abess/baselines/tucker.py",
+      "bytes": 1726,
+      "sha256": "a90c90b46ded263dd57fc99b926b6d82abb410b4541d9d898fc5b907037b0283"
+    },
+    {
+      "path": "src/tensor_abess/common/__init__.py",
+      "bytes": 2,
+      "sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6"
+    },
+    {
+      "path": "src/tensor_abess/common/ranks.py",
+      "bytes": 1404,
+      "sha256": "4684b9504f033aee9cee10a40ab652d8ad76f2e871833fe3f123a883b2a32aa4"
+    },
+    {
+      "path": "src/tensor_abess/group/__init__.py",
+      "bytes": 314,
+      "sha256": "ceb9fc92074ba440ef5c2082453aeba1f67db8da03a49309937e0e5efc32d3e1"
+    },
+    {
+      "path": "src/tensor_abess/group/adaptive.py",
+      "bytes": 3192,
+      "sha256": "453f0b2e9568f3a611977151ab20943a120bb9603adb90838d52d4ca5a306376"
+    },
+    {
+      "path": "src/tensor_abess/group/bess_fix.py",
+      "bytes": 3410,
+      "sha256": "6577bc8b26b99b45b8a4bd7f154135fd10c0627c520c6a379f8a6616ab9c87fb"
+    },
+    {
+      "path": "src/tensor_abess/group/sacrifices.py",
+      "bytes": 3698,
+      "sha256": "b05f00ea51a5d91e01961e468e15ec3ca8046af649f8f2bbb51addd264376155"
+    },
+    {
+      "path": "src/tensor_abess/group/splicing.py",
+      "bytes": 2005,
+      "sha256": "0ac340129f4f38f1aaf2c4d7c778f5c763964c9b6792485bcd017147b4d4641c"
+    },
+    {
+      "path": "src/tensor_abess/metrics/__init__.py",
+      "bytes": 156,
+      "sha256": "34ad9b63350042207d203b6c33c481bcf8fbb8e113216a094766e82778ac9eee"
+    },
+    {
+      "path": "src/tensor_abess/metrics/support.py",
+      "bytes": 1940,
+      "sha256": "18495d2a039e6d9df9c650c4532a52e8cb59a05594755946098eede234054dd8"
+    },
+    {
+      "path": "src/tensor_abess/tensor/__init__.py",
+      "bytes": 2330,
+      "sha256": "a7a284698fe7934f052f95d6b93f595b46262a0b4b81f7e3cbf806fa13850667"
+    },
+    {
+      "path": "src/tensor_abess/tensor/abess.py",
+      "bytes": 5046,
+      "sha256": "fc0a87f201f2f6aa18f62667d881cddfddc5d969b70c7b83cf95213c5cc7ee45"
+    },
+    {
+      "path": "src/tensor_abess/tensor/bcd.py",
+      "bytes": 14079,
+      "sha256": "4f9486d32f01a2798a55fbe7216d6a05d789f56f8f85608f03598c2926bce6fa"
+    },
+    {
+      "path": "src/tensor_abess/tensor/ops.py",
+      "bytes": 3142,
+      "sha256": "cc0140752af901e792dc48811d320cb928f0dc917bbc9ccf3f8e8ae1cd9ee0fa"
+    },
+    {
+      "path": "src/tensor_abess/tensor/reduction.py",
+      "bytes": 3241,
+      "sha256": "8b8a66856d5e8c8a0a887fb97f911687d6f48b8d25079430abb7ffe550774076"
+    },
+    {
+      "path": "src/tensor_abess/tensor/sic.py",
+      "bytes": 3094,
+      "sha256": "84637e426a8ad8d9c471d8f81787135052f10f954475127403d5a9b2b4f51d9f"
+    },
+    {
+      "path": "src/tensor_abess/utils/__init__.py",
+      "bytes": 1662,
+      "sha256": "969942a09ec95253bd97eddd57740fea3da8bb1ca0cb9c69074d9244b168e343"
+    },
+    {
+      "path": "src/tensor_abess/utils/data.py",
+      "bytes": 2461,
+      "sha256": "67696c6f1327a0f7f9e6c7980a1c7a648d4bf6a9165ce7ea673948891f63937c"
+    },
+    {
+      "path": "src/tensor_abess/utils/glasso.py",
+      "bytes": 5375,
+      "sha256": "05cf440fdf5c5cce814264ec35cc6c7b0397cdf229889452abe2e90cd650097d"
+    },
+    {
+      "path": "src/tensor_abess/utils/init.py",
+      "bytes": 7729,
+      "sha256": "fb019d1a09c5f421db24ff8ae6821d5c7e01b7e440f0efe177727117a5762962"
+    },
+    {
+      "path": "src/tensor_abess/utils/validation.py",
+      "bytes": 12143,
+      "sha256": "d6500d0a227854dfc963f33fb47f97d10ef67527b15a599426c4d1202e669dbe"
+    },
+    {
+      "path": "src/tensor_abess/vector/__init__.py",
+      "bytes": 397,
+      "sha256": "7f8f788a7915a4540f753f8e9a5e9917008ca725cb5b9fb23a8e575e75ab59f7"
+    },
+    {
+      "path": "src/tensor_abess/vector/abess.py",
+      "bytes": 4344,
+      "sha256": "901efc50fc964801b44e9e12e90980ea065e15a303b9375f142fc8f0eb0527f0"
+    },
+    {
+      "path": "src/tensor_abess/vector/sacrifices.py",
+      "bytes": 3118,
+      "sha256": "2462c4f8f3e447e98218eb2c68811893a24c547b78007848e047c6afd79db9f2"
+    },
+    {
+      "path": "src/tensor_abess/vector/sic.py",
+      "bytes": 891,
+      "sha256": "f562d2736186173f0939de7677a6f14a64c7a2d202bd414929e7aee310c1487b"
+    },
+    {
+      "path": "src/tensor_abess/vector/splicing.py",
+      "bytes": 2273,
+      "sha256": "c14f4e47e7c8506ee63422016c69693a303ae5638f7c6ddd097d9baffa8b7e63"
+    },
+    {
+      "path": "numerical_simulation/__init__.py",
+      "bytes": 302,
+      "sha256": "937ddd891cd1918e5726a149b7c6e3745067dee92d9945a8dbbce6c26b58cd26"
+    },
+    {
+      "path": "numerical_simulation/data_generation.py",
+      "bytes": 7574,
+      "sha256": "0a867f244bd44271e301eb0629c82f2332fccebb20a4329b51e27ad194066423"
+    },
+    {
+      "path": "numerical_simulation/methods.py",
+      "bytes": 12089,
+      "sha256": "af700bc8eb5abfa6469617f41a61ef0299e9be910fe63a55c34805a204d5bbd5"
+    },
+    {
+      "path": "numerical_simulation/metrics.py",
+      "bytes": 4184,
+      "sha256": "eaf4bbb30472754da10754476620bbb2dcb7a1c7e80b571014fb04edf183951f"
+    },
+    {
+      "path": "numerical_simulation/known_s_cluster/run.py",
+      "bytes": 30344,
+      "sha256": "a16ca3f724aaf44e5e5ac58bfa1d3c7f3e3dd5f60bfc44b04949911cbb13cfd0"
+    },
+    {
+      "path": "numerical_simulation/known_s_cluster/test_run.py",
+      "bytes": 11083,
+      "sha256": "c10d3999835a72252cb78077de38113479d11b3831247cb6c317f1b86a32274e"
+    },
+    {
+      "path": "numerical_simulation/known_s_cluster/profiles.json",
+      "bytes": 4323,
+      "sha256": "76465458701ad6da176fd93d688d1b4762285a9cf391360737e0730a35c3fa94"
+    },
+    {
+      "path": "numerical_simulation/known_s_cluster/requirements.txt",
+      "bytes": 130,
+      "sha256": "a338fd723ad646d2701ac2e95aa6b3b4c30bd56c229e3733ae3bf19074e96b18"
+    },
+    {
+      "path": "numerical_simulation/known_s_cluster/submit_slurm.sh",
+      "bytes": 630,
+      "sha256": "0404e16dc232cbdb7611afa4ebc10e1f2ee1118e255ca97483c7483a7e41eedc"
+    },
+    {
+      "path": "numerical_simulation/known_s_cluster/README.md",
+      "bytes": 7619,
+      "sha256": "ef38393248b6679b0135a7011e4c2eae8eb77faeac5b8ac2abb90ff079aaa8cf"
+    }
+  ],
+  "file_count_without_manifest": 42,
+  "production_dependencies": [
+    "numpy==1.26.4",
+    "scipy==1.16.1"
+  ],
+  "recommended_python": "3.12",
+  "default_full_tasks": 700,
+  "default_method_results": 2100,
+  "scope": "Source-only upload bundle; no historical data or local outputs included."
+}

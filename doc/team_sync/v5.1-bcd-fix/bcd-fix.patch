@@ -1,0 +1,376 @@
+diff --git a/src/tensor_abess/tensor/bcd.py b/src/tensor_abess/tensor/bcd.py
+index e53f064..f045a0b 100644
+--- a/src/tensor_abess/tensor/bcd.py
++++ b/src/tensor_abess/tensor/bcd.py
+@@ -26,6 +26,11 @@ class TensorBcdResult:
+     loss: float
+     loss_history: list[float] = field(default_factory=list)
+     n_cycles: int = 0
++    best_iteration: int = 0
++    best_rss: float = 0.0
++    stop_reason: str = ""
++    visited_loss_history: list[float] = field(default_factory=list)
++    accepted_support_history: list[tuple[tuple[int, ...], ...]] = field(default_factory=list)
+ 
+ 
+ @dataclass
+@@ -197,10 +202,19 @@ def tensor_bcd(
+     S2_init: np.ndarray | None = None,
+     S3_init: np.ndarray | None = None,
+ ) -> TensorBcdResult:
+-    """Legacy fixed-size BCD retained for backward compatibility."""
++    """Fixed-size search with explicit exploration and best-state acceptance.
++
++    ``loss_history`` records initial and accepted mode states; ``best_iteration``
++    indexes all complete OLS proposals in ``visited_loss_history``. The returned
++    supports, coefficients and loss always belong to the best visited state.
++    Cold Group-BESS proposals retain the legacy exploration opportunities; their
++    nonmonotone states are never mistaken for accepted best-model updates.
++    """
+     X = np.asarray(X, dtype=float)
+     y = np.asarray(y, dtype=float).ravel()
+ 
++    if X.ndim != 4 or len(y) != len(X) or not np.isfinite(X).all() or not np.isfinite(y).all():
++        raise ValueError("Fixed BCD requires aligned finite tensor samples")
+     if S1_init is None or S2_init is None or S3_init is None:
+         S1, S2, S3 = initial_support(
+             X, y, s1, s2, s3, strategy=init_strategy, random_state=random_state
+@@ -210,84 +224,78 @@ def tensor_bcd(
+         S2 = np.sort(np.asarray(S2_init, dtype=int))
+         S3 = np.sort(np.asarray(S3_init, dtype=int))
+ 
+-    B = refit_tensor_coefficients(X, y, S1, S2, S3)
+-    loss_history = [tensor_loss(X, y, B)]
+-
+-    for cycle in range(max_cycles):
+-        changed = False
+-
+-        Z, gi, n_g = build_mode_design(X, 1, S1, S2, S3)
+-        res1 = group_bess_fix(
+-            y,
+-            Z,
+-            gi,
+-            s1,
+-            n_groups=n_g,
+-            m_max=m_max,
+-            k_max=k_max,
+-            block_size=max(len(S2) * len(S3), 1),
+-        )
+-        new_S1 = np.sort(res1.active_groups)
+-        if not np.array_equal(new_S1, S1):
+-            S1 = new_S1
+-            changed = True
++    sizes = (s1, s2, s3)
++    supports = [S1, S2, S3]
++    for support, size, dimension in zip(supports, sizes, X.shape[1:]):
++        if len(support) != size or len(np.unique(support)) != size or np.any((support < 0) | (support >= dimension)):
++            raise ValueError("Initial supports must satisfy the fixed-size constraints")
+ 
+-        Z, gi, n_g = build_mode_design(X, 2, S1, S2, S3)
+-        res2 = group_bess_fix(
+-            y,
+-            Z,
+-            gi,
+-            s2,
+-            n_groups=n_g,
+-            m_max=m_max,
+-            k_max=k_max,
+-            block_size=max(len(S1) * len(S3), 1),
+-        )
+-        new_S2 = np.sort(res2.active_groups)
+-        if not np.array_equal(new_S2, S2):
+-            S2 = new_S2
+-            changed = True
++    def state_key(state):
++        return tuple(tuple(int(index) for index in support) for support in state)
+ 
+-        Z, gi, n_g = build_mode_design(X, 3, S1, S2, S3)
+-        res3 = group_bess_fix(
+-            y,
+-            Z,
+-            gi,
+-            s3,
+-            n_groups=n_g,
+-            m_max=m_max,
+-            k_max=k_max,
+-            block_size=max(len(S1) * len(S2), 1),
+-        )
+-        new_S3 = np.sort(res3.active_groups)
+-        if not np.array_equal(new_S3, S3):
+-            S3 = new_S3
+-            changed = True
+-
+-        B = refit_tensor_coefficients(X, y, S1, S2, S3)
+-        loss = tensor_loss(X, y, B)
+-        loss_history.append(loss)
++    B = refit_tensor_coefficients(X, y, *supports)
++    loss = tensor_loss(X, y, B)
++    if not np.isfinite(loss) or not np.isfinite(B).all():
++        raise FloatingPointError("Nonfinite initial fixed-BCD OLS state")
++    best_supports = tuple(support.copy() for support in supports)
++    best_B, best_loss, best_iteration = B.copy(), loss, 0
++    loss_history = [loss]
++    visited_loss_history = [loss]
++    accepted_support_history = [state_key(supports)]
++    seen_states = {state_key(supports)}
++    accepted_loss = loss
++    n_cycles, stop_reason = 0, "max_cycles"
+ 
+-        if not changed:
+-            return TensorBcdResult(
+-                B=B,
+-                S1=S1,
+-                S2=S2,
+-                S3=S3,
+-                loss=loss,
+-                loss_history=loss_history,
+-                n_cycles=cycle + 1,
++    for cycle in range(max_cycles):
++        n_cycles = cycle + 1
++        sweep_start = state_key(supports)
++        for mode in range(3):
++            Z, gi, n_groups = build_mode_design(X, mode + 1, *supports)
++            block_size = int(np.prod([len(supports[i]) for i in range(3) if i != mode]))
++            proposal = group_bess_fix(
++                y, Z, gi, sizes[mode], n_groups=n_groups, m_max=m_max,
++                k_max=k_max, block_size=max(block_size, 1),
+             )
++            active = np.sort(np.asarray(proposal.active_groups, dtype=int))
++            if len(active) != sizes[mode] or len(np.unique(active)) != sizes[mode] or np.any((active < 0) | (active >= n_groups)):
++                raise RuntimeError("Group-BESS violated the fixed support size")
++            candidate = [support.copy() for support in supports]
++            candidate[mode] = active
++            candidate_B = refit_tensor_coefficients(X, y, *candidate)
++            candidate_loss = tensor_loss(X, y, candidate_B)
++            if not np.isfinite(candidate_loss) or not np.isfinite(candidate_B).all():
++                raise FloatingPointError("Nonfinite fixed-BCD OLS candidate")
++            visited_loss_history.append(candidate_loss)
++            if candidate_loss < best_loss:
++                best_supports = tuple(support.copy() for support in candidate)
++                best_B, best_loss = candidate_B.copy(), candidate_loss
++                best_iteration = len(visited_loss_history) - 1
++            key = state_key(candidate)
++            tolerance = 64.0 * np.finfo(float).eps * max(1.0, abs(accepted_loss), abs(candidate_loss))
++            if candidate_loss < accepted_loss - tolerance:
++                accepted_loss = candidate_loss
++                loss_history.append(candidate_loss)
++                accepted_support_history.append(key)
++            supports, B, loss = candidate, candidate_B, candidate_loss
++        key = state_key(supports)
++        if key in seen_states:
++            stop_reason = "unchanged_support" if key == sweep_start else "exploration_cycle"
++            break
++        seen_states.add(key)
+ 
+-    loss = tensor_loss(X, y, B)
+     return TensorBcdResult(
+-        B=B,
+-        S1=S1,
+-        S2=S2,
+-        S3=S3,
+-        loss=loss,
++        B=best_B,
++        S1=best_supports[0],
++        S2=best_supports[1],
++        S3=best_supports[2],
++        loss=best_loss,
+         loss_history=loss_history,
+-        n_cycles=max_cycles,
++        n_cycles=n_cycles,
++        best_iteration=best_iteration,
++        best_rss=2.0 * len(y) * best_loss,
++        stop_reason=stop_reason,
++        visited_loss_history=visited_loss_history,
++        accepted_support_history=accepted_support_history,
+     )
+ 
+ 
+diff --git a/tests/test_bcd_fix_regression.py b/tests/test_bcd_fix_regression.py
+new file mode 100644
+index 0000000..57a1615
+--- /dev/null
++++ b/tests/test_bcd_fix_regression.py
+@@ -0,0 +1,183 @@
++"""Fixed-size BCD regression guards; no claim of general global optimality."""
++
++from __future__ import annotations
++
++import itertools
++import unittest
++from types import SimpleNamespace
++from unittest.mock import patch
++
++import numpy as np
++
++from tensor_abess.tensor.bcd import tensor_bcd
++from tensor_abess.tensor.ops import build_tensor_design, tensor_inner, tensor_loss
++
++
++class FixedBcdRegressionTests(unittest.TestCase):
++    def test_nonfinite_initial_ols_loss_is_rejected_even_without_cycles(self):
++        X = np.eye(8).reshape(8, 2, 2, 2)
++        y = np.zeros(8)
++        y[7] = 1e200
++        with np.errstate(over="ignore", invalid="ignore"):
++            with self.assertRaises(FloatingPointError):
++                tensor_bcd(X, y, 1, 1, 1, max_cycles=0,
++                           S1_init=np.array([0]), S2_init=np.array([0]),
++                           S3_init=np.array([0]))
++
++    @staticmethod
++    def orthogonal_fixture():
++        X = np.eye(8).reshape(8, 2, 2, 2)
++        y = np.zeros(8)
++        y[[0, 1, 3, 7]] = [4.0, 3.0, 2.0, 1.0]
++        return X, y
++
++    @staticmethod
++    def fake_solver(sequence, calls):
++        """Inject support proposals; use real OLS so comparisons remain genuine."""
++        def solve(y, Z, gi, s, **kwargs):
++            calls.append(kwargs.get("groups_init"))
++            active = np.array([sequence[(len(calls) - 1) % len(sequence)]])
++            cols = np.flatnonzero(np.isin(gi, active))
++            beta = np.zeros(Z.shape[1])
++            beta[cols] = np.linalg.lstsq(Z[:, cols], y, rcond=None)[0]
++            residual = y - Z @ beta
++            rss = float(residual @ residual)
++            return SimpleNamespace(active_groups=active, beta=beta,
++                                   rss=rss, loss=rss / (2 * len(y)), s=s)
++        return solve
++
++    def fit_injected(self, X, y, sequence, initial, max_cycles=12):
++        calls = []
++        with patch("tensor_abess.tensor.bcd.group_bess_fix",
++                   side_effect=self.fake_solver(sequence, calls)):
++            result = tensor_bcd(
++                X, y, 1, 1, 1, max_cycles=max_cycles,
++                S1_init=np.array([initial]), S2_init=np.array([initial]),
++                S3_init=np.array([initial]),
++            )
++        return result, calls
++
++    def assert_consistent_ols(self, X, y, result, sizes):
++        supports = (result.S1, result.S2, result.S3)
++        self.assertEqual(result.B.shape, X.shape[1:])
++        for support, size, dimension in zip(supports, sizes, X.shape[1:]):
++            self.assertEqual(len(support), size)
++            self.assertEqual(len(np.unique(support)), size)
++            self.assertTrue(np.all((support >= 0) & (support < dimension)))
++        Z = build_tensor_design(X, *supports)
++        coef = np.linalg.lstsq(Z, y, rcond=None)[0]
++        np.testing.assert_allclose(tensor_inner(X, result.B), Z @ coef,
++                                   rtol=1e-10, atol=1e-11)
++        self.assertAlmostEqual(result.loss, tensor_loss(X, y, result.B), places=12)
++        outside = np.ones(result.B.shape, dtype=bool)
++        outside[np.ix_(*supports)] = False
++        np.testing.assert_array_equal(result.B[outside], 0)
++
++    def test_worse_mode_candidate_is_rejected_before_next_mode(self):
++        X = np.eye(8).reshape(8, 2, 2, 2)
++        y = np.zeros(8)
++        y[7] = 1.0
++        result, _ = self.fit_injected(X, y, [0], initial=1)
++        self.assertAlmostEqual(result.loss, 0.0, places=14)
++        for support in (result.S1, result.S2, result.S3):
++            np.testing.assert_array_equal(support, [1])
++        self.assertTrue(np.all(np.diff(result.loss_history) <= 1e-14))
++
++    def test_nonmonotone_exploration_can_reach_a_later_better_state(self):
++        X = np.eye(8).reshape(8, 2, 2, 2)
++        y = np.zeros(8)
++        y[0], y[7] = 2.0, 4.0
++        result, calls = self.fit_injected(X, y, [1, 0, 0, 1, 1, 1], initial=0)
++        self.assertTrue(calls)
++        self.assertAlmostEqual(result.loss, 4.0 / 16.0, places=14)
++        for support in (result.S1, result.S2, result.S3):
++            np.testing.assert_array_equal(support, [1])
++        self.assertTrue(np.all(np.diff(result.loss_history) <= 1e-14))
++        self.assertTrue(np.any(np.diff(result.visited_loss_history) > 0))
++
++    def test_returns_best_visited_state_after_later_worse_proposals(self):
++        X, y = self.orthogonal_fixture()
++        result, _ = self.fit_injected(X, y, [0, 0, 0, 1, 1, 1], initial=1)
++        self.assertAlmostEqual(result.loss, 14.0 / 16.0, places=14)
++        self.assertAlmostEqual(result.loss, min(result.visited_loss_history), places=14)
++        self.assertAlmostEqual(result.loss,
++                               result.visited_loss_history[result.best_iteration], places=14)
++        self.assertTrue(np.all(np.diff(result.loss_history) <= 1e-14))
++        self.assert_consistent_ols(X, y, result, (1, 1, 1))
++
++    def test_equal_rss_support_proposals_terminate_without_cycle(self):
++        X = np.eye(8).reshape(8, 2, 2, 2)
++        y = np.ones(8)
++        result, _ = self.fit_injected(X, y, [1, 1, 1, 0, 0, 0], initial=0)
++        self.assertLess(result.n_cycles, 12)
++        self.assertTrue(result.stop_reason)
++        for support in (result.S1, result.S2, result.S3):
++            np.testing.assert_array_equal(support, [0])
++        states = [tuple(tuple(int(i) for i in mode) for mode in state)
++                  for state in result.accepted_support_history]
++        self.assertEqual(len(states), len(set(states)))
++
++    def test_zero_cycle_result_is_initial_ols_with_stop_metadata(self):
++        X, y = self.orthogonal_fixture()
++        result = tensor_bcd(X, y, 1, 1, 1, max_cycles=0,
++                            S1_init=np.array([1]), S2_init=np.array([1]),
++                            S3_init=np.array([1]))
++        self.assertEqual(result.n_cycles, 0)
++        self.assertEqual(result.best_iteration, 0)
++        self.assertTrue(result.stop_reason)
++        self.assert_consistent_ols(X, y, result, (1, 1, 1))
++
++    def test_real_small_noisy_tensors_are_monotone_and_ols_consistent(self):
++        for seed in range(8):
++            with self.subTest(seed=seed):
++                rng = np.random.default_rng(seed)
++                X = rng.normal(size=(35, 4, 3, 2))
++                y = rng.normal(size=35)
++                result = tensor_bcd(X, y, 2, 1, 1, max_cycles=10)
++                self.assertTrue(np.all(np.diff(result.loss_history) <= 1e-12))
++                self.assertAlmostEqual(result.loss, min(result.visited_loss_history), places=12)
++                self.assert_consistent_ols(X, y, result, (2, 1, 1))
++
++    def test_same_seed_reproduces_history_support_and_coefficients(self):
++        rng = np.random.default_rng(39)
++        X = rng.normal(size=(45, 4, 3, 2))
++        y = rng.normal(size=45)
++        kwargs = dict(init_strategy="random", random_state=72, max_cycles=10)
++        first = tensor_bcd(X, y, 2, 1, 1, **kwargs)
++        second = tensor_bcd(X, y, 2, 1, 1, **kwargs)
++        for name in ("B", "S1", "S2", "S3"):
++            np.testing.assert_array_equal(getattr(first, name), getattr(second, name))
++        self.assertEqual(first.loss_history, second.loss_history)
++        self.assertEqual(first.visited_loss_history, second.visited_loss_history)
++        self.assertEqual(first.stop_reason, second.stop_reason)
++
++    @staticmethod
++    def exhaustive_min(X, y, sizes):
++        supports = [list(itertools.combinations(range(p), s))
++                    for p, s in zip(X.shape[1:], sizes)]
++        losses = []
++        for state in itertools.product(*supports):
++            Z = build_tensor_design(X, *(np.array(mode) for mode in state))
++            residual = y - Z @ np.linalg.lstsq(Z, y, rcond=None)[0]
++            losses.append(float(residual @ residual / (2 * len(y))))
++        return min(losses)
++
++    def test_exact_orthogonal_example_matches_exhaustive_minimum(self):
++        X = np.eye(12).reshape(12, 3, 2, 2)
++        y = np.zeros(12)
++        y[[1, 9]] = [3.0, 2.0]
++        result = tensor_bcd(X, y, 2, 1, 1, max_cycles=10)
++        self.assertAlmostEqual(result.loss, self.exhaustive_min(X, y, (2, 1, 1)), places=13)
++        self.assert_consistent_ols(X, y, result, (2, 1, 1))
++
++    def test_general_toy_result_cannot_beat_exhaustive_reference(self):
++        rng = np.random.default_rng(84)
++        X = rng.normal(size=(25, 3, 2, 2))
++        y = rng.normal(size=25)
++        result = tensor_bcd(X, y, 2, 1, 1, max_cycles=10)
++        self.assertGreaterEqual(result.loss + 1e-12,
++                                self.exhaustive_min(X, y, (2, 1, 1)))
++
++
++if __name__ == "__main__":
++    unittest.main()

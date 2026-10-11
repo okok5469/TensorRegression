@@ -1,0 +1,10 @@
+{
+  "status": "complete",
+  "integrity_checks_passed": true,
+  "plan_id": "950d722abda2a20f84581a969759ad85a338d0cc86e1681ee24a9e98b1767427",
+  "completed_tasks": 90,
+  "expected_tasks": 90,
+  "paired_group_rows": 450,
+  "cohort": "development",
+  "scope": "Phase D mechanisms only; default MSIC unchanged; no formal adoption"
+}

@@ -1,0 +1,239 @@
+% !TEX program = xelatex
+\documentclass[11pt]{beamer}
+\definecolor{BNUBlue}{RGB}{0,78,161}
+\usetheme{CambridgeUS}
+\usecolortheme{dolphin}
+\usecolortheme[named=BNUBlue]{structure}
+\usefonttheme{serif}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}[circle]
+\setbeamercolor{itemize item}{fg=BNUBlue}
+\usepackage{ctex}
+\usepackage{amsmath,amssymb,graphicx,booktabs}
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\usepackage{xeCJK}
+\setCJKmainfont{SimSun}[BoldFont=SimHei, ItalicFont=KaiTi]
+\pgfdeclareimage[height=0.6cm]{BNU001}{BNU001}
+\logo{\pgfuseimage{BNU001}}
+\title[数值模拟汇报]{Tensor-ABESS 数值模拟汇报}
+\author[Xiang Mingxu]{Xiang Mingxu}
+\institute[BNU]{北京师范大学文理学院统计系}
+\date[2026-09]{2026年9月}
+\begin{document}
+\logo{}
+\begin{frame}
+  \titlepage
+  \begin{center}\includegraphics[width=0.28\linewidth]{BNU001.png}\end{center}
+\end{frame}
+\logo{\pgfuseimage{BNU001}}
+\begin{frame}{最终判断：v5 adaptive 可以作为正式结果}
+\begin{itemize}
+  \item 自动选阶从 v2 的欠选和 v4 的过选回到可控范围。
+  \item 总体结果：Mode-F1=0.717，Element-F1=0.570，PMSE=2.349，$R^2=0.166$。
+  \item 低 SNR、小样本和极高维仍是主要困难场景。
+\end{itemize}
+\end{frame}
+\begin{frame}{模拟模型与数据生成}
+\small
+\[
+y_i=\langle \mathcal X_i,\mathcal B^*\rangle+\varepsilon_i,\quad \varepsilon_i\sim N(0,1)
+\]
+\[
+\mathrm{vec}(\mathcal X_i)\sim N(0,\Sigma_3\otimes\Sigma_2\otimes\Sigma_1),
+\quad (\Sigma_m)_{ab}=\rho_m^{|a-b|}
+\]
+\begin{itemize}
+  \item 真实支撑：$\mathrm{supp}(\mathcal B^*)=S_1^*\times S_2^*\times S_3^*$。
+  \item 基准稀疏度：$(s_1,s_2,s_3)=(4,3,5)$，$q^*=60$。
+  \item 通过缩放 $\mathcal B^{(0)}$ 控制 SNR。
+\end{itemize}
+\end{frame}
+\begin{frame}{基准参数与实验组}
+\small
+\begin{columns}
+\column{0.48\textwidth}
+\begin{tabular}{ll}
+\toprule
+参数 & 取值\\
+\midrule
+$n_{\rm train}$/$n_{\rm test}$ & 200/500\\
+维度 & $32\times20\times25$\\
+稀疏度 & $(4,3,5)$\\
+$\rho$ & 0.3\\
+SNR & 2\\
+重复次数 & 10\\
+\bottomrule
+\end{tabular}
+\column{0.48\textwidth}
+\begin{itemize}
+  \item SNR：0.5, 1, 2, 4
+  \item 样本量：100, 200, 400
+  \item 维度：低/中/高三档
+  \item 相关性：0, 0.3, 0.6
+\end{itemize}
+\end{columns}
+\end{frame}
+\begin{frame}{方法与评价指标}
+\small
+\begin{columns}
+\column{0.48\textwidth}
+\textbf{比较方法}
+\begin{itemize}
+  \item Tensor-ABESS
+  \item Tensor-GLasso
+  \item Vector Lasso
+  \item Oracle OLS
+\end{itemize}
+\column{0.48\textwidth}
+\textbf{评价指标}
+\begin{itemize}
+  \item 支撑恢复：Exact, Mode-F1, Element-F1
+  \item 估计与预测：REE, PMSE, $R^2$
+  \item 计算诊断：runtime, BCD cycles
+\end{itemize}
+\end{columns}
+\end{frame}
+\begin{frame}{版本演进：从两端失衡到可控选阶}
+\small
+\begin{tabular}{lrrrrl}
+\toprule
+版本 & $q$均值 & Exact & Mode-F1 & PMSE & 判断\\
+\midrule
+v2 & 1.19 & 0.000 & 0.061 & 3.115 & SIC 欠选\\
+v3 fixed & 60.00 & 0.429 & 0.627 & 3.108 & 验证搜索能力\\
+v4 adaptive & 112.16 & 0.014 & 0.670 & 3.705 & MSIC 过选\\
+v5 adaptive & 47.60 & 0.207 & 0.717 & 2.349 & 最终采用\\
+\bottomrule
+\end{tabular}
+\end{frame}
+\begin{frame}{关键修复思路}
+\begin{itemize}
+  \item v2：旧 SIC 的 $q\log n$ 惩罚过重，模型塌缩到 $q\approx1$。
+  \item v4：MSIC 惩罚过轻，global refine 偏向大模型。
+  \item v5：mode-wise 用轻 MSIC 防欠选，global refine 用 $\alpha=1.5$ 抑制过选。
+  \item 分数接近时采用 one-SE 小模型优先。
+\end{itemize}
+\end{frame}
+\begin{frame}{单因素实验总览：变化方向清晰}
+\scriptsize
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{llrrrr}
+\toprule
+实验组 & 场景 & $q$均值 & Mode-F1 & PMSE & $R^2$\\
+\midrule
+SNR & 0.5 / 2 / 4 & 6.7 / 42.6 / 66.7 & .180 / .769 / .953 & 1.681 / 2.155 / 1.923 & -.137 / .278 / .610\\
+样本量 & 100 / 200 / 400 & 33.5 / 42.4 / 80.0 & .276 / .798 / .952 & 5.803 / 2.148 / 1.251 & -.961 / .296 / .581\\
+维度 & 低 / 中 / 高 & 64.1 / 42.4 / 61.5 & .958 / .798 / .651 & 1.904 / 2.148 / 3.419 & .343 / .296 / -.156\\
+相关性 & 0 / .3 / .6 & 43.5 / 42.4 / 51.9 & .725 / .798 / .878 & 2.225 / 2.148 / 1.874 & .267 / .296 / .385\\
+\bottomrule
+\end{tabular}
+}
+\vspace{0.2cm}
+\begin{itemize}
+  \item 信号增强和样本量增大明显改善恢复；高维主要拉低定位精度。
+  \item $q$接近真实值 60 并不保证 Exact，模式坐标必须完全命中。
+\end{itemize}
+\end{frame}
+\begin{frame}{Baseline：Tensor-ABESS 最接近 Oracle}
+\small
+\begin{tabular}{lrrrrr}
+\toprule
+方法 & Mode-F1 & Exact & $q$均值 & PMSE & $R^2$\\
+\midrule
+Oracle OLS & 1.000 & 1.000 & 60.0 & 1.452 & 0.520\\
+Tensor-ABESS & 0.909 & 0.400 & 64.6 & 1.897 & 0.375\\
+Tensor-GLasso & 0.366 & 0.000 & 5528.1 & 2.971 & 0.023\\
+Vector Lasso & 0.272 & 0.000 & 16000 & 2.927 & 0.037\\
+\bottomrule
+\end{tabular}
+\end{frame}
+\begin{frame}{Baseline 诊断：REE 与 BCD cycles 已记录}
+\small
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lrrrrr}
+\toprule
+方法 & REE & PMSE & $R^2$ & runtime中位数 & BCD cycles中位数\\
+\midrule
+Oracle OLS & 0.573 & 1.452 & 0.520 & 0.00s & 1\\
+Tensor-ABESS & 0.774 & 1.897 & 0.375 & 20.29s & 7\\
+Tensor-GLasso & 0.993 & 2.971 & 0.023 & 908.47s & 3\\
+Vector Lasso & 0.991 & 2.927 & 0.037 & 108.79s & 1\\
+\bottomrule
+\end{tabular}
+}
+\vspace{0.2cm}
+\begin{itemize}
+  \item REE 衡量系数张量估计误差，Tensor-ABESS 明显优于两个稠密基线。
+  \item BCD cycles 显示 Tensor-ABESS 通常在少量交换-坐标下降轮次内收敛。
+\end{itemize}
+\end{frame}
+\begin{frame}{SNR 实验：信号越强恢复越稳定}
+\includegraphics[width=0.98\linewidth]{../numerical_simulation/outputs_full_v5_adaptive/plot_snr_selection_accuracy.png}
+\end{frame}
+\begin{frame}{样本量实验：n=400 时预测接近 Oracle}
+\includegraphics[width=0.98\linewidth]{../numerical_simulation/outputs_full_v5_adaptive/plot_sample_size_prediction_error.png}
+\end{frame}
+\begin{frame}{维度实验：高维定位更难}
+\footnotesize
+\begin{itemize}
+  \item 低维/中维/高维：Mode-F1 = .958 / .798 / .651。
+  \item PMSE = 1.904 / 2.148 / 3.419；高维预测也明显变差。
+  \item 高维 $q$中位数仍约为 60，问题主要是坐标定位更难，而不是选阶爆炸。
+\end{itemize}
+\includegraphics[width=0.92\linewidth,height=0.52\textheight,keepaspectratio]{../numerical_simulation/outputs_full_v5_adaptive/plot_dimension_runtime.png}
+\end{frame}
+\begin{frame}{相关性实验：没有出现失控过选}
+\small
+\begin{itemize}
+  \item $\rho=0,0.3,0.6$ 时，Mode-F1 = .725 / .798 / .878。
+  \item PMSE = 2.225 / 2.148 / 1.874，相关性增强没有破坏整体预测。
+\end{itemize}
+\includegraphics[width=0.95\linewidth]{../numerical_simulation/outputs_full_v5_adaptive/plot_correlation_performance.png}
+\end{frame}
+\begin{frame}{Estimated Sparsity：三个模式分别看}
+\small
+\begin{columns}
+\column{0.62\textwidth}
+\includegraphics[width=\linewidth]{../numerical_simulation/outputs_full_v5_adaptive/plot_estimated_sparsity_boxplots.png}
+\column{0.36\textwidth}
+\begin{itemize}
+  \item 三个面板分别对应 $\hat s_1,\hat s_2,\hat s_3$。
+  \item 红虚线是真实值：$s_1=4,s_2=3,s_3=5$。
+  \item 绿三角为均值，箱线表示重复实验波动。
+  \item Tensor-ABESS 更靠近红线；GLasso 和 Vector Lasso 明显过选。
+\end{itemize}
+\[
+\hat q=\hat s_1\hat s_2\hat s_3,\quad q^*=60
+\]
+\end{columns}
+\end{frame}
+\begin{frame}{强点与弱点}
+\small
+\begin{columns}
+\column{0.48\textwidth}
+\textbf{强点}
+\begin{itemize}
+  \item 支撑恢复优于基线
+  \item 假阳性大幅减少
+  \item 中强信号下接近 Oracle
+  \item 运行快于 Tensor-GLasso
+\end{itemize}
+\column{0.48\textwidth}
+\textbf{弱点}
+\begin{itemize}
+  \item 低 SNR 下偏保守
+  \item $n=100$ 时不稳定
+  \item 极高维下定位困难
+  \item Exact 指标仍偏严格
+\end{itemize}
+\end{columns}
+\end{frame}
+\begin{frame}{最终汇报口径}
+\begin{itemize}
+  \item v5 adaptive 作为正式模拟结果。
+  \item v3 fixed-size 作为已知稀疏度参照。
+  \item Tensor-ABESS 在矩形稀疏张量回归中体现出支撑恢复、预测和效率优势。
+\end{itemize}
+\end{frame}
+\end{document}

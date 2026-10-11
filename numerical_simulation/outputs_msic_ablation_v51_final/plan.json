@@ -1,0 +1,1727 @@
+{
+  "schema_version": 1,
+  "n_reps": 3,
+  "tasks": [
+    {
+      "task_id": 0,
+      "scenario_id": 0,
+      "replicate": 0,
+      "request_file": "requests/task_000.json",
+      "request": {
+        "config": {
+          "n_train": 100,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            4,
+            3,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 0.5,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 20261010,
+        "test_seed": 21261010,
+        "include_cv": false
+      },
+      "request_id": "2c1abbc43637652966f7961091afe765a46f6539f0dc94e7f9a3d697b5fdba75"
+    },
+    {
+      "task_id": 1,
+      "scenario_id": 0,
+      "replicate": 1,
+      "request_file": "requests/task_001.json",
+      "request": {
+        "config": {
+          "n_train": 100,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            4,
+            3,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 0.5,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 20261011,
+        "test_seed": 21261011,
+        "include_cv": false
+      },
+      "request_id": "a5218e089a2981bb82a1d9d755a78c3a844a87a831457243d26956569a19f380"
+    },
+    {
+      "task_id": 2,
+      "scenario_id": 0,
+      "replicate": 2,
+      "request_file": "requests/task_002.json",
+      "request": {
+        "config": {
+          "n_train": 100,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            4,
+            3,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 0.5,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 20261012,
+        "test_seed": 21261012,
+        "include_cv": false
+      },
+      "request_id": "5beee472709395777a6f41bb0439ee16b95b185192b03b9a98a885ad0eafd1c8"
+    },
+    {
+      "task_id": 3,
+      "scenario_id": 1,
+      "replicate": 0,
+      "request_file": "requests/task_003.json",
+      "request": {
+        "config": {
+          "n_train": 100,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            4,
+            3,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 20262010,
+        "test_seed": 21262010,
+        "include_cv": false
+      },
+      "request_id": "3cf47253364e5d04e8570f524f0b60a0e3414247ab3f74184fba017a169fa94a"
+    },
+    {
+      "task_id": 4,
+      "scenario_id": 1,
+      "replicate": 1,
+      "request_file": "requests/task_004.json",
+      "request": {
+        "config": {
+          "n_train": 100,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            4,
+            3,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 20262011,
+        "test_seed": 21262011,
+        "include_cv": false
+      },
+      "request_id": "bc673b14ee5d9e420ceb869f62f6179d8929fbec00aff35cd8adfe4f7d47d928"
+    },
+    {
+      "task_id": 5,
+      "scenario_id": 1,
+      "replicate": 2,
+      "request_file": "requests/task_005.json",
+      "request": {
+        "config": {
+          "n_train": 100,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            4,
+            3,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 20262012,
+        "test_seed": 21262012,
+        "include_cv": false
+      },
+      "request_id": "f5f54f269c50ca28b0797d074e2e19b883482dfe8fe6bbcb6a754571abe956ee"
+    },
+    {
+      "task_id": 6,
+      "scenario_id": 2,
+      "replicate": 0,
+      "request_file": "requests/task_006.json",
+      "request": {
+        "config": {
+          "n_train": 100,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            4,
+            3,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 20263010,
+        "test_seed": 21263010,
+        "include_cv": false
+      },
+      "request_id": "43fc28d29d536716650ee2fcc27d0d5aa0540b3200f9996aa6cf711881bef709"
+    },
+    {
+      "task_id": 7,
+      "scenario_id": 2,
+      "replicate": 1,
+      "request_file": "requests/task_007.json",
+      "request": {
+        "config": {
+          "n_train": 100,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            4,
+            3,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 20263011,
+        "test_seed": 21263011,
+        "include_cv": false
+      },
+      "request_id": "9ffd5c91014dd2b4c3c1e9c4d2549e5cdc6f16e4f691d2fec0b987893c9c09b2"
+    },
+    {
+      "task_id": 8,
+      "scenario_id": 2,
+      "replicate": 2,
+      "request_file": "requests/task_008.json",
+      "request": {
+        "config": {
+          "n_train": 100,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            4,
+            3,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 20263012,
+        "test_seed": 21263012,
+        "include_cv": false
+      },
+      "request_id": "e33f297fcdf394551f5cc8b9fdd84738db989a3ab7d05c03accb6acc552e3e76"
+    },
+    {
+      "task_id": 9,
+      "scenario_id": 3,
+      "replicate": 0,
+      "request_file": "requests/task_009.json",
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            4,
+            3,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 0.5,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 20264010,
+        "test_seed": 21264010,
+        "include_cv": true
+      },
+      "request_id": "2a0cef5ce312284614164ddd8c1a474d491134540178a2bf54df47782667162c"
+    },
+    {
+      "task_id": 10,
+      "scenario_id": 3,
+      "replicate": 1,
+      "request_file": "requests/task_010.json",
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            4,
+            3,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 0.5,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 20264011,
+        "test_seed": 21264011,
+        "include_cv": true
+      },
+      "request_id": "685a5389329a2b718cfae13a2f16e88fe50d258e512d75b7a0d68a98d4c0b2f1"
+    },
+    {
+      "task_id": 11,
+      "scenario_id": 3,
+      "replicate": 2,
+      "request_file": "requests/task_011.json",
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            4,
+            3,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 0.5,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 20264012,
+        "test_seed": 21264012,
+        "include_cv": true
+      },
+      "request_id": "fc74368eba1a4e32d72bd798079872404726e073b89f4c5a1a63462f55ee3753"
+    },
+    {
+      "task_id": 12,
+      "scenario_id": 4,
+      "replicate": 0,
+      "request_file": "requests/task_012.json",
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            4,
+            3,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 20265010,
+        "test_seed": 21265010,
+        "include_cv": true
+      },
+      "request_id": "ede921d0df3372f1539e1534f88224e4d96eae1e7ce500638c54b1e343f84e86"
+    },
+    {
+      "task_id": 13,
+      "scenario_id": 4,
+      "replicate": 1,
+      "request_file": "requests/task_013.json",
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            4,
+            3,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 20265011,
+        "test_seed": 21265011,
+        "include_cv": true
+      },
+      "request_id": "56926e3b3cd91cb71000e1a2f3fa9d620f8a3e8ff3451db8aceb19c4b547d27f"
+    },
+    {
+      "task_id": 14,
+      "scenario_id": 4,
+      "replicate": 2,
+      "request_file": "requests/task_014.json",
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            4,
+            3,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 20265012,
+        "test_seed": 21265012,
+        "include_cv": true
+      },
+      "request_id": "5a0840ab54e5d7d5bb19c6d9874db5a906ce6c4b376e511c06ed41cea747f331"
+    },
+    {
+      "task_id": 15,
+      "scenario_id": 5,
+      "replicate": 0,
+      "request_file": "requests/task_015.json",
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            4,
+            3,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 20266010,
+        "test_seed": 21266010,
+        "include_cv": true
+      },
+      "request_id": "f0b434b20808a055200014e620ddec520c2192260abdf31931eaa125dc9a7401"
+    },
+    {
+      "task_id": 16,
+      "scenario_id": 5,
+      "replicate": 1,
+      "request_file": "requests/task_016.json",
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            4,
+            3,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 20266011,
+        "test_seed": 21266011,
+        "include_cv": true
+      },
+      "request_id": "dc1c8375f38189b0dae8300a89c09fb9d1c44a72742bbaf55be8f1d0fb5ef04a"
+    },
+    {
+      "task_id": 17,
+      "scenario_id": 5,
+      "replicate": 2,
+      "request_file": "requests/task_017.json",
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            4,
+            3,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 20266012,
+        "test_seed": 21266012,
+        "include_cv": true
+      },
+      "request_id": "a60a5e8ce36352b69f60625e7f2857482d13bddcb2e9611494e0ecbbe53787bd"
+    },
+    {
+      "task_id": 18,
+      "scenario_id": 6,
+      "replicate": 0,
+      "request_file": "requests/task_018.json",
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            4,
+            3,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 0.5,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 20267010,
+        "test_seed": 21267010,
+        "include_cv": false
+      },
+      "request_id": "c58d77f65a84f2b2fedff8a308117e767f3db000dc71dd89d7dbfe737251b660"
+    },
+    {
+      "task_id": 19,
+      "scenario_id": 6,
+      "replicate": 1,
+      "request_file": "requests/task_019.json",
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            4,
+            3,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 0.5,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 20267011,
+        "test_seed": 21267011,
+        "include_cv": false
+      },
+      "request_id": "99be0e95325c249a828fbd9757951fdb47d52bcb4de6acb3eabd65244b272501"
+    },
+    {
+      "task_id": 20,
+      "scenario_id": 6,
+      "replicate": 2,
+      "request_file": "requests/task_020.json",
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            4,
+            3,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 0.5,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 20267012,
+        "test_seed": 21267012,
+        "include_cv": false
+      },
+      "request_id": "2fd15cff5af816acc80bc1b30b62ab43900342d4c07c7a840550be3733ffa5f3"
+    },
+    {
+      "task_id": 21,
+      "scenario_id": 7,
+      "replicate": 0,
+      "request_file": "requests/task_021.json",
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            4,
+            3,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 20268010,
+        "test_seed": 21268010,
+        "include_cv": false
+      },
+      "request_id": "441a8c1be6a4c21ab6cdf061f70575d389881e401c5775426bf0c3649182a3ac"
+    },
+    {
+      "task_id": 22,
+      "scenario_id": 7,
+      "replicate": 1,
+      "request_file": "requests/task_022.json",
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            4,
+            3,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 20268011,
+        "test_seed": 21268011,
+        "include_cv": false
+      },
+      "request_id": "1629cb3c141929c272bd07bc64f6b1f962371cf75faa3e454bf519b3cacece19"
+    },
+    {
+      "task_id": 23,
+      "scenario_id": 7,
+      "replicate": 2,
+      "request_file": "requests/task_023.json",
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            4,
+            3,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 20268012,
+        "test_seed": 21268012,
+        "include_cv": false
+      },
+      "request_id": "22add61331d4c8110bef946c92d2266d94cc0932d57094e4e168fdd081071b69"
+    },
+    {
+      "task_id": 24,
+      "scenario_id": 8,
+      "replicate": 0,
+      "request_file": "requests/task_024.json",
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            4,
+            3,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 20269010,
+        "test_seed": 21269010,
+        "include_cv": false
+      },
+      "request_id": "b83f81247c61a181ef160257e9d7bdc53a8f4ad4045aba5744776bb63aeb0d4a"
+    },
+    {
+      "task_id": 25,
+      "scenario_id": 8,
+      "replicate": 1,
+      "request_file": "requests/task_025.json",
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            4,
+            3,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 20269011,
+        "test_seed": 21269011,
+        "include_cv": false
+      },
+      "request_id": "cbd45b554f932b8132ff4e5513733a0a08afa8a3ad3a441fb7d337e9b18c5fab"
+    },
+    {
+      "task_id": 26,
+      "scenario_id": 8,
+      "replicate": 2,
+      "request_file": "requests/task_026.json",
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            4,
+            3,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 20269012,
+        "test_seed": 21269012,
+        "include_cv": false
+      },
+      "request_id": "a4c37067a6c2c45b93f6f4b06448b549e6c95c345a4a32e74474ff26a36dad14"
+    }
+  ],
+  "jobs": [
+    {
+      "job_id": "task_000__v5-original",
+      "task_id": 0,
+      "version": "v5-original",
+      "result_file": "jobs/task_000__v5-original.json"
+    },
+    {
+      "job_id": "task_000__v5.1-bcd-fix",
+      "task_id": 0,
+      "version": "v5.1-bcd-fix",
+      "result_file": "jobs/task_000__v5.1-bcd-fix.json"
+    },
+    {
+      "job_id": "task_001__v5-original",
+      "task_id": 1,
+      "version": "v5-original",
+      "result_file": "jobs/task_001__v5-original.json"
+    },
+    {
+      "job_id": "task_001__v5.1-bcd-fix",
+      "task_id": 1,
+      "version": "v5.1-bcd-fix",
+      "result_file": "jobs/task_001__v5.1-bcd-fix.json"
+    },
+    {
+      "job_id": "task_002__v5-original",
+      "task_id": 2,
+      "version": "v5-original",
+      "result_file": "jobs/task_002__v5-original.json"
+    },
+    {
+      "job_id": "task_002__v5.1-bcd-fix",
+      "task_id": 2,
+      "version": "v5.1-bcd-fix",
+      "result_file": "jobs/task_002__v5.1-bcd-fix.json"
+    },
+    {
+      "job_id": "task_003__v5-original",
+      "task_id": 3,
+      "version": "v5-original",
+      "result_file": "jobs/task_003__v5-original.json"
+    },
+    {
+      "job_id": "task_003__v5.1-bcd-fix",
+      "task_id": 3,
+      "version": "v5.1-bcd-fix",
+      "result_file": "jobs/task_003__v5.1-bcd-fix.json"
+    },
+    {
+      "job_id": "task_004__v5-original",
+      "task_id": 4,
+      "version": "v5-original",
+      "result_file": "jobs/task_004__v5-original.json"
+    },
+    {
+      "job_id": "task_004__v5.1-bcd-fix",
+      "task_id": 4,
+      "version": "v5.1-bcd-fix",
+      "result_file": "jobs/task_004__v5.1-bcd-fix.json"
+    },
+    {
+      "job_id": "task_005__v5-original",
+      "task_id": 5,
+      "version": "v5-original",
+      "result_file": "jobs/task_005__v5-original.json"
+    },
+    {
+      "job_id": "task_005__v5.1-bcd-fix",
+      "task_id": 5,
+      "version": "v5.1-bcd-fix",
+      "result_file": "jobs/task_005__v5.1-bcd-fix.json"
+    },
+    {
+      "job_id": "task_006__v5-original",
+      "task_id": 6,
+      "version": "v5-original",
+      "result_file": "jobs/task_006__v5-original.json"
+    },
+    {
+      "job_id": "task_006__v5.1-bcd-fix",
+      "task_id": 6,
+      "version": "v5.1-bcd-fix",
+      "result_file": "jobs/task_006__v5.1-bcd-fix.json"
+    },
+    {
+      "job_id": "task_007__v5-original",
+      "task_id": 7,
+      "version": "v5-original",
+      "result_file": "jobs/task_007__v5-original.json"
+    },
+    {
+      "job_id": "task_007__v5.1-bcd-fix",
+      "task_id": 7,
+      "version": "v5.1-bcd-fix",
+      "result_file": "jobs/task_007__v5.1-bcd-fix.json"
+    },
+    {
+      "job_id": "task_008__v5-original",
+      "task_id": 8,
+      "version": "v5-original",
+      "result_file": "jobs/task_008__v5-original.json"
+    },
+    {
+      "job_id": "task_008__v5.1-bcd-fix",
+      "task_id": 8,
+      "version": "v5.1-bcd-fix",
+      "result_file": "jobs/task_008__v5.1-bcd-fix.json"
+    },
+    {
+      "job_id": "task_009__v5-original",
+      "task_id": 9,
+      "version": "v5-original",
+      "result_file": "jobs/task_009__v5-original.json"
+    },
+    {
+      "job_id": "task_009__v5.1-bcd-fix",
+      "task_id": 9,
+      "version": "v5.1-bcd-fix",
+      "result_file": "jobs/task_009__v5.1-bcd-fix.json"
+    },
+    {
+      "job_id": "task_010__v5-original",
+      "task_id": 10,
+      "version": "v5-original",
+      "result_file": "jobs/task_010__v5-original.json"
+    },
+    {
+      "job_id": "task_010__v5.1-bcd-fix",
+      "task_id": 10,
+      "version": "v5.1-bcd-fix",
+      "result_file": "jobs/task_010__v5.1-bcd-fix.json"
+    },
+    {
+      "job_id": "task_011__v5-original",
+      "task_id": 11,
+      "version": "v5-original",
+      "result_file": "jobs/task_011__v5-original.json"
+    },
+    {
+      "job_id": "task_011__v5.1-bcd-fix",
+      "task_id": 11,
+      "version": "v5.1-bcd-fix",
+      "result_file": "jobs/task_011__v5.1-bcd-fix.json"
+    },
+    {
+      "job_id": "task_012__v5-original",
+      "task_id": 12,
+      "version": "v5-original",
+      "result_file": "jobs/task_012__v5-original.json"
+    },
+    {
+      "job_id": "task_012__v5.1-bcd-fix",
+      "task_id": 12,
+      "version": "v5.1-bcd-fix",
+      "result_file": "jobs/task_012__v5.1-bcd-fix.json"
+    },
+    {
+      "job_id": "task_013__v5-original",
+      "task_id": 13,
+      "version": "v5-original",
+      "result_file": "jobs/task_013__v5-original.json"
+    },
+    {
+      "job_id": "task_013__v5.1-bcd-fix",
+      "task_id": 13,
+      "version": "v5.1-bcd-fix",
+      "result_file": "jobs/task_013__v5.1-bcd-fix.json"
+    },
+    {
+      "job_id": "task_014__v5-original",
+      "task_id": 14,
+      "version": "v5-original",
+      "result_file": "jobs/task_014__v5-original.json"
+    },
+    {
+      "job_id": "task_014__v5.1-bcd-fix",
+      "task_id": 14,
+      "version": "v5.1-bcd-fix",
+      "result_file": "jobs/task_014__v5.1-bcd-fix.json"
+    },
+    {
+      "job_id": "task_015__v5-original",
+      "task_id": 15,
+      "version": "v5-original",
+      "result_file": "jobs/task_015__v5-original.json"
+    },
+    {
+      "job_id": "task_015__v5.1-bcd-fix",
+      "task_id": 15,
+      "version": "v5.1-bcd-fix",
+      "result_file": "jobs/task_015__v5.1-bcd-fix.json"
+    },
+    {
+      "job_id": "task_016__v5-original",
+      "task_id": 16,
+      "version": "v5-original",
+      "result_file": "jobs/task_016__v5-original.json"
+    },
+    {
+      "job_id": "task_016__v5.1-bcd-fix",
+      "task_id": 16,
+      "version": "v5.1-bcd-fix",
+      "result_file": "jobs/task_016__v5.1-bcd-fix.json"
+    },
+    {
+      "job_id": "task_017__v5-original",
+      "task_id": 17,
+      "version": "v5-original",
+      "result_file": "jobs/task_017__v5-original.json"
+    },
+    {
+      "job_id": "task_017__v5.1-bcd-fix",
+      "task_id": 17,
+      "version": "v5.1-bcd-fix",
+      "result_file": "jobs/task_017__v5.1-bcd-fix.json"
+    },
+    {
+      "job_id": "task_018__v5-original",
+      "task_id": 18,
+      "version": "v5-original",
+      "result_file": "jobs/task_018__v5-original.json"
+    },
+    {
+      "job_id": "task_018__v5.1-bcd-fix",
+      "task_id": 18,
+      "version": "v5.1-bcd-fix",
+      "result_file": "jobs/task_018__v5.1-bcd-fix.json"
+    },
+    {
+      "job_id": "task_019__v5-original",
+      "task_id": 19,
+      "version": "v5-original",
+      "result_file": "jobs/task_019__v5-original.json"
+    },
+    {
+      "job_id": "task_019__v5.1-bcd-fix",
+      "task_id": 19,
+      "version": "v5.1-bcd-fix",
+      "result_file": "jobs/task_019__v5.1-bcd-fix.json"
+    },
+    {
+      "job_id": "task_020__v5-original",
+      "task_id": 20,
+      "version": "v5-original",
+      "result_file": "jobs/task_020__v5-original.json"
+    },
+    {
+      "job_id": "task_020__v5.1-bcd-fix",
+      "task_id": 20,
+      "version": "v5.1-bcd-fix",
+      "result_file": "jobs/task_020__v5.1-bcd-fix.json"
+    },
+    {
+      "job_id": "task_021__v5-original",
+      "task_id": 21,
+      "version": "v5-original",
+      "result_file": "jobs/task_021__v5-original.json"
+    },
+    {
+      "job_id": "task_021__v5.1-bcd-fix",
+      "task_id": 21,
+      "version": "v5.1-bcd-fix",
+      "result_file": "jobs/task_021__v5.1-bcd-fix.json"
+    },
+    {
+      "job_id": "task_022__v5-original",
+      "task_id": 22,
+      "version": "v5-original",
+      "result_file": "jobs/task_022__v5-original.json"
+    },
+    {
+      "job_id": "task_022__v5.1-bcd-fix",
+      "task_id": 22,
+      "version": "v5.1-bcd-fix",
+      "result_file": "jobs/task_022__v5.1-bcd-fix.json"
+    },
+    {
+      "job_id": "task_023__v5-original",
+      "task_id": 23,
+      "version": "v5-original",
+      "result_file": "jobs/task_023__v5-original.json"
+    },
+    {
+      "job_id": "task_023__v5.1-bcd-fix",
+      "task_id": 23,
+      "version": "v5.1-bcd-fix",
+      "result_file": "jobs/task_023__v5.1-bcd-fix.json"
+    },
+    {
+      "job_id": "task_024__v5-original",
+      "task_id": 24,
+      "version": "v5-original",
+      "result_file": "jobs/task_024__v5-original.json"
+    },
+    {
+      "job_id": "task_024__v5.1-bcd-fix",
+      "task_id": 24,
+      "version": "v5.1-bcd-fix",
+      "result_file": "jobs/task_024__v5.1-bcd-fix.json"
+    },
+    {
+      "job_id": "task_025__v5-original",
+      "task_id": 25,
+      "version": "v5-original",
+      "result_file": "jobs/task_025__v5-original.json"
+    },
+    {
+      "job_id": "task_025__v5.1-bcd-fix",
+      "task_id": 25,
+      "version": "v5.1-bcd-fix",
+      "result_file": "jobs/task_025__v5.1-bcd-fix.json"
+    },
+    {
+      "job_id": "task_026__v5-original",
+      "task_id": 26,
+      "version": "v5-original",
+      "result_file": "jobs/task_026__v5-original.json"
+    },
+    {
+      "job_id": "task_026__v5.1-bcd-fix",
+      "task_id": 26,
+      "version": "v5.1-bcd-fix",
+      "result_file": "jobs/task_026__v5.1-bcd-fix.json"
+    }
+  ],
+  "source_manifests": {
+    "v5-original": {
+      "tensor_abess/__init__.py": "f09ee71e1a5b9a9c9deddbfcdec0d028cd34803af58318af1beca9e9a3aa5dbe",
+      "tensor_abess/baselines/__init__.py": "2e25cb27c0deae528eefec64946bc7aafd241b235145c3fb2bbc32da983bd00a",
+      "tensor_abess/baselines/base.py": "296af75c1a2afbce822d401f3ba81a231b176aa8ff7d51a3fa3575ad03303306",
+      "tensor_abess/baselines/cp.py": "164b04db1ab6ac6b163366957d5a3e5e3db9d9e117fe62a1bf63d6378e936fbb",
+      "tensor_abess/baselines/group_lasso.py": "28acbc2c67ef3a462b7c8c9551c6d08eca076877100494f23ed5b60aeb24ab75",
+      "tensor_abess/baselines/lasso.py": "b0ce26433580f51c4a56a99d3748fbd609a7527469669475ff774bab3e1393f0",
+      "tensor_abess/baselines/tucker.py": "a90c90b46ded263dd57fc99b926b6d82abb410b4541d9d898fc5b907037b0283",
+      "tensor_abess/common/__init__.py": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+      "tensor_abess/common/ranks.py": "4684b9504f033aee9cee10a40ab652d8ad76f2e871833fe3f123a883b2a32aa4",
+      "tensor_abess/group/__init__.py": "ceb9fc92074ba440ef5c2082453aeba1f67db8da03a49309937e0e5efc32d3e1",
+      "tensor_abess/group/adaptive.py": "453f0b2e9568f3a611977151ab20943a120bb9603adb90838d52d4ca5a306376",
+      "tensor_abess/group/bess_fix.py": "6577bc8b26b99b45b8a4bd7f154135fd10c0627c520c6a379f8a6616ab9c87fb",
+      "tensor_abess/group/sacrifices.py": "b05f00ea51a5d91e01961e468e15ec3ca8046af649f8f2bbb51addd264376155",
+      "tensor_abess/group/splicing.py": "0ac340129f4f38f1aaf2c4d7c778f5c763964c9b6792485bcd017147b4d4641c",
+      "tensor_abess/metrics/__init__.py": "34ad9b63350042207d203b6c33c481bcf8fbb8e113216a094766e82778ac9eee",
+      "tensor_abess/metrics/support.py": "18495d2a039e6d9df9c650c4532a52e8cb59a05594755946098eede234054dd8",
+      "tensor_abess/tensor/__init__.py": "a7a284698fe7934f052f95d6b93f595b46262a0b4b81f7e3cbf806fa13850667",
+      "tensor_abess/tensor/abess.py": "fc0a87f201f2f6aa18f62667d881cddfddc5d969b70c7b83cf95213c5cc7ee45",
+      "tensor_abess/tensor/bcd.py": "4f9486d32f01a2798a55fbe7216d6a05d789f56f8f85608f03598c2926bce6fa",
+      "tensor_abess/tensor/ops.py": "cc0140752af901e792dc48811d320cb928f0dc917bbc9ccf3f8e8ae1cd9ee0fa",
+      "tensor_abess/tensor/reduction.py": "8b8a66856d5e8c8a0a887fb97f911687d6f48b8d25079430abb7ffe550774076",
+      "tensor_abess/tensor/sic.py": "84637e426a8ad8d9c471d8f81787135052f10f954475127403d5a9b2b4f51d9f",
+      "tensor_abess/utils/__init__.py": "969942a09ec95253bd97eddd57740fea3da8bb1ca0cb9c69074d9244b168e343",
+      "tensor_abess/utils/data.py": "67696c6f1327a0f7f9e6c7980a1c7a648d4bf6a9165ce7ea673948891f63937c",
+      "tensor_abess/utils/glasso.py": "05cf440fdf5c5cce814264ec35cc6c7b0397cdf229889452abe2e90cd650097d",
+      "tensor_abess/utils/init.py": "fb019d1a09c5f421db24ff8ae6821d5c7e01b7e440f0efe177727117a5762962",
+      "tensor_abess/utils/validation.py": "d6500d0a227854dfc963f33fb47f97d10ef67527b15a599426c4d1202e669dbe",
+      "tensor_abess/vector/__init__.py": "7f8f788a7915a4540f753f8e9a5e9917008ca725cb5b9fb23a8e575e75ab59f7",
+      "tensor_abess/vector/abess.py": "901efc50fc964801b44e9e12e90980ea065e15a303b9375f142fc8f0eb0527f0",
+      "tensor_abess/vector/sacrifices.py": "2462c4f8f3e447e98218eb2c68811893a24c547b78007848e047c6afd79db9f2",
+      "tensor_abess/vector/sic.py": "f562d2736186173f0939de7677a6f14a64c7a2d202bd414929e7aee310c1487b",
+      "tensor_abess/vector/splicing.py": "c14f4e47e7c8506ee63422016c69693a303ae5638f7c6ddd097d9baffa8b7e63"
+    },
+    "v5.1-bcd-fix": {
+      "tensor_abess/__init__.py": "f09ee71e1a5b9a9c9deddbfcdec0d028cd34803af58318af1beca9e9a3aa5dbe",
+      "tensor_abess/baselines/__init__.py": "2e25cb27c0deae528eefec64946bc7aafd241b235145c3fb2bbc32da983bd00a",
+      "tensor_abess/baselines/base.py": "296af75c1a2afbce822d401f3ba81a231b176aa8ff7d51a3fa3575ad03303306",
+      "tensor_abess/baselines/cp.py": "164b04db1ab6ac6b163366957d5a3e5e3db9d9e117fe62a1bf63d6378e936fbb",
+      "tensor_abess/baselines/group_lasso.py": "28acbc2c67ef3a462b7c8c9551c6d08eca076877100494f23ed5b60aeb24ab75",
+      "tensor_abess/baselines/lasso.py": "b0ce26433580f51c4a56a99d3748fbd609a7527469669475ff774bab3e1393f0",
+      "tensor_abess/baselines/tucker.py": "a90c90b46ded263dd57fc99b926b6d82abb410b4541d9d898fc5b907037b0283",
+      "tensor_abess/common/__init__.py": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+      "tensor_abess/common/ranks.py": "4684b9504f033aee9cee10a40ab652d8ad76f2e871833fe3f123a883b2a32aa4",
+      "tensor_abess/group/__init__.py": "ceb9fc92074ba440ef5c2082453aeba1f67db8da03a49309937e0e5efc32d3e1",
+      "tensor_abess/group/adaptive.py": "453f0b2e9568f3a611977151ab20943a120bb9603adb90838d52d4ca5a306376",
+      "tensor_abess/group/bess_fix.py": "6577bc8b26b99b45b8a4bd7f154135fd10c0627c520c6a379f8a6616ab9c87fb",
+      "tensor_abess/group/sacrifices.py": "b05f00ea51a5d91e01961e468e15ec3ca8046af649f8f2bbb51addd264376155",
+      "tensor_abess/group/splicing.py": "0ac340129f4f38f1aaf2c4d7c778f5c763964c9b6792485bcd017147b4d4641c",
+      "tensor_abess/metrics/__init__.py": "34ad9b63350042207d203b6c33c481bcf8fbb8e113216a094766e82778ac9eee",
+      "tensor_abess/metrics/support.py": "18495d2a039e6d9df9c650c4532a52e8cb59a05594755946098eede234054dd8",
+      "tensor_abess/tensor/__init__.py": "a7a284698fe7934f052f95d6b93f595b46262a0b4b81f7e3cbf806fa13850667",
+      "tensor_abess/tensor/abess.py": "fc0a87f201f2f6aa18f62667d881cddfddc5d969b70c7b83cf95213c5cc7ee45",
+      "tensor_abess/tensor/bcd.py": "c5e67a666c8c120bfcd9ff000a5c6b1bcd7c0be37e0b549a0a34ca61ecfbd737",
+      "tensor_abess/tensor/ops.py": "cc0140752af901e792dc48811d320cb928f0dc917bbc9ccf3f8e8ae1cd9ee0fa",
+      "tensor_abess/tensor/reduction.py": "8b8a66856d5e8c8a0a887fb97f911687d6f48b8d25079430abb7ffe550774076",
+      "tensor_abess/tensor/sic.py": "84637e426a8ad8d9c471d8f81787135052f10f954475127403d5a9b2b4f51d9f",
+      "tensor_abess/utils/__init__.py": "969942a09ec95253bd97eddd57740fea3da8bb1ca0cb9c69074d9244b168e343",
+      "tensor_abess/utils/data.py": "67696c6f1327a0f7f9e6c7980a1c7a648d4bf6a9165ce7ea673948891f63937c",
+      "tensor_abess/utils/glasso.py": "05cf440fdf5c5cce814264ec35cc6c7b0397cdf229889452abe2e90cd650097d",
+      "tensor_abess/utils/init.py": "fb019d1a09c5f421db24ff8ae6821d5c7e01b7e440f0efe177727117a5762962",
+      "tensor_abess/utils/validation.py": "d6500d0a227854dfc963f33fb47f97d10ef67527b15a599426c4d1202e669dbe",
+      "tensor_abess/vector/__init__.py": "7f8f788a7915a4540f753f8e9a5e9917008ca725cb5b9fb23a8e575e75ab59f7",
+      "tensor_abess/vector/abess.py": "901efc50fc964801b44e9e12e90980ea065e15a303b9375f142fc8f0eb0527f0",
+      "tensor_abess/vector/sacrifices.py": "2462c4f8f3e447e98218eb2c68811893a24c547b78007848e047c6afd79db9f2",
+      "tensor_abess/vector/sic.py": "f562d2736186173f0939de7677a6f14a64c7a2d202bd414929e7aee310c1487b",
+      "tensor_abess/vector/splicing.py": "c14f4e47e7c8506ee63422016c69693a303ae5638f7c6ddd097d9baffa8b7e63"
+    }
+  },
+  "experiment_sources": {
+    "numerical_simulation/data_generation.py": "0a867f244bd44271e301eb0629c82f2332fccebb20a4329b51e27ad194066423",
+    "numerical_simulation/metrics.py": "eaf4bbb30472754da10754476620bbb2dcb7a1c7e80b571014fb04edf183951f",
+    "numerical_simulation/version_validation/paired.py": "4997eaf20d1efc4c261f3e95336af6aef4e1d7297be400c322fd6200978d5ee0",
+    "numerical_simulation/version_validation/worker.py": "6a02064621eef70c04a60d31002ea9216ee8235299f4deb6db3bc198a1550c81",
+    "numerical_simulation/known_s_cluster/profiles.json": "76465458701ad6da176fd93d688d1b4762285a9cf391360737e0730a35c3fa94"
+  },
+  "environment": {
+    "libraries": {
+      "python": "3.12.8",
+      "numpy": "1.26.4",
+      "scipy": "1.16.1"
+    },
+    "platform": "Windows",
+    "machine": "AMD64",
+    "worker_thread_environment": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1"
+    }
+  },
+  "git_commit": "d4e28969ac480ba6efc01bcc985a53d179e7ed31",
+  "seed_definition": "20261010 + 1000*scenario_id + replicate; test_seed adds 1000000; inner-CV seed adds 2000000",
+  "scenario_order": "n outer=(100,200,400), snr inner=(0.5,2,4)",
+  "purpose": "Exploratory simulation; original and fixed default compared on identical generated data; MSIC candidates do not change formal defaults.",
+  "capacity_rates": "q_over:q>60; q_under:q<60; q_small:q=1; q_near_cap:q>=.9 floor(.7n)",
+  "completion_requirement": "All jobs complete and pairwise input/test fingerprints equal before summarizing",
+  "plan_id": "a47340bbd48545833f6c281d35cfe95141945c47b6214bd97ca2e9f94eaa8f57"
+}

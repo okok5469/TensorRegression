@@ -1,0 +1,20 @@
+[
+  {
+    "mode": 1,
+    "tau": 0.04419615126814366,
+    "initial_full_loss": 0.009556906016317614,
+    "tau_greater_than_entire_current_loss": true
+  },
+  {
+    "mode": 2,
+    "tau": 0.029808200061886496,
+    "initial_full_loss": 0.009556906016317614,
+    "tau_greater_than_entire_current_loss": true
+  },
+  {
+    "mode": 3,
+    "tau": 0.01730312429542937,
+    "initial_full_loss": 0.009556906016317614,
+    "tau_greater_than_entire_current_loss": true
+  }
+]

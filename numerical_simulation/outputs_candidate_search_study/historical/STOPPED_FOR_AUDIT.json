@@ -1,0 +1,11 @@
+{
+  "status": "stopped_for_invariant_audit",
+  "error": "Accepted training loss increased",
+  "failure_task_id": 33,
+  "failure_cohort": "development",
+  "utc": "2026-10-10T06:54:32.574227+00:00",
+  "note": "No postprocessing or invariant waiver. Preserve all outputs; investigate fixed-vs-adaptive objective before any new run. Core remains unchanged.",
+  "cohort": "historical",
+  "complete_json_jobs": 16,
+  "not_a_complete_study": true
+}

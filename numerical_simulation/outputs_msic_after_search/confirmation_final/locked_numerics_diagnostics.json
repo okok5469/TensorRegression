@@ -1,0 +1,15 @@
+{
+  "status": "complete",
+  "checks_passed": true,
+  "locked_model_count": 90,
+  "rank_deficient_count": 0,
+  "condition_number_max": 17.332758668127752,
+  "max_rss_relative_difference": 6.087082300483176e-16,
+  "max_ols_rss_relative_difference": 0.0,
+  "max_normal_equation_relative_residual": 1.972559803530317e-15,
+  "scope": "Only ninety locked-rule selected models; default five-group 450-model numerics remain in parent. No coefficients or supports replaced.",
+  "tolerances": {
+    "relative_scaled_rss_and_prediction": 1e-09,
+    "normal_equation_relative_residual": 1e-08
+  }
+}

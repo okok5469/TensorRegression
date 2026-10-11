@@ -1,0 +1,268 @@
+% !TEX program = xelatex
+% 本报告共12页，建议总时长10分钟。各页讲解提示见 \note。
+\documentclass[11pt]{beamer}
+\definecolor{BNUBlue}{RGB}{0,78,161}
+\usetheme{CambridgeUS}
+\usecolortheme{dolphin}
+\usecolortheme[named=BNUBlue]{structure}
+\usefonttheme{serif}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}[circle]
+\setbeamercolor{itemize item}{fg=BNUBlue}
+\usepackage{ctex}
+\usepackage{amsmath,amssymb,graphicx,booktabs,array}
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\usepackage{xeCJK}
+\setCJKmainfont{SimSun}[BoldFont=SimHei,ItalicFont=KaiTi]
+\graphicspath{{lemon_report_assets/}}
+\pgfdeclareimage[height=0.45cm]{BNU001}{BNU001}
+\logo{\pgfuseimage{BNU001}}
+\setbeameroption{hide notes}
+\newcommand{\src}[1]{\par\vspace{0.25em}{\tiny\color{gray}#1}}
+\title[LEMON实证分析]{LEMON 脑电实证分析汇报}
+\subtitle{Tensor-ABESS 结构稀疏回归}
+\author[Xiang Mingxu]{Xiang Mingxu}
+\institute[BNU]{北京师范大学文理学院统计系}
+\date[2026-10-04]{2026年10月4日}
+\begin{document}
+
+\logo{}
+\begin{frame}
+  \titlepage
+  \vspace{-0.9em}
+  \begin{center}
+    \includegraphics[width=0.23\linewidth]{BNU001.png}\\[0.4em]
+    {\scriptsize 实证结果截至2026年9月17日，汇报补充协变量基线对照}
+  \end{center}
+  \note{15秒。介绍这是算法和数值模拟之后的真实数据应用。本次报告主要讲数据如何变成张量、如何验证，以及目前能够和不能够得到的结论。}
+\end{frame}
+
+\logo{\pgfuseimage{BNU001}}
+\begin{frame}{研究问题与当前结论}
+\small
+\textbf{研究问题：}闭眼静息态 EEG 能否预测 TMT-B 完成时间，
+并筛选相关的通道、时间窗口和频段？
+\vspace{0.6em}
+\begin{itemize}
+  \item 项目前期完成 Tensor-ABESS 算法核验与数值模拟，本轮进入真实数据应用。
+  \item 最终 $n=145$，每人 $61\times16\times5=4,880$ 个 EEG 特征，具有高维、小样本特点。
+  \item ABESS 在三种含 EEG 的候选模型中预测最好。
+  \item \textbf{补充对照更关键：}当前划分下，仅年龄段和性别的模型表现更好，EEG 的增量收益尚未得到支持。
+\end{itemize}
+\src{预测结论来自固定五折的逐人折外预测，尚无独立测试或模型差异显著性检验。}
+\note{40秒。先给出问题和结果边界。张量方法的价值在于保留通道、时间、频段的结构并筛选矩形支撑。但本轮不能仅根据三个EEG模型之间的排名就说脑电有效，必须和不使用脑电的年龄性别模型比较。}
+\end{frame}
+
+\begin{frame}{数据来源与变量分工}
+\footnotesize
+\textbf{LEMON：}莱比锡 Mind-Brain-Body 健康成人多模态队列，
+本次使用静息态 EEG 与同队列行为、人口学资料，按受试者 ID 对齐。
+\vspace{0.5em}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}p{0.23\linewidth}p{0.40\linewidth}p{0.29\linewidth}@{}}
+\toprule
+数据 & 本次使用内容 & 用途\\
+\midrule
+NEMAR EEG & \texttt{nm000179/v1.0.0}，闭眼静息态信号 & 构造自变量 $X_i$\\
+LEMON TMT表 & \texttt{TMT\_5}：TMT-B数字字母交替连线时间，秒 & 因变量 $y_i=\ln(\mathrm{TMT\_5})$\\
+官方人口学表 & 年龄区间、性别，来自GWDG META表 & 混杂调整矩阵 $C_i$\\
+事件、通道、文件清单 & 闭眼标记、通道名、输入完整性 & 定位片段、质量核验\\
+\bottomrule
+\end{tabular}
+\vspace{0.5em}
+\texttt{TMT\_1/2/3/4/6/7/8}、其他行为量表与 MRI 未进入本次模型。
+\src{Babayan等，Scientific Data (2019)，\href{https://doi.org/10.1038/sdata.2018.308}{doi:10.1038/sdata.2018.308}；\href{https://nemar.org/dataset/nm000179}{NEMAR nm000179}；LEMON官方TMT及META编码说明。}
+\note{55秒。LEMON是同一队列的脑电和行为数据，不能按行号拼接，要按受试者ID匹配。EEG是自变量，TMT_5才是本次响应。时间越长代表完成任务越慢，不是数值越高越好。年龄是区间类别而不是精确年龄，性别使用官方编码。事件文件和清单只服务数据定位与质控。数据公开来源为NEMAR、GWDG和原始队列论文。}
+\end{frame}
+
+\logo{}
+\begin{frame}{最终建模样本为145人}
+\footnotesize
+清单215人中214人文件条件合格，按数值 ID 顺序选前150人。
+\vspace{0.25em}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{@{}rp{0.80\linewidth}@{}}
+\toprule
+人数 & 筛选依据\\
+\midrule
+150 & 原始下载计划，属于有序抽取\\
+149 & 排除1人闭眼事件语义冲突，不猜测替换事件码\\
+146 & 排除3人，合格25秒窗口少于16个\\
+145 & 排除1人，TMT原文\texttt{67,75}不满足既定数值规则\\
+\bottomrule
+\end{tabular}
+\begin{center}
+\includegraphics[width=0.82\linewidth,height=3.1cm,keepaspectratio]{age_distribution.pdf}
+\end{center}
+\vspace{-0.7em}
+女66人、男79人。年龄以7个类别调整，部分老年组较少。
+\src{人数及年龄分布均来自最终纳入清单；有序抽取的样本代表性仍待检查。}
+\note{55秒。解释不是直接把215人全部用进分析。下载前的文件条件检查得到214人，按ID取150人，随后明确排除事件冲突、窗口不足和无效行为值，最终145人。67,75没有在报告中猜成67.75。年龄有年轻和年长两个主要群体，40到55岁存在空档，而且最高年龄类只有4人，外推需要谨慎。}
+\end{frame}
+
+\begin{frame}{TMT-B时间偏态，模型使用自然对数}
+\small
+最终145人：中位数56.90秒，均值62.94秒，范围24.13--161.15秒。
+\begin{center}
+\includegraphics[width=\linewidth,height=4.5cm,keepaspectratio]{tmt_distribution.pdf}
+\end{center}
+\vspace{-0.6em}
+\footnotesize
+对数变换使分布更对称：偏度由1.276降至0.231。
+\textbf{后续RMSE和MAE均在log时间尺度，不能解释为秒。}
+\src{仅绘制最终建模145人；原源表226个有效TMT值用于资格核验，不作为本页样本。}
+\note{45秒。这两张分布图回答为何使用log响应。TMT-B的完成时间呈右偏，有少数较慢受试者，对数变换降低偏度。报告中的模型误差不以秒为单位。这里只展示实际建模的145人，没有用源表的226个有效TMT值替代。}
+\end{frame}
+
+\logo{\pgfuseimage{BNU001}}
+\begin{frame}{EEG构造为通道、窗口、频段三阶张量}
+\footnotesize
+\textbf{闭眼片段：}核验事件，两端各裁5秒，按时间顺序取前16个
+互不重叠的25秒窗口，每人共使用400秒闭眼信号。
+\vspace{0.4em}
+\begin{itemize}
+  \item 保留61个共同EEG通道，排除VEOG。
+  \item 1--45 Hz带通，重采样至250 Hz，EEG平均参考。
+  \item Welch功率谱：4秒Hamming段、50\%重叠、median汇总。
+  \item 对频带积分，得到绝对功率后取自然对数。
+\end{itemize}
+\vspace{0.2em}
+\begin{center}
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+delta & theta & alpha & beta & gamma\\
+1--4 Hz & 4--8 Hz & 8--13 Hz & 13--30 Hz & 30--45 Hz\\
+\bottomrule
+\end{tabular}
+\end{center}
+\[
+X_i\in\mathbb R^{61\times16\times5},\qquad
+y_i=\langle X_i,B\rangle+\text{年龄/性别项}+\varepsilon_i
+\]
+\textbf{ABESS选择矩形范围：}$\mathrm{supp}(B)\subseteq S_{\rm channel}\times S_{\rm window}\times S_{\rm band}$。
+\src{窗口序号表示闭眼窗口的次序，不等同于全记录中统一的绝对时刻。}
+\note{60秒。每个受试者是一条回归样本，不是把16个窗口当16名独立受试者。每个单元记录某通道在某闭眼窗口某频带的log绝对功率。61乘16乘5是4880个候选特征。ABESS选择的是三个维度的集合及其笛卡尔积，使结果能够同时解释通道、窗口和频段。当前没有显式ICA或肌电伪迹移除，后面会列为不足。}
+\end{frame}
+
+\begin{frame}{五折验证与折内年龄、性别调整}
+\small
+固定种子20260908，按受试者划分5折，每折训练116人、验证29人。
+\vspace{0.4em}
+\begin{enumerate}
+  \item $C$包含截距、6个年龄类别指示变量和性别，共8列。
+  \item 每个外层训练折分别对$X$和$y$做OLS残差化，再标准化$X$。
+  \item 验证折只应用训练参数，预测后加回年龄、性别贡献。
+\end{enumerate}
+\vspace{0.3em}
+\[
+\widehat y_i=\langle\widetilde X_i,\widehat B\rangle+
+C_i\widehat a_y+\widehat\mu_y
+\]
+\footnotesize
+ABESS用BIC初始化、MSIC选支持；Lasso与GLasso内部五折选$\lambda$。
+\vspace{0.4em}
+\textbf{OOF：}每人只使用未参与该折训练的模型预测，合并145人计算指标。
+\src{预处理仅在外折训练集拟合；内部调参未在各内折重新拟合预处理，仍需完善完整嵌套验证。}
+\note{65秒。七个年龄类别用六个哑变量，20到25岁为参考，再加截距与性别，共八列。外层训练与测试严格分开，避免全样本预处理泄漏。需要特别解释，最后报的R方是脑电部分与年龄性别部分加起来的完整预测结果，并不是脑电独立解释了33\%。三个模型的调参机制不同，惩罚模型的内折没有重新拟合预处理，因此不能称完全统一的嵌套CV。}
+\end{frame}
+
+\logo{}
+\begin{frame}{ABESS领先EEG候选，尚未超过协变量基线}
+\footnotesize
+\begin{center}
+\includegraphics[width=0.92\linewidth,height=3.25cm,keepaspectratio]{oof_metrics.pdf}
+\end{center}
+\vspace{-0.7em}
+\renewcommand{\arraystretch}{1.12}
+\begin{center}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+模型 & OOF RMSE & OOF MAE & OOF $R^2$\\
+\midrule
+仅年龄段和性别$^\dagger$ & 0.3149 & 0.2544 & 0.3780\\
+\textcolor{BNUBlue}{Tensor-ABESS + 协变量} & \textcolor{BNUBlue}{0.3264} & 0.2671 & \textcolor{BNUBlue}{0.3318}\\
+Vector Lasso + 协变量 & 0.3683 & 0.2946 & 0.1495\\
+Tensor-GLasso + 协变量 & 0.4339 & 0.3324 & $-0.1805$\\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{-0.3em}
+\textbf{结论：}同一划分中未显示EEG增量收益，不能据此宣称显著差异。
+\src{$\dagger$本次汇报用保存的各折参数补算，未重训练；三种EEG模型为既有正式结果。全表为log(TMT-B时间)尺度，无置信区间。}
+\note{85秒。这是最重要的结果页。原始三模型结果里ABESS最好，RMSE为0.3264，R方为0.3318。为了回答脑电是否有增量，我把同样五折里保存的年龄性别参数单独恢复出预测，并没有重训练或改变数据。其RMSE为0.3149，R方为0.3780，反而更好。所以当前的正确结论是ABESS相对其他两个含EEG方法有优势，但还没有证明加入EEG能超过年龄性别。数值差异只代表这个划分，不能称显著更好或更差。}
+\end{frame}
+
+\begin{frame}{ABESS逐人折外预测}
+\begin{columns}[T]
+\column{0.61\textwidth}
+\includegraphics[width=\linewidth,height=5.45cm,keepaspectratio]{oof_prediction.pdf}
+\column{0.36\textwidth}
+\small
+\vspace{0.5em}
+\textbf{145个点对应145名受试者。}
+\vspace{0.5em}
+\begin{itemize}
+  \item 斜线表示预测完全准确。
+  \item 点偏离斜线表示个体预测误差。
+  \item 图中预测包括年龄、性别贡献。
+\end{itemize}
+\vspace{0.5em}
+\footnotesize
+OOF $R^2=0.3318$\\
+OOF RMSE $=0.3264$
+\end{columns}
+\src{横纵轴均为自然对数时间；本图用于直观呈现个体误差，不替代增量收益检验。}
+\note{40秒。散点说明模型在每个人身上的误差，而不只是一个平均指标。横轴实际、纵轴预测，靠近斜线更好。用对数尺度保证和模型指标一致。这里包含年龄性别贡献，所以散点趋势也不能单独归因于EEG。}
+\end{frame}
+
+\begin{frame}{最终选择及折间稳定性}
+\small
+全部145人描述性拟合选择：\textbf{F7、AF8，闭眼第16窗口，gamma}。
+矩形支撑大小为$2\times1\times1=2$。
+\begin{center}
+\includegraphics[width=\linewidth,height=3.8cm,keepaspectratio]{support_stability.pdf}
+\end{center}
+\vspace{-0.7em}
+\footnotesize
+F7为3/5折，AF8为2/5折，gamma为3/5折，第16窗口仅1/5折。
+\vspace{0.4em}
+\textbf{具体定位仍不稳定。}全样本选择用于描述关联，不能推断脑机制或因果。
+\src{窗口16的实际起点跨人约836--1016秒，不能将其换算成记录开始后的375秒；折间频率不是bootstrap稳定性。}
+\note{55秒。最终模型只保留两个单元，符合结构稀疏的目标。但要同时看稳定性：gamma在五折里出现三次，第16窗口只出现一次，五个外折选择不同时间窗口。最终选中某通道并不意味着它已经被确定为生物标志物。第16窗口是第16个合格闭眼窗口，中间有其他状态，所以也不是记录开始375秒的位置。}
+\end{frame}
+
+\logo{\pgfuseimage{BNU001}}
+\begin{frame}{研究缺漏与后续补充}
+\footnotesize
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{@{}p{0.38\linewidth}p{0.54\linewidth}@{}}
+\toprule
+当前缺漏 & 下一步工作\\
+\midrule
+尚未显示EEG增量收益 & \textbf{优先：}将仅协变量基线纳入正式结果，比较同一人的预测误差\\
+只有一次固定五折 & 重复外层CV、完整折内预处理与调参，报告差异不确定性\\
+gamma和时间定位不稳定 & 补充ICA/眼动肌电伪迹审计、坏段处理，检验窗口与频段敏感性\\
+样本覆盖有限 & 扩大或独立验证队列，检查有序抽取和年龄覆盖的代表性\\
+响应与编码方案单一 & 比较raw/log时间、年龄编码与其他预先明确的行为响应\\
+\bottomrule
+\end{tabular}
+\vspace{0.6em}
+\textbf{先验证“EEG是否带来可复现增益”，再解释具体通道与频段。}
+\note{60秒。下一步首先补正式协变量基线，并看同一个人的误差差异。第二是重复外层CV和完整内层预处理，不把五个折当五次独立实验。第三是脑电伪迹审计，尤其gamma可能受肌电影响，目前没有显式ICA清理，因此不能急于解释机制。随后再做窗口、频段、响应变换和年龄编码的敏感性，并在更多或独立受试者中验证。}
+\end{frame}
+
+\begin{frame}{本轮工作与结论边界}
+\small
+\begin{itemize}
+  \item 已完成数据下载与核验、EEG张量构造、行为及人口学匹配、五折评估与最终模型拟合。
+  \item 正式实证为\textbf{145人，$61\times16\times5$张量，log(TMT-B时间)}。
+  \item ABESS在三种含EEG候选中最好，结构选择给出可追踪的通道、窗口和频段。
+  \item 当前\textbf{尚未证实EEG增量收益，支撑稳定性不足}，后续以基线、重复验证和伪迹审计为重点。
+\end{itemize}
+\vspace{0.6em}
+\textbf{完成真实数据应用，也明确了下一轮需要验证的问题。}
+\src{本报告基于保存的正式产物及参数补算；当前原始EEG存储位置不可访问，本次未重跑原始信号处理或拟合。}
+\note{25秒。用一句话总结：这轮已完整落地真实数据流程，证明方法能够运行并产生结构选择，但真实科学问题的答案仍需验证，尤其EEG是否超过人口学基线。谢谢。}
+\end{frame}
+\end{document}

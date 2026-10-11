@@ -1,0 +1,26 @@
+{
+  "complete_tasks": 27,
+  "groups": {
+    "A0": {
+      "n": 27,
+      "random_selected": 3,
+      "rss_delta": -0.6114419584224264,
+      "pmse_delta": -0.10621516449593742,
+      "exact_delta": 0.0,
+      "pmse_wins": 1,
+      "pmse_ties": 24,
+      "pmse_losses": 2
+    },
+    "A3": {
+      "n": 27,
+      "random_selected": 4,
+      "rss_delta": -0.1342159477932012,
+      "pmse_delta": -0.016023749915977978,
+      "exact_delta": 0.0,
+      "pmse_wins": 2,
+      "pmse_ties": 23,
+      "pmse_losses": 2
+    }
+  },
+  "scope": "Historical 3 replicates per scenario; three training-only starts; Oracle evaluation only"
+}

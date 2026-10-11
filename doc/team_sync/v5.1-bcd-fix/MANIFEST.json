@@ -1,0 +1,18 @@
+{
+  "version": "v5.1-bcd-fix",
+  "release_approved": true,
+  "policy": "legacy exploration plus separate monotone best-state acceptance",
+  "base_commit": "d4e28969ac480ba6efc01bcc985a53d179e7ed31",
+  "patch_sha256": "d2e6cac68ad7e37ec131cf2ff3d52eec4e7ec4498d30cea484d513fe2b7b37ee",
+  "source_before_raw_sha256": "4f9486d32f01a2798a55fbe7216d6a05d789f56f8f85608f03598c2926bce6fa",
+  "source_before_canonical_LF_sha256": "cff12bd6fa4c144031a41277a3a28fea6044fc7775ec2bd9ada7d582d6efdf51",
+  "source_after_raw_sha256": "c5e67a666c8c120bfcd9ff000a5c6b1bcd7c0be37e0b549a0a34ca61ecfbd737",
+  "source_after_canonical_LF_sha256": "4966b563a0c3d8c0b233141b1f1d136a0dce3b4af3c02331cfe191af6310816c",
+  "files": [
+    "src/tensor_abess/tensor/bcd.py",
+    "tests/test_bcd_fix_regression.py"
+  ],
+  "git_apply_check_and_application_verified": true,
+  "msic_defaults_changed": false,
+  "validation_tests_passed": 53
+}

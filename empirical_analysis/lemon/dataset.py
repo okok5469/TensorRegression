@@ -77,6 +77,48 @@ def prepare_tmt(path: Path, output_dir: Path) -> pd.DataFrame:
     return clean
 
 
+def _nonmissing(values: pd.Series) -> pd.Series:
+    return values.notna() & ~values.astype(str).str.strip().str.lower().isin({'', 'n/a', 'na', 'nan'})
+
+
+def _age_design(manifest: pd.DataFrame, spec: dict) -> tuple[np.ndarray, list[str], pd.Series]:
+    source = manifest.age_source
+    nonmissing = _nonmissing(source)
+    encoding = spec.get('age_encoding', 'numeric')
+    if encoding == 'numeric':
+        manifest['age'] = pd.to_numeric(source.where(nonmissing), errors='coerce')
+        if (nonmissing & ~np.isfinite(manifest.age)).any():
+            raise ValueError('Non-numeric age values (including age bands) require an explicitly reviewed encoding; no midpoint conversion')
+        return manifest[['age']].to_numpy(float), ['age'], np.isfinite(manifest.age)
+    if encoding != 'categorical':
+        raise ValueError('age_encoding must be numeric or categorical')
+    categories = spec.get('age_categories')
+    if (not isinstance(categories, (list, tuple)) or len(categories) < 2
+            or not all(isinstance(value, str) for value in categories)
+            or len(set(categories)) != len(categories) or not _nonmissing(pd.Series(categories)).all()):
+        raise ValueError('age_categories must explicitly contain at least two unique nonmissing string labels')
+    reference = spec.get('age_reference')
+    if reference not in categories:
+        raise ValueError('age_reference must explicitly name one of age_categories')
+    mapping = spec.get('age_mapping')
+    if mapping is not None:
+        if (not isinstance(mapping, dict) or not mapping
+                or not all(isinstance(key, str) for key in mapping)
+                or not _nonmissing(pd.Series(list(mapping))).all()
+                or not all(value in categories for value in mapping.values())):
+            raise ValueError('age_mapping must explicitly map nonmissing source labels to age_categories')
+        labels = source.astype(str).map(mapping).where(nonmissing)
+    else:
+        labels = source.astype(str).where(nonmissing)
+    unknown = nonmissing & ~labels.isin(categories)
+    if unknown.any():
+        raise ValueError('Unknown age values: ' + ', '.join(sorted(source[unknown].astype(str).unique())))
+    manifest['age_category'] = labels
+    dummy_categories = [category for category in categories if category != reference]
+    design = np.column_stack([labels.eq(category).to_numpy(float) for category in dummy_categories])
+    return design, ['age[' + category + ']' for category in dummy_categories], nonmissing
+
+
 def merge_analysis_arrays(X: np.ndarray, subject_ids: list[str], tmt: pd.DataFrame, participants: pd.DataFrame | None, config: dict) -> dict:
     X = np.asarray(X, dtype=float)
     if X.ndim != 4 or X.shape[0] != len(subject_ids) or len(set(subject_ids)) != len(subject_ids) or not np.isfinite(X).all():
@@ -89,6 +131,7 @@ def merge_analysis_arrays(X: np.ndarray, subject_ids: list[str], tmt: pd.DataFra
         raise ValueError('analysis.mode must explicitly be adjusted or pilot')
     manifest['exclusion_reason'] = np.where(np.isfinite(manifest.tmt5_raw) & (manifest.tmt5_raw > 0), '', 'invalid_or_missing_tmt5')
     covariates = None
+    covariate_columns = []
     if mode == 'adjusted':
         if participants is None:
             raise ValueError('Adjusted analysis requires participants data and explicit age/sex coding')
@@ -100,23 +143,21 @@ def merge_analysis_arrays(X: np.ndarray, subject_ids: list[str], tmt: pd.DataFra
         if people.subject_id.duplicated().any():
             raise ValueError('Duplicate participants IDs; no automatic deduplication')
         manifest = manifest.merge(people, on='subject_id', how='left', validate='one_to_one', sort=False)
-        manifest['age'] = pd.to_numeric(manifest.age_source, errors='coerce')
-        nonempty_age = manifest.age_source.notna() & ~manifest.age_source.astype(str).str.strip().str.lower().isin({'', 'n/a', 'na', 'nan'})
-        if (nonempty_age & ~np.isfinite(manifest.age)).any():
-            raise ValueError('Non-numeric age values (including age bands) require an explicitly reviewed encoding; no midpoint conversion')
+        age_design, age_columns, valid_age = _age_design(manifest, spec)
         sex_map = {str(key): float(value) for key, value in spec['sex_mapping'].items()}
         if not np.isfinite(list(sex_map.values())).all() or len(set(sex_map.values())) != len(sex_map):
             raise ValueError('sex_mapping must contain distinct finite codes')
-        manifest['sex'] = manifest.sex_source.astype(str).map(sex_map)
-        nonempty_sex = manifest.sex_source.notna() & ~manifest.sex_source.astype(str).str.strip().str.lower().isin({'', 'n/a', 'na', 'nan'})
+        nonempty_sex = _nonmissing(manifest.sex_source)
+        manifest['sex'] = manifest.sex_source.astype(str).map(sex_map).where(nonempty_sex)
         if (nonempty_sex & manifest.sex.isna()).any():
             raise ValueError('Unknown sex values: verify the explicit sex_mapping against the codebook')
-        bad = ~np.isfinite(manifest[['age', 'sex']]).all(axis=1)
+        bad = ~valid_age | ~np.isfinite(manifest.sex)
         manifest.loc[bad, 'exclusion_reason'] = manifest.loc[bad, 'exclusion_reason'].map(lambda value: (value + ';invalid_or_missing_covariates').lstrip(';'))
-        covariates = np.column_stack([np.ones(len(manifest)), manifest.age, manifest.sex])
+        covariates = np.column_stack([np.ones(len(manifest)), age_design, manifest.sex])
+        covariate_columns = ['intercept', *age_columns, 'sex']
     included = manifest.exclusion_reason.eq('').to_numpy()
     manifest['include_primary'] = included
     transform = config['response']['primary_transform']
     if transform not in {'log', 'raw'}:
         raise ValueError('response.primary_transform must be log or raw')
-    return {'X': X[included], 'y': manifest.loc[included, 'tmt5_' + transform].to_numpy(float), 'C': None if covariates is None else covariates[included], 'subject_ids': manifest.loc[included, 'subject_id'].tolist(), 'manifest': manifest, 'pilot_unadjusted': mode == 'pilot'}
+    return {'X': X[included], 'y': manifest.loc[included, 'tmt5_' + transform].to_numpy(float), 'C': None if covariates is None else covariates[included], 'covariate_columns': covariate_columns, 'subject_ids': manifest.loc[included, 'subject_id'].tolist(), 'manifest': manifest, 'pilot_unadjusted': mode == 'pilot'}

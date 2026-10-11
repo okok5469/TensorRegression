@@ -1,0 +1,122 @@
+[
+  {
+    "page": 1,
+    "size_pt": [
+      362.8299865722656,
+      272.1300048828125
+    ],
+    "clipped_spans": [],
+    "min_font_pt": 5.97760009765625,
+    "text": "LEMON 脑电实证分析汇报\nTensor-ABESS 结构稀疏回归\nXiang Mingxu\n北京师范大学文理学院统计系\n2026 年10 月4 日\n实证结果截至2026 年9 月17 日，汇报补充协变量基线对照\nXiang Mingxu (BNU)\nLEMON 实证分析\n2026-10-04\n1 / 12\n"
+  },
+  {
+    "page": 2,
+    "size_pt": [
+      362.8299865722656,
+      272.1300048828125
+    ],
+    "clipped_spans": [],
+    "min_font_pt": 5.97760009765625,
+    "text": "研究问题与当前结论\n研究问题：闭眼静息态EEG 能否预测TMT-B 完成时间，并筛选相关的通道、\n时间窗口和频段？\n• 项目前期完成Tensor-ABESS 算法核验与数值模拟，本轮进入真实数据应\n用。\n• 最终n = 145，每人61 × 16 × 5 = 4, 880 个EEG 特征，具有高维、小样本\n特点。\n• ABESS 在三种含EEG 的候选模型中预测最好。\n• 补充对照更关键：当前划分下，仅年龄段和性别的模型表现更好，EEG 的\n增量收益尚未得到支持。\n预测结论来自固定五折的逐人折外预测，尚无独立测试或模型差异显著性检验。\nXiang Mingxu (BNU)\nLEMON 实证分析\n2026-10-04\n2 / 12\n"
+  },
+  {
+    "page": 3,
+    "size_pt": [
+      362.8299865722656,
+      272.1300048828125
+    ],
+    "clipped_spans": [],
+    "min_font_pt": 5.97760009765625,
+    "text": "数据来源与变量分工\nLEMON：莱比锡Mind-Brain-Body 健康成人多模态队列，本次使用静息态EEG 与同队\n列行为、人口学资料，按受试者ID 对齐。\n数据\n本次使用内容\n用途\nNEMAR EEG\nnm000179/v1.0.0，闭眼静息态信\n号\n构造自变量Xi\nLEMON TMT 表\nTMT_5：TMT-B 数字字母交替连线\n时间，秒\n因变量yi = ln(TMT_5)\n官方人口学表\n年龄区间、性别，来自GWDG META\n表\n混杂调整矩阵Ci\n事件、通道、文件清\n单\n闭眼标记、通道名、输入完整性\n定位片段、质量核验\nTMT_1/2/3/4/6/7/8、其他行为量表与MRI 未进入本次模型。\nBabayan 等，Scientific Data (2019)，doi:10.1038/sdata.2018.308；NEMAR nm000179；LEMON 官方TMT 及META 编码说明。\nXiang Mingxu (BNU)\nLEMON 实证分析\n2026-10-04\n3 / 12\n"
+  },
+  {
+    "page": 4,
+    "size_pt": [
+      362.8299865722656,
+      272.1300048828125
+    ],
+    "clipped_spans": [],
+    "min_font_pt": 4.881939888000488,
+    "text": "最终建模样本为145 人\n清单215 人中214 人文件条件合格，按数值ID 顺序选前150 人。\n人数\n筛选依据\n150\n原始下载计划，属于有序抽取\n149\n排除1 人闭眼事件语义冲突，不猜测替换事件码\n146\n排除3 人，合格25 秒窗口少于16 个\n145\n排除1 人，TMT 原文67,75 不满足既定数值规则\n20-25\n25-30\n30-40\n55-65\n65-70\n70-75\n75-80\nAge category (years)\n0\n15\n30\n45\nParticipants\n46\n43\n10\n13\n17\n12\n4\nFinal analysis sample: n = 145\n女66 人、男79 人。年龄以7 个类别调整，部分老年组较少。\n人数及年龄分布均来自最终纳入清单；有序抽取的样本代表性仍待检查。\nXiang Mingxu (BNU)\nLEMON 实证分析\n2026-10-04\n4 / 12\n"
+  },
+  {
+    "page": 5,
+    "size_pt": [
+      362.8299865722656,
+      272.1300048828125
+    ],
+    "clipped_spans": [],
+    "min_font_pt": 5.97760009765625,
+    "text": "TMT-B 时间偏态，模型使用自然对数\n最终145 人：中位数56.90 秒，均值62.94 秒，范围24.13–161.15 秒。\n40\n80\n120\n160\nTMT-B completion time (s)\n0\n10\n20\n30\nParticipants\na\nRaw seconds\n3.6\n4.2\n4.8\nNatural log of TMT-B time\nb\nLog-transformed response\n对数变换使分布更对称：偏度由1.276 降至0.231。后续RMSE 和MAE 均在log 时间尺\n度，不能解释为秒。\n仅绘制最终建模145 人；原源表226 个有效TMT 值用于资格核验，不作为本页样本。\nXiang Mingxu (BNU)\nLEMON 实证分析\n2026-10-04\n5 / 12\n"
+  },
+  {
+    "page": 6,
+    "size_pt": [
+      362.8299865722656,
+      272.1300048828125
+    ],
+    "clipped_spans": [],
+    "min_font_pt": 5.97760009765625,
+    "text": "EEG 构造为通道、窗口、频段三阶张量\n闭眼片段：核验事件，两端各裁5 秒，按时间顺序取前16 个互不重叠的25 秒窗口，每\n人共使用400 秒闭眼信号。\n• 保留61 个共同EEG 通道，排除VEOG。\n• 1–45 Hz 带通，重采样至250 Hz，EEG 平均参考。\n• Welch 功率谱：4 秒Hamming 段、50% 重叠、median 汇总。\n• 对频带积分，得到绝对功率后取自然对数。\ndelta\ntheta\nalpha\nbeta\ngamma\n1–4 Hz\n4–8 Hz\n8–13 Hz\n13–30 Hz\n30–45 Hz\nXi ∈R61×16×5,\nyi = ⟨Xi, B⟩+ 年龄/性别项+ εi\nABESS 选择矩形范围：supp(B) ⊆Schannel × Swindow × Sband。\n窗口序号表示闭眼窗口的次序，不等同于全记录中统一的绝对时刻。\nXiang Mingxu (BNU)\nLEMON 实证分析\n2026-10-04\n6 / 12\n"
+  },
+  {
+    "page": 7,
+    "size_pt": [
+      362.8299865722656,
+      272.1300048828125
+    ],
+    "clipped_spans": [],
+    "min_font_pt": 5.97760009765625,
+    "text": "五折验证与折内年龄、性别调整\n固定种子20260908，按受试者划分5 折，每折训练116 人、验证29 人。\n1\nC 包含截距、6 个年龄类别指示变量和性别，共8 列。\n2\n每个外层训练折分别对X 和y 做OLS 残差化，再标准化X。\n3\n验证折只应用训练参数，预测后加回年龄、性别贡献。\nbyi = ⟨eXi, bB⟩+ Cibay + bµy\nABESS 用BIC 初始化、MSIC 选支持；Lasso 与GLasso 内部五折选λ。OOF：每人只使\n用未参与该折训练的模型预测，合并145 人计算指标。\n预处理仅在外折训练集拟合；内部调参未在各内折重新拟合预处理，仍需完善完整嵌套验证。\nXiang Mingxu (BNU)\nLEMON 实证分析\n2026-10-04\n7 / 12\n"
+  },
+  {
+    "page": 8,
+    "size_pt": [
+      362.8299865722656,
+      272.1300048828125
+    ],
+    "clipped_spans": [],
+    "min_font_pt": 5.118259906768799,
+    "text": "ABESS 领先EEG 候选，尚未超过协变量基线\n0.0\n0.1\n0.2\n0.3\n0.4\n0.5\nOOF RMSE in log(TMT-B) (lower is better)\nAge + sex only\nTensor-ABESS\nVector Lasso\nTensor-GLasso\n0.3149\n0.3264\n0.3683\n0.4339\nFixed 5-fold partition; n = 145\n模型\nOOF RMSE\nOOF MAE\nOOF R2\n仅年龄段和性别†\n0.3149\n0.2544\n0.3780\nTensor-ABESS + 协变量\n0.3264\n0.2671\n0.3318\nVector Lasso + 协变量\n0.3683\n0.2946\n0.1495\nTensor-GLasso + 协变量\n0.4339\n0.3324\n−0.1805\n结论：同一划分中未显示EEG 增量收益，不能据此宣称显著差异。\n† 本次汇报用保存的各折参数补算，未重训练；三种EEG 模型为既有正式结果。全表为log(TMT-B 时间) 尺度，无置信区间。\nXiang Mingxu (BNU)\nLEMON 实证分析\n2026-10-04\n8 / 12\n"
+  },
+  {
+    "page": 9,
+    "size_pt": [
+      362.8299865722656,
+      272.1300048828125
+    ],
+    "clipped_spans": [],
+    "min_font_pt": 5.97760009765625,
+    "text": "ABESS 逐人折外预测\n3.2\n3.8\n4.4\n5.0\nObserved log(TMT-B)\n3.2\n3.8\n4.4\n5.0\nOOF predicted log(TMT-B)\nTensor-ABESS: 145 held-out predictions\n145 个点对应145 名受试者。\n• 斜线表示预测完全准\n确。\n• 点偏离斜线表示个体预\n测误差。\n• 图中预测包括年龄、性\n别贡献。\nOOF R2 = 0.3318\nOOF RMSE = 0.3264\n横纵轴均为自然对数时间；本图用于直观呈现个体误差，不替代增量收益检验。\nXiang Mingxu (BNU)\nLEMON 实证分析\n2026-10-04\n9 / 12\n"
+  },
+  {
+    "page": 10,
+    "size_pt": [
+      362.8299865722656,
+      272.1300048828125
+    ],
+    "clipped_spans": [],
+    "min_font_pt": 5.511659622192383,
+    "text": "最终选择及折间稳定性\n全部145 人描述性拟合选择：F7、AF8，闭眼第16 窗口，gamma。矩形支撑大\n小为2 × 1 × 1 = 2。\n0\n1\n2\n3\n4\n5\nFolds selecting a channel\nFp2\nF7\nC3\nPO9\nAF8\nF6\nC1\na\nChannels\n1\n4\n8\n12\n16\nClosed-eye window (1-16)\n0\n1\n2\n3\n4\n5\nFolds selecting a window\nb\nWindows\nδ\nθ\nα\nβ\nγ\nFrequency band\n0\n1\n2\n3\n4\n5\nFolds selecting a band\nc\nBands\nAll 5 folds; 54 other channels have count 0. Blue = final-model support.\nF7 为3/5 折，AF8 为2/5 折，gamma 为3/5 折，第16 窗口仅1/5 折。具体定位仍不稳定。\n全样本选择用于描述关联，不能推断脑机制或因果。\n窗口16 的实际起点跨人约836–1016 秒，不能将其换算成记录开始后的375 秒；折间频率不是bootstrap 稳定性。\nXiang Mingxu (BNU)\nLEMON 实证分析\n2026-10-04\n10 / 12\n"
+  },
+  {
+    "page": 11,
+    "size_pt": [
+      362.8299865722656,
+      272.1300048828125
+    ],
+    "clipped_spans": [],
+    "min_font_pt": 5.97760009765625,
+    "text": "研究缺漏与后续补充\n当前缺漏\n下一步工作\n尚未显示EEG 增量收益\n优先：将仅协变量基线纳入正式结果，比较同一\n人的预测误差\n只有一次固定五折\n重复外层CV、完整折内预处理与调参，报告差\n异不确定性\ngamma 和时间定位不稳定\n补充ICA/眼动肌电伪迹审计、坏段处理，检验\n窗口与频段敏感性\n样本覆盖有限\n扩大或独立验证队列，检查有序抽取和年龄覆盖\n的代表性\n响应与编码方案单一\n比较raw/log 时间、年龄编码与其他预先明确的\n行为响应\n先\n验证“EEG 是否带来可复现增益”，再解释具体通道与频段。\nXiang Mingxu (BNU)\nLEMON 实证分析\n2026-10-04\n11 / 12\n"
+  },
+  {
+    "page": 12,
+    "size_pt": [
+      362.8299865722656,
+      272.1300048828125
+    ],
+    "clipped_spans": [],
+    "min_font_pt": 5.97760009765625,
+    "text": "本轮工作与结论边界\n• 已完成数据下载与核验、EEG 张量构造、行为及人口学匹配、五折评估与\n最终模型拟合。\n• 正式实证为145 人，61 × 16 × 5 张量，log(TMT-B 时间)。\n• ABESS 在三种含EEG 候选中最好，结构选择给出可追踪的通道、窗口和\n频段。\n• 当前尚未证实EEG 增量收益，支撑稳定性不足，后续以基线、重复验证\n和伪迹审计为重点。\n完成真实数据应用，也明确了下一轮需要验证的问题。\n本报告基于保存的正式产物及参数补算；当前原始EEG 存储位置不可访问，本次未重跑原始信号处理或拟合。\nXiang Mingxu (BNU)\nLEMON 实证分析\n2026-10-04\n12 / 12\n"
+  }
+]

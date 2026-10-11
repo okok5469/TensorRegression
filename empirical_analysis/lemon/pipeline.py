@@ -255,6 +255,12 @@ def _dataset(config: dict, output: Path) -> dict:
     payload = {'X': result['X'], 'y': result['y'], 'subject_ids': np.asarray(result['subject_ids'], dtype=str)}
     if result['C'] is not None:
         payload['C'] = result['C']
+        write_json(output / 'qc/covariate_design.json', {
+            'columns': result['covariate_columns'],
+            'encoding': config['confounds'],
+            'codebook': read_json(config['paths']['participants_json']),
+            'regression_fit': 'outer_training_fold_only',
+        })
     np.savez_compressed(output / 'qc/analysis_dataset.npz', **payload)
     return {'n': len(result['y']), 'shape': list(result['X'].shape), 'pilot_unadjusted': result['pilot_unadjusted'], 'response_scale': config['response']['primary_transform']}
 

@@ -1,0 +1,16 @@
+{
+  "status": "complete",
+  "cohort": "historical",
+  "plan_id": "889780a394bf8a9fa93c60302521b37557a143abde079f9b3a4316f2a5d736b7",
+  "datasets": 27,
+  "groups": [
+    "A0",
+    "A1",
+    "A2",
+    "A3",
+    "A4"
+  ],
+  "scope": "Descriptive, balanced paired mechanisms; no automatic formal-version selection",
+  "runtime_note": "Observed runtime depends on shared-cache group order. Standalone estimate adds cached fixed fit durations; it is not an independent timing measurement.",
+  "fixed_candidates_checked": 26782
+}

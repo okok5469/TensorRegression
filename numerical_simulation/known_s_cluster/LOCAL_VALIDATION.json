@@ -1,0 +1,79 @@
+{
+  "expected_tasks": 700,
+  "expected_method_results": 2100,
+  "historical_seed_checks": {
+    "outputs_full_v3": 140,
+    "outputs_full_v5_adaptive": 140
+  },
+  "baseline_metric_checks": {
+    "fixed": {
+      "metrics_checked": 28,
+      "max_absolute_difference": 2.842170943040401e-14,
+      "pmse": 1.3250717018616067,
+      "exact_recovery": 1.0,
+      "runtime_sec": 14.012570299997606
+    },
+    "adaptive": {
+      "metrics_checked": 28,
+      "max_absolute_difference": 2.842170943040401e-14,
+      "pmse": 1.3250717018616067,
+      "exact_recovery": 1.0,
+      "runtime_sec": 24.506577100000868
+    },
+    "oracle": {
+      "metrics_checked": 28,
+      "max_absolute_difference": 2.842170943040401e-14,
+      "pmse": 1.3250717018616067,
+      "exact_recovery": 1.0,
+      "runtime_sec": 0.003108500000962522
+    }
+  },
+  "full_execution_scope": "Only baseline task 0 locally executed; other 699 formal tasks not run.",
+  "unit_tests": {
+    "count": 10,
+    "seconds": 7.772,
+    "passed": true
+  },
+  "extracted_bundle_unit_tests": {
+    "count": 10,
+    "seconds": 19.181,
+    "passed": true,
+    "sandbox_attempt_passed": false,
+    "blocked_attempt_terminated": true
+  },
+  "real_quick_cli": {
+    "tasks": 14,
+    "method_results": 42,
+    "merge_complete": true,
+    "resume_skip_verified": true
+  },
+  "extracted_bundle_quick_cli": {
+    "tasks": 14,
+    "method_results": 42,
+    "merge_complete": true,
+    "imports_from_bundle_verified": true
+  },
+  "optional_quick_preflight": {
+    "tasks_completed": 1,
+    "methods": [
+      "fixed",
+      "adaptive",
+      "oracle",
+      "glasso",
+      "lasso"
+    ]
+  },
+  "slurm_syntax_check": "Git Bash bash -n passed; no Linux/cluster job submitted",
+  "protected_original_files": {
+    "checked": 55,
+    "changed": 0
+  },
+  "upload_bundle": {
+    "path": "numerical_simulation/known_s_cluster/known_s_cluster_upload.zip",
+    "files": 43,
+    "bytes": 62655,
+    "sha256": "def078c30472524a4bf4d3874e02971761169f39afc4f3b3ed1db1bc0f9245ac",
+    "all_hashes_verified": true,
+    "production_source_identical_to_validated_plan": true
+  }
+}

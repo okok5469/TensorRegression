@@ -1,0 +1,20 @@
+{
+  "version": "v5.2-candidate-search",
+  "release_approved": false,
+  "core_patch_sha256": "1eda5aa33593717e32cb8a86257d38136908d26a62e0fcb353d48046d310ff18",
+  "changed_core_files": [
+    "src/tensor_abess/tensor/abess.py",
+    "src/tensor_abess/tensor/bcd.py",
+    "src/tensor_abess/tensor/candidate_search.py",
+    "src/tensor_abess/utils/init.py"
+  ],
+  "base_version": "v5.1-bcd-fix",
+  "production_src_unchanged": true,
+  "validation_revision": "2-stage-objectives",
+  "warning": "Research-only patch; do not replace formal HCP/NKI algorithms. Phase D development is still running.",
+  "patch_check_and_application_verified": true,
+  "limited_tests_total": 100,
+  "study_patch_sha256": "6f14d0ab6b3c8776d407dffe90f9f04f0c8dbdf54538afad1eec367fecf224e3",
+  "study_patch_new_file_count": 16,
+  "study_patch_check_and_application_verified": true
+}

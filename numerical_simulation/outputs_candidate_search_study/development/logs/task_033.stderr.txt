@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\XiangMingXu\2026大创\代码\tensor-sparse-regression-main\numerical_simulation\candidate_search_study\worker.py", line 218, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\XiangMingXu\2026大创\代码\tensor-sparse-regression-main\numerical_simulation\candidate_search_study\worker.py", line 205, in main
+    report, arrays = run_request(request)
+                     ^^^^^^^^^^^^^^^^^^^^
+  File "C:\XiangMingXu\2026大创\代码\tensor-sparse-regression-main\numerical_simulation\candidate_search_study\worker.py", line 133, in run_request
+    audit_pool(pool, config.n_train, config.dims)
+  File "C:\XiangMingXu\2026大创\代码\tensor-sparse-regression-main\numerical_simulation\candidate_search_study\worker.py", line 83, in audit_pool
+    require(all(b <= a + 1e-10 * max(1, abs(a), abs(b)) for a, b in zip(history, history[1:])),
+  File "C:\XiangMingXu\2026大创\代码\tensor-sparse-regression-main\numerical_simulation\candidate_search_study\worker.py", line 43, in require
+    raise ValueError(message)
+ValueError: Accepted training loss increased

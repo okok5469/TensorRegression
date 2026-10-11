@@ -1,0 +1,3 @@
+# Python 3.12 recommended; this isolated entrypoint uses no sklearn, matplotlib or third-party abess.
+numpy==1.26.4
+scipy==1.16.1

@@ -1,0 +1,1325 @@
+diff --git a/numerical_simulation/candidate_search_study/msic_after_search.py b/numerical_simulation/candidate_search_study/msic_after_search.py
+new file mode 100644
+index 0000000..f276e2a
+--- /dev/null
++++ b/numerical_simulation/candidate_search_study/msic_after_search.py
+@@ -0,0 +1,272 @@
++"""Global-only scoring on immutable A3 libraries after search-recovery validation.
++
++This research stage does not fit any BCD/Group-BESS model, change the core,
++choose a winning rule, or inspect a confirmation cohort. Test outcomes are
++descriptive development evidence, not independent confirmation.
++"""
++from __future__ import annotations
++
++import argparse
++from collections import Counter
++import csv
++from datetime import datetime, timezone
++import json
++from pathlib import Path
++from time import perf_counter
++
++import numpy as np
++
++from numerical_simulation.candidate_search_study import run
++from numerical_simulation.candidate_search_study.worker import configure_core, pool_fingerprint
++from numerical_simulation.version_validation.worker import (
++    array_fingerprint, evaluate_shared_test, select_candidate,
++)
++
++DEFAULT_RULE = 'msic-alpha1.5-scale1'
++PRIORITY_RULE = 'msic-alpha2-scale0'
++METRICS = ('q_hat', 'exact_recovery', 'mode_f1_macro', 'element_f1', 'ree',
++           'pmse', 'signal_mse', 'r2_test', 'rss_train', 'loss_train',
++           'q_over', 'q_under', 'q_small', 'q_near_cap')
++
++
++def declared_rules():
++    msic = [dict(rule=f'msic-alpha{alpha:g}-scale{scale:g}', criterion='msic', alpha=alpha,
++                 gamma=1.0, scale=scale)
++            for alpha in (1.5, 2.0, 3.0) for scale in (0.0, 0.5, 1.0)]
++    return [*msic, dict(rule='tensor-sic', criterion='tensor-sic', alpha=None, gamma=1.0, scale=0.0),
++            dict(rule='pure-bic', criterion='bic', alpha=None, gamma=None, scale=0.0)]
++
++
++def rescore_metadata(pool, n, dims):
++    before = run.canonical(pool)
++    choices = []
++    for rule in declared_rules():
++        _, info = select_candidate(pool, n, dims, criterion=rule['criterion'],
++                                  alpha=rule['alpha'] or 1.5, scale=rule['scale'])
++        choices.append((rule, int(info['selected_index']), info))
++    run.require(run.canonical(pool) == before, 'Scoring mutated frozen candidate metadata')
++    return choices
++
++
++def validate_complete_cohort(input_dir):
++    input_dir = Path(input_dir).resolve()
++    run.require(not (input_dir/'STOPPED_FOR_AUDIT.json').exists(), 'Stopped cohort is excluded')
++    plan = run.read_json(input_dir/'plan.json')
++    run.require(plan.get('cohort') in ('historical', 'development'),
++                'confirmation requires an immutable LOCK and default+locked rules; eleven-rule scoring is forbidden')
++    run.require(plan['plan_id'] == run.digest({k: v for k, v in plan.items() if k != 'plan_id'}),
++                'Input plan checksum mismatch')
++    integrity = run.read_json(input_dir/'integrity_report.json')
++    run.require(integrity['status'] == 'complete' and integrity['integrity_checks_passed']
++                and integrity['plan_id'] == plan['plan_id']
++                and integrity['completed_tasks'] == integrity['expected_tasks'] == len(plan['tasks']),
++                'Input cohort is incomplete')
++    run.require(plan['sources'] == run.source_manifests(), 'Frozen input sources changed')
++    run.require(plan['environment']['libraries'] == run.environment()['libraries'], 'Input environment differs')
++    run.require('A3' in plan['groups'], 'Frozen A3 group is missing')
++    scene_counts = Counter((task['request']['config']['n_train'], task['request']['config']['snr'])
++                           for task in plan['tasks'])
++    run.require(len(scene_counts) == 9 and len(set(scene_counts.values())) == 1,
++                'Complete balanced nine-scenario cohort required')
++    run.require(len({task['task_id'] for task in plan['tasks']}) == len(plan['tasks']), 'Duplicate task IDs')
++    inputs = []
++    for task in plan['tasks']:
++        request_path = input_dir/task['request_file']
++        request = run.read_json(request_path)
++        run.require(request == task['request'] and run.digest(request) == task['request_id'], 'Frozen request differs')
++        report = run.validate_result(input_dir, plan, task)
++        path = run.result_path(input_dir, task)
++        inputs.append({'task_id': task['task_id'], 'json_sha256': run.file_hash(path),
++                       'npz_sha256': report['array_cache_sha256'],
++                       'request_sha256': run.file_hash(request_path),
++                       'A3_pool_fingerprint': report['groups']['A3']['pool_fingerprint']})
++    return plan, inputs
++
++
++def stream_pool(group, arrays):
++    for index, candidate in enumerate(group['candidates']):
++        run.require(candidate['candidate_index'] == index, 'Frozen candidate ordering differs')
++        prefix = f'A3_candidate_{index}_'
++        B = arrays[prefix+'B']; supports = [arrays[prefix+f'S{mode}'] for mode in (1, 2, 3)]
++        run.require(array_fingerprint(B) == candidate['B_fingerprint'], 'Candidate B fingerprint differs')
++        run.require([S.tolist() for S in supports] == candidate['supports'], 'Candidate supports differ')
++        yield {'B': B, 'supports': supports, **{key: candidate[key] for key in ('sizes', 'rss', 'loss')}}
++
++
++def default_replay(old, actual):
++    for key, expected in old.items():
++        if key == 'runtime_sec':
++            continue
++        run.require(key in actual and run.canonical(actual[key]) == run.canonical(expected),
++                    f'Default replay differs for {key}')
++
++
++def rescore_task(report, npz_path):
++    from numerical_simulation.data_generation import TensorSimulationConfig, generate_simulation_dataset
++    from numerical_simulation.metrics import compute_coefficient_metrics, compute_support_metrics
++    from tensor_abess.tensor.ops import tensor_loss
++
++    started = perf_counter()
++    values = dict(report['config'])
++    for key in ('dims', 'sparsity', 'rho'):
++        values[key] = tuple(values[key])
++    config = TensorSimulationConfig(**values)
++    dataset = generate_simulation_dataset(config, seed=int(report['seed']))
++    for key, value in (('X_train', dataset.X_train), ('y_train', dataset.y_train), ('B_true', dataset.B_true)):
++        run.require(array_fingerprint(value) == report['fingerprints'][key], f'Regenerated {key} fingerprint differs')
++    group = report['groups']['A3']
++    metadata = group['candidates']
++    original = next(row for row in report['rows'] if row['group'] == 'A3')
++    choices = rescore_metadata(metadata, config.n_train, config.dims)
++    with np.load(npz_path, allow_pickle=False) as arrays:
++        before = pool_fingerprint(stream_pool(group, arrays))
++        run.require(before == group['pool_fingerprint'], 'Frozen A3 pool fingerprint differs')
++        selected = {}
++        for _, index, _ in choices:
++            if index in selected:
++                continue
++            prefix = f'A3_candidate_{index}_'
++            selected[index] = {'B': arrays[prefix+'B'],
++                'supports': [arrays[prefix+f'S{mode}'] for mode in (1, 2, 3)]}
++            recomputed_loss = tensor_loss(dataset.X_train, dataset.y_train, selected[index]['B'])
++            recomputed_rss = 2*config.n_train*recomputed_loss
++            run.require(np.isclose(recomputed_rss, metadata[index]['rss'], rtol=1e-10, atol=1e-10)
++                        and np.isclose(recomputed_loss, metadata[index]['loss'], rtol=1e-10, atol=1e-10),
++                        'Training RSS/loss differs from the frozen selected coefficients')
++            selected[index].update(rss_recomputed=recomputed_rss, loss_recomputed=recomputed_loss)
++        predictions, test_fingerprint = evaluate_shared_test(dataset,
++            [selected[index]['B'] for _, index, _ in choices], int(report['test_seed']))
++        run.require(test_fingerprint == report['fingerprints']['independent_test'], 'Shared independent test fingerprint differs')
++        after = pool_fingerprint(stream_pool(group, arrays))
++        run.require(after == before, 'Scoring/test evaluation changed frozen training pool')
++    rows = []; selected_arrays = {}
++    for (rule, index, info), prediction in zip(choices, predictions):
++        candidate = metadata[index]; fitted = selected[index]; supports = fitted['supports']
++        row = {**original, 'rule': rule['rule'], 'method': f"A3/{rule['rule']}",
++            **compute_support_metrics(*supports, *dataset.supports_true),
++            **compute_coefficient_metrics(fitted['B'], dataset.B_true), **prediction,
++            'rss_train': candidate['rss'], 'loss_train': candidate['loss'], 'selection': info,
++            'supports': [S.tolist() for S in supports], 'B_fingerprint': array_fingerprint(fitted['B'])}
++        if rule['rule'] == DEFAULT_RULE:
++            default_replay(original, row)
++        row.pop('runtime_sec', None)
++        q, q_true = int(row['q_hat']), int(row['q_true'])
++        row.update(criterion=rule['criterion'], alpha=rule['alpha'], gamma=rule['gamma'],
++                   one_se_scale=rule['scale'], selected_index=index,
++                   candidate_kind=candidate['kind'], source_A3_runtime_sec=original['runtime_sec'],
++                   rss_train_recomputed=fitted['rss_recomputed'], loss_train_recomputed=fitted['loss_recomputed'],
++                   q_over=int(q > q_true), q_under=int(q < q_true), q_small=int(q == 1),
++                   q_near_cap=int(q >= .9*np.floor(.7*config.n_train)))
++        rows.append(row)
++    for index, fitted in selected.items():
++        selected_arrays[f'candidate_{index}_B'] = fitted['B']
++        for mode, S in enumerate(fitted['supports'], 1): selected_arrays[f'candidate_{index}_S{mode}'] = S
++    return {'status': 'complete', 'seed': report['seed'], 'test_seed': report['test_seed'],
++            'config': report['config'], 'rows': rows, 'default_exact_replay': True,
++            'pool_fingerprint_before': before, 'pool_fingerprint_after': after,
++            'fingerprints': report['fingerprints'], 'environment': report['environment'],
++            'elapsed_sec': perf_counter()-started,
++            'memory_policy': 'Candidate metadata scored; each B streamed for hashing, only selected B tensors retained'}, selected_arrays
++
++
++def summary_rows(rows, *, scenarios):
++    keys = (lambda row: (row['n_train'], row['snr'], row['rule'])) if scenarios else (lambda row: (row['rule'],))
++    groups = {}
++    for row in rows: groups.setdefault(keys(row), []).append(row)
++    output = []
++    for key, values in sorted(groups.items()):
++        base = {'rule': key[-1], 'n_datasets': len(values)}
++        if scenarios: base.update(n_train=key[0], snr=key[1])
++        for metric in METRICS:
++            array = np.array([row[metric] for row in values], dtype=float)
++            base[metric+'_mean'] = float(np.mean(array))
++            base[metric+'_std'] = float(np.std(array, ddof=1)) if len(array) > 1 else 0.0
++            base[metric+'_se'] = base[metric+'_std']/np.sqrt(len(array))
++        output.append(base)
++    return output
++
++
++def paired_rows(rows):
++    defaults = {row['task_id']: row for row in rows if row['rule'] == DEFAULT_RULE}
++    output = []
++    for row in rows:
++        before = defaults[row['task_id']]
++        output.append({'task_id': row['task_id'], 'n_train': row['n_train'], 'snr': row['snr'],
++            'seed': row['seed'], 'rule': row['rule'], 'selected_index': row['selected_index'],
++            'default_selected_index': before['selected_index'],
++            'B_changed': int(row['B_fingerprint'] != before['B_fingerprint']),
++            **{metric+'_diff': float(row[metric]-before[metric]) for metric in METRICS}})
++    return output
++
++
++def write_csv(path, rows):
++    with Path(path).open('x', encoding='utf-8', newline='') as handle:
++        writer = csv.DictWriter(handle, fieldnames=list(rows[0])); writer.writeheader()
++        for row in rows:
++            writer.writerow({key: run.canonical(value) if isinstance(value, (dict, list)) else value
++                             for key, value in row.items()})
++
++
++def run_cohort(input_dir, output_dir):
++    input_dir, output_dir = Path(input_dir).resolve(), Path(output_dir).resolve()
++    if output_dir.exists():
++        raise FileExistsError('Rescoring requires a new immutable output directory')
++    configure_core()
++    plan, inputs = validate_complete_cohort(input_dir)
++    own_sources = [Path(__file__), run.root()/'numerical_simulation/version_validation/worker.py',
++                   run.root()/'numerical_simulation/candidate_search_study/worker.py']
++    body = {'stage': 'P4-frozen-A3-global-scoring', 'research_only': True,
++        'input_dir': str(input_dir), 'input_plan_id': plan['plan_id'], 'source_plan_id': plan['plan_id'], 'input_cohort': plan['cohort'],
++        'input_plan_sha256': run.file_hash(input_dir/'plan.json'),
++        'input_integrity_sha256': run.file_hash(input_dir/'integrity_report.json'), 'inputs': inputs,
++        'frozen_input_sources': plan['sources'], 'environment': run.environment(),
++        'research_sources': {p.relative_to(run.root()).as_posix(): run.file_hash(p) for p in own_sources},
++        'rules': declared_rules(), 'default_rule': DEFAULT_RULE, 'predeclared_priority_candidate': PRIORITY_RULE,
++        'rule_selection_performed': False, 'confirmation_performed': False, 'new_model_fitting': False,
++        'purpose': 'Descriptive balanced development/historical rescoring only; lock a development rule before untouched confirmation.',
++        'created_utc': datetime.now(timezone.utc).isoformat()}
++    research_plan = {**body, 'plan_id': run.digest(body)}
++    output_dir.mkdir(parents=True); (output_dir/'jobs').mkdir()
++    run.write_json(output_dir/'plan.json', research_plan)
++    rows = []; started = perf_counter()
++    for task, manifest in zip(plan['tasks'], inputs):
++        source = run.result_path(input_dir, task)
++        run.require(run.file_hash(source) == manifest['json_sha256'], 'Input result changed after plan validation')
++        run.require(run.file_hash(source.with_suffix('.npz')) == manifest['npz_sha256'], 'Input cache changed after plan validation')
++        result, selected = rescore_task(run.read_json(source), source.with_suffix('.npz'))
++        result.update(task_id=task['task_id'], input_result_manifest=manifest, plan_id=research_plan['plan_id'])
++        for row in result['rows']: row['task_id'] = task['task_id']
++        target = output_dir/'jobs'/f"task_{task['task_id']:03d}.json"
++        cache = target.with_suffix('.npz')
++        with cache.open('xb') as handle: np.savez_compressed(handle, **selected)
++        result.update(array_cache=cache.name, array_cache_sha256=run.file_hash(cache))
++        run.write_json(target, result); rows.extend(result['rows'])
++        print(f"Frozen-pool scoring completed {len(rows)//11}/{len(plan['tasks'])}: task {task['task_id']}", flush=True)
++    run.require(len(rows) == 11*len(plan['tasks']), 'Incomplete eleven-rule output')
++    compact = [{k: v for k, v in row.items() if k not in ('selection', 'supports')} for row in rows]
++    write_csv(output_dir/'raw_results.csv', compact)
++    write_csv(output_dir/'scenario_summary.csv', summary_rows(rows, scenarios=True))
++    write_csv(output_dir/'rule_summary.csv', summary_rows(rows, scenarios=False))
++    write_csv(output_dir/'paired_vs_default.csv', paired_rows(rows))
++    summary = {'status': 'complete', 'checks_passed': True, 'plan_id': research_plan['plan_id'],
++        'input_plan_id': plan['plan_id'], 'source_plan_id': plan['plan_id'], 'dataset_count': len(plan['tasks']), 'rule_rows': len(rows),
++        'default_exact_replays': len(plan['tasks']), 'pool_fingerprints_unchanged': True,
++        'research_only': True, 'rule_selection_performed': False, 'confirmation_performed': False,
++        'new_model_fitting': False, 'runtime_sec': perf_counter()-started,
++        'interpretation': 'Nine scenarios and pooled results are descriptive development/historical evidence; pooled SE does not assume one homogeneous population. Source A3 runtime shares prior caches and is not a new cold-fit benchmark.'}
++    run.write_json(output_dir/'integrity_report.json', summary)
++    return summary
++
++
++def main(argv=None):
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument('--input-dir', required=True, type=Path)
++    parser.add_argument('--output-dir', required=True, type=Path)
++    args = parser.parse_args(argv)
++    summary = run_cohort(args.input_dir, args.output_dir)
++    print(f"Complete: {summary['dataset_count']} frozen A3 datasets, {summary['rule_rows']} rule evaluations", flush=True)
++    return 0
++
++
++if __name__ == '__main__':
++    raise SystemExit(main())
+diff --git a/numerical_simulation/candidate_search_study/msic_refit.py b/numerical_simulation/candidate_search_study/msic_refit.py
+new file mode 100644
+index 0000000..35ccc97
+--- /dev/null
++++ b/numerical_simulation/candidate_search_study/msic_refit.py
+@@ -0,0 +1,218 @@
++"""Fresh complete A3 searches validate one immutable development-locked rule.
++
++Each task is run in an isolated subprocess. No old fixed-candidate cache is
++passed, and this entrypoint never selects a rule or accesses confirmation data.
++"""
++from __future__ import annotations
++
++import argparse
++from datetime import datetime, timezone
++import json
++import os
++from pathlib import Path
++import subprocess
++import sys
++from time import perf_counter
++
++import numpy as np
++
++from numerical_simulation.candidate_search_study import run
++from numerical_simulation.candidate_search_study.worker import (
++    audit_pool, configure_core, jsonable, pool_fingerprint,
++)
++from numerical_simulation.version_validation.worker import array_fingerprint, evaluate_shared_test, select_candidate
++
++
++def validate_lock(lock, search_plan, msic_plan, summary_sha256):
++    from numerical_simulation.candidate_search_study.msic_after_search import declared_rules
++    run.require(lock.get("status") == "locked" and lock.get("search_group") == "A3", "An immutable locked A3 rule is required")
++    run.require(lock.get("development_search_plan_id") == search_plan["plan_id"], "Locked search plan differs")
++    run.require(lock.get("development_msic_plan_id") == msic_plan["plan_id"], "Locked MSIC plan differs")
++    run.require(msic_plan["input_plan_id"] == search_plan["plan_id"], "MSIC/search parent plans differ")
++    run.require(lock.get("development_summary_sha256") == summary_sha256, "Locked development summary differs")
++    rule = lock["rule"]
++    declared = [{"id": r["rule"], **{k: r[k] for k in ("criterion", "alpha", "gamma", "scale")}} for r in declared_rules()]
++    run.require(rule in declared, "Locked rule is not one of the predeclared global rules")
++    return rule
++
++
++def core_fit(*args, **kwargs):
++    from tensor_abess.tensor.abess import tensor_abess
++    return tensor_abess(*args, **kwargs)
++
++
++def fit_fresh(X, y, config, rule):
++    msic = rule["criterion"] == "msic"
++    return core_fit(X, y, k_max=config.k_max, c=config.abess_init_c,
++        criterion=config.abess_init_criterion, n_lambdas=config.n_lambdas, cv_folds=config.cv_folds,
++        max_iter=config.max_iter, tol=config.tol, max_cycles=config.max_cycles, eps=1e-8,
++        adaptive_criterion="msic", msic_refine_alpha=rule["alpha"] if msic else 1.5,
++        msic_refine_gamma=1.0, msic_refine_one_se_scale=rule["scale"] if msic else 1.0,
++        cap_policy="candidate", grid_policy="full", candidate_budget=2000, fixed_candidate_cache=None)
++
++
++def assert_model_matches(candidate, row, cached):
++    run.require(np.array_equal(candidate["B"], cached["B"]), "Fresh/cached coefficients differ")
++    supports = [S.tolist() for S in candidate["supports"]]
++    run.require(supports == row["supports"] == [S.tolist() for S in cached["supports"]], "Fresh/cached supports differ")
++    run.require(np.isclose(candidate["rss"], row["rss_train"], atol=1e-10, rtol=1e-10), "Fresh/cached training RSS differs")
++    run.require(np.isclose(candidate["loss"], row["loss_train"], atol=1e-10, rtol=1e-10), "Fresh/cached training loss differs")
++
++
++def load_context(source_output, msic_output, lock_file, task_id):
++    from numerical_simulation.candidate_search_study.msic_after_search import validate_complete_cohort
++    source_output, msic_output, lock_file = map(lambda p: Path(p).resolve(), (source_output, msic_output, lock_file))
++    search_plan, manifests = validate_complete_cohort(source_output)
++    run.require(search_plan["cohort"] == "development", "Fresh representative validation requires development data only")
++    msic_plan = run.read_json(msic_output / "plan.json")
++    run.require(msic_plan["plan_id"] == run.digest({k: v for k, v in msic_plan.items() if k != "plan_id"}), "MSIC plan checksum differs")
++    integrity = run.read_json(msic_output / "integrity_report.json")
++    run.require(integrity["status"] == "complete" and integrity["checks_passed"]
++        and integrity["plan_id"] == msic_plan["plan_id"]
++        and integrity["dataset_count"] == len(search_plan["tasks"])
++        and integrity["default_exact_replays"] == len(search_plan["tasks"])
++        and integrity["pool_fingerprints_unchanged"], "Complete replayed MSIC development output required")
++    run.require(msic_plan["inputs"] == manifests, "MSIC parent input manifests differ")
++    run.require(msic_plan["frozen_input_sources"] == search_plan["sources"], "MSIC parent sources differ")
++    run.require(msic_plan["environment"] == run.environment(), "MSIC environment differs")
++    for relative, expected in msic_plan["research_sources"].items():
++        run.require(run.file_hash(run.root() / relative) == expected, "Frozen scoring source changed")
++    lock = run.read_json(lock_file)
++    rule = validate_lock(lock, search_plan, msic_plan, run.file_hash(msic_output / "rule_summary.csv"))
++    task = next((t for t in search_plan["tasks"] if t["task_id"] == task_id), None)
++    run.require(task is not None, "Unknown representative task ID")
++    source_job = run.result_path(source_output, task)
++    source = run.validate_result(source_output, search_plan, task)
++    scoring_job = msic_output / "jobs" / f"task_{task_id:03d}.json"
++    scored = run.read_json(scoring_job)
++    source_manifest = next(record for record in manifests if record["task_id"] == task_id)
++    run.require(scored["status"] == "complete" and scored["plan_id"] == msic_plan["plan_id"]
++        and scored["input_result_manifest"] == source_manifest, "Cached task parent fingerprint differs")
++    for key in ("seed", "test_seed", "config", "environment", "fingerprints"):
++        run.require(scored[key] == source[key], f"Cached/source task {key} differs")
++    run.require(scored["pool_fingerprint_before"] == scored["pool_fingerprint_after"]
++        == source["groups"]["A3"]["pool_fingerprint"], "Cached/source pool differs")
++    cache = scoring_job.with_suffix(".npz")
++    run.require(scored["array_cache"] == cache.name and scored["array_cache_sha256"] == run.file_hash(cache), "Cached selected array checksum differs")
++    provenance = {"development_search_plan_id": search_plan["plan_id"], "development_msic_plan_id": msic_plan["plan_id"],
++        "source_job_sha256": run.file_hash(source_job), "source_npz_sha256": source["array_cache_sha256"],
++        "scoring_job_sha256": run.file_hash(scoring_job), "scoring_npz_sha256": run.file_hash(cache),
++        "lock_file_sha256": run.file_hash(lock_file), "development_summary_sha256": run.file_hash(msic_output / "rule_summary.csv"),
++        "fresh_module_sha256": run.file_hash(Path(__file__)), "search_sources": search_plan["sources"],
++        "scoring_sources": msic_plan["research_sources"], "environment": run.environment()}
++    return source, scored, cache, rule, provenance
++
++
++def run_case(source_output, msic_output, lock_file, task_id):
++    configure_core()
++    from numerical_simulation.data_generation import TensorSimulationConfig, generate_simulation_dataset
++    from numerical_simulation.metrics import compute_coefficient_metrics, compute_support_metrics
++    from numerical_simulation.candidate_search_study.numerics import audit_selected_model
++    source, scored, cache, rule, provenance = load_context(source_output, msic_output, lock_file, task_id)
++    values = dict(source["config"])
++    for key in ("dims", "sparsity", "rho"):
++        values[key] = tuple(values[key])
++    config = TensorSimulationConfig(**values)
++    dataset = generate_simulation_dataset(config, seed=int(source["seed"]))
++    for key, array in (("X_train", dataset.X_train), ("y_train", dataset.y_train), ("B_true", dataset.B_true)):
++        run.require(array_fingerprint(array) == source["fingerprints"][key], f"Fresh generated {key} differs")
++    start = perf_counter()
++    fitted = fit_fresh(dataset.X_train, dataset.y_train, config, rule)
++    runtime = perf_counter() - start
++    pool = fitted.bcd_result.candidate_records
++    audit_pool(pool, config.n_train, config.dims)
++    fingerprint = pool_fingerprint(pool)
++    run.require(fingerprint == source["groups"]["A3"]["pool_fingerprint"], "Fresh candidate pool differs from frozen A3")
++    locked, selection = select_candidate(pool, config.n_train, config.dims, criterion=rule["criterion"],
++        alpha=rule["alpha"] or 1.5, scale=rule["scale"])
++    default, default_selection = select_candidate(pool, config.n_train, config.dims, alpha=1.5, scale=1.0)
++    if rule["criterion"] == "msic":
++        run.require(np.array_equal(locked["B"], fitted.B), "Public locked-MSIC fit and training selector differ")
++        run.require(np.isclose(fitted.sic, selection["selected_score"], atol=1e-10, rtol=1e-10), "Public locked-MSIC score differs")
++    predictions, test_fingerprint = evaluate_shared_test(dataset, [locked["B"], default["B"]], source["test_seed"])
++    run.require(test_fingerprint == source["fingerprints"]["independent_test"], "Fresh independent test stream differs")
++    choices = [(rule["id"], locked, selection, predictions[0]),
++               ("msic-alpha1.5-scale1", default, default_selection, predictions[1])]
++    rows, arrays, numeric = [], {}, {}
++    with np.load(cache, allow_pickle=False) as saved:
++        for name, candidate, info, prediction in choices:
++            cached_row = next(row for row in scored["rows"] if row["rule"] == name)
++            index = cached_row["selected_index"]
++            old = {"B": saved[f"candidate_{index}_B"], "supports": [saved[f"candidate_{index}_S{mode}"] for mode in (1, 2, 3)]}
++            assert_model_matches(candidate, cached_row, old)
++            run.require(info == cached_row["selection"], "Fresh/cached complete scoring selection differs")
++            for key, value in prediction.items():
++                run.require(np.isclose(value, cached_row[key], atol=1e-10, rtol=1e-10), f"Fresh/cached test metric {key} differs")
++            supports = candidate["supports"]
++            numeric[name] = audit_selected_model(dataset.X_train, dataset.y_train, candidate["B"], supports,
++                expected_rss=candidate["rss"], expected_loss=candidate["loss"])
++            row = {"rule": name, "rss_train": candidate["rss"], "loss_train": candidate["loss"],
++                "selection": info, "supports": [S.tolist() for S in supports], "B_fingerprint": array_fingerprint(candidate["B"]),
++                **compute_support_metrics(*supports, *dataset.supports_true),
++                **compute_coefficient_metrics(candidate["B"], dataset.B_true), **prediction}
++            rows.append(row)
++            arrays[name + "_B"] = candidate["B"]
++            for mode, S in enumerate(supports, 1):
++                arrays[name + f"_S{mode}"] = S
++    before_default = next(row for row in source["rows"] if row["group"] == "A3")
++    run.require(default_selection == before_default["selection"]
++        and array_fingerprint(default["B"]) == before_default["B_fingerprint"], "Fresh original-default replay differs")
++    run.require(pool_fingerprint(pool) == fingerprint, "Fresh pool changed during evaluation")
++    report = {"status": "complete", "task_id": task_id, "rule": rule, "config": source["config"],
++        "seed": source["seed"], "test_seed": source["test_seed"], "rows": rows, "candidate_count": len(pool),
++        "pool_fingerprint": fingerprint, "cache_pool_identical": True, "locked_rule_exact_replay": True,
++        "default_exact_replay": True, "test_fingerprint": test_fingerprint, "numerics": numeric,
++        "fingerprints": source["fingerprints"], "environment": source["environment"], "provenance": provenance,
++        "runtime_sec": runtime, "fresh_complete_search": True, "old_fixed_cache_used": False,
++        "interpretation": "Fresh complete A3 support search; locked and original-default global rules replayed from this one fresh pool. No second default fit, no rule selection, and no confirmation access."}
++    return jsonable(report), arrays
++
++
++def worker_main(args):
++    output = args.output_dir / f"task_{args.task_id:03d}.json"
++    cache = output.with_suffix(".npz")
++    if output.exists() or cache.exists():
++        raise FileExistsError("Fresh validation outputs are immutable")
++    report, arrays = run_case(args.source_output, args.msic_output, args.lock_file, args.task_id)
++    with cache.open("xb") as handle:
++        np.savez_compressed(handle, **arrays)
++    report.update(array_cache=cache.name, array_cache_sha256=run.file_hash(cache))
++    run.write_json(output, report)
++    return 0
++
++
++def main(argv=None):
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--source-output", required=True, type=Path)
++    parser.add_argument("--msic-output", required=True, type=Path)
++    parser.add_argument("--lock-file", required=True, type=Path)
++    parser.add_argument("--task-id", required=True, type=int, choices=(0, 40, 80))
++    parser.add_argument("--output-dir", required=True, type=Path)
++    parser.add_argument("--worker", action="store_true", help=argparse.SUPPRESS)
++    args = parser.parse_args(argv)
++    if args.worker:
++        return worker_main(args)
++    args.output_dir.mkdir(parents=True, exist_ok=True)
++    prefix = args.output_dir / f"task_{args.task_id:03d}"
++    targets = [prefix.with_suffix(ext) for ext in (".json", ".npz", ".failure.json", ".stdout.txt", ".stderr.txt")]
++    if any(path.exists() for path in targets):
++        raise FileExistsError("Task output/log/failure already exists; review it without overwriting")
++    command = [sys.executable, "-m", "numerical_simulation.candidate_search_study.msic_refit", "--worker",
++        "--source-output", str(args.source_output.resolve()), "--msic-output", str(args.msic_output.resolve()),
++        "--lock-file", str(args.lock_file.resolve()), "--task-id", str(args.task_id), "--output-dir", str(args.output_dir.resolve())]
++    child_env = dict(os.environ)
++    child_env.update({key: "1" for key in run.THREADS})
++    with targets[3].open("x", encoding="utf8") as stdout, targets[4].open("x", encoding="utf8") as stderr:
++        completed = subprocess.run(command, cwd=run.root(), env=child_env, stdout=stdout, stderr=stderr)
++    if completed.returncode:
++        run.write_json(targets[2], {"status": "failed", "task_id": args.task_id, "returncode": completed.returncode,
++            "utc_time": datetime.now(timezone.utc).isoformat(), "stderr_log": targets[4].name})
++        raise RuntimeError(f"Fresh task {args.task_id} failed; see {targets[2]}")
++    report = run.read_json(targets[0])
++    run.require(report["status"] == "complete" and report["array_cache_sha256"] == run.file_hash(targets[1]), "Fresh output/cache differs")
++    print(f"Fresh complete A3 validation passed: task {args.task_id}; locked rule {report['rule']['id']}")
++    return 0
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())
+diff --git a/numerical_simulation/candidate_search_study/msic_confirmation.py b/numerical_simulation/candidate_search_study/msic_confirmation.py
+new file mode 100644
+index 0000000..78977ab
+--- /dev/null
++++ b/numerical_simulation/candidate_search_study/msic_confirmation.py
+@@ -0,0 +1,291 @@
++"""Evaluate original default and one prior development lock on untouched A3 pools.
++
++No support search, eleven-rule sweep, rule selection, or coefficient replacement
++is performed. Confirmation must already contain the original ninety five-group
++searches; their A0/A2 outputs remain independent comparators in the parent.
++"""
++from __future__ import annotations
++
++import argparse
++from datetime import datetime, timezone
++from pathlib import Path
++from time import perf_counter
++
++import numpy as np
++
++from numerical_simulation.candidate_search_study import msic_after_search as scoring
++from numerical_simulation.candidate_search_study import run
++from numerical_simulation.candidate_search_study.msic_refit import validate_lock
++from numerical_simulation.candidate_search_study.worker import configure_core, pool_fingerprint
++from numerical_simulation.version_validation.worker import array_fingerprint, evaluate_shared_test, select_candidate
++
++
++def two_choices(metadata, n, dims, locked_rule):
++    declared = [{'id': rule['rule'], **{k: rule[k] for k in ('criterion', 'alpha', 'gamma', 'scale')}}
++                for rule in scoring.declared_rules()]
++    run.require(locked_rule in declared, 'Locked rule is not predeclared')
++    default = next(rule for rule in declared if rule['id'] == scoring.DEFAULT_RULE)
++    before = run.canonical(metadata)
++    choices = []
++    for role, rule in (('default', default), ('locked', locked_rule)):
++        _, info = select_candidate(metadata, n, dims, criterion=rule['criterion'],
++                                   alpha=rule['alpha'] or 1.5, scale=rule['scale'])
++        label = 'locked:'+rule['id'] if role == 'locked' and rule['id'] == default['id'] else rule['id']
++        choices.append(({**rule, 'role': role, 'label': label}, int(info['selected_index']), info))
++    run.require(before == run.canonical(metadata), 'Two-rule selection mutated frozen metadata')
++    return choices
++
++
++def validate_confirmation_plan(plan, lock):
++    groups = ['A0', 'A1', 'A2', 'A3', 'A4']
++    run.require(plan['plan_id'] == run.digest({k: v for k, v in plan.items() if k != 'plan_id'}),
++                'Confirmation plan checksum differs')
++    run.require(lock.get('confirmation_search_plan_id') == plan['plan_id'], 'Locked confirmation plan differs')
++    run.require(plan.get('cohort') == 'confirmation' and plan.get('n_reps') == 10,
++                'Original ninety-dataset confirmation protocol required')
++    run.require(plan['groups'] == groups and lock.get('confirmation_groups') == groups,
++                'Original five confirmation groups must remain intact')
++    run.require(plan['tasks'] == run.build_tasks('confirmation', 10, groups),
++                'Confirmation seeds/configs/requests differ from predeclared protocol')
++
++
++def validate_lock_timing(lock, input_dir):
++    stamp = lock.get('locked_utc')
++    run.require(isinstance(stamp, str), 'Locked UTC timestamp is required')
++    try:
++        when = datetime.fromisoformat(stamp.replace('Z', '+00:00'))
++    except ValueError as error:
++        raise ValueError('Invalid locked UTC timestamp') from error
++    run.require(when.tzinfo is not None and when.utcoffset() is not None, 'Naive lock time is forbidden')
++    logs = [path for path in (Path(input_dir)/'logs').rglob('*') if path.is_file()]
++    run.require(bool(logs), 'Completed confirmation worker logs are required for lock timing')
++    earliest = min(path.stat().st_mtime for path in logs)
++    run.require(when.timestamp() < earliest, 'Late lock: confirmation logs precede the locked rule')
++    return {'locked_utc': stamp, 'lock_epoch': when.timestamp(),
++            'earliest_confirmation_log_mtime': earliest, 'confirmation_log_count': len(logs),
++            'scope': 'Lock precedes earliest saved worker-log mtime; controller separately enforces lock before launching any confirmation fit'}
++
++
++def validate_development_lock(search_plan, manifests, msic_dir, lock):
++    """Bind a lock to an already independently validated development search."""
++    msic_dir = Path(msic_dir)
++    plan = run.read_json(msic_dir/'plan.json')
++    run.require(plan['plan_id'] == run.digest({k: v for k, v in plan.items() if k != 'plan_id'}), 'MSIC plan checksum differs')
++    summary_sha = run.file_hash(msic_dir/'rule_summary.csv')
++    rule = validate_lock(lock, search_plan, plan, summary_sha)
++    integrity = run.read_json(msic_dir/'integrity_report.json')
++    count = len(search_plan['tasks'])
++    run.require(len(manifests) == count and [m['task_id'] for m in manifests]
++                == [task['task_id'] for task in search_plan['tasks']], 'Development manifests are missing, duplicated, or reordered')
++    run.require(integrity['status'] == 'complete' and integrity['checks_passed']
++                and integrity['plan_id'] == plan['plan_id'] and integrity['dataset_count'] == count
++                and integrity['rule_rows'] == 11*count and integrity['default_exact_replays'] == count
++                and integrity['pool_fingerprints_unchanged'], 'Incomplete MSIC development parent')
++    run.require(plan['inputs'] == manifests and plan['frozen_input_sources'] == search_plan['sources'], 'Development MSIC/search manifests differ')
++    run.require(plan['rules'] == scoring.declared_rules(), 'Development rule declaration differs')
++    run.require(plan['environment'] == run.environment(), 'Development MSIC environment differs')
++    for relative, expected in plan['research_sources'].items():
++        run.require(run.file_hash(run.root()/relative) == expected, 'Frozen development scoring source changed')
++    run.require(lock.get('source_core_sha256') == search_plan['sources']['core'], 'Locked source core differs')
++    run.require(lock.get('scoring_source_sha256') == plan['research_sources'], 'Locked scoring source differs')
++    jobs = []
++    for task, manifest in zip(search_plan['tasks'], manifests):
++        run.require(task['task_id'] == manifest['task_id'], 'Development manifest order differs')
++        path = msic_dir/'jobs'/f"task_{task['task_id']:03d}.json"
++        report = run.read_json(path); request = task['request']
++        run.require(report['status'] == 'complete' and report['plan_id'] == plan['plan_id']
++                    and report['input_result_manifest'] == manifest, 'Development scoring job parent differs')
++        run.require(all(run.canonical(report[k]) == run.canonical(request[k]) for k in ('config', 'seed', 'test_seed')),
++                    'Development scoring job request differs')
++        run.require(report['environment'] == search_plan['environment']['libraries']
++                    and report['fingerprints']['core_sources'] == search_plan['sources']['core'], 'Development scoring job source/environment differs')
++        run.require(report['default_exact_replay'] and report['pool_fingerprint_before'] == report['pool_fingerprint_after']
++                    == manifest['A3_pool_fingerprint'], 'Development pool/default replay differs')
++        rows = report['rows']; expected = {r['rule'] for r in scoring.declared_rules()}
++        run.require(len(rows) == 11 and {r['rule'] for r in rows} == expected, 'Development scoring job rules differ')
++        cache = path.with_suffix('.npz')
++        run.require(report['array_cache'] == cache.name and report['array_cache_sha256'] == run.file_hash(cache), 'Development MSIC cache checksum differs')
++        with np.load(cache, allow_pickle=False) as arrays:
++            for row in rows:
++                index = row['selected_index']
++                run.require(array_fingerprint(arrays[f'candidate_{index}_B']) == row['B_fingerprint'], 'Development selected B differs')
++                run.require([arrays[f'candidate_{index}_S{m}'].tolist() for m in (1, 2, 3)] == row['supports'], 'Development selected supports differ')
++        jobs.append({'task_id': task['task_id'], 'json_sha256': run.file_hash(path), 'npz_sha256': report['array_cache_sha256']})
++    return rule, {'plan_id': plan['plan_id'], 'plan_sha256': run.file_hash(msic_dir/'plan.json'),
++                  'summary_sha256': summary_sha, 'integrity_sha256': run.file_hash(msic_dir/'integrity_report.json'),
++                  'scoring_jobs': jobs, 'research_sources': plan['research_sources']}
++
++
++def load_context(input_dir, development_search_dir, development_msic_dir, lock_file):
++    input_dir, development_search_dir, development_msic_dir, lock_file = map(Path,
++        (input_dir, development_search_dir, development_msic_dir, lock_file))
++    lock = run.read_json(lock_file)
++    development, development_inputs = scoring.validate_complete_cohort(development_search_dir)
++    run.require(development['cohort'] == 'development' and len(development['tasks']) == 90,
++                'Complete original ninety-dataset development parent required')
++    run.require(run.load_plan(development_search_dir) == development, 'Development search protocol differs')
++    rule, msic_parent = validate_development_lock(development, development_inputs, development_msic_dir, lock)
++    run.require(not (input_dir/'STOPPED_FOR_AUDIT.json').exists(), 'Stopped confirmation is excluded')
++    plan = run.load_plan(input_dir)
++    validate_confirmation_plan(plan, lock)
++    timing = validate_lock_timing(lock, input_dir)
++    integrity = run.read_json(input_dir/'integrity_report.json')
++    run.require(integrity['status'] == 'complete' and integrity['integrity_checks_passed']
++                and integrity['plan_id'] == plan['plan_id'] and integrity['completed_tasks'] == 90
++                and integrity['expected_tasks'] == 90 and integrity['paired_group_rows'] == 450,
++                'Complete ninety-dataset/five-group confirmation parent required')
++    run.require(not any((input_dir/'failures').iterdir()), 'Failed confirmation is excluded')
++    manifests = []
++    for task in plan['tasks']:
++        report = run.validate_result(input_dir, plan, task)
++        source = run.result_path(input_dir, task)
++        manifests.append({'task_id': task['task_id'], 'json_sha256': run.file_hash(source),
++                          'npz_sha256': report['array_cache_sha256'],
++                          'request_sha256': run.file_hash(input_dir/task['request_file']),
++                          'A3_pool_fingerprint': report['groups']['A3']['pool_fingerprint']})
++    parents = {'confirmation_search_plan_id': plan['plan_id'], 'confirmation_plan_sha256': run.file_hash(input_dir/'plan.json'),
++               'confirmation_integrity_sha256': run.file_hash(input_dir/'integrity_report.json'),
++               'development_search_plan_id': development['plan_id'],
++               'development_search_plan_sha256': run.file_hash(development_search_dir/'plan.json'),
++               'development_integrity_sha256': run.file_hash(development_search_dir/'integrity_report.json'),
++               'development_inputs': development_inputs, 'development_msic': msic_parent,
++               'lock_file_sha256': run.file_hash(lock_file), 'lock': lock, 'lock_timing': timing}
++    return plan, manifests, rule, parents
++
++
++def evaluate_task(report, npz_path, locked_rule):
++    from numerical_simulation.data_generation import TensorSimulationConfig, generate_simulation_dataset
++    from numerical_simulation.metrics import compute_coefficient_metrics, compute_support_metrics
++    from numerical_simulation.candidate_search_study.numerics import audit_selected_model
++    from tensor_abess.tensor.ops import tensor_loss
++    started = perf_counter()
++    values = dict(report['config'])
++    for key in ('dims', 'sparsity', 'rho'):
++        values[key] = tuple(values[key])
++    config = TensorSimulationConfig(**values)
++    data = generate_simulation_dataset(config, seed=int(report['seed']))
++    for key, value in (('X_train', data.X_train), ('y_train', data.y_train), ('B_true', data.B_true)):
++        run.require(array_fingerprint(value) == report['fingerprints'][key], f'Regenerated {key} fingerprint differs')
++    group = report['groups']['A3']; metadata = group['candidates']
++    original = next(row for row in report['rows'] if row['group'] == 'A3')
++    choices = two_choices(metadata, config.n_train, config.dims, locked_rule)
++    with np.load(npz_path, allow_pickle=False) as arrays:
++        before = pool_fingerprint(scoring.stream_pool(group, arrays))
++        run.require(before == group['pool_fingerprint'], 'Frozen confirmation pool fingerprint differs')
++        selected = []
++        for rule, index, info in choices:
++            prefix = f'A3_candidate_{index}_'
++            B = arrays[prefix+'B']; supports = [arrays[prefix+f'S{mode}'] for mode in (1, 2, 3)]
++            loss = tensor_loss(data.X_train, data.y_train, B); rss = 2*config.n_train*loss
++            run.require(np.isclose(rss, metadata[index]['rss'], rtol=1e-10, atol=1e-10)
++                        and np.isclose(loss, metadata[index]['loss'], rtol=1e-10, atol=1e-10), 'Training RSS/loss differs')
++            selected.append({'B': B, 'supports': supports, 'rss_recomputed': rss, 'loss_recomputed': loss})
++        predictions, test_fingerprint = evaluate_shared_test(data, [value['B'] for value in selected], int(report['test_seed']))
++        run.require(test_fingerprint == report['fingerprints']['independent_test'], 'Confirmation shared test stream differs')
++        locked_numerics = audit_selected_model(data.X_train, data.y_train, selected[1]['B'], selected[1]['supports'],
++                            expected_rss=metadata[choices[1][1]]['rss'], expected_loss=metadata[choices[1][1]]['loss'])
++        after = pool_fingerprint(scoring.stream_pool(group, arrays))
++        run.require(after == before, 'Confirmation evaluation changed frozen pool')
++    rows = []; selected_arrays = {}
++    for (rule, index, info), fitted, prediction in zip(choices, selected, predictions):
++        candidate = metadata[index]; supports = fitted['supports']
++        row = {**original, 'rule': rule['label'], 'method': f"A3/{rule['label']}",
++               **compute_support_metrics(*supports, *data.supports_true),
++               **compute_coefficient_metrics(fitted['B'], data.B_true), **prediction,
++               'rss_train': candidate['rss'], 'loss_train': candidate['loss'], 'selection': info,
++               'supports': [S.tolist() for S in supports], 'B_fingerprint': array_fingerprint(fitted['B'])}
++        if rule['role'] == 'default': scoring.default_replay(original, row)
++        row.pop('runtime_sec', None)
++        q, q_true = int(row['q_hat']), int(row['q_true'])
++        row.update(evaluation_role=rule['role'], locked_rule_id=locked_rule['id'], rule_id=rule['id'],
++                   criterion=rule['criterion'], alpha=rule['alpha'], gamma=rule['gamma'], one_se_scale=rule['scale'],
++                   selected_index=index, candidate_kind=candidate['kind'], source_A3_runtime_sec=original['runtime_sec'],
++                   rss_train_recomputed=fitted['rss_recomputed'], loss_train_recomputed=fitted['loss_recomputed'],
++                   q_over=int(q > q_true), q_under=int(q < q_true), q_small=int(q == 1),
++                   q_near_cap=int(q >= .9*np.floor(.7*config.n_train)))
++        rows.append(row); selected_arrays[rule['role']+'_B'] = fitted['B']
++    return {'status': 'complete', 'rows': rows, 'seed': report['seed'], 'test_seed': report['test_seed'],
++            'config': report['config'], 'fingerprints': report['fingerprints'], 'environment': report['environment'],
++            'default_exact_replay': True, 'pool_fingerprint_before': before, 'pool_fingerprint_after': after,
++            'locked_numerics': locked_numerics, 'new_model_fitting': False, 'rule_selection_performed': False,
++            'elapsed_sec': perf_counter()-started}, selected_arrays
++
++
++def run_cohort(input_dir, development_search_dir, development_msic_dir, lock_file, output_dir):
++    output = Path(output_dir).resolve()
++    if output.exists(): raise FileExistsError('Confirmation scoring requires a new immutable directory')
++    input_dir, development_search_dir, development_msic_dir, lock_file = map(lambda p: Path(p).resolve(),
++        (input_dir, development_search_dir, development_msic_dir, lock_file))
++    configure_core()
++    plan, manifests, rule, parents = load_context(input_dir, development_search_dir, development_msic_dir, lock_file)
++    paths = [Path(__file__), Path(scoring.__file__), run.root()/'numerical_simulation/candidate_search_study/msic_refit.py',
++             run.root()/'numerical_simulation/candidate_search_study/numerics.py',
++             run.root()/'numerical_simulation/version_validation/worker.py']
++    body = {'stage': 'P4-independent-locked-confirmation', 'research_only': True, 'rule_selection_performed': False,
++            'input_dir': str(input_dir), 'development_search_dir': str(development_search_dir),
++            'development_msic_dir': str(development_msic_dir), 'lock_file': str(lock_file),
++            'parents': parents, 'inputs': manifests, 'locked_rule': rule, 'default_rule': scoring.DEFAULT_RULE,
++            'evaluation_roles': ['default', 'locked'], 'rule_count': 2, 'tasks': plan['tasks'],
++            'frozen_input_sources': plan['sources'], 'environment': run.environment(),
++            'research_sources': {p.relative_to(run.root()).as_posix(): run.file_hash(p) for p in paths},
++            'created_utc': datetime.now(timezone.utc).isoformat()}
++    own_plan = {**body, 'plan_id': run.digest(body)}
++    output.mkdir(); (output/'jobs').mkdir(); run.write_json(output/'plan.json', own_plan)
++    rows, numeric = [], []
++    for task, manifest in zip(plan['tasks'], manifests):
++        run.require(run.file_hash(lock_file) == parents['lock_file_sha256'], 'Immutable lock changed during confirmation evaluation')
++        source = run.result_path(input_dir, task)
++        run.require(run.file_hash(source) == manifest['json_sha256'] and run.file_hash(source.with_suffix('.npz')) == manifest['npz_sha256'],
++                    'Confirmation source changed after validation')
++        result, arrays = evaluate_task(run.read_json(source), source.with_suffix('.npz'), rule)
++        result.update(task_id=task['task_id'], plan_id=own_plan['plan_id'], lock_sha256=parents['lock_file_sha256'],
++                      input_result_manifest=manifest, locked_rule=rule)
++        for row in result['rows']: row['task_id'] = task['task_id']
++        target = output/'jobs'/f"task_{task['task_id']:03d}.json"
++        with target.with_suffix('.npz').open('xb') as handle: np.savez_compressed(handle, **arrays)
++        result.update(array_cache=target.with_suffix('.npz').name, array_cache_sha256=run.file_hash(target.with_suffix('.npz')))
++        run.write_json(target, result); rows.extend(result['rows'])
++        numeric.append({'task_id': task['task_id'], 'seed': result['seed'], 'snr': result['config']['snr'],
++                        'rule': rule['id'], **result['locked_numerics']})
++        print(f"Locked confirmation scoring: {len(rows)//2}/90; task {task['task_id']}", flush=True)
++    run.require(len(rows) == 180 and len(numeric) == 90, 'Incomplete two-rule confirmation output')
++    _, current_inputs, current_rule, current_parents = load_context(input_dir, development_search_dir, development_msic_dir, lock_file)
++    run.require(current_inputs == manifests and current_rule == rule and current_parents == parents,
++                'Confirmation/development/lock parents changed during evaluation')
++    compact = [{k: v for k, v in row.items() if k not in ('selection', 'supports')} for row in rows]
++    scoring.write_csv(output/'raw_results.csv', compact)
++    scoring.write_csv(output/'rule_summary.csv', scoring.summary_rows(rows, scenarios=False))
++    scoring.write_csv(output/'scenario_summary.csv', scoring.summary_rows(rows, scenarios=True))
++    scoring.write_csv(output/'paired_vs_default.csv', scoring.paired_rows(rows))
++    run.write_csv(output/'locked_model_numerics.csv', numeric)
++    conditions = [r['condition_number'] for r in numeric if r['condition_number'] is not None]
++    numeric_summary = {'status': 'complete', 'checks_passed': True, 'locked_model_count': 90,
++        'rank_deficient_count': sum(r['rank_deficient'] for r in numeric), 'condition_number_max': max(conditions) if conditions else None,
++        'max_rss_relative_difference': max(r['rss_relative_difference'] for r in numeric),
++        'max_ols_rss_relative_difference': max(r['ols_rss_relative_difference'] for r in numeric),
++        'max_normal_equation_relative_residual': max(r['normal_equation_relative_residual'] for r in numeric),
++        'scope': 'Only ninety locked-rule selected models; default five-group 450-model numerics remain in parent. No coefficients or supports replaced.',
++        'tolerances': {'relative_scaled_rss_and_prediction': 1e-9, 'normal_equation_relative_residual': 1e-8}}
++    run.write_json(output/'locked_numerics_diagnostics.json', numeric_summary)
++    integrity = {'status': 'complete', 'checks_passed': True, 'plan_id': own_plan['plan_id'],
++                 'confirmation_search_plan_id': plan['plan_id'], 'dataset_count': 90, 'rule_rows': 180, 'rule_count': 2,
++                 'default_exact_replays': 90, 'pool_fingerprints_unchanged': True, 'locked_model_numerics_checked': 90,
++                 'lock_sha256': parents['lock_file_sha256'], 'research_only': True,
++                 'rule_selection_performed': False, 'new_model_fitting': False,
++                 'interpretation': 'Independent confirmation of prior lock; parent A0/A2 comparators retained; no confirmation-based rule tuning or formal adoption.'}
++    run.write_json(output/'integrity_report.json', integrity)
++    return integrity
++
++
++def main(argv=None):
++    parser = argparse.ArgumentParser(description=__doc__)
++    for name in ('input-dir', 'development-search-dir', 'development-msic-dir', 'lock-file', 'output-dir'):
++        parser.add_argument('--'+name, required=True, type=Path)
++    args = parser.parse_args(argv)
++    summary = run_cohort(args.input_dir, args.development_search_dir, args.development_msic_dir, args.lock_file, args.output_dir)
++    print(f"Confirmation complete: {summary['dataset_count']} datasets, exactly {summary['rule_rows']} default/locked rows")
++    return 0
++
++
++if __name__ == '__main__':
++    raise SystemExit(main())
+diff --git a/tests/test_msic_after_search.py b/tests/test_msic_after_search.py
+new file mode 100644
+index 0000000..d4a690d
+--- /dev/null
++++ b/tests/test_msic_after_search.py
+@@ -0,0 +1,179 @@
++"""Frozen-pool global scoring research: no new support search or test selection."""
++from dataclasses import asdict
++import importlib
++import importlib.util
++import json
++from pathlib import Path
++import sys
++import tempfile
++import unittest
++
++import numpy as np
++
++ROOT = Path(__file__).resolve().parents[1]
++sys.path.insert(0, str(ROOT/'doc/algorithm_versions/v5.2-candidate-search/src'))
++import tensor_abess  # Explicit source identity before numerical package imports.
++from numerical_simulation.candidate_search_study import run, worker
++from numerical_simulation.data_generation import TensorSimulationConfig, generate_simulation_dataset
++from numerical_simulation.metrics import compute_coefficient_metrics, compute_support_metrics
++from numerical_simulation.version_validation.worker import array_fingerprint, evaluate_shared_test, select_candidate
++
++
++class FrozenMsicTests(unittest.TestCase):
++    def api(self):
++        name = 'numerical_simulation.candidate_search_study.msic_after_search'
++        self.assertIsNotNone(importlib.util.find_spec(name), 'Independent frozen-pool research feature is missing')
++        return importlib.import_module(name)
++
++    def fixture(self, base):
++        base.mkdir(); (base/'jobs').mkdir(); (base/'requests').mkdir()
++        tasks = []; sources = run.source_manifests(); env = run.environment()
++        for task_id, (n, snr) in enumerate((n, s) for n in (100, 200, 400) for s in (.5, 2., 4.)):
++            config = TensorSimulationConfig(n_train=n, n_test=20, dims=(3, 2, 2), sparsity=(1, 1, 1),
++                rho=(.1, .1, .1), snr=snr, max_cycles=1, test_batch_size=10)
++            seed = 10000+task_id; test_seed = seed+1000000
++            dataset = generate_simulation_dataset(config, seed=seed)
++            candidates = []
++            for index, sizes in enumerate(((1, 1, 1), (2, 1, 1), (2, 2, 1))):
++                supports = [np.arange(size) for size in sizes]
++                D = dataset.X_train[:, supports[0]][:, :, supports[1]][:, :, :, supports[2]].reshape(n, -1)
++                beta = np.linalg.lstsq(D, dataset.y_train, rcond=None)[0]
++                B = np.zeros(config.dims); B[np.ix_(*supports)] = beta.reshape(sizes)
++                rss = float(np.sum((dataset.y_train-D@beta)**2))
++                candidates.append({'kind': 'adaptive-stage' if index == 0 else 'global-fixed', 'B': B,
++                    'supports': supports, 'sizes': sizes, 'rss': rss, 'loss': rss/(2*n)})
++            chosen, selection = select_candidate(candidates, n, config.dims, alpha=1.5, scale=1.)
++            predictions, test_fp = evaluate_shared_test(dataset, [chosen['B']], test_seed)
++            fp = {'X_train': array_fingerprint(dataset.X_train), 'y_train': array_fingerprint(dataset.y_train),
++                  'B_true': array_fingerprint(dataset.B_true), 'independent_test': test_fp}
++            request = {'config': asdict(config), 'seed': seed, 'test_seed': test_seed,
++                       'fit_options': {'candidate_budget': 2000}}
++            request = json.loads(run.canonical(request))
++            task = {'task_id': task_id, 'scenario_id': task_id, 'replicate': 0, 'request': request,
++                    'request_file': f'requests/task_{task_id:03d}.json', 'request_id': run.digest(request)}
++            tasks.append(task); run.write_json(base/task['request_file'], request)
++            arrays = {}
++            for index, candidate in enumerate(candidates):
++                arrays[f'A3_candidate_{index}_B'] = candidate['B']
++                for mode, S in enumerate(candidate['supports'], 1): arrays[f'A3_candidate_{index}_S{mode}'] = S
++            cache = base/'jobs'/f'task_{task_id:03d}.npz'; np.savez_compressed(cache, **arrays)
++            row = {'group': 'A3', 'rule': 'msic-alpha1.5-scale1', 'method': 'A3/msic-alpha1.5-scale1',
++                'n_train': n, 'snr': snr, 'seed': seed, 'test_seed': test_seed, 'q_true': 1,
++                **compute_support_metrics(*chosen['supports'], *dataset.supports_true),
++                **compute_coefficient_metrics(chosen['B'], dataset.B_true), **predictions[0],
++                'rss_train': chosen['rss'], 'loss_train': chosen['loss'], 'runtime_sec': 0.,
++                'selection': selection, 'supports': [S.tolist() for S in chosen['supports']],
++                'B_fingerprint': array_fingerprint(chosen['B']), 'candidate_count': len(candidates),
++                'true_size_in_pool': 1, 'true_support_in_pool': 0}
++            report = {**request, 'version': worker.VERSION, 'status': 'complete', 'group_order': ['A3'],
++                'environment': env['libraries'], 'fingerprints': {**fp, 'core_sources': sources['core']},
++                'array_cache': cache.name, 'array_cache_sha256': run.file_hash(cache), 'rows': [row],
++                'groups': {'A3': {'fingerprints': fp, 'environment': env['libraries'],
++                    'pool_fingerprint': worker.pool_fingerprint(candidates),
++                    'candidates': [worker.candidate_json(c, i) for i, c in enumerate(candidates)]}}}
++            run.write_json(cache.with_suffix('.json'), report)
++        body = {'version': worker.VERSION, 'cohort': 'development', 'n_reps': 1, 'groups': ['A3'],
++                'tasks': tasks, 'sources': sources, 'environment': env}
++        plan = {**body, 'plan_id': run.digest(body)}; run.write_json(base/'plan.json', plan)
++        run.write_json(base/'integrity_report.json', {'status': 'complete', 'integrity_checks_passed': True,
++            'plan_id': plan['plan_id'], 'completed_tasks': 9, 'expected_tasks': 9})
++        return plan
++
++    def test_eleven_rules_keep_original_default_and_distinct_baselines(self):
++        rules = self.api().declared_rules()
++        self.assertEqual(len(rules), 11)
++        self.assertEqual(len({rule['rule'] for rule in rules}), 11)
++        self.assertEqual([(r['alpha'], r['scale']) for r in rules if r['criterion']=='msic'],
++                         [(a, s) for a in (1.5, 2., 3.) for s in (0., .5, 1.)])
++        self.assertEqual([r['criterion'] for r in rules[-2:]], ['tensor-sic', 'bic'])
++        self.assertTrue(all(r['scale']==0 for r in rules[-2:]))
++
++    def test_score_metadata_never_needs_coefficients_or_changes_input(self):
++        pool = [{'sizes': [1, 1, 1], 'rss': 190., 'loss': .95},
++                {'sizes': [4, 3, 5], 'rss': 90., 'loss': .45}]
++        before = run.canonical(pool)
++        choices = self.api().rescore_metadata(pool, 100, (32, 20, 25))
++        self.assertEqual(run.canonical(pool), before)
++        for rule, index, info in choices:
++            selected, expected = select_candidate(pool, 100, (32, 20, 25),
++                criterion=rule['criterion'], alpha=rule['alpha'] or 1.5, scale=rule['scale'])
++            self.assertEqual(info, expected)
++            self.assertIs(selected, pool[index])
++
++    def test_full_fixture_default_replay_and_immutable_outputs(self):
++        api = self.api()
++        with tempfile.TemporaryDirectory() as temp:
++            source = Path(temp)/'input'; self.fixture(source)
++            before = {p.relative_to(source).as_posix(): p.read_bytes() for p in source.rglob('*') if p.is_file()}
++            output = Path(temp)/'rescore'; summary = api.run_cohort(source, output)
++            self.assertEqual(summary['status'], 'complete')
++            self.assertEqual(summary['dataset_count'], 9)
++            self.assertEqual(summary['rule_rows'], 99)
++            self.assertEqual(summary['default_exact_replays'], 9)
++            self.assertTrue(summary['pool_fingerprints_unchanged'])
++            self.assertEqual(before, {p.relative_to(source).as_posix(): p.read_bytes() for p in source.rglob('*') if p.is_file()})
++            self.assertTrue((output/'scenario_summary.csv').is_file())
++            self.assertTrue((output/'rule_summary.csv').is_file())
++            self.assertTrue((output/'paired_vs_default.csv').is_file())
++            with self.assertRaises(FileExistsError): api.run_cohort(source, output)
++
++    def test_missing_complete_integrity_stops_before_output(self):
++        api = self.api()
++        with tempfile.TemporaryDirectory() as temp:
++            source = Path(temp)/'input'; source.mkdir()
++            with self.assertRaises((ValueError, FileNotFoundError)):
++                api.run_cohort(source, Path(temp)/'new')
++            self.assertFalse((Path(temp)/'new').exists())
++
++    def test_changed_pool_fingerprint_cannot_be_ignored(self):
++        api = self.api()
++        with tempfile.TemporaryDirectory() as temp:
++            source = Path(temp)/'input'; self.fixture(source)
++            path = source/'jobs/task_000.json'; report = run.read_json(path)
++            report['groups']['A3']['pool_fingerprint'] = 'corrupt'
++            path.write_text(run.canonical(report), encoding='utf-8')
++            with self.assertRaisesRegex(ValueError, 'pool fingerprint'):
++                api.run_cohort(source, Path(temp)/'new')
++
++    def test_changed_npz_checksum_is_rejected(self):
++        api = self.api()
++        with tempfile.TemporaryDirectory() as temp:
++            source = Path(temp)/'input'; self.fixture(source)
++            with (source/'jobs/task_000.npz').open('ab') as handle: handle.write(b'changed')
++            with self.assertRaisesRegex(ValueError, 'checksum'):
++                api.run_cohort(source, Path(temp)/'new')
++
++    def test_default_metric_mismatch_stops_without_repair(self):
++        api = self.api()
++        with tempfile.TemporaryDirectory() as temp:
++            source = Path(temp)/'input'; self.fixture(source)
++            path = source/'jobs/task_000.json'; report = run.read_json(path)
++            report['rows'][0]['pmse'] += .01; path.write_text(run.canonical(report), encoding='utf-8')
++            with self.assertRaisesRegex(ValueError, 'Default replay.*pmse'):
++                api.run_cohort(source, Path(temp)/'new')
++
++    def test_training_rss_must_be_recomputed_from_selected_coefficients(self):
++        api = self.api()
++        with tempfile.TemporaryDirectory() as temp:
++            source = Path(temp)/'input'; self.fixture(source)
++            path = source/'jobs/task_000.json'; report = run.read_json(path)
++            for candidate in report['groups']['A3']['candidates']:
++                candidate['rss'] += 100.; candidate['loss'] = candidate['rss']/200.
++            with np.load(path.with_suffix('.npz'), allow_pickle=False) as arrays:
++                report['groups']['A3']['pool_fingerprint'] = worker.pool_fingerprint(api.stream_pool(report['groups']['A3'], arrays))
++            path.write_text(run.canonical(report), encoding='utf-8')
++            with self.assertRaisesRegex(ValueError, 'Training RSS'):
++                api.run_cohort(source, Path(temp)/'new')
++
++    def test_confirmation_cannot_receive_all_eleven_rules(self):
++        api = self.api()
++        with tempfile.TemporaryDirectory() as temp:
++            source = Path(temp)/'input'; self.fixture(source)
++            path = source/'plan.json'; plan = run.read_json(path); plan['cohort']='confirmation'
++            plan['plan_id'] = run.digest({k:v for k,v in plan.items() if k!='plan_id'})
++            path.write_text(run.canonical(plan), encoding='utf-8')
++            with self.assertRaisesRegex(ValueError, 'confirmation|LOCK'):
++                api.run_cohort(source, Path(temp)/'new')
++
++
++if __name__ == '__main__': unittest.main()
+diff --git a/tests/test_msic_refit.py b/tests/test_msic_refit.py
+new file mode 100644
+index 0000000..92f9fc0
+--- /dev/null
++++ b/tests/test_msic_refit.py
+@@ -0,0 +1,131 @@
++"""Locked-rule provenance, fresh fits, and cached model identity contracts."""
++import importlib
++import importlib.util
++import json
++from pathlib import Path
++import tempfile
++import unittest
++from unittest.mock import patch
++
++import numpy as np
++
++
++class FreshRefitTests(unittest.TestCase):
++    def api(self):
++        name = "numerical_simulation.candidate_search_study.msic_refit"
++        self.assertIsNotNone(importlib.util.find_spec(name), "Fresh-fit validation feature is missing")
++        return importlib.import_module(name)
++
++    def lock(self):
++        return {"status": "locked", "search_group": "A3",
++                "rule": {"id": "msic-alpha2-scale0", "criterion": "msic", "alpha": 2., "gamma": 1., "scale": 0.},
++                "development_search_plan_id": "search", "development_msic_plan_id": "msic",
++                "development_summary_sha256": "summary"}
++
++    def test_locked_rule_and_both_parent_versions_are_required(self):
++        api = self.api()
++        lock = self.lock()
++        expected = api.validate_lock(lock, {"plan_id": "search"}, {"plan_id": "msic", "input_plan_id": "search"}, "summary")
++        self.assertEqual(expected["id"], "msic-alpha2-scale0")
++        for key, bad in (("status", "draft"), ("search_group", "A2"),
++                         ("development_search_plan_id", "stale"), ("development_msic_plan_id", "stale"),
++                         ("development_summary_sha256", "stale")):
++            changed = self.lock(); changed[key] = bad
++            with self.subTest(key=key), self.assertRaises(ValueError):
++                api.validate_lock(changed, {"plan_id": "search"}, {"plan_id": "msic", "input_plan_id": "search"}, "summary")
++
++    def test_unregistered_alpha_or_mode_criterion_change_is_rejected(self):
++        api = self.api()
++        for key, value in (("alpha", 1.7), ("gamma", .5), ("scale", 2.), ("id", "unknown")):
++            lock = self.lock(); lock["rule"][key] = value
++            with self.subTest(key=key), self.assertRaises(ValueError):
++                api.validate_lock(lock, {"plan_id": "search"}, {"plan_id": "msic", "input_plan_id": "search"}, "summary")
++
++    def test_sic_and_bic_are_only_post_pool_global_rules(self):
++        api = self.api()
++        for criterion, rule_id, gamma in (("tensor-sic", "tensor-sic", 1.), ("bic", "pure-bic", None)):
++            lock = self.lock(); lock["rule"] = {"id": rule_id, "criterion": criterion, "alpha": None, "gamma": gamma, "scale": 0.}
++            chosen = api.validate_lock(lock, {"plan_id": "search"}, {"plan_id": "msic", "input_plan_id": "search"}, "summary")
++            self.assertEqual(chosen["criterion"], criterion)
++
++    def test_fresh_fit_has_no_cache_and_keeps_mode_msic(self):
++        api = self.api()
++        config = type("Config", (), dict(k_max=1, abess_init_c=3, abess_init_criterion="bic",
++            n_lambdas=20, cv_folds=5, max_iter=500, tol=1e-6, max_cycles=6))()
++        X, y = np.zeros((5, 2, 2, 2)), np.zeros(5)
++        with patch.object(api, "core_fit", return_value="result") as fit:
++            self.assertEqual(api.fit_fresh(X, y, config, self.lock()["rule"]), "result")
++        kwargs = fit.call_args.kwargs
++        self.assertEqual(kwargs["adaptive_criterion"], "msic")
++        self.assertEqual(kwargs["cap_policy"], "candidate")
++        self.assertEqual(kwargs["grid_policy"], "full")
++        self.assertEqual(kwargs["candidate_budget"], 2000)
++        self.assertIsNone(kwargs["fixed_candidate_cache"])
++        self.assertEqual(kwargs["msic_refine_alpha"], 2.)
++        self.assertEqual(kwargs["msic_refine_one_se_scale"], 0.)
++        with patch.object(api, "core_fit") as fit:
++            api.fit_fresh(X, y, config, {"criterion": "bic", "alpha": None, "scale": 0.})
++        self.assertEqual(fit.call_args.kwargs["adaptive_criterion"], "msic")
++        self.assertEqual(fit.call_args.kwargs["msic_refine_alpha"], 1.5)
++
++    def test_model_identity_requires_coefficients_supports_and_training_score(self):
++        api = self.api()
++        candidate = {"B": np.zeros((2, 2, 2)), "supports": [np.array([0])] * 3,
++                     "rss": 10., "loss": .05}
++        row = {"rss_train": 10., "loss_train": .05, "supports": [[0], [0], [0]]}
++        selected = {"B": candidate["B"].copy(), "supports": [S.copy() for S in candidate["supports"]]}
++        api.assert_model_matches(candidate, row, selected)
++        changed = {**selected, "B": np.ones((2, 2, 2))}
++        with self.assertRaisesRegex(ValueError, "coefficients"):
++            api.assert_model_matches(candidate, row, changed)
++        with self.assertRaisesRegex(ValueError, "RSS"):
++            api.assert_model_matches(candidate, {**row, "rss_train": 11.}, selected)
++        with self.assertRaisesRegex(ValueError, "supports"):
++            api.assert_model_matches(candidate, {**row, "supports": [[1], [0], [0]]}, selected)
++
++    def arguments(self, output):
++        return ["--source-output", "source", "--msic-output", "scored", "--lock-file", "locked.json",
++                "--task-id", "0", "--output-dir", str(output)]
++
++    def test_existing_cache_stops_before_any_child_fit(self):
++        api = self.api()
++        with tempfile.TemporaryDirectory() as temporary:
++            output = Path(temporary)
++            cache = output / "task_000.npz"
++            cache.write_bytes(b"preserve")
++            with patch.object(api.subprocess, "run") as spawn, self.assertRaises(FileExistsError):
++                api.main(self.arguments(output))
++            spawn.assert_not_called()
++            self.assertEqual(cache.read_bytes(), b"preserve")
++
++    def test_child_failure_is_recorded_and_cannot_be_resumed(self):
++        api = self.api()
++        with tempfile.TemporaryDirectory() as temporary:
++            output = Path(temporary)
++            result = type("Result", (), {"returncode": 9})()
++            with patch.object(api.subprocess, "run", return_value=result), self.assertRaises(RuntimeError):
++                api.main(self.arguments(output))
++            failure = json.loads((output / "task_000.failure.json").read_text(encoding="utf8"))
++            self.assertEqual(failure["returncode"], 9)
++            with patch.object(api.subprocess, "run") as spawn, self.assertRaises(FileExistsError):
++                api.main(self.arguments(output))
++            spawn.assert_not_called()
++
++    def test_fresh_worker_refuses_partial_output_before_loading_inputs(self):
++        api = self.api()
++        with tempfile.TemporaryDirectory() as temporary:
++            output = Path(temporary)
++            (output / "task_000.json").write_text("{}", encoding="utf8")
++            args = type("Args", (), {"output_dir": output, "task_id": 0})()
++            with patch.object(api, "run_case") as fit, self.assertRaises(FileExistsError):
++                api.worker_main(args)
++            fit.assert_not_called()
++
++    def test_python39_syntax(self):
++        import ast
++        api = self.api()
++        ast.parse(Path(api.__file__).read_text(encoding="utf8"), feature_version=(3, 9))
++
++
++if __name__ == "__main__":
++    unittest.main()
+diff --git a/tests/test_msic_confirmation.py b/tests/test_msic_confirmation.py
+new file mode 100644
+index 0000000..f7706e5
+--- /dev/null
++++ b/tests/test_msic_confirmation.py
+@@ -0,0 +1,198 @@
++"""Locked confirmation evaluates exactly two rules on untouched frozen pools."""
++import ast
++import copy
++import importlib
++import importlib.util
++import os
++from pathlib import Path
++import tempfile
++import unittest
++from unittest.mock import patch
++
++import numpy as np
++
++
++class ConfirmationTests(unittest.TestCase):
++    def api(self):
++        name = 'numerical_simulation.candidate_search_study.msic_confirmation'
++        self.assertIsNotNone(importlib.util.find_spec(name), 'Locked confirmation module is missing')
++        return importlib.import_module(name)
++
++    def rule(self):
++        return {'id': 'msic-alpha2-scale0', 'criterion': 'msic', 'alpha': 2., 'gamma': 1., 'scale': 0.}
++
++    def test_only_default_and_locked_rules_are_scored(self):
++        api = self.api()
++        pool = [{'sizes': [1, 1, 1], 'rss': 190., 'loss': .95},
++                {'sizes': [4, 3, 5], 'rss': 90., 'loss': .45}]
++        before = copy.deepcopy(pool)
++        with patch.object(api.scoring, 'rescore_metadata', side_effect=AssertionError('eleven rules forbidden')):
++            with patch.object(api.scoring, 'rescore_task', side_effect=AssertionError('eleven rules forbidden')):
++                choices = api.two_choices(pool, 100, (32, 20, 25), self.rule())
++        self.assertEqual([rule['role'] for rule, _, _ in choices], ['default', 'locked'])
++        self.assertEqual([rule['id'] for rule, _, _ in choices], ['msic-alpha1.5-scale1', 'msic-alpha2-scale0'])
++        self.assertEqual(pool, before)
++
++    def test_lock_equal_to_default_still_has_two_distinct_roles(self):
++        api = self.api()
++        rule = {'id': 'msic-alpha1.5-scale1', 'criterion': 'msic', 'alpha': 1.5, 'gamma': 1., 'scale': 1.}
++        choices = api.two_choices([{'sizes': [1, 1, 1], 'rss': 20., 'loss': .5}], 20, (2, 2, 2), rule)
++        self.assertEqual(len(choices), 2)
++        self.assertEqual(choices[0][1], choices[1][1])
++        self.assertNotEqual(choices[0][0]['label'], choices[1][0]['label'])
++
++    def test_unknown_or_changed_locked_rule_is_rejected(self):
++        api = self.api()
++        for field, value in [('alpha', 1.7), ('gamma', .5), ('scale', 2.), ('id', 'unknown')]:
++            changed = self.rule(); changed[field] = value
++            with self.subTest(field=field), self.assertRaises(ValueError):
++                api.two_choices([{'sizes': [1, 1, 1], 'rss': 20., 'loss': .5}], 20, (2, 2, 2), changed)
++
++    def development_fixture(self, root, task_count=1, manifest_count=None):
++        from numerical_simulation.candidate_search_study import run, msic_after_search
++        from numerical_simulation.version_validation.worker import array_fingerprint
++        source = run.source_manifests(); environment = run.environment()
++        tasks = [{'task_id': i, 'request': {'config': {'unit_fixture': True}, 'seed': 10000+i,
++                                          'test_seed': 1010000+i}} for i in range(task_count)]
++        manifests = [{'task_id': i, 'A3_pool_fingerprint': f'pool-{i}'}
++                     for i in range(task_count if manifest_count is None else manifest_count)]
++        search = {'plan_id': 'search', 'tasks': tasks, 'sources': source, 'environment': environment}
++        msic = root/'scored'; msic.mkdir(); (msic/'jobs').mkdir()
++        research = {'numerical_simulation/candidate_search_study/msic_after_search.py': run.file_hash(Path(msic_after_search.__file__))}
++        body = {'input_plan_id': 'search', 'inputs': manifests, 'frozen_input_sources': source,
++                'environment': environment, 'research_sources': research, 'rules': msic_after_search.declared_rules()}
++        plan = {**body, 'plan_id': run.digest(body)}
++        run.write_json(msic/'plan.json', plan)
++        (msic/'rule_summary.csv').write_text('rule,n_datasets\nlocked,1\n', encoding='utf8')
++        lock = {'status': 'locked', 'search_group': 'A3', 'rule': self.rule(),
++                'development_search_plan_id': 'search', 'development_msic_plan_id': plan['plan_id'],
++                'development_summary_sha256': run.file_hash(msic/'rule_summary.csv'),
++                'source_core_sha256': source['core'], 'scoring_source_sha256': research}
++        run.write_json(msic/'integrity_report.json', {'status': 'complete', 'checks_passed': True,
++            'plan_id': plan['plan_id'], 'dataset_count': task_count, 'rule_rows': 11*task_count,
++            'default_exact_replays': task_count, 'pool_fingerprints_unchanged': True})
++        B = np.zeros((2, 2, 2)); supports = [np.array([0])] * 3
++        for manifest in manifests:
++            i = manifest['task_id']; cache = msic/'jobs'/f'task_{i:03d}.npz'
++            np.savez_compressed(cache, candidate_0_B=B, **{f'candidate_0_S{m}': supports[m-1] for m in (1, 2, 3)})
++            rows = [{'rule': r['rule'], 'selected_index': 0, 'B_fingerprint': array_fingerprint(B),
++                     'supports': [[0], [0], [0]]} for r in msic_after_search.declared_rules()]
++            report = {'status': 'complete', 'plan_id': plan['plan_id'], 'input_result_manifest': manifest,
++                      **tasks[i]['request'], 'environment': environment['libraries'],
++                      'fingerprints': {'core_sources': source['core']}, 'default_exact_replay': True,
++                      'pool_fingerprint_before': manifest['A3_pool_fingerprint'],
++                      'pool_fingerprint_after': manifest['A3_pool_fingerprint'], 'rows': rows,
++                      'array_cache': cache.name, 'array_cache_sha256': run.file_hash(cache)}
++            run.write_json(cache.with_suffix('.json'), report)
++        return search, manifests, msic, lock
++
++    def test_development_summary_identity_and_cached_B_are_bound(self):
++        api = self.api()
++        with tempfile.TemporaryDirectory() as temporary:
++            context = self.development_fixture(Path(temporary))
++            rule, provenance = api.validate_development_lock(*context)
++            self.assertEqual(rule, self.rule())
++            self.assertEqual(len(provenance['scoring_jobs']), 1)
++            (context[2]/'rule_summary.csv').write_text('changed', encoding='utf8')
++            with self.assertRaisesRegex(ValueError, 'summary'):
++                api.validate_development_lock(*context)
++
++    def test_missing_development_manifest_cannot_pass_complete_integrity(self):
++        api = self.api()
++        with tempfile.TemporaryDirectory() as temporary:
++            context = self.development_fixture(Path(temporary), task_count=2, manifest_count=1)
++            with self.assertRaisesRegex(ValueError, 'manifest'):
++                api.validate_development_lock(*context)
++
++    def test_changed_scoring_cache_is_rejected_even_with_complete_status(self):
++        api = self.api()
++        with tempfile.TemporaryDirectory() as temporary:
++            context = self.development_fixture(Path(temporary))
++            with (context[2]/'jobs/task_000.npz').open('ab') as handle: handle.write(b'changed')
++            with self.assertRaisesRegex(ValueError, 'checksum'):
++                api.validate_development_lock(*context)
++
++    def confirmation_plan(self):
++        from numerical_simulation.candidate_search_study import run
++        plan = run.build_plan('confirmation', 10, ['A0', 'A1', 'A2', 'A3', 'A4'])
++        return plan, {'confirmation_search_plan_id': plan['plan_id'], 'confirmation_groups': plan['groups']}
++
++    def test_original_ninety_dataset_five_group_protocol_is_required(self):
++        api = self.api(); plan, lock = self.confirmation_plan()
++        api.validate_confirmation_plan(plan, lock)
++        with self.assertRaisesRegex(ValueError, 'plan'):
++            api.validate_confirmation_plan(plan, {**lock, 'confirmation_search_plan_id': 'other'})
++        changed = copy.deepcopy(plan); changed['tasks'][0]['request']['seed'] += 1
++        with self.assertRaises(ValueError): api.validate_confirmation_plan(changed, lock)
++        changed = copy.deepcopy(plan); changed['groups'] = ['A3']
++        with self.assertRaises(ValueError): api.validate_confirmation_plan(changed, lock)
++
++    def test_late_or_naive_lock_is_rejected(self):
++        api = self.api()
++        with tempfile.TemporaryDirectory() as temporary:
++            root = Path(temporary); (root/'logs').mkdir(); log = root/'logs/task.stdout.txt'; log.write_text('done')
++            os.utime(log, (2000000000., 2000000000.))
++            evidence = api.validate_lock_timing({'locked_utc': '2030-01-01T00:00:00+00:00'}, root)
++            self.assertLess(evidence['lock_epoch'], evidence['earliest_confirmation_log_mtime'])
++            for timestamp in ('2040-01-01T00:00:00+00:00', '2030-01-01T00:00:00'):
++                with self.subTest(timestamp=timestamp), self.assertRaises(ValueError):
++                    api.validate_lock_timing({'locked_utc': timestamp}, root)
++
++    def fixture(self, temporary):
++        from tests.test_msic_after_search import FrozenMsicTests
++        source = Path(temporary)/'input'; FrozenMsicTests().fixture(source)
++        from numerical_simulation.candidate_search_study import run
++        path = source/'jobs/task_000.json'
++        return run.read_json(path), path.with_suffix('.npz')
++
++    def test_actual_numeric_default_replay_two_Bs_and_unchanged_pool(self):
++        api = self.api()
++        with tempfile.TemporaryDirectory() as temporary:
++            report, path = self.fixture(temporary)
++            before = path.read_bytes()
++            with patch.object(api.scoring, 'rescore_metadata', side_effect=AssertionError('eleven rules forbidden')):
++                with patch.object(api.scoring, 'rescore_task', side_effect=AssertionError('eleven rules forbidden')):
++                    actual, arrays = api.evaluate_task(report, path, self.rule())
++            self.assertEqual(len(actual['rows']), 2)
++            self.assertEqual(set(arrays), {'default_B', 'locked_B'})
++            self.assertEqual(actual['pool_fingerprint_before'], actual['pool_fingerprint_after'])
++            self.assertEqual(actual['fingerprints']['independent_test'], report['fingerprints']['independent_test'])
++            api.scoring.default_replay(report['rows'][0], actual['rows'][0])
++            self.assertEqual(before, path.read_bytes())
++            self.assertTrue(actual['locked_numerics']['checks_passed'])
++            self.assertEqual(actual['locked_numerics']['rank'], actual['locked_numerics']['q_hat'])
++            self.assertIn('singular_values', actual['locked_numerics'])
++
++    def test_changed_default_metric_is_not_repaired(self):
++        api = self.api()
++        with tempfile.TemporaryDirectory() as temporary:
++            report, path = self.fixture(temporary); report['rows'][0]['pmse'] += .01
++            with self.assertRaisesRegex(ValueError, 'Default replay.*pmse'):
++                api.evaluate_task(report, path, self.rule())
++
++    def test_changed_selected_training_rss_is_rejected(self):
++        api = self.api()
++        with tempfile.TemporaryDirectory() as temporary:
++            report, path = self.fixture(temporary)
++            for candidate in report['groups']['A3']['candidates']:
++                candidate['rss'] += 100.; candidate['loss'] = candidate['rss']/200.
++            with np.load(path, allow_pickle=False) as arrays:
++                report['groups']['A3']['pool_fingerprint'] = api.pool_fingerprint(api.scoring.stream_pool(report['groups']['A3'], arrays))
++            with self.assertRaisesRegex(ValueError, 'Training RSS'):
++                api.evaluate_task(report, path, self.rule())
++
++    def test_existing_output_stops_before_context_or_evaluation(self):
++        api = self.api()
++        with tempfile.TemporaryDirectory() as temporary:
++            output = Path(temporary)/'existing'; output.mkdir()
++            with patch.object(api, 'load_context') as context, self.assertRaises(FileExistsError):
++                api.run_cohort('confirmation', 'development', 'scored', 'lock.json', output)
++            context.assert_not_called()
++
++    def test_python39_syntax(self):
++        api = self.api()
++        ast.parse(Path(api.__file__).read_text(encoding='utf8'), feature_version=(3, 9))
++
++
++if __name__ == '__main__':
++    unittest.main()

@@ -22,12 +22,14 @@ $env:PYTHONPATH = 'src'
 打开 [config.yaml](config.yaml)：
 
 - 所有相对路径都以该 YAML 所在目录为基准，与 PowerShell 当前工作目录无关。
+- 当前 `data.tmt_csv: ../TMT.csv`、`data.manifest_file: ../manifest.json`，对应仓库 `empirical_analysis/` 中的元数据；`data.eeg_root: D:/数据集/LEMON原始EEG`，已移除的历史五人目录不再使用。
+- 当前正式调整配置使用 `output_dir: outputs_lemon_adjusted`；`outputs_lemon_149_20260917` 保留为旧预处理结果，不能将其状态移入新运行。
 - `data.eeg_root` 指向含 `sub-*/eeg/` 的完整数据根目录；数据可以留在仓库外。
 - `data.manifest_file` 指向下载清单；只有实际不存在清单时才明确设为 `null`。
-- `data.subject_selection_file` 默认指向下载器生成的150人计划，实证仅处理该名单；明确分析全部本地受试者时才设为 `null`，未被选择者单独记录为 `subjects_not_selected.csv`，不冒充质量排除。
-- `data.participants_file`、`data.participants_json` 分别指定年龄/性别表和编码说明。
-- `confounds` 中填写经过编码说明核实的 ID/年龄/性别列名和 `sex_mapping`；例如只有说明明确编码时才可填写 `{"M": 0, "F": 1}`，不能从数字大小猜测性别。
-- 当前年龄设计要求数值年龄；年龄区间将明确停止，不能擅自转换为区间中点。
+- `data.subject_selection_file` 当前指向 `selection_149.json`：从原150人下载计划中明确排除事件证据冲突的 `sub-010126`；原计划仍保留。明确分析全部本地受试者时才设为 `null`，未被选择者单独记录为 `subjects_not_selected.csv`，不冒充质量排除。
+- `data.participants_file`、`data.participants_json` 当前指向 `outputs_demographics/participants.tsv` 和 `participants.json`；由同目录已下载的官方原表及编码说明派生，说明中保存来源列、URL和源文件 SHA256，按 ID 对齐，不按行号匹配。
+- 官方性别原值保留 `1=女、2=男`；配置 `sex_mapping: {'1': 0, '2': 1}` 将女编码为0、男编码为1。
+- 年龄默认 `age_encoding: numeric` 兼容精确数值年龄；本次已明确选择 `categorical`，按用户确认将 `30-35/35-40` 合并为 `30-40`、`55-60/60-65` 合并为 `55-65`，其余五组保留，最终七类为 `20-25、25-30、30-40、55-65、65-70、70-75、75-80`，以 `20-25` 为参照。使用六个类别指示列，不转换区间中点；未知类别或性别编码停止。
 - 默认 `analysis.mode: adjusted`；未经调整的探索需显式改为 `pilot`，其结果会标记 `PILOT_UNADJUSTED`。
 - 两种模式均执行 `analysis.min_samples`（默认100）及每折可识别性检查；小样本 pilot 需明确设定适当阈值，不能自动绕过。
 - 主响应为 `log(TMT_5)`；原始秒数敏感性分析需用 `primary_transform: raw` 和另一个空 `output_dir`。
@@ -38,7 +40,7 @@ $env:PYTHONPATH = 'src'
 先从本地清单生成计划，不访问网络：
 
 ```powershell
-.venv/Scripts/python.exe -m empirical_analysis.lemon.download --manifest 实证分析/manifest.json --destination 实证分析/nm000179 --limit 150
+.venv/Scripts/python.exe -m empirical_analysis.lemon.download --manifest 'empirical_analysis/manifest.json' --destination 'D:/数据集/LEMON原始EEG' --limit 150
 ```
 
 之后需要下载时，在同一命令末尾加 `--download`；脚本用清单中的稳定 `bytes_url`，不使用已过期的临时签名链接。
@@ -57,7 +59,7 @@ $env:PYTHONPATH = 'src'
 ```powershell
 Set-Location -LiteralPath 'C:\XiangMingXu\2026大创\代码\tensor-sparse-regression-main'
 .\.venv\Scripts\python.exe -m empirical_analysis.lemon.download `
-  --manifest '实证分析/manifest.json' `
+  --manifest 'empirical_analysis/manifest.json' `
   --destination 'D:\数据集\LEMON原始EEG' --limit 150 `
   --plan 'empirical_analysis/lemon/outputs_download/plan.json' `
   --log 'empirical_analysis/lemon/outputs_download/download_log.json' `
@@ -68,17 +70,27 @@ Set-Location -LiteralPath 'C:\XiangMingXu\2026大创\代码\tensor-sparse-regres
 
 ## 分阶段运行
 
+本次编码和源码已变化，须使用主配置的新输出目录从 `inventory` 开始；旧结果为146人张量，已验证其产物指纹并真实对齐得到145人、`C` 为 `145 × 8`。五折预检查均为116人训练、29人测试、训练设计秩8，预处理及测试变换均为有限值，记录于 `outputs_demographics/alignment_check.json`；102项 LEMON 测试通过（26.079秒）。尚未启动新运行或真实模型拟合，新运行最终人数以其诊断为准。先执行预处理和数据对齐，任何失败立即停止：
+
 ```powershell
-$env:PYTHONPATH = 'src'
-.venv/Scripts/python.exe -m empirical_analysis.lemon --config empirical_analysis/lemon/config.yaml --stage inventory
-.venv/Scripts/python.exe -m empirical_analysis.lemon --config empirical_analysis/lemon/config.yaml --stage tmt
-.venv/Scripts/python.exe -m empirical_analysis.lemon --config empirical_analysis/lemon/config.yaml --stage events
-.venv/Scripts/python.exe -m empirical_analysis.lemon --config empirical_analysis/lemon/config.yaml --stage smoke
-.venv/Scripts/python.exe -m empirical_analysis.lemon --config empirical_analysis/lemon/config.yaml --stage tensors
-.venv/Scripts/python.exe -m empirical_analysis.lemon --config empirical_analysis/lemon/config.yaml --stage dataset
-.venv/Scripts/python.exe -m empirical_analysis.lemon --config empirical_analysis/lemon/config.yaml --stage cv
-.venv/Scripts/python.exe -m empirical_analysis.lemon --config empirical_analysis/lemon/config.yaml --stage final
-.venv/Scripts/python.exe -m empirical_analysis.lemon --config empirical_analysis/lemon/config.yaml --stage report
+Set-Location -LiteralPath 'C:\XiangMingXu\2026大创\代码\tensor-sparse-regression-main'
+$env:PYTHONPATH = (Resolve-Path 'src').Path
+$env:PYTHONIOENCODING = 'utf-8'
+foreach ($stage in @('inventory', 'tmt', 'events', 'smoke', 'tensors', 'dataset')) {
+    & .\.venv\Scripts\python.exe -m empirical_analysis.lemon `
+        --config 'empirical_analysis/lemon/config.yaml' --stage $stage
+    if ($LASTEXITCODE -ne 0) { throw "阶段 $stage 失败，已停止" }
+}
+```
+
+核对 `outputs_lemon_adjusted/run_state.json` 及该输出目录下的 `qc/final_subject_manifest.csv`、`qc/covariate_design.json`，确认最终样本、编码与设计可识别性后，再单独启动真实拟合；以下命令尚不能作为已完成拟合的证据：
+
+```powershell
+foreach ($stage in @('cv', 'final', 'report')) {
+    & .\.venv\Scripts\python.exe -m empirical_analysis.lemon `
+        --config 'empirical_analysis/lemon/config.yaml' --stage $stage
+    if ($LASTEXITCODE -ne 0) { throw "阶段 $stage 失败，已停止" }
+}
 ```
 
 `--stage all` 按同一顺序执行，任何失败立即停止；不会跳过未通过的阶段。
@@ -98,6 +110,7 @@ $env:PYTHONPATH = 'src'
 | `tensors/subjects/` | 单人张量和包含实际窗口时间、映射证据的元数据 |
 | `tensors/X_unstandardized.npy` | 未经全样本标准化的汇总张量，另存 subject IDs 和轴标签 |
 | `qc/analysis_dataset.npz` | 最终严格对齐的 X、y、subject_ids；adjusted 另含 C，pilot 不含 C |
+| `qc/covariate_design.json` | adjusted 协变量列名、类别编码和配置，供核对年龄类别与性别设计 |
 | `cv/` | 固定折、逐人逐模型 OOF、逐折指标、汇总指标、三个模态的5折选择频率 |
 | `cv/folds/fold_*/preprocessing.npz` | 同一折三模型共用的训练预处理参数，旁边保存 train/test IDs |
 | `cv/folds/fold_*/<model>/` | `B.npy`、`support.json` 和拟合统计 |
@@ -118,4 +131,4 @@ $env:PYTHONPATH = 'src'
 ```
 
 测试使用独立合成数据，覆盖原始文件读入、事件证据、窗口边界、异常值、折内预处理、三方法拟合、OOF 复现及阶段阻断；测试产物不作为真实数据实证结果。
-完整研究要求见 [执行文档](../../实证分析/LEMON_Tensor_ABESS_Codex_执行文档.md)。
+完整研究要求见 [执行文档](../LEMON_Tensor_ABESS_Codex_执行文档.md)。

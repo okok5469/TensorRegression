@@ -1,0 +1,15 @@
+{
+  "datasets": 27,
+  "A0_B_exact": true,
+  "input_and_independent_test_fingerprints_exact": true,
+  "metrics": [
+    "q_hat",
+    "rss_train",
+    "pmse",
+    "r2_test",
+    "exact_recovery",
+    "mode_f1_macro",
+    "element_f1"
+  ],
+  "max_metric_difference": 0
+}
