@@ -1,0 +1,398 @@
+{
+  "schema_version": 1,
+  "research_only": true,
+  "release_approved": false,
+  "frozen_utc": "2026-10-11T06:02:23.803054+00:00",
+  "purpose": "New independent A2 MSIC confirmation, only the already locked two rules; no confirmation parameter selection",
+  "task_card_sha256": "6d6925027fd376706943f43f512d4a0a635087e99b598edc816b6f292b8c38fc",
+  "groups": [
+    "A2"
+  ],
+  "rules": [
+    {
+      "id": "msic-alpha1.5-scale1",
+      "role": "baseline",
+      "alpha": 1.5,
+      "gamma": 1,
+      "one_se_scale": 1
+    },
+    {
+      "id": "msic-alpha2-scale0",
+      "role": "candidate",
+      "alpha": 2,
+      "gamma": 1,
+      "one_se_scale": 0
+    }
+  ],
+  "base_config": {
+    "n_train": 200,
+    "n_test": 500,
+    "dims": [
+      32,
+      20,
+      25
+    ],
+    "sparsity": [
+      4,
+      3,
+      5
+    ],
+    "rho": [
+      0.3,
+      0.3,
+      0.3
+    ],
+    "snr": 2,
+    "support_shape": "continuous",
+    "sigma": 1,
+    "k_max": 1,
+    "max_cycles": 6,
+    "n_lambdas": 20,
+    "cv_folds": 5,
+    "max_iter": 500,
+    "tol": 1e-06,
+    "abess_init_criterion": "bic",
+    "abess_init_c": 3,
+    "tensor_abess_mode": "adaptive",
+    "msic_refine_alpha": 1.5,
+    "msic_refine_gamma": 1,
+    "msic_refine_one_se_scale": 1,
+    "random_state": 2026,
+    "test_batch_size": 100
+  },
+  "scenarios": [
+    {
+      "sparsity": [
+        2,
+        3,
+        4
+      ],
+      "n_train": 100,
+      "snr": 2.0,
+      "rho": [
+        0.3,
+        0.3,
+        0.3
+      ],
+      "stratum": "primary"
+    },
+    {
+      "sparsity": [
+        2,
+        3,
+        4
+      ],
+      "n_train": 100,
+      "snr": 4.0,
+      "rho": [
+        0.3,
+        0.3,
+        0.3
+      ],
+      "stratum": "primary"
+    },
+    {
+      "sparsity": [
+        2,
+        3,
+        4
+      ],
+      "n_train": 200,
+      "snr": 2.0,
+      "rho": [
+        0.3,
+        0.3,
+        0.3
+      ],
+      "stratum": "primary"
+    },
+    {
+      "sparsity": [
+        2,
+        3,
+        4
+      ],
+      "n_train": 200,
+      "snr": 4.0,
+      "rho": [
+        0.3,
+        0.3,
+        0.3
+      ],
+      "stratum": "primary"
+    },
+    {
+      "sparsity": [
+        2,
+        3,
+        4
+      ],
+      "n_train": 400,
+      "snr": 2.0,
+      "rho": [
+        0.3,
+        0.3,
+        0.3
+      ],
+      "stratum": "primary"
+    },
+    {
+      "sparsity": [
+        2,
+        3,
+        4
+      ],
+      "n_train": 400,
+      "snr": 4.0,
+      "rho": [
+        0.3,
+        0.3,
+        0.3
+      ],
+      "stratum": "primary"
+    },
+    {
+      "sparsity": [
+        3,
+        4,
+        5
+      ],
+      "n_train": 100,
+      "snr": 2.0,
+      "rho": [
+        0.3,
+        0.3,
+        0.3
+      ],
+      "stratum": "primary"
+    },
+    {
+      "sparsity": [
+        3,
+        4,
+        5
+      ],
+      "n_train": 100,
+      "snr": 4.0,
+      "rho": [
+        0.3,
+        0.3,
+        0.3
+      ],
+      "stratum": "primary"
+    },
+    {
+      "sparsity": [
+        3,
+        4,
+        5
+      ],
+      "n_train": 200,
+      "snr": 2.0,
+      "rho": [
+        0.3,
+        0.3,
+        0.3
+      ],
+      "stratum": "primary"
+    },
+    {
+      "sparsity": [
+        3,
+        4,
+        5
+      ],
+      "n_train": 200,
+      "snr": 4.0,
+      "rho": [
+        0.3,
+        0.3,
+        0.3
+      ],
+      "stratum": "primary"
+    },
+    {
+      "sparsity": [
+        3,
+        4,
+        5
+      ],
+      "n_train": 400,
+      "snr": 2.0,
+      "rho": [
+        0.3,
+        0.3,
+        0.3
+      ],
+      "stratum": "primary"
+    },
+    {
+      "sparsity": [
+        3,
+        4,
+        5
+      ],
+      "n_train": 400,
+      "snr": 4.0,
+      "rho": [
+        0.3,
+        0.3,
+        0.3
+      ],
+      "stratum": "primary"
+    },
+    {
+      "sparsity": [
+        2,
+        3,
+        4
+      ],
+      "n_train": 400,
+      "snr": 0.5,
+      "rho": [
+        0.3,
+        0.3,
+        0.3
+      ],
+      "stratum": "primary"
+    },
+    {
+      "sparsity": [
+        3,
+        4,
+        5
+      ],
+      "n_train": 400,
+      "snr": 0.5,
+      "rho": [
+        0.3,
+        0.3,
+        0.3
+      ],
+      "stratum": "primary"
+    },
+    {
+      "sparsity": [
+        2,
+        3,
+        4
+      ],
+      "n_train": 200,
+      "snr": 2.0,
+      "rho": [
+        0.6,
+        0.6,
+        0.6
+      ],
+      "stratum": "correlation_stress"
+    },
+    {
+      "sparsity": [
+        3,
+        4,
+        5
+      ],
+      "n_train": 200,
+      "snr": 2.0,
+      "rho": [
+        0.6,
+        0.6,
+        0.6
+      ],
+      "stratum": "correlation_stress"
+    }
+  ],
+  "n_reps": 5,
+  "seed_base": 30601011,
+  "test_seed_offset": 1000000,
+  "budget": {
+    "workers": 8,
+    "worker_blas_threads": 1,
+    "max_controller_seconds": 3600,
+    "candidate_budget": 2000,
+    "policy": "All stages share one persisted start, failures/budget stop forbid adoption and resume; no truncation or rescue"
+  },
+  "environment": {
+    "libraries": {
+      "python": "3.12.8",
+      "numpy": "1.26.4",
+      "scipy": "1.16.1"
+    },
+    "platform": "Windows",
+    "machine": "AMD64",
+    "worker_thread_environment": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1"
+    }
+  },
+  "core_sources": {
+    "tensor_abess/__init__.py": "f09ee71e1a5b9a9c9deddbfcdec0d028cd34803af58318af1beca9e9a3aa5dbe",
+    "tensor_abess/baselines/__init__.py": "2e25cb27c0deae528eefec64946bc7aafd241b235145c3fb2bbc32da983bd00a",
+    "tensor_abess/baselines/base.py": "296af75c1a2afbce822d401f3ba81a231b176aa8ff7d51a3fa3575ad03303306",
+    "tensor_abess/baselines/cp.py": "164b04db1ab6ac6b163366957d5a3e5e3db9d9e117fe62a1bf63d6378e936fbb",
+    "tensor_abess/baselines/group_lasso.py": "28acbc2c67ef3a462b7c8c9551c6d08eca076877100494f23ed5b60aeb24ab75",
+    "tensor_abess/baselines/lasso.py": "b0ce26433580f51c4a56a99d3748fbd609a7527469669475ff774bab3e1393f0",
+    "tensor_abess/baselines/tucker.py": "a90c90b46ded263dd57fc99b926b6d82abb410b4541d9d898fc5b907037b0283",
+    "tensor_abess/common/__init__.py": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+    "tensor_abess/common/ranks.py": "4684b9504f033aee9cee10a40ab652d8ad76f2e871833fe3f123a883b2a32aa4",
+    "tensor_abess/group/__init__.py": "ceb9fc92074ba440ef5c2082453aeba1f67db8da03a49309937e0e5efc32d3e1",
+    "tensor_abess/group/adaptive.py": "453f0b2e9568f3a611977151ab20943a120bb9603adb90838d52d4ca5a306376",
+    "tensor_abess/group/bess_fix.py": "6577bc8b26b99b45b8a4bd7f154135fd10c0627c520c6a379f8a6616ab9c87fb",
+    "tensor_abess/group/sacrifices.py": "b05f00ea51a5d91e01961e468e15ec3ca8046af649f8f2bbb51addd264376155",
+    "tensor_abess/group/splicing.py": "0ac340129f4f38f1aaf2c4d7c778f5c763964c9b6792485bcd017147b4d4641c",
+    "tensor_abess/metrics/__init__.py": "34ad9b63350042207d203b6c33c481bcf8fbb8e113216a094766e82778ac9eee",
+    "tensor_abess/metrics/support.py": "18495d2a039e6d9df9c650c4532a52e8cb59a05594755946098eede234054dd8",
+    "tensor_abess/tensor/__init__.py": "a7a284698fe7934f052f95d6b93f595b46262a0b4b81f7e3cbf806fa13850667",
+    "tensor_abess/tensor/abess.py": "81906d0355135964da69650d6fc19e6cbc96b534ee94e5eddfae32175b68c6a0",
+    "tensor_abess/tensor/bcd.py": "92f02fc69c598e0439fba05f836d4830c5640d53e916997c0a3680d747812e8d",
+    "tensor_abess/tensor/candidate_search.py": "0a7075f894f50d3953d4799da0cb01d8ba733ec15b0649a2799dfac3e0294143",
+    "tensor_abess/tensor/ops.py": "cc0140752af901e792dc48811d320cb928f0dc917bbc9ccf3f8e8ae1cd9ee0fa",
+    "tensor_abess/tensor/reduction.py": "8b8a66856d5e8c8a0a887fb97f911687d6f48b8d25079430abb7ffe550774076",
+    "tensor_abess/tensor/sic.py": "84637e426a8ad8d9c471d8f81787135052f10f954475127403d5a9b2b4f51d9f",
+    "tensor_abess/utils/__init__.py": "969942a09ec95253bd97eddd57740fea3da8bb1ca0cb9c69074d9244b168e343",
+    "tensor_abess/utils/data.py": "67696c6f1327a0f7f9e6c7980a1c7a648d4bf6a9165ce7ea673948891f63937c",
+    "tensor_abess/utils/glasso.py": "05cf440fdf5c5cce814264ec35cc6c7b0397cdf229889452abe2e90cd650097d",
+    "tensor_abess/utils/init.py": "6fc58919fd76fdbdd0b4cedfe5ce446a3f1f01ad37b48a2218505364b09a5c9f",
+    "tensor_abess/utils/validation.py": "d6500d0a227854dfc963f33fb47f97d10ef67527b15a599426c4d1202e669dbe",
+    "tensor_abess/vector/__init__.py": "7f8f788a7915a4540f753f8e9a5e9917008ca725cb5b9fb23a8e575e75ab59f7",
+    "tensor_abess/vector/abess.py": "901efc50fc964801b44e9e12e90980ea065e15a303b9375f142fc8f0eb0527f0",
+    "tensor_abess/vector/sacrifices.py": "2462c4f8f3e447e98218eb2c68811893a24c547b78007848e047c6afd79db9f2",
+    "tensor_abess/vector/sic.py": "f562d2736186173f0939de7677a6f14a64c7a2d202bd414929e7aee310c1487b",
+    "tensor_abess/vector/splicing.py": "c14f4e47e7c8506ee63422016c69693a303ae5638f7c6ddd097d9baffa8b7e63"
+  },
+  "development_input_dir": "numerical_simulation/outputs_a2_msic_decision",
+  "rules_file": "numerical_simulation/outputs_a2_msic_decision/MSIC_DECISION_RULES.json",
+  "development_rule_summary_sha256": "195857332335f9a859a6d7e9c036dda6fd18e2fe916a71b9a4cb7b2f1d966f14",
+  "development_integrity_sha256": "7aeda734b771f5c9a65635ea8cbe1bbf448b9aa39ece71488476b5296ce28858",
+  "development_screen_sha256": "f7dc12222c19df4ee226bfc2c141e9e2b6105e8d39aac34e19890c0f35268bb5",
+  "rules_file_sha256": "06b148d2ef7dec6d3ac1c3f38aad7214641dae6945e281817f7bd736c4fd9e24",
+  "confirmation_gate": {
+    "complete_pairing_and_ols_required": true,
+    "pooled_pmse_ratio_max": 0.99,
+    "paired_stratified_bootstrap_pmse_ratio_95_upper_max": 1.0,
+    "any_scenario_pmse_ratio_max": 1.1,
+    "strong_representable_exact_gain_min": -0.05,
+    "strong_representable_mode_f1_gain_min": -0.02,
+    "strong_representable_under_rate_increase_max": 0.05,
+    "strong_representable_q1_rate_increase_max": 0.05,
+    "bootstrap_seed": 40601011,
+    "bootstrap_resamples": 10000
+  },
+  "refit_tasks": [
+    0,
+    20,
+    50
+  ],
+  "bootstrap": {
+    "seed": 40601011,
+    "n_resamples": 10000,
+    "unit": "Paired dataset resampling within frozen scenarios; report primary70/stress10 separately and pooled80 fixed gate"
+  },
+  "seed_nonoverlap": {
+    "request_files_checked": 541,
+    "overlap_count": 0
+  },
+  "interpretation": "Fresh original-MSIC A2 library fit for each new dataset; fixed library rescoring is mathematically identical for full grid because global alpha/scale do not control initialization, adaptive mode scores, or fixed fits. Three uncached public alpha2/scale0 fresh refits required to verify equivalence. Truth and test only evaluate after training selection."
+}

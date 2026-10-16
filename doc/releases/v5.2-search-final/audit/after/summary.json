@@ -1,0 +1,12 @@
+{
+  "started_utc": "2026-10-11T14:25:43.522358+00:00",
+  "ended_utc": "2026-10-11T14:26:00.835726+00:00",
+  "files": 14491,
+  "bytes": 4027984579,
+  "delete_count": 1,
+  "delete_bytes": 6984,
+  "important_hash_count": 7071,
+  "references": [],
+  "scan_errors": [],
+  "complete": true
+}

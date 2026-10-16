@@ -1,0 +1,34 @@
+{
+  "scope": "27 task-card-6 utility tests; not full-repository or original Linux-cluster validation",
+  "status": "PASSED",
+  "runs": [
+    {
+      "args": [
+        "-m",
+        "unittest",
+        "tests.test_version_attribution",
+        "tests.test_taskcard6_team_package",
+        "tests.test_taskcard6_simulation_analysis",
+        "-q"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "----------------------------------------------------------------------\nRan 18 tests in 1.692s\n\nOK\n"
+    },
+    {
+      "args": [
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts/taskcard6",
+        "-p",
+        "test_lemon_analysis.py",
+        "-q"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "----------------------------------------------------------------------\nRan 9 tests in 1.300s\n\nOK\n"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "status": "stopped",
+  "plan_id": "1857d78e504ede09a0e305d6cffa338007bea87b0a1f84ac80a2ee9a3843c828",
+  "error": "Shared confirmation budget exceeded",
+  "utc_stopped": "2026-10-11T09:25:25.834029+00:00",
+  "resume_allowed": false
+}

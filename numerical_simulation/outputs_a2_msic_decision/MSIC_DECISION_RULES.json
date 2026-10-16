@@ -1,0 +1,44 @@
+{
+  "status": "fixed_before_inspecting_A2_alpha2_development_metrics",
+  "timing_note": "Two-rule controlled development rescoring is in progress. This screening and conditional confirmation rule is fixed before inspecting its aggregate or per-dataset alpha2 A2 outcomes; development evidence is exploratory, never a new independent confirmation.",
+  "rules": [
+    {"id": "msic-alpha1.5-scale1", "role": "baseline", "alpha": 1.5, "gamma": 1, "one_se_scale": 1},
+    {"id": "msic-alpha2-scale0", "role": "candidate", "alpha": 2, "gamma": 1, "one_se_scale": 0}
+  ],
+  "development_screen": {
+    "pooled_pmse_ratio_max": 0.98,
+    "any_scenario_pmse_ratio_max": 1.10,
+    "strong_representable_exact_gain_min": -0.05,
+    "strong_representable_mode_f1_gain_min": -0.02,
+    "strong_representable_under_rate_increase_max": 0.05,
+    "strong_definition": "SNR=4 and true size is allowed by training caps; this cohort corresponds to n=200/400. Truth is used only in evaluation, never in scoring."
+  },
+  "if_screen_fails": "Keep original MSIC; do not generate confirmation datasets or search more alpha/scale rules.",
+  "if_screen_passes": {
+    "action": "Before fitting any new confirmation dataset, freeze a fresh immutable 80-dataset paired A2 library plan, original MSIC vs the already fixed candidate only.",
+    "seed_base": 30601011,
+    "test_seed_offset": 1000000,
+    "n_reps": 5,
+    "shapes": [[2, 3, 4], [3, 4, 5]],
+    "primary_scenarios": "Each shape x n=100/200/400 x SNR=2/4 (12 scenarios, 60 datasets), plus each shape x n=400 x SNR=0.5 (2 scenarios, 10 datasets)",
+    "stress_scenarios": "Each shape x n=200 x SNR=2 x rho=0.6 (2 scenarios, 10 datasets)",
+    "source_dgp": "Unchanged original DGP, dimensions32/20/25, n_test500, sigma1, continuous supports; all other settings unchanged",
+    "workers": 8,
+    "worker_blas_threads": 1,
+    "candidate_budget": 2000,
+    "max_controller_seconds": 3600,
+    "confirmation_gate": {
+      "complete_pairing_and_ols_required": true,
+      "pooled_pmse_ratio_max": 0.99,
+      "paired_stratified_bootstrap_pmse_ratio_95_upper_max": 1.00,
+      "any_scenario_pmse_ratio_max": 1.10,
+      "strong_representable_exact_gain_min": -0.05,
+      "strong_representable_mode_f1_gain_min": -0.02,
+      "strong_representable_under_rate_increase_max": 0.05,
+      "strong_representable_q1_rate_increase_max": 0.05,
+      "bootstrap_seed": 40601011,
+      "bootstrap_resamples": 10000
+    },
+    "approval_note": "A failed, incomplete or ambiguous confirmation retains original MSIC. No repeated tuning on confirmation or old LEMON outer tests. A new rule also requires fresh full-refit equivalence checks before any D3 recommendation."
+  }
+}

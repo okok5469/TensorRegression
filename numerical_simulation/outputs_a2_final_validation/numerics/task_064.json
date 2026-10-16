@@ -1,0 +1,81 @@
+{
+  "plan_id": "55cd1a254efe2425d650e755950388efa2ff8746aa0ebd83f9cfffdb50cf7cd3",
+  "task_id": 64,
+  "checks_passed": true,
+  "rows": [
+    {
+      "task_id": 64,
+      "group": "A0",
+      "seed": 30513015,
+      "candidate_index": 26,
+      "n_train": 200,
+      "q_hat": 2,
+      "sizes": [
+        2,
+        1,
+        1
+      ],
+      "rank": 2,
+      "rank_deficient": false,
+      "rank_tolerance": 7.227716544448347e-13,
+      "singular_max": 16.275370768158574,
+      "singular_min": 12.371254134550119,
+      "singular_values": [
+        16.275370768158574,
+        12.371254134550119
+      ],
+      "condition_number": 1.3155796971872995,
+      "rss_stored": 264.79436094158336,
+      "rss_rectangular": 264.79436094158336,
+      "rss_tensor": 264.79436094158336,
+      "rss_independent_ols": 264.79436094158336,
+      "rss_relative_difference": 0.0,
+      "ols_rss_relative_difference": 0.0,
+      "prediction_max_abs_difference": 0.0,
+      "normal_equation_residual": 1.1682163181672949e-14,
+      "normal_equation_relative_residual": 4.2028074380776327e-17,
+      "beta_l2_difference_from_independent_ols": 0.0,
+      "beta_relative_difference_from_independent_ols": 0.0,
+      "coefficients_nonunique": false,
+      "checks_passed": true,
+      "audit_seconds": 0.017601000028662384
+    },
+    {
+      "task_id": 64,
+      "group": "A2",
+      "seed": 30513015,
+      "candidate_index": 26,
+      "n_train": 200,
+      "q_hat": 2,
+      "sizes": [
+        2,
+        1,
+        1
+      ],
+      "rank": 2,
+      "rank_deficient": false,
+      "rank_tolerance": 7.227716544448347e-13,
+      "singular_max": 16.275370768158574,
+      "singular_min": 12.371254134550119,
+      "singular_values": [
+        16.275370768158574,
+        12.371254134550119
+      ],
+      "condition_number": 1.3155796971872995,
+      "rss_stored": 264.79436094158336,
+      "rss_rectangular": 264.79436094158336,
+      "rss_tensor": 264.79436094158336,
+      "rss_independent_ols": 264.79436094158336,
+      "rss_relative_difference": 0.0,
+      "ols_rss_relative_difference": 0.0,
+      "prediction_max_abs_difference": 0.0,
+      "normal_equation_residual": 1.1682163181672949e-14,
+      "normal_equation_relative_residual": 4.2028074380776327e-17,
+      "beta_l2_difference_from_independent_ols": 0.0,
+      "beta_relative_difference_from_independent_ols": 0.0,
+      "coefficients_nonunique": false,
+      "checks_passed": true,
+      "audit_seconds": 0.03734639997128397
+    }
+  ]
+}

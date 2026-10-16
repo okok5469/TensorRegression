@@ -1,0 +1,217 @@
+{
+  "date": "2026-10-15",
+  "status": "READ_ONLY_PREFLIGHT_PASSED_PENDING_P0_AND_RUN",
+  "fit_started": false,
+  "audit_cli_executed": false,
+  "config_sha256": "6280449915f7dc83fef7ce5df4bc62e9dfb6a88f146eb15d5ba97b677c971881",
+  "config_matches_old": true,
+  "source_sha256": {
+    "src/tensor_abess/__init__.py": "f09ee71e1a5b9a9c9deddbfcdec0d028cd34803af58318af1beca9e9a3aa5dbe",
+    "src/tensor_abess/baselines/base.py": "296af75c1a2afbce822d401f3ba81a231b176aa8ff7d51a3fa3575ad03303306",
+    "src/tensor_abess/baselines/cp.py": "164b04db1ab6ac6b163366957d5a3e5e3db9d9e117fe62a1bf63d6378e936fbb",
+    "src/tensor_abess/baselines/group_lasso.py": "28acbc2c67ef3a462b7c8c9551c6d08eca076877100494f23ed5b60aeb24ab75",
+    "src/tensor_abess/baselines/lasso.py": "b0ce26433580f51c4a56a99d3748fbd609a7527469669475ff774bab3e1393f0",
+    "src/tensor_abess/baselines/tucker.py": "a90c90b46ded263dd57fc99b926b6d82abb410b4541d9d898fc5b907037b0283",
+    "src/tensor_abess/baselines/__init__.py": "2e25cb27c0deae528eefec64946bc7aafd241b235145c3fb2bbc32da983bd00a",
+    "src/tensor_abess/common/ranks.py": "4684b9504f033aee9cee10a40ab652d8ad76f2e871833fe3f123a883b2a32aa4",
+    "src/tensor_abess/common/__init__.py": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+    "src/tensor_abess/group/adaptive.py": "453f0b2e9568f3a611977151ab20943a120bb9603adb90838d52d4ca5a306376",
+    "src/tensor_abess/group/bess_fix.py": "6577bc8b26b99b45b8a4bd7f154135fd10c0627c520c6a379f8a6616ab9c87fb",
+    "src/tensor_abess/group/sacrifices.py": "b05f00ea51a5d91e01961e468e15ec3ca8046af649f8f2bbb51addd264376155",
+    "src/tensor_abess/group/splicing.py": "0ac340129f4f38f1aaf2c4d7c778f5c763964c9b6792485bcd017147b4d4641c",
+    "src/tensor_abess/group/__init__.py": "ceb9fc92074ba440ef5c2082453aeba1f67db8da03a49309937e0e5efc32d3e1",
+    "src/tensor_abess/metrics/support.py": "18495d2a039e6d9df9c650c4532a52e8cb59a05594755946098eede234054dd8",
+    "src/tensor_abess/metrics/__init__.py": "34ad9b63350042207d203b6c33c481bcf8fbb8e113216a094766e82778ac9eee",
+    "src/tensor_abess/tensor/abess.py": "fc0a87f201f2f6aa18f62667d881cddfddc5d969b70c7b83cf95213c5cc7ee45",
+    "src/tensor_abess/tensor/bcd.py": "db2999e8875acd06fdee2253884fd1c9c1d768ecadb41ef9059969bae0201fd7",
+    "src/tensor_abess/tensor/ops.py": "cc0140752af901e792dc48811d320cb928f0dc917bbc9ccf3f8e8ae1cd9ee0fa",
+    "src/tensor_abess/tensor/reduction.py": "8b8a66856d5e8c8a0a887fb97f911687d6f48b8d25079430abb7ffe550774076",
+    "src/tensor_abess/tensor/sic.py": "84637e426a8ad8d9c471d8f81787135052f10f954475127403d5a9b2b4f51d9f",
+    "src/tensor_abess/tensor/__init__.py": "a7a284698fe7934f052f95d6b93f595b46262a0b4b81f7e3cbf806fa13850667",
+    "src/tensor_abess/utils/data.py": "67696c6f1327a0f7f9e6c7980a1c7a648d4bf6a9165ce7ea673948891f63937c",
+    "src/tensor_abess/utils/glasso.py": "05cf440fdf5c5cce814264ec35cc6c7b0397cdf229889452abe2e90cd650097d",
+    "src/tensor_abess/utils/init.py": "fb019d1a09c5f421db24ff8ae6821d5c7e01b7e440f0efe177727117a5762962",
+    "src/tensor_abess/utils/validation.py": "d6500d0a227854dfc963f33fb47f97d10ef67527b15a599426c4d1202e669dbe",
+    "src/tensor_abess/utils/__init__.py": "969942a09ec95253bd97eddd57740fea3da8bb1ca0cb9c69074d9244b168e343",
+    "src/tensor_abess/vector/abess.py": "901efc50fc964801b44e9e12e90980ea065e15a303b9375f142fc8f0eb0527f0",
+    "src/tensor_abess/vector/sacrifices.py": "2462c4f8f3e447e98218eb2c68811893a24c547b78007848e047c6afd79db9f2",
+    "src/tensor_abess/vector/sic.py": "f562d2736186173f0939de7677a6f14a64c7a2d202bd414929e7aee310c1487b",
+    "src/tensor_abess/vector/splicing.py": "c14f4e47e7c8506ee63422016c69693a303ae5638f7c6ddd097d9baffa8b7e63",
+    "src/tensor_abess/vector/__init__.py": "7f8f788a7915a4540f753f8e9a5e9917008ca725cb5b9fb23a8e575e75ab59f7",
+    "empirical_analysis/lemon/incremental_value/data_loader.py": "f552c0126b2b4927fb2d4c789ef9993a5d129e5139258fb121c0c94788d43334",
+    "empirical_analysis/lemon/incremental_value/metrics.py": "bce50b717936ada66ff46e74789ad552ba47d8e1283f07e1f8177c198d2fcbce",
+    "empirical_analysis/lemon/incremental_value/model_adapters.py": "76a17c59ac816c8dce8105a42992860225abec242a423a4b29094229cfab1e40",
+    "empirical_analysis/lemon/incremental_value/nested_cv.py": "a33b7939404410f9ae20753a22a3d7f20d53619094b4eda4c43881a2713082cf",
+    "empirical_analysis/lemon/incremental_value/preprocessing.py": "f7006ddd94ee69faa9115b05cf73c4e57d4fb3181314681a1be35fef45b0bda3",
+    "empirical_analysis/lemon/incremental_value/run.py": "809babe6b085096627f8749c79517697183ab601840880310a028fde5b919722",
+    "empirical_analysis/lemon/incremental_value/__init__.py": "9842b464caf839185dca3228ac829b365c9cf993ed7df4ad03ce947526cc8a36",
+    "empirical_analysis/lemon/confounds.py": "f49e140b3b58486bae3b6981d5d0687e63ae6d597f1ebdf6dfd2066cb4fa2744",
+    "empirical_analysis/lemon/models.py": "24ef5dcd972de1c27d521148a5c86a264b2f9cbd63b21b77b5edbda3a2722018",
+    "numerical_simulation/methods.py": "af700bc8eb5abfa6469617f41a61ef0299e9be910fe63a55c34805a204d5bbd5",
+    "numerical_simulation/data_generation.py": "0a867f244bd44271e301eb0629c82f2332fccebb20a4329b51e27ad194066423"
+  },
+  "release_manifest_sha256": "b415a151674f1ee0400acbd000aa732e2c99343c7ad4faa48d7970b2cfe56074",
+  "core_files_verified": 32,
+  "source_difference_from_old": [
+    "src/tensor_abess/tensor/bcd.py"
+  ],
+  "input_fingerprints": {
+    "analysis_dataset": {
+      "path": "C:\\XiangMingXu\\2026大创\\代码\\tensor-sparse-regression-main\\empirical_analysis\\lemon\\outputs_lemon_adjusted\\qc\\analysis_dataset.npz",
+      "sha256": "e98c5dc803c837e90d22cdfc010b15209a78a6d40515831050d4502a8cff18fa"
+    },
+    "manifest": {
+      "path": "C:\\XiangMingXu\\2026大创\\代码\\tensor-sparse-regression-main\\empirical_analysis\\lemon\\outputs_lemon_adjusted\\qc\\final_subject_manifest.csv",
+      "sha256": "2188bcd1c3bcd46b520930ae22914e3dbfded14ffbb43ce064e5bf910fe936be"
+    },
+    "design": {
+      "path": "C:\\XiangMingXu\\2026大创\\代码\\tensor-sparse-regression-main\\empirical_analysis\\lemon\\outputs_lemon_adjusted\\qc\\covariate_design.json",
+      "sha256": "2a6ef9f3bc533e887d6da1bb54fd68d3f57497aea5fa1067855b13b2636499a5"
+    },
+    "raw_tensor": {
+      "path": "C:\\XiangMingXu\\2026大创\\代码\\tensor-sparse-regression-main\\empirical_analysis\\lemon\\outputs_lemon_adjusted\\tensors\\X_unstandardized.npy",
+      "sha256": "2e368db770b85cad668c7c2d50f5b04c4926d6e6c955e3bdd739d18410412320"
+    },
+    "metadata": {
+      "path": "C:\\XiangMingXu\\2026大创\\代码\\tensor-sparse-regression-main\\empirical_analysis\\lemon\\outputs_lemon_adjusted\\tensors\\tensor_meta.json",
+      "sha256": "40d6aaf3c3f62f20a60d98348ed6a2670bb4d747863bd5ee64ed1b7dcfc36c50"
+    },
+    "source_config": {
+      "path": "C:\\XiangMingXu\\2026大创\\代码\\tensor-sparse-regression-main\\empirical_analysis\\lemon\\outputs_lemon_adjusted\\config_used.json",
+      "sha256": "77c67dece7c199dfe8ce969f6820aa89261247307112aa2ee60c1e6f40d57966"
+    },
+    "original_tmt": {
+      "path": "C:\\XiangMingXu\\2026大创\\代码\\tensor-sparse-regression-main\\empirical_analysis\\TMT.csv",
+      "sha256": "a49ea518a6395187cb9da8ed2def4cb18614ec68dc4c400aac47774fd221483a"
+    },
+    "participants": {
+      "path": "C:\\XiangMingXu\\2026大创\\代码\\tensor-sparse-regression-main\\empirical_analysis\\lemon\\outputs_demographics\\participants.tsv",
+      "sha256": "6340c0e9326257433492b1ee0b21dd69f86297c68cf8fc731b4cb2d53dd59f43"
+    }
+  },
+  "input_hashes_match_old": true,
+  "dataset_audit": {
+    "passed": true,
+    "n_subjects": 145,
+    "tensor_shape": [
+      145,
+      61,
+      16,
+      5
+    ],
+    "original_tensor_shape": [
+      146,
+      61,
+      16,
+      5
+    ],
+    "covariate_shape": [
+      145,
+      8
+    ],
+    "covariate_columns": [
+      "intercept",
+      "age[25-30]",
+      "age[30-40]",
+      "age[55-65]",
+      "age[65-70]",
+      "age[70-75]",
+      "age[75-80]",
+      "sex"
+    ],
+    "age_category_counts": {
+      "20-25": 46,
+      "25-30": 43,
+      "30-40": 10,
+      "55-65": 13,
+      "65-70": 17,
+      "70-75": 12,
+      "75-80": 4
+    },
+    "response": "log(TMT_5)",
+    "X_unstandardized_source_equal": true,
+    "subject_manifest_order_equal": true,
+    "response_original_verified": true,
+    "covariates_original_verified": true,
+    "metadata_verified": true,
+    "feature_order": "numpy_C_order",
+    "raw_eeg_regenerated": false
+  },
+  "outer_splits_match_old": true,
+  "outer_split_rows": 435,
+  "outer_splits_sha256": "3fe708b9dd7790b65f1fbd259ab61c203fc30534aa973b428f76137e410131e9",
+  "outer_splits_canonical_json_sha256": "357211fda28c0fac32c4b40911698fc4eb533c55643651a624155dd6487ebeae",
+  "fold_split_sha256": {
+    "empirical_analysis/lemon/outputs_eeg_incremental/cv/folds/repeat_0_fold_1/split.json": "e13be328335a56547b6b12537234c48bd64539266640aee2455f4a843a37ad61",
+    "empirical_analysis/lemon/outputs_eeg_incremental/cv/folds/repeat_0_fold_2/split.json": "2fd313d30c286a31aa1484bbeb55506f6da7b64ab682fd631e5d55e3664eda30",
+    "empirical_analysis/lemon/outputs_eeg_incremental/cv/folds/repeat_0_fold_3/split.json": "79f31ce1f315fa060f994351a255252a7feb01a30a9401297bdeb10adaf3c55a",
+    "empirical_analysis/lemon/outputs_eeg_incremental/cv/folds/repeat_0_fold_4/split.json": "40ee834a892cc63cb2fdd8ff8908832137f0bd876b69e3ec586290105b0b7e2f",
+    "empirical_analysis/lemon/outputs_eeg_incremental/cv/folds/repeat_0_fold_5/split.json": "ee1c48dbc301fcaa91ff506ad0695489848a6a3c6e4be0a81a8825df24606019",
+    "empirical_analysis/lemon/outputs_eeg_incremental/cv/folds/repeat_1_fold_1/split.json": "b6f155f13143cec232e7fcae47ea3a03246e1d855b53c406122a1ef114f6ccab",
+    "empirical_analysis/lemon/outputs_eeg_incremental/cv/folds/repeat_1_fold_2/split.json": "bb9bcb57c7f31b90d3fbbc04d89b3bceff8eab5b4c67b662699b9d005145e720",
+    "empirical_analysis/lemon/outputs_eeg_incremental/cv/folds/repeat_1_fold_3/split.json": "baf64f6936a499e63e60d8d5321aae61c64ac9514e48130b96e5404cd92d668e",
+    "empirical_analysis/lemon/outputs_eeg_incremental/cv/folds/repeat_1_fold_4/split.json": "82d929d3394284d38a0a0855aac6952cc9eac7f5e8ebde6544ff1a74e58c540b",
+    "empirical_analysis/lemon/outputs_eeg_incremental/cv/folds/repeat_1_fold_5/split.json": "74187707ab770379b38744afef8b9daaeacde5a4e3623f722d9f9dbe3d314635",
+    "empirical_analysis/lemon/outputs_eeg_incremental/cv/folds/repeat_2_fold_1/split.json": "28b2e6e2ec4102bc8806292ea3136498adaa5411e59433b16ee67f1e84d6473b",
+    "empirical_analysis/lemon/outputs_eeg_incremental/cv/folds/repeat_2_fold_2/split.json": "144cb11ac8207d54c9d6fb887e49b090eb335e3150f18807ea3b1b96cd8d5670",
+    "empirical_analysis/lemon/outputs_eeg_incremental/cv/folds/repeat_2_fold_3/split.json": "00b7f3cbcea701e674d0ef8757038dbd9c9e6100e51eac25a71a976785cf5896",
+    "empirical_analysis/lemon/outputs_eeg_incremental/cv/folds/repeat_2_fold_4/split.json": "54184b242e19b2cc2997db69af3d67ccded180eac0f386375fda8e7b166ef713",
+    "empirical_analysis/lemon/outputs_eeg_incremental/cv/folds/repeat_2_fold_5/split.json": "feaaeabae6e4cc2794decbc23f3c2dfa59c0174ac79b252fe85fdcf9cf83e801"
+  },
+  "old_state": {
+    "experiment_id": "deee3edceb4dc11b19e52cb95a83035930d058f25556bd6784e4499698e0d39d",
+    "status": "complete",
+    "smoke": false,
+    "completed_fits": 75,
+    "expected_fits": 75,
+    "complete": true,
+    "elapsed_sec": 1208.849778600037,
+    "n_oof_predictions": 2175
+  },
+  "old_environment": {
+    "python": "3.12.8",
+    "numpy": "1.26.4",
+    "scipy": "1.16.1",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "threads": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1"
+    }
+  },
+  "current_environment": {
+    "python": "3.12.8",
+    "numpy": "1.26.4",
+    "scipy": "1.16.1",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "threads": {
+      "OPENBLAS_NUM_THREADS": null,
+      "OMP_NUM_THREADS": null,
+      "MKL_NUM_THREADS": null,
+      "NUMEXPR_NUM_THREADS": null
+    }
+  },
+  "required_threads": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1"
+  },
+  "dependency_versions": {
+    "python": "3.12.8",
+    "numpy": "1.26.4",
+    "scipy": "1.16.1",
+    "PyYAML": "6.0.2"
+  },
+  "sklearn_required_by_this_entrypoint": false,
+  "new_output_exists": false,
+  "expected_fits": 75,
+  "expected_oof_predictions": 2175,
+  "notes": [
+    "No fit, no output directory creation, no audit-only CLI, no input/source changes.",
+    "Set all four thread variables to 1 before starting a new Python process.",
+    "Smoke uses a different experiment identity and must have a separate output directory.",
+    "Historical elapsed time is 1208.85 seconds; D2 cost has not yet been measured."
+  ]
+}

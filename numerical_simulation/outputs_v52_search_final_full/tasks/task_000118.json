@@ -1,0 +1,346 @@
+{
+  "plan_id": "30f231df0327e58331a18580dc8a03caeb0872dc991e57c42b095556100a80f6",
+  "task": {
+    "task_id": 118,
+    "scenario_id": 2,
+    "replicate": 18,
+    "experiment": "snr",
+    "parameter": "snr",
+    "scenario_value": "1",
+    "scenario_order": 1,
+    "seed": 12144,
+    "test_seed": 1012144,
+    "config": {
+      "n_train": 200,
+      "n_test": 500,
+      "dims": [
+        32,
+        20,
+        25
+      ],
+      "sparsity": [
+        4,
+        3,
+        5
+      ],
+      "rho": [
+        0.3,
+        0.3,
+        0.3
+      ],
+      "snr": 1,
+      "support_shape": "continuous",
+      "sigma": 1,
+      "k_max": 1,
+      "max_cycles": 6,
+      "n_lambdas": 20,
+      "cv_folds": 5,
+      "max_iter": 500,
+      "tol": 1e-06,
+      "abess_init_criterion": "bic",
+      "abess_init_c": 3,
+      "tensor_abess_mode": "adaptive",
+      "msic_refine_alpha": 1.5,
+      "msic_refine_gamma": 1,
+      "msic_refine_one_se_scale": 1,
+      "random_state": 2026,
+      "test_batch_size": 100
+    }
+  },
+  "environment": {
+    "python_version": "3.9.25",
+    "python_implementation": "CPython",
+    "platform": "Linux",
+    "machine": "x86_64",
+    "numpy_version": "2.0.2",
+    "scipy_version": "1.13.1",
+    "blas_build": {
+      "blas": {
+        "name": "scipy-openblas",
+        "found": true,
+        "version": "0.3.27",
+        "detection method": "pkgconfig",
+        "include directory": "/opt/_internal/cpython-3.9.18/lib/python3.9/site-packages/scipy_openblas64/include",
+        "lib directory": "/opt/_internal/cpython-3.9.18/lib/python3.9/site-packages/scipy_openblas64/lib",
+        "openblas configuration": "OpenBLAS 0.3.27  USE64BITINT DYNAMIC_ARCH NO_AFFINITY Zen MAX_THREADS=64",
+        "pc file directory": "/project/.openblas"
+      },
+      "lapack": {
+        "name": "scipy-openblas",
+        "found": true,
+        "version": "0.3.27",
+        "detection method": "pkgconfig",
+        "include directory": "/opt/_internal/cpython-3.9.18/lib/python3.9/site-packages/scipy_openblas64/include",
+        "lib directory": "/opt/_internal/cpython-3.9.18/lib/python3.9/site-packages/scipy_openblas64/lib",
+        "openblas configuration": "OpenBLAS 0.3.27  USE64BITINT DYNAMIC_ARCH NO_AFFINITY Zen MAX_THREADS=64",
+        "pc file directory": "/project/.openblas"
+      }
+    },
+    "thread_environment": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1"
+    }
+  },
+  "source_fingerprints": {
+    "numerical_simulation/__init__.py": "937ddd891cd1918e5726a149b7c6e3745067dee92d9945a8dbbce6c26b58cd26",
+    "numerical_simulation/data_generation.py": "0a867f244bd44271e301eb0629c82f2332fccebb20a4329b51e27ad194066423",
+    "numerical_simulation/known_s_cluster/profiles.json": "76465458701ad6da176fd93d688d1b4762285a9cf391360737e0730a35c3fa94",
+    "numerical_simulation/known_s_cluster/run.py": "5fff973f646a889ec6e9a8af70f0e775c182f8cda6a473b2d644af5dd42ce9ee",
+    "numerical_simulation/methods.py": "af700bc8eb5abfa6469617f41a61ef0299e9be910fe63a55c34805a204d5bbd5",
+    "numerical_simulation/metrics.py": "eaf4bbb30472754da10754476620bbb2dcb7a1c7e80b571014fb04edf183951f",
+    "src/tensor_abess/__init__.py": "f09ee71e1a5b9a9c9deddbfcdec0d028cd34803af58318af1beca9e9a3aa5dbe",
+    "src/tensor_abess/baselines/__init__.py": "2e25cb27c0deae528eefec64946bc7aafd241b235145c3fb2bbc32da983bd00a",
+    "src/tensor_abess/baselines/base.py": "296af75c1a2afbce822d401f3ba81a231b176aa8ff7d51a3fa3575ad03303306",
+    "src/tensor_abess/baselines/cp.py": "164b04db1ab6ac6b163366957d5a3e5e3db9d9e117fe62a1bf63d6378e936fbb",
+    "src/tensor_abess/baselines/group_lasso.py": "28acbc2c67ef3a462b7c8c9551c6d08eca076877100494f23ed5b60aeb24ab75",
+    "src/tensor_abess/baselines/lasso.py": "b0ce26433580f51c4a56a99d3748fbd609a7527469669475ff774bab3e1393f0",
+    "src/tensor_abess/baselines/tucker.py": "a90c90b46ded263dd57fc99b926b6d82abb410b4541d9d898fc5b907037b0283",
+    "src/tensor_abess/common/__init__.py": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+    "src/tensor_abess/common/ranks.py": "4684b9504f033aee9cee10a40ab652d8ad76f2e871833fe3f123a883b2a32aa4",
+    "src/tensor_abess/group/__init__.py": "ceb9fc92074ba440ef5c2082453aeba1f67db8da03a49309937e0e5efc32d3e1",
+    "src/tensor_abess/group/adaptive.py": "453f0b2e9568f3a611977151ab20943a120bb9603adb90838d52d4ca5a306376",
+    "src/tensor_abess/group/bess_fix.py": "6577bc8b26b99b45b8a4bd7f154135fd10c0627c520c6a379f8a6616ab9c87fb",
+    "src/tensor_abess/group/sacrifices.py": "b05f00ea51a5d91e01961e468e15ec3ca8046af649f8f2bbb51addd264376155",
+    "src/tensor_abess/group/splicing.py": "0ac340129f4f38f1aaf2c4d7c778f5c763964c9b6792485bcd017147b4d4641c",
+    "src/tensor_abess/metrics/__init__.py": "34ad9b63350042207d203b6c33c481bcf8fbb8e113216a094766e82778ac9eee",
+    "src/tensor_abess/metrics/support.py": "18495d2a039e6d9df9c650c4532a52e8cb59a05594755946098eede234054dd8",
+    "src/tensor_abess/tensor/__init__.py": "a7a284698fe7934f052f95d6b93f595b46262a0b4b81f7e3cbf806fa13850667",
+    "src/tensor_abess/tensor/abess.py": "fc0a87f201f2f6aa18f62667d881cddfddc5d969b70c7b83cf95213c5cc7ee45",
+    "src/tensor_abess/tensor/bcd.py": "db2999e8875acd06fdee2253884fd1c9c1d768ecadb41ef9059969bae0201fd7",
+    "src/tensor_abess/tensor/ops.py": "cc0140752af901e792dc48811d320cb928f0dc917bbc9ccf3f8e8ae1cd9ee0fa",
+    "src/tensor_abess/tensor/reduction.py": "8b8a66856d5e8c8a0a887fb97f911687d6f48b8d25079430abb7ffe550774076",
+    "src/tensor_abess/tensor/sic.py": "84637e426a8ad8d9c471d8f81787135052f10f954475127403d5a9b2b4f51d9f",
+    "src/tensor_abess/utils/__init__.py": "969942a09ec95253bd97eddd57740fea3da8bb1ca0cb9c69074d9244b168e343",
+    "src/tensor_abess/utils/data.py": "67696c6f1327a0f7f9e6c7980a1c7a648d4bf6a9165ce7ea673948891f63937c",
+    "src/tensor_abess/utils/glasso.py": "05cf440fdf5c5cce814264ec35cc6c7b0397cdf229889452abe2e90cd650097d",
+    "src/tensor_abess/utils/init.py": "fb019d1a09c5f421db24ff8ae6821d5c7e01b7e440f0efe177727117a5762962",
+    "src/tensor_abess/utils/validation.py": "d6500d0a227854dfc963f33fb47f97d10ef67527b15a599426c4d1202e669dbe",
+    "src/tensor_abess/vector/__init__.py": "7f8f788a7915a4540f753f8e9a5e9917008ca725cb5b9fb23a8e575e75ab59f7",
+    "src/tensor_abess/vector/abess.py": "901efc50fc964801b44e9e12e90980ea065e15a303b9375f142fc8f0eb0527f0",
+    "src/tensor_abess/vector/sacrifices.py": "2462c4f8f3e447e98218eb2c68811893a24c547b78007848e047c6afd79db9f2",
+    "src/tensor_abess/vector/sic.py": "f562d2736186173f0939de7677a6f14a64c7a2d202bd414929e7aee310c1487b",
+    "src/tensor_abess/vector/splicing.py": "c14f4e47e7c8506ee63422016c69693a303ae5638f7c6ddd097d9baffa8b7e63"
+  },
+  "input_fingerprints": {
+    "X_train": "4cb1397cd8abef2863c54ce612b35ad7b97d259c4aee178c2601b13ca914f722",
+    "y_train": "fabe6bdec14d4c3dd21bbcb99e31c2e4ade0667cb5aea6ceae2c8f9327165265",
+    "B_true": "24351a981cbbf7372eeb1efd4d0f71abeb96bc46963db68ab9a369da88d85fa2",
+    "train_noise": "7a8dd57f26b8786bc6ca88d995333fd29fb3d08170b9f528ee19254e5860231f"
+  },
+  "actual_snr": 1.0,
+  "results": [
+    {
+      "method": "adaptive",
+      "name": "Tensor-ABESS (adaptive)",
+      "metrics": {
+        "mode_precision_1": 0.0,
+        "mode_precision_2": 1.0,
+        "mode_precision_3": 0.0,
+        "mode_tpr_1": 0.0,
+        "mode_tpr_2": 0.3333333333333333,
+        "mode_tpr_3": 0.0,
+        "mode_f1_1": 0.0,
+        "mode_f1_2": 0.5,
+        "mode_f1_3": 0.0,
+        "mode_precision_macro": 0.3333333333333333,
+        "mode_tpr_macro": 0.1111111111111111,
+        "mode_f1_macro": 0.16666666666666666,
+        "exact_recovery": 0.0,
+        "element_precision": 0.0,
+        "element_recall": 0.0,
+        "element_f1": 0.0,
+        "element_fdr": 1.0,
+        "s1_hat": 2.0,
+        "s2_hat": 1.0,
+        "s3_hat": 1.0,
+        "q_hat": 2.0,
+        "ree": 1.1050191103383207,
+        "pmse": 2.211803575557447,
+        "signal_mse": 1.273305411896667,
+        "r2_test": -0.13348821944913447,
+        "loss_train": 0.811332537091903,
+        "rss_train": 324.5330148367612,
+        "runtime_sec": 25.551079533994198,
+        "n_cycles": 5
+      },
+      "sic": 122.52709812728303,
+      "details": {
+        "random_state": 12144,
+        "tensor_abess_mode": "adaptive"
+      },
+      "trace": {
+        "pipeline_init_supports": [
+          [
+            27
+          ],
+          [
+            7
+          ],
+          [
+            12
+          ]
+        ],
+        "pipeline_glasso_init_supports": [
+          [
+            27
+          ],
+          [
+            7
+          ],
+          [
+            12
+          ]
+        ],
+        "s_max": [
+          5,
+          5,
+          5
+        ],
+        "loss_history": [
+          0.9012604019725612,
+          0.8797061248233972,
+          0.8487889616414536,
+          0.811332537091903
+        ],
+        "sic_history": [
+          135.6654482617424,
+          133.14435157629305,
+          133.14435157629305,
+          122.52709812728303
+        ],
+        "initial_supports_scope": "Entrypoint warm starts; adaptive global refinement may select a separately initialized candidate whose starting support is not exposed.",
+        "loss_history_scope": "Selected public solver result; adaptive refinement may replace the original pipeline loss history."
+      }
+    },
+    {
+      "method": "oracle",
+      "name": "Oracle OLS",
+      "metrics": {
+        "mode_precision_1": 1.0,
+        "mode_precision_2": 1.0,
+        "mode_precision_3": 1.0,
+        "mode_tpr_1": 1.0,
+        "mode_tpr_2": 1.0,
+        "mode_tpr_3": 1.0,
+        "mode_f1_1": 1.0,
+        "mode_f1_2": 1.0,
+        "mode_f1_3": 1.0,
+        "mode_precision_macro": 1.0,
+        "mode_tpr_macro": 1.0,
+        "mode_f1_macro": 1.0,
+        "exact_recovery": 1.0,
+        "element_precision": 1.0,
+        "element_recall": 1.0,
+        "element_f1": 1.0,
+        "element_fdr": 0.0,
+        "s1_hat": 4.0,
+        "s2_hat": 3.0,
+        "s3_hat": 5.0,
+        "q_hat": 60.0,
+        "ree": 0.7046447370366838,
+        "pmse": 1.355649231525262,
+        "signal_mse": 0.3583569471311084,
+        "r2_test": 0.3052672259778405,
+        "loss_train": 0.3410261915270858,
+        "rss_train": 136.4104766108343,
+        "runtime_sec": 0.0034790197387337685,
+        "n_cycles": 1
+      },
+      "sic": null,
+      "details": {},
+      "trace": {
+        "diagnostics_available": false,
+        "note": "This existing public method wrapper does not expose its initialization or iteration history."
+      }
+    },
+    {
+      "method": "lasso",
+      "name": "Vector Lasso",
+      "metrics": {
+        "mode_precision_1": 0.125,
+        "mode_precision_2": 0.15,
+        "mode_precision_3": 0.2,
+        "mode_tpr_1": 1.0,
+        "mode_tpr_2": 1.0,
+        "mode_tpr_3": 1.0,
+        "mode_f1_1": 0.2222222222222222,
+        "mode_f1_2": 0.2608695652173913,
+        "mode_f1_3": 0.33333333333333337,
+        "mode_precision_macro": 0.15833333333333335,
+        "mode_tpr_macro": 1.0,
+        "mode_f1_macro": 0.27214170692431566,
+        "exact_recovery": 0.0,
+        "element_precision": 0.00375,
+        "element_recall": 1.0,
+        "element_f1": 0.007471980074719801,
+        "element_fdr": 0.99625,
+        "s1_hat": 32.0,
+        "s2_hat": 20.0,
+        "s3_hat": 25.0,
+        "q_hat": 16000.0,
+        "ree": 1.0052367483771922,
+        "pmse": 1.9407346438225643,
+        "signal_mse": 0.9789574077080835,
+        "r2_test": 0.0054271183211799245,
+        "loss_train": 0.0004414859557912007,
+        "rss_train": 0.17659438231648028,
+        "runtime_sec": 131.1200186163187,
+        "n_cycles": 1
+      },
+      "sic": null,
+      "details": {},
+      "trace": {
+        "diagnostics_available": false,
+        "note": "This existing public method wrapper does not expose its initialization or iteration history."
+      }
+    },
+    {
+      "method": "glasso",
+      "name": "Tensor-GLasso",
+      "metrics": {
+        "mode_precision_1": 0.125,
+        "mode_precision_2": 0.3333333333333333,
+        "mode_precision_3": 0.2,
+        "mode_tpr_1": 1.0,
+        "mode_tpr_2": 0.6666666666666666,
+        "mode_tpr_3": 1.0,
+        "mode_f1_1": 0.2222222222222222,
+        "mode_f1_2": 0.4444444444444444,
+        "mode_f1_3": 0.33333333333333337,
+        "mode_precision_macro": 0.21944444444444444,
+        "mode_tpr_macro": 0.8888888888888888,
+        "mode_f1_macro": 0.3333333333333333,
+        "exact_recovery": 0.0,
+        "element_precision": 0.008333333333333333,
+        "element_recall": 0.6666666666666666,
+        "element_f1": 0.01646090534979424,
+        "element_fdr": 0.9916666666666667,
+        "s1_hat": 32.0,
+        "s2_hat": 6.0,
+        "s3_hat": 25.0,
+        "q_hat": 4800.0,
+        "ree": 1.0140958563142726,
+        "pmse": 1.9901464283934014,
+        "signal_mse": 1.0406261463510182,
+        "r2_test": -0.01989505600385555,
+        "loss_train": 4.823345656524545e-30,
+        "rss_train": 1.929338262609818e-27,
+        "runtime_sec": 1633.199009486474,
+        "n_cycles": 6
+      },
+      "sic": null,
+      "details": {
+        "criterion": "cv"
+      },
+      "trace": {
+        "diagnostics_available": false,
+        "note": "This existing public method wrapper does not expose its initialization or iteration history."
+      }
+    }
+  ],
+  "arrays_file": "task_000118.npz",
+  "npz_sha256": "11e4963263bd91f84dbf5bce8a237a9fb23e5a2f3401ce122f1314aae0ea3dc8",
+  "record_sha256": "6f80e38c8c3fa9c1db0a378faf43a2a4a2ce23eafb62397d9d88c815de92eaf4"
+}

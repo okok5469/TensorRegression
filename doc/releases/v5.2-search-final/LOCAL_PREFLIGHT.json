@@ -1,0 +1,59 @@
+{
+  "status": "passed_local_single_task_only",
+  "plan_id": "6b634645722686a19cb085cabb2de4f0ee126074339c0db9ae738bef130103ef",
+  "task_id": 0,
+  "methods": [
+    "adaptive",
+    "oracle",
+    "lasso",
+    "glasso"
+  ],
+  "method_results": 4,
+  "task_total": 700,
+  "completed_tasks": 1,
+  "missing_task_count": 699,
+  "record_sha256": "9357276f857487cd329ccafbec39b22edf1b3e2b8553392f57efc21f80850fcf",
+  "json_npz_sha256": {
+    "task_000000.json": "2a94eccb7f8b3f47da0ffead2bfaa9f8928b36f732597ce3d364d8c08b734f99",
+    "task_000000.npz": "265e8b882f2cfc71bf6b4fea5d221d21cbaefd1cb69c2ce77fe2cb5c18940af6"
+  },
+  "resume_skipped_unchanged": true,
+  "environment": {
+    "python_version": "3.12.8",
+    "python_implementation": "CPython",
+    "platform": "Windows",
+    "machine": "AMD64",
+    "numpy_version": "1.26.4",
+    "scipy_version": "1.16.1",
+    "blas_build": {
+      "blas": {
+        "name": "openblas64",
+        "found": true,
+        "version": "0.3.23.dev",
+        "detection method": "pkgconfig",
+        "include directory": "/c/opt/64/include",
+        "lib directory": "/c/opt/64/lib",
+        "openblas configuration": "USE_64BITINT=1 DYNAMIC_ARCH=1 DYNAMIC_OLDER= NO_CBLAS= NO_LAPACK= NO_LAPACKE= NO_AFFINITY=1 USE_OPENMP= SKYLAKEX MAX_THREADS=2",
+        "pc file directory": "C:/opt/64/lib/pkgconfig"
+      },
+      "lapack": {
+        "name": "dep3179274605568",
+        "found": true,
+        "version": "1.26.4",
+        "detection method": "internal",
+        "include directory": "unknown",
+        "lib directory": "unknown",
+        "openblas configuration": "unknown",
+        "pc file directory": "unknown"
+      }
+    },
+    "thread_environment": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1"
+    }
+  },
+  "real_slurm_preflight_status": "NOT_RUN",
+  "cluster_gate_written": false
+}

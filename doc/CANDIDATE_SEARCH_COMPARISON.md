@@ -138,4 +138,4 @@ n400中强信号中A2/A3都达到20/20，A0为2/20；收益有明确网格机制
 
 粗A4同minimum 78/90，漏full minimum B 12、selected B 14，其中同min缺one-SE小模型4；真shape漏12、真位置漏7，regret均1.542340/最大36.635607。
 
-确认450所选OLS全满秩，max condition 17.332759，max RSS相对重算差6.087e-16。fixed记录89,259；三个源队列合计207数据、1035所选policy模型、205,588条fixed记录（含cache），不称独立拟合。LOCK两规则的确认评价仍由独立模块完成后记录至MSIC_REEVALUATION，当前未据此重新选择alpha。
+确认450所选OLS全满秩，max condition 17.332759，max RSS相对重算差6.087e-16。fixed记录89,259；三个源队列合计207数据、1035所选policy模型、205,588条fixed记录（含cache），不称独立拟合。LOCK两规则独立确认已完整完成并记录至MSIC_REEVALUATION：90库180行，默认逐值重放、池fingerprint不变、90锁模型数值审计通过，未据此重新选择alpha。A3锁规则Exact27/90、PMSE3.117813，仍高于A2原MSIC3.082733，生产保留v5.1及原MSIC。既有限定测试100基础+31包装器=131通过，未宣称全仓库或实际集群验证完成。

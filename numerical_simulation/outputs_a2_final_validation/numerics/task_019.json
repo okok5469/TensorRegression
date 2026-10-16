@@ -1,0 +1,93 @@
+{
+  "plan_id": "55cd1a254efe2425d650e755950388efa2ff8746aa0ebd83f9cfffdb50cf7cd3",
+  "task_id": 19,
+  "checks_passed": true,
+  "rows": [
+    {
+      "task_id": 19,
+      "group": "A0",
+      "seed": 30504015,
+      "candidate_index": 32,
+      "n_train": 200,
+      "q_hat": 8,
+      "sizes": [
+        2,
+        2,
+        2
+      ],
+      "rank": 8,
+      "rank_deficient": false,
+      "rank_tolerance": 9.146314655560825e-13,
+      "singular_max": 20.59566963729852,
+      "singular_min": 8.06971660341364,
+      "singular_values": [
+        20.59566963729852,
+        16.303578502477958,
+        15.98882137289246,
+        14.655958990116794,
+        12.486797876391007,
+        11.216249966703444,
+        9.910170191525541,
+        8.06971660341364
+      ],
+      "condition_number": 2.552217215234816,
+      "rss_stored": 203.19742426186193,
+      "rss_rectangular": 203.1974242618619,
+      "rss_tensor": 203.1974242618619,
+      "rss_independent_ols": 203.1974242618619,
+      "rss_relative_difference": 1.3987239028077813e-16,
+      "ols_rss_relative_difference": 0.0,
+      "prediction_max_abs_difference": 2.220446049250313e-16,
+      "normal_equation_residual": 1.2728630567559887e-13,
+      "normal_equation_relative_residual": 3.6921118817465497e-16,
+      "beta_l2_difference_from_independent_ols": 0.0,
+      "beta_relative_difference_from_independent_ols": 0.0,
+      "coefficients_nonunique": false,
+      "checks_passed": true,
+      "audit_seconds": 0.02933000004850328
+    },
+    {
+      "task_id": 19,
+      "group": "A2",
+      "seed": 30504015,
+      "candidate_index": 32,
+      "n_train": 200,
+      "q_hat": 8,
+      "sizes": [
+        2,
+        2,
+        2
+      ],
+      "rank": 8,
+      "rank_deficient": false,
+      "rank_tolerance": 9.146314655560825e-13,
+      "singular_max": 20.59566963729852,
+      "singular_min": 8.06971660341364,
+      "singular_values": [
+        20.59566963729852,
+        16.303578502477958,
+        15.98882137289246,
+        14.655958990116794,
+        12.486797876391007,
+        11.216249966703444,
+        9.910170191525541,
+        8.06971660341364
+      ],
+      "condition_number": 2.552217215234816,
+      "rss_stored": 203.19742426186193,
+      "rss_rectangular": 203.1974242618619,
+      "rss_tensor": 203.1974242618619,
+      "rss_independent_ols": 203.1974242618619,
+      "rss_relative_difference": 1.3987239028077813e-16,
+      "ols_rss_relative_difference": 0.0,
+      "prediction_max_abs_difference": 2.220446049250313e-16,
+      "normal_equation_residual": 1.2728630567559887e-13,
+      "normal_equation_relative_residual": 3.6921118817465497e-16,
+      "beta_l2_difference_from_independent_ols": 0.0,
+      "beta_relative_difference_from_independent_ols": 0.0,
+      "coefficients_nonunique": false,
+      "checks_passed": true,
+      "audit_seconds": 0.024273599963635206
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "only_changed_core_file": [
+    "tensor/bcd.py"
+  ],
+  "bcd_AST_identical_after_removing_grid_function": true,
+  "ordered_grid_checks": [
+    {
+      "caps": [
+        4,
+        4,
+        4
+      ],
+      "n": 100,
+      "v51_count": 64,
+      "v52_count": 64,
+      "same_ordered_grid": true,
+      "truth_shape_in_v51": false,
+      "truth_shape_in_v52": false
+    },
+    {
+      "caps": [
+        5,
+        5,
+        5
+      ],
+      "n": 200,
+      "v51_count": 125,
+      "v52_count": 125,
+      "same_ordered_grid": true,
+      "truth_shape_in_v51": true,
+      "truth_shape_in_v52": true
+    },
+    {
+      "caps": [
+        6,
+        6,
+        7
+      ],
+      "n": 400,
+      "v51_count": 150,
+      "v52_count": 252,
+      "same_ordered_grid": false,
+      "truth_shape_in_v51": false,
+      "truth_shape_in_v52": true
+    },
+    {
+      "caps": [
+        4,
+        4,
+        5
+      ],
+      "n": 116,
+      "v51_count": 80,
+      "v52_count": 80,
+      "same_ordered_grid": true,
+      "truth_shape_in_v51": true,
+      "truth_shape_in_v52": true
+    }
+  ],
+  "formal_selected_caps": {
+    "0": {
+      "(5, 5, 5)": 50
+    },
+    "1": {
+      "(5, 5, 5)": 50
+    },
+    "5": {
+      "(4, 4, 4)": 50
+    },
+    "7": {
+      "(6, 6, 7)": 50
+    },
+    "11": {
+      "(5, 5, 5)": 50
+    }
+  },
+  "lemon_cap_audit": {
+    "n_train": 116,
+    "dims": [
+      61,
+      16,
+      5
+    ],
+    "c": 3,
+    "all_possible_initial_support_length_combinations": 6324,
+    "resulting_caps": [
+      [
+        4,
+        4,
+        5
+      ]
+    ],
+    "method": "Execute only the original cap-generation AST assignments/loop, for every possible mode initialization length; no fitting or new data."
+  },
+  "limitation": "Structural equivalence and coverage checks, not completion of 250 v5.1 numerical fits.",
+  "source_sha256": {
+    "doc\\algorithm_versions\\v5.1-bcd-fix\\src\\tensor_abess\\tensor\\bcd.py": "c5e67a666c8c120bfcd9ff000a5c6b1bcd7c0be37e0b549a0a34ca61ecfbd737",
+    "src\\tensor_abess\\tensor\\bcd.py": "db2999e8875acd06fdee2253884fd1c9c1d768ecadb41ef9059969bae0201fd7",
+    "src\\tensor_abess\\utils\\init.py": "fb019d1a09c5f421db24ff8ae6821d5c7e01b7e440f0efe177727117a5762962"
+  }
+}

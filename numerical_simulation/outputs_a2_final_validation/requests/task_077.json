@@ -1,0 +1,49 @@
+{
+  "config": {
+    "n_train": 400,
+    "n_test": 500,
+    "dims": [
+      32,
+      20,
+      25
+    ],
+    "sparsity": [
+      3,
+      4,
+      5
+    ],
+    "rho": [
+      0.3,
+      0.3,
+      0.3
+    ],
+    "snr": 0.5,
+    "support_shape": "continuous",
+    "sigma": 1,
+    "k_max": 1,
+    "max_cycles": 6,
+    "n_lambdas": 20,
+    "cv_folds": 5,
+    "max_iter": 500,
+    "tol": 1e-06,
+    "abess_init_criterion": "bic",
+    "abess_init_c": 3,
+    "tensor_abess_mode": "adaptive",
+    "msic_refine_alpha": 1.5,
+    "msic_refine_gamma": 1,
+    "msic_refine_one_se_scale": 1,
+    "random_state": 2026,
+    "test_batch_size": 100
+  },
+  "seed": 30516013,
+  "test_seed": 31516013,
+  "groups": [
+    "A0",
+    "A2"
+  ],
+  "fit_options": {
+    "candidate_budget": 2000,
+    "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+    "cache": "One explicit training fixed cache shared A0 then A2; standalone estimates add cached fit_seconds, never claim cold measurement"
+  }
+}

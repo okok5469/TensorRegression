@@ -1,0 +1,16 @@
+{
+  "plan_id": "55cd1a254efe2425d650e755950388efa2ff8746aa0ebd83f9cfffdb50cf7cd3",
+  "checks_passed": true,
+  "scope": "a2_final_validation",
+  "test_count": 135,
+  "commands": [
+    "84 existing candidate/stability/MSIC unittest passed",
+    "29 BCD/numerical pytest passed",
+    "22 new runner/analysis unittest passed"
+  ],
+  "cluster_actual_execution": false,
+  "python39_syntax_files": 4,
+  "excluded_scope": "test_phase_c not collected because optional sklearn is absent; no baseline source changed; whole repository not tested",
+  "completed_tasks": 100,
+  "paired_group_rows": 200
+}

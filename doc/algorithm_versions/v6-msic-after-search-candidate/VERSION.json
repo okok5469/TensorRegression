@@ -77,8 +77,15 @@
     "confirmation_search_plan_id": "be7b227228164e6dbbf3d7305e93717c62128e6982f5ff36000a1f1218fd973c",
     "historical_search_plan_id": "889780a394bf8a9fa93c60302521b37557a143abde079f9b3a4316f2a5d736b7"
   },
-  "confirmation_status": "in_progress_not_yet_validated",
-  "confirmation_evidence": "No partial confirmation scoring or rule reselection performed by this identity task. Full source cohort plus two-rule LOCK scoring must complete before reporting confirmation evidence.",
+  "confirmation_status": "complete_validated_research_only",
+  "confirmation_evidence": "The complete ninety-dataset parent cohort and 180 two-rule LOCK rows passed integrity checks; ninety default models replay exactly, pool fingerprints and LOCK remain unchanged, and ninety locked models passed numerical checks. No confirmation-based rule reselection or formal adoption performed.",
+  "confirmation_integrity_report": "numerical_simulation/outputs_msic_after_search/confirmation_final/integrity_report.json",
+  "confirmation_msic_plan_id": "bbe68b14511ae56597bb40e24b7ea2e1ef9fe3e79553dcf04fdb190863883d34",
+  "confirmation_numerics_report": "numerical_simulation/outputs_msic_after_search/confirmation_final/locked_numerics_diagnostics.json",
+  "confirmation_locked_exact_count": 27,
+  "confirmation_dataset_count": 90,
+  "confirmation_locked_pmse_mean": 3.1178132231157893,
+  "final_research_decision": "Retain production v5.1 and original MSIC; prioritize independent A2 validation across additional support shapes and correlations. A3 LOCK evidence does not approve A2 MSIC migration or formal v6 release.",
   "test_evidence": {
     "wrapper_limited_tests": 31,
     "wrapper_test_counts": {

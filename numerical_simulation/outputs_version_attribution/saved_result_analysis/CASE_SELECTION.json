@@ -1,0 +1,15 @@
+{
+  "rule": "Before loading model arrays: largest 3 increases, largest 3 decreases, first gained-exact/worse-PMSE, worst lost-exact; all by saved metrics, no tuning.",
+  "task_ids": [
+    45,
+    127,
+    259,
+    277,
+    299,
+    562,
+    585
+  ],
+  "refitting_allowed": false,
+  "reason_no_reconstruction": "Local training fingerprints do not match formal worker environment.",
+  "sha256": "2d4bc193ff135e7cd7394f4a0038a55afff2582cf405133f1fdc001c2ecebb51"
+}

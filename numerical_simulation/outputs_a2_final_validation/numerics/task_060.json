@@ -1,0 +1,89 @@
+{
+  "plan_id": "55cd1a254efe2425d650e755950388efa2ff8746aa0ebd83f9cfffdb50cf7cd3",
+  "task_id": 60,
+  "checks_passed": true,
+  "rows": [
+    {
+      "task_id": 60,
+      "group": "A0",
+      "seed": 30513011,
+      "candidate_index": 56,
+      "n_train": 200,
+      "q_hat": 6,
+      "sizes": [
+        3,
+        2,
+        1
+      ],
+      "rank": 6,
+      "rank_deficient": false,
+      "rank_tolerance": 7.992721508706683e-13,
+      "singular_max": 17.998008804143783,
+      "singular_min": 10.681628205153286,
+      "singular_values": [
+        17.998008804143783,
+        15.183741903543583,
+        14.348042549200699,
+        12.902786275375,
+        11.760005133440389,
+        10.681628205153286
+      ],
+      "condition_number": 1.684949940071941,
+      "rss_stored": 196.63379819988302,
+      "rss_rectangular": 196.63379819988296,
+      "rss_tensor": 196.63379819988296,
+      "rss_independent_ols": 196.63379819988296,
+      "rss_relative_difference": 2.890826469365419e-16,
+      "ols_rss_relative_difference": 0.0,
+      "prediction_max_abs_difference": 0.0,
+      "normal_equation_residual": 7.801663272141853e-14,
+      "normal_equation_relative_residual": 2.767085285940433e-16,
+      "beta_l2_difference_from_independent_ols": 0.0,
+      "beta_relative_difference_from_independent_ols": 0.0,
+      "coefficients_nonunique": false,
+      "checks_passed": true,
+      "audit_seconds": 0.025004299939610064
+    },
+    {
+      "task_id": 60,
+      "group": "A2",
+      "seed": 30513011,
+      "candidate_index": 56,
+      "n_train": 200,
+      "q_hat": 6,
+      "sizes": [
+        3,
+        2,
+        1
+      ],
+      "rank": 6,
+      "rank_deficient": false,
+      "rank_tolerance": 7.992721508706683e-13,
+      "singular_max": 17.998008804143783,
+      "singular_min": 10.681628205153286,
+      "singular_values": [
+        17.998008804143783,
+        15.183741903543583,
+        14.348042549200699,
+        12.902786275375,
+        11.760005133440389,
+        10.681628205153286
+      ],
+      "condition_number": 1.684949940071941,
+      "rss_stored": 196.63379819988302,
+      "rss_rectangular": 196.63379819988296,
+      "rss_tensor": 196.63379819988296,
+      "rss_independent_ols": 196.63379819988296,
+      "rss_relative_difference": 2.890826469365419e-16,
+      "ols_rss_relative_difference": 0.0,
+      "prediction_max_abs_difference": 0.0,
+      "normal_equation_residual": 7.801663272141853e-14,
+      "normal_equation_relative_residual": 2.767085285940433e-16,
+      "beta_l2_difference_from_independent_ols": 0.0,
+      "beta_relative_difference_from_independent_ols": 0.0,
+      "coefficients_nonunique": false,
+      "checks_passed": true,
+      "audit_seconds": 0.023354000062681735
+    }
+  ]
+}

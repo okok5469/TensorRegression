@@ -1,0 +1,13 @@
+{
+  "version": "v5.2-search-final",
+  "plan_id": "30f231df0327e58331a18580dc8a03caeb0872dc991e57c42b095556100a80f6",
+  "job_id": "36652",
+  "array_job_id": "36255",
+  "array_task_count": 699,
+  "task_id": 396,
+  "outcome": "completed",
+  "record_sha256": "502ce669026d4ddd0c7663f634097f9df1bab8deb3f197ff223be9c64fb762cf",
+  "log": "slurm/task_000396_36652_1791935463378559958.log",
+  "log_sha256": "80ccbe97486a0eba9c83b46dbd998d3d287fda7d8f962b6df66e9288ef15efed",
+  "sha256": "7a8154e20b164040359b870dc35cb0c453317f590e4e3b99e6b0e5d213dcbb51"
+}

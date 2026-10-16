@@ -2,7 +2,7 @@
 
 ## 当前实际状态
 
-Phase B/D所有组保持原mode alpha1、global alpha1.5、gamma1、one_se_scale1。历史27和新开发90均完整核验，新增场景grid恢复收益已复现，预声明A3的研究门槛解释见COMPARISON。已完成原规则下的搜索/选择诊断，Phase E已完成90个开发冻结库的11规则重评分（990行）及三个预定代表任务完整重新拟合；原90个独立confirmation正在计算，尚未完成确认统计。任务卡2的旧候选库消融不能改标签为本轮搜索后的消融。
+Phase B/D所有组保持原mode alpha1、global alpha1.5、gamma1、one_se_scale1。历史27、新开发90及独立确认90均完整核验，新增场景grid恢复收益已复现，预声明A3的研究门槛解释见COMPARISON。已完成原规则下的搜索/选择诊断，Phase E已完成90个开发冻结库的11规则重评分（990行）、三个预定代表任务完整重新拟合及独立确认90库两规则评价（180行）。任务卡2的旧候选库消融不能改标签为本轮搜索后的消融。
 
 进入Phase E的预声明条件见CANDIDATE_SEARCH_PROTOCOL.md：完整开发评价必须同时考察覆盖、恢复、预测与成本，覆盖若未转化为可信恢复或预测收益，停止进入正式MSIC调整。未声明数值5%等门槛，不会事后发明。若有依据进入，机制先固定A3，然后才从同一库比较alpha1.5/2/3×scale0/.5/1和tensor-SIC/BIC，开发选规则、独立确认只评价；alpha2/scale0只为事先优先候选，不是已确定最优。
 
@@ -27,9 +27,9 @@ Phase B/D所有组保持原mode alpha1、global alpha1.5、gamma1、one_se_scale
 
 ## 独立验证与正式采用
 
-本报告不是新的MSIC最优参数宣告。若门槛不通过，明确停止Phase E、保留未执行confirmation，不为推进流程强行调整惩罚；若通过，重评分与完整重新拟合分开记，候选库hash不得变化，每内CV折必须重搜位置，不能用全训练固定支撑进行伪CV。当前无v6源码，生产MSIC默认未变，700 full及三个实证ABESS重训未启动。
+本报告不是新的MSIC最优参数宣告。预声明要求门槛不通过则停止Phase E，不能为推进流程强行调整惩罚；本轮通过研究门槛后完成了重评分、三个代表完整重新拟合和独立确认，三类证据分开记录。每内CV折必须重搜位置，不能用全训练固定支撑进行伪CV。本轮v6-msic-after-search-candidate仅为研究包装器，未形成正式v6，生产MSIC默认未变，700 full及三个实证ABESS重训未启动。
 
-开发门槛已在COMPARISON明确：有复现的grid恢复收益支持进入研究，但caps负效应和预测恶化不支持正式替换。完整开发重评分与三个fresh核验结果如下；确认统计完成后补充独立证据与最终版本意见。
+开发门槛已在COMPARISON明确：有复现的grid恢复收益支持进入研究，但caps负效应和预测恶化不支持正式替换。完整开发重评分、三个fresh核验及最终独立确认结果如下。
 
 ## 新开发原MSIC的失败分层
 
@@ -89,6 +89,15 @@ source A3 pool不变，90旧默认的全部非runtime字段逐值重放；每个
 
 ## 独立确认执行状态
 
-原预声明confirmation_final90×A0–A4（be7b227228164e6dbbf3d7305e93717c62128e6982f5ff36000a1f1218fd973c）在LOCK及三fresh通过后才启动。种子/配置/预算2000/core/source没有变，也没有重新生成A3-only计划；保留独立A0/A2对照。当前进行中，尚不报告部分性能或修改LOCK。完成后先核完整父队列，再独立两规则重评分及90锁模型OLS/rank/condition审计。
+原预声明confirmation_final90×A0–A4（be7b227228164e6dbbf3d7305e93717c62128e6982f5ff36000a1f1218fd973c）在LOCK及三fresh通过后才启动，并已全部完成。种子/配置/预算2000/core/source没有变，也没有重新生成A3-only计划；保留独立A0/A2对照。完整父队列核验后完成独立两规则重评分及90锁模型OLS/rank/condition审计，没有根据部分或完整确认结果重新挑选规则。
 
-本轮研究身份v6-msic-after-search-candidate与任务卡2旧v6-msic-candidate分开，均不代表正式采用。生产仍v5.1，未运行700正式full或实证重训；最终结论需独立确认。
+确认产物为numerical_simulation/outputs_msic_after_search/confirmation_final，plan bbe68b14511ae56597bb40e24b7ea2e1ef9fe3e79553dcf04fdb190863883d34。integrity报告complete/checks_passed：90数据、180评价、90默认逐值重放、池fingerprint不变，LOCK SHA仍c42f78f63a370b500310497e32ba7903ad37314721dc591fb445ed1d298e8d0b；这是冻结库重评分，不是90次新BCD拟合。
+
+|A3规则|Exact|Mode-F1|Element-F1|PMSE|平均q|过选|欠选|q=1|近容量上限|
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+|原alpha1.5/scale1|22/90|0.617321|0.442110|3.637476|64.655556|28/90|27/90|1/90|10/90|
+|锁定alpha2/scale0|27/90|0.623131|0.467940|3.117813|44.955556|13/90|39/90|2/90|8/90|
+
+锁规则相对A3默认PMSE均差−0.519663，33胜/49平/8负，改变B41/90。恢复和预测收益独立复现，但欠选由27增至39例，且总体PMSE仍高于A2原MSIC的3.082733；不能由此认定A2应采用alpha2/scale0。90锁模型满秩，最大condition17.332759，RSS相对重算差≤6.0871e−16、独立OLS RSS差0、normal equation相对残差≤1.9726e−15。
+
+本轮研究身份v6-msic-after-search-candidate与任务卡2旧v6-msic-candidate分开，均不代表正式采用。最终保持生产v5.1及原MSIC，推荐下一阶段独立扩展验证A2；未运行700正式full或实证重训。既有限定测试100基础+31包装器=131通过，不代表全仓库测试或集群Python3.9/NumPy2实际执行通过，本次文档收尾没有追加拟合或重跑测试。

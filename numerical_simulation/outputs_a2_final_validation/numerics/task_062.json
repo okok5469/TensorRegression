@@ -1,0 +1,79 @@
+{
+  "plan_id": "55cd1a254efe2425d650e755950388efa2ff8746aa0ebd83f9cfffdb50cf7cd3",
+  "task_id": 62,
+  "checks_passed": true,
+  "rows": [
+    {
+      "task_id": 62,
+      "group": "A0",
+      "seed": 30513013,
+      "candidate_index": 1,
+      "n_train": 200,
+      "q_hat": 1,
+      "sizes": [
+        1,
+        1,
+        1
+      ],
+      "rank": 1,
+      "rank_deficient": false,
+      "rank_tolerance": 6.694903602505933e-13,
+      "singular_max": 15.075582684763557,
+      "singular_min": 15.075582684763557,
+      "singular_values": [
+        15.075582684763557
+      ],
+      "condition_number": 1.0,
+      "rss_stored": 273.8788861199231,
+      "rss_rectangular": 273.8788861199231,
+      "rss_tensor": 273.8788861199231,
+      "rss_independent_ols": 273.8788861199231,
+      "rss_relative_difference": 0.0,
+      "ols_rss_relative_difference": 0.0,
+      "prediction_max_abs_difference": 0.0,
+      "normal_equation_residual": 1.7763568394002505e-14,
+      "normal_equation_relative_residual": 7.00661306147766e-17,
+      "beta_l2_difference_from_independent_ols": 0.0,
+      "beta_relative_difference_from_independent_ols": 0.0,
+      "coefficients_nonunique": false,
+      "checks_passed": true,
+      "audit_seconds": 0.015734100015833974
+    },
+    {
+      "task_id": 62,
+      "group": "A2",
+      "seed": 30513013,
+      "candidate_index": 1,
+      "n_train": 200,
+      "q_hat": 1,
+      "sizes": [
+        1,
+        1,
+        1
+      ],
+      "rank": 1,
+      "rank_deficient": false,
+      "rank_tolerance": 6.694903602505933e-13,
+      "singular_max": 15.075582684763557,
+      "singular_min": 15.075582684763557,
+      "singular_values": [
+        15.075582684763557
+      ],
+      "condition_number": 1.0,
+      "rss_stored": 273.8788861199231,
+      "rss_rectangular": 273.8788861199231,
+      "rss_tensor": 273.8788861199231,
+      "rss_independent_ols": 273.8788861199231,
+      "rss_relative_difference": 0.0,
+      "ols_rss_relative_difference": 0.0,
+      "prediction_max_abs_difference": 0.0,
+      "normal_equation_residual": 1.7763568394002505e-14,
+      "normal_equation_relative_residual": 7.00661306147766e-17,
+      "beta_l2_difference_from_independent_ols": 0.0,
+      "beta_relative_difference_from_independent_ols": 0.0,
+      "coefficients_nonunique": false,
+      "checks_passed": true,
+      "audit_seconds": 0.01300989999435842
+    }
+  ]
+}

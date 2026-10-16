@@ -1,0 +1,10 @@
+{
+  "scope": "Documentation label only; no change to frozen scientific protocol, plan, datasets, fit results, analysis rules, or approval gates",
+  "protocol_sha256_unchanged": "2300285beca35adf92436e3774c0bbd156d981ac56dcb87bfc6eaba1c665cc00",
+  "plan_id_unchanged": "55cd1a254efe2425d650e755950388efa2ff8746aa0ebd83f9cfffdb50cf7cd3",
+  "original_task_card_label": "???/???4.md",
+  "actual_task_card_path": "任务卡/任务卡4.md",
+  "actual_task_card_sha256": "6d6925027fd376706943f43f512d4a0a635087e99b598edc816b6f292b8c38fc",
+  "cause": "PowerShell source-code pipe used its default encoding for a Chinese string literal; the task_card display label is not consumed by the experiment runner",
+  "action": "Original protocol bytes remain immutable. This note supplies the verified source-document reference; all numerical settings, source/environment checksums, seeds, and results remain untouched"
+}

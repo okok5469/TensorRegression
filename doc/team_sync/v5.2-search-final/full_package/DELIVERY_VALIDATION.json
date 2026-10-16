@@ -1,0 +1,83 @@
+{
+  "status": "PASSED",
+  "deliveries": [
+    {
+      "zip": "Tensor-ABESS-v5.2-HCP.zip",
+      "bytes": 49943,
+      "sha256": "899133561b556174af9c70d064ab6a0e2419b136b3ab7b53871b1bc0ff07cacc",
+      "core_files_verified": 32,
+      "isolated_python": true,
+      "checks": [
+        {
+          "command": [
+            "scripts/check_version.py",
+            "--import-check"
+          ],
+          "stdout": "{\"version\": \"v5.2-search-final\", \"verified_core_files\": 32, \"import_checked\": true}\n",
+          "stderr": "",
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "examples/smoke_test.py"
+          ],
+          "stdout": "{\"smoke\": \"PASSED\", \"results\": {\"fixed\": {\"B_shape\": [6, 5, 4], \"supports\": [[0, 1], [0, 1], [0, 1]], \"q\": 8, \"loss\": 0.004361429627082576, \"rss\": 0.41869724419992727}, \"adaptive\": {\"B_shape\": [6, 5, 4], \"supports\": [[0, 1], [0, 1], [0, 1]], \"q\": 8, \"loss\": 0.004361429627082576, \"rss\": 0.41869724419992727}}}\n",
+          "stderr": "",
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-q"
+          ],
+          "stdout": "",
+          "stderr": "----------------------------------------------------------------------\nRan 2 tests in 1.115s\n\nOK\n",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "zip": "Tensor-ABESS-v5.2-NKI.zip",
+      "bytes": 49943,
+      "sha256": "899133561b556174af9c70d064ab6a0e2419b136b3ab7b53871b1bc0ff07cacc",
+      "core_files_verified": 32,
+      "isolated_python": true,
+      "checks": [
+        {
+          "command": [
+            "scripts/check_version.py",
+            "--import-check"
+          ],
+          "stdout": "{\"version\": \"v5.2-search-final\", \"verified_core_files\": 32, \"import_checked\": true}\n",
+          "stderr": "",
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "examples/smoke_test.py"
+          ],
+          "stdout": "{\"smoke\": \"PASSED\", \"results\": {\"fixed\": {\"B_shape\": [6, 5, 4], \"supports\": [[0, 1], [0, 1], [0, 1]], \"q\": 8, \"loss\": 0.004361429627082576, \"rss\": 0.41869724419992727}, \"adaptive\": {\"B_shape\": [6, 5, 4], \"supports\": [[0, 1], [0, 1], [0, 1]], \"q\": 8, \"loss\": 0.004361429627082576, \"rss\": 0.41869724419992727}}}\n",
+          "stderr": "",
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-q"
+          ],
+          "stdout": "",
+          "stderr": "----------------------------------------------------------------------\nRan 2 tests in 1.510s\n\nOK\n",
+          "exit_code": 0
+        }
+      ]
+    }
+  ]
+}

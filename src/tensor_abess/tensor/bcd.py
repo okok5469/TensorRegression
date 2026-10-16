@@ -57,24 +57,14 @@ def _candidate_size_triples(
     s2_max: int,
     s3_max: int,
     max_params: int,
-    *,
-    window: int = 3,
 ) -> list[tuple[int, int, int]]:
-    def values_for_cap(s_max: int) -> list[int]:
-        cap = int(s_max)
-        near_cap = range(max(1, cap - window + 1), cap + 1)
-        anchors = {1, max(1, round(0.4 * cap)), max(1, round(0.6 * cap))}
-        return sorted({*near_cap, *anchors})
-
-    ranges = [values_for_cap(s_max) for s_max in (s1_max, s2_max, s3_max)]
-    triples = [
+    return [
         (s1, s2, s3)
-        for s1 in ranges[0]
-        for s2 in ranges[1]
-        for s3 in ranges[2]
+        for s1 in range(1, int(s1_max) + 1)
+        for s2 in range(1, int(s2_max) + 1)
+        for s3 in range(1, int(s3_max) + 1)
         if s1 * s2 * s3 <= max_params
     ]
-    return triples or [(1, 1, 1)]
 
 
 def _marginal_supports_for_size(

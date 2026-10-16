@@ -1,0 +1,36 @@
+{
+  "source": {
+    "exit_code": 0,
+    "stdout": "{\n  \"source\": \"scripts\\\\taskcard6\\\\figures.py\",\n  \"backend\": \"python\",\n  \"summary\": {\n    \"ready\": true,\n    \"strict\": false,\n    \"counts\": {\n      \"PASS\": 20,\n      \"WARN\": 1,\n      \"FAIL\": 0\n    }\n  },\n  \"findings\": [\n    {\n      \"check_id\": \"SOURCE-SYNTAX\",\n      \"level\": \"PASS\",\n      \"message\": \"Python source parses successfully\",\n      \"evidence\": []\n    },\n    {\n      \"check_id\": \"FONT-FAMILY\",\n      \"level\": \"PASS\",\n      \"message\": \"A publication-safe sans-serif family is configured\",\n      \"evidence\": [\n        \"Arial\",\n        \"sans-serif\"\n      ]\n    },\n    {\n      \"check_id\": \"FONT-SIZE\",\n      \"level\": \"PASS\",\n      \"message\": \"All detected text sizes are at least 5 pt (minimum 6 pt)\",\n      \"evidence\": []\n    },\n    {\n      \"check_id\": \"FONT-GLYPH-FLOOR\",\n      \"level\": \"PASS\",\n      \"message\": \"No mathtext superscript/subscript expression detected\",\n      \"evidence\": []\n    },\n    {\n      \"check_id\": \"LEGEND-LABEL-CASE\",\n      \"level\": \"PASS\",\n      \"message\": \"Detected literal legend labels start with display-style capitalization\",\n      \"evidence\": []\n    },\n    {\n      \"check_id\": \"COLOR-MAP\",\n      \"level\": \"PASS\",\n      \"message\": \"No rainbow/jet/hsv color mapping detected\",\n      \"evidence\": []\n    },\n    {\n      \"check_id\": \"EDITABLE-TEXT\",\n      \"level\": \"PASS\",\n      \"message\": \"SVG and PDF editable-text settings are configured\",\n      \"evidence\": []\n    },\n    {\n      \"check_id\": \"EXPORT-VECTOR\",\n      \"level\": \"PASS\",\n      \"message\": \"Both SVG and PDF exports are present\",\n      \"evidence\": []\n    },\n    {\n      \"check_id\": \"EXPORT-RASTER\",\n      \"level\": \"WARN\",\n      \"message\": \"PNG preview is present but no TIFF submission raster was found\",\n      \"evidence\": []\n    },\n    {\n      \"check_id\": \"RASTER-DPI\",\n      \"level\": \"PASS\",\n      \"message\": \"A raster export of at least 600 dpi is configured\",\n      \"evidence\": [\n        \"600\"\n      ]\n    },\n    {\n      \"check_id\": \"FINAL-WIDTH\",\n      \"level\": \"PASS\",\n      \"message\": \"Detected width 183.0 mm matches a common journal column width\",\n      \"evidence\": []\n    },\n    {\n      \"check_id\": \"DATA-SAMPLING\",\n      \"level\": \"PASS\",\n      \"message\": \"No high-confidence row-sampling operation detected\",\n      \"evidence\": []\n    },\n    {\n      \"check_id\": \"DATA-EXCLUSION\",\n      \"level\": \"PASS\",\n      \"message\": \"No high-confidence missing-data exclusion detected\",\n      \"evidence\": []\n    },\n    {\n      \"check_id\": \"DEMO-DATA\",\n      \"level\": \"PASS\",\n      \"message\": \"No obvious simulated-data generator detected\",\n      \"evidence\": []\n    },\n    {\n      \"check_id\": \"LOG-GUARD\",\n      \"level\": \"PASS\",\n      \"message\": \"No logarithmic transform or axis detected\",\n      \"evidence\": []\n    },\n    {\n      \"check_id\": \"INTERP-MONOTONIC\",\n      \"level\": \"PASS\",\n      \"message\": \"No NumPy interpolation requiring an increasing x-grid detected\",\n      \"evidence\": []\n    },\n    {\n      \"check_id\": \"UNCERTAINTY-ENCODING\",\n      \"level\": \"PASS\",\n      \"message\": \"No stochastic aggregate requiring a variability audit was inferred\",\n      \"evidence\": []\n    },\n    {\n      \"check_id\": \"ROTATION-ANCHOR\",\n      \"level\": \"PASS\",\n      \"message\": \"No rotated Matplotlib text detected\",\n      \"evidence\": []\n    },\n    {\n      \"check_id\": \"ANNOTATION-WORKAROUND\",\n      \"level\": \"PASS\",\n      \"message\": \"No high-risk hard-coded label height or opaque white text mask detected\",\n      \"evidence\": []\n    },\n    {\n      \"check_id\": \"PANEL-ALIGNMENT-GATE\",\n      \"level\": \"PASS\",\n      \"message\": \"Render-time panel-alignment gate is wired into the plotting source\",\n      \"evidence\": [\n        \"require_matplotlib_panel_alignment(\"\n      ]\n    },\n    {\n      \"check_id\": \"BACKEND-EXCLUSIVE\",\n      \"level\": \"PASS\",\n      \"message\": \"No obvious cross-backend plotting reference found for python\",\n      \"evidence\": []\n    }\n  ]\n}\n",
+    "stderr": ""
+  },
+  "simulation_tail_font": {
+    "exit_code": 0,
+    "stdout": "{\n  \"pdf\": \"doc\\\\taskcard6\\\\figures\\\\simulation_tail.pdf\",\n  \"auditable\": true,\n  \"minimum_required_pt\": 5.0,\n  \"minimum_found_pt\": 6.0,\n  \"text_run_count\": 36,\n  \"below_minimum_count\": 0,\n  \"below_minimum\": [],\n  \"warnings\": []\n}\n",
+    "stderr": ""
+  },
+  "simulation_tail_collision": {
+    "exit_code": 0,
+    "stdout": "Nature Figure Rendered Collision Audit\npdf: doc\\taskcard6\\figures\\simulation_tail.pdf\npages: 1\nvisible text boxes: 36\nstroke paths: 92\n\n\nsummary: 0 fail, 0 warn, 0 contained fill overlays, 0 contained image overlays\nverdict: PASS\nnote: contained overlays can be intentional; WARN findings need final-size visual review\n",
+    "stderr": ""
+  },
+  "lemon_prediction_capacity_font": {
+    "exit_code": 0,
+    "stdout": "{\n  \"pdf\": \"doc\\\\taskcard6\\\\figures\\\\lemon_prediction_capacity.pdf\",\n  \"auditable\": true,\n  \"minimum_required_pt\": 5.0,\n  \"minimum_found_pt\": 6.0,\n  \"text_run_count\": 30,\n  \"below_minimum_count\": 0,\n  \"below_minimum\": [],\n  \"warnings\": []\n}\n",
+    "stderr": ""
+  },
+  "lemon_prediction_capacity_collision": {
+    "exit_code": 0,
+    "stdout": "Nature Figure Rendered Collision Audit\npdf: doc\\taskcard6\\figures\\lemon_prediction_capacity.pdf\npages: 1\nvisible text boxes: 30\nstroke paths: 87\n\n\nsummary: 0 fail, 0 warn, 0 contained fill overlays, 0 contained image overlays\nverdict: PASS\nnote: contained overlays can be intentional; WARN findings need final-size visual review\n",
+    "stderr": ""
+  },
+  "manual_review": {
+    "panels_inspected": 4,
+    "glyph_floor_pt": 6,
+    "width_mm": 183,
+    "data_exclusions": 0,
+    "uncertainty_scope": "Scene descriptive paired t intervals only; ECDF/individual CV repeats/folds have no IID inference.",
+    "accepted_warning": "PNG/PDF/SVG delivered for internal research reporting; TIFF not requested, no journal submission compliance claimed.",
+    "notes": "Both final PNGs visually inspected at final layout; no clipped text or overlapping legends. Alignment checked before exports, collision audited after final export."
+  }
+}

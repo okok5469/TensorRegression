@@ -1,0 +1,98 @@
+{
+  "plan_id": "84a2de83439725518dfe7094d83b88d05417ff48c0929c60261585728bd2c2cf",
+  "task_id": 0,
+  "fit_executed": false,
+  "expected": {
+    "X_train": "900e9ed1f8d2e97faa4178d61ad8bde9d8842cc462d9b251c8f0564c4010316d",
+    "y_train": "1ea43a62ce12d7c50e943c383093aee192de1aba0d43345183051c48736b1703",
+    "B_true": "c78870472cd59b47dea2921f9533b51cb89ef6a3c49b13fa98dc37dfdb4e2122",
+    "train_noise": "35bdb0c276850bf2635d0982c304d0d894fa0101f7a9e7e6d8ed6bc056afae35"
+  },
+  "actual": {
+    "X_train": "9e389aa265951b86bdbf7b312e69b1521cd2c5bc55d56dcb1365c6c2da5e893c",
+    "y_train": "abfd40af81bac31783e250c2bcc674aef43515f7ae45b6893058a035123c6dfa",
+    "B_true": "c78870472cd59b47dea2921f9533b51cb89ef6a3c49b13fa98dc37dfdb4e2122",
+    "train_noise": "4b0f527314d6357513e9992908734426a2639d7fdbeb7dc0135a135be2113a91"
+  },
+  "matches": {
+    "X_train": false,
+    "y_train": false,
+    "B_true": true,
+    "train_noise": false
+  },
+  "actual_environment": {
+    "python_version": "3.12.8",
+    "python_implementation": "CPython",
+    "platform": "Windows",
+    "machine": "AMD64",
+    "numpy_version": "1.26.4",
+    "scipy_version": "1.16.1",
+    "blas_build": {
+      "blas": {
+        "name": "openblas64",
+        "found": true,
+        "version": "0.3.23.dev",
+        "detection method": "pkgconfig",
+        "include directory": "/c/opt/64/include",
+        "lib directory": "/c/opt/64/lib",
+        "openblas configuration": "USE_64BITINT=1 DYNAMIC_ARCH=1 DYNAMIC_OLDER= NO_CBLAS= NO_LAPACK= NO_LAPACKE= NO_AFFINITY=1 USE_OPENMP= SKYLAKEX MAX_THREADS=2",
+        "pc file directory": "C:/opt/64/lib/pkgconfig"
+      },
+      "lapack": {
+        "name": "dep3179274605568",
+        "found": true,
+        "version": "1.26.4",
+        "detection method": "internal",
+        "include directory": "unknown",
+        "lib directory": "unknown",
+        "openblas configuration": "unknown",
+        "pc file directory": "unknown"
+      }
+    },
+    "thread_environment": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1"
+    }
+  },
+  "expected_environment": {
+    "python_version": "3.9.25",
+    "python_implementation": "CPython",
+    "platform": "Linux",
+    "machine": "x86_64",
+    "numpy_version": "2.0.2",
+    "scipy_version": "1.13.1",
+    "blas_build": {
+      "blas": {
+        "name": "scipy-openblas",
+        "found": true,
+        "version": "0.3.27",
+        "detection method": "pkgconfig",
+        "include directory": "/opt/_internal/cpython-3.9.18/lib/python3.9/site-packages/scipy_openblas64/include",
+        "lib directory": "/opt/_internal/cpython-3.9.18/lib/python3.9/site-packages/scipy_openblas64/lib",
+        "openblas configuration": "OpenBLAS 0.3.27  USE64BITINT DYNAMIC_ARCH NO_AFFINITY Zen MAX_THREADS=64",
+        "pc file directory": "/project/.openblas"
+      },
+      "lapack": {
+        "name": "scipy-openblas",
+        "found": true,
+        "version": "0.3.27",
+        "detection method": "pkgconfig",
+        "include directory": "/opt/_internal/cpython-3.9.18/lib/python3.9/site-packages/scipy_openblas64/include",
+        "lib directory": "/opt/_internal/cpython-3.9.18/lib/python3.9/site-packages/scipy_openblas64/lib",
+        "openblas configuration": "OpenBLAS 0.3.27  USE64BITINT DYNAMIC_ARCH NO_AFFINITY Zen MAX_THREADS=64",
+        "pc file directory": "/project/.openblas"
+      }
+    },
+    "thread_environment": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1"
+    }
+  },
+  "environment_matches": false,
+  "passed": false,
+  "sha256": "eb50aa306f489e718552cf6d0893cada69ab57a6e6960f545ab5b392a71156ec"
+}

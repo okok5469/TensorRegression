@@ -1,0 +1,6107 @@
+{
+  "schema_version": 1,
+  "version": "v5.2-candidate-search",
+  "cohort": "independent_A2_MSIC_confirmation",
+  "groups": [
+    "A2"
+  ],
+  "tasks": [
+    {
+      "task_id": 0,
+      "scenario_id": 0,
+      "replicate": 0,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 100,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 100,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30601011,
+        "test_seed": 31601011,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_000.json",
+      "request_id": "5666426e792a5347aed006f09464859c87fa8a7b00b1b4c61589681278bb0248"
+    },
+    {
+      "task_id": 1,
+      "scenario_id": 0,
+      "replicate": 1,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 100,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 100,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30601012,
+        "test_seed": 31601012,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_001.json",
+      "request_id": "f3c3a9bd58539e8583c375c47816a43a5ae79e653bb9406cb014262f947c5b59"
+    },
+    {
+      "task_id": 2,
+      "scenario_id": 0,
+      "replicate": 2,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 100,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 100,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30601013,
+        "test_seed": 31601013,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_002.json",
+      "request_id": "310d4c0d67fc957f7f10442a24d2591e9b6190e4d534265dd0a951233875b697"
+    },
+    {
+      "task_id": 3,
+      "scenario_id": 0,
+      "replicate": 3,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 100,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 100,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30601014,
+        "test_seed": 31601014,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_003.json",
+      "request_id": "805be443ea68043a50233298c0e09693c3ae6016a416fdac5e680355a9996d61"
+    },
+    {
+      "task_id": 4,
+      "scenario_id": 0,
+      "replicate": 4,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 100,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 100,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30601015,
+        "test_seed": 31601015,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_004.json",
+      "request_id": "9e6f05e24ff1fb8eab0298ae2854590e3355e40e5a2e049f1b596975aa74e1bf"
+    },
+    {
+      "task_id": 5,
+      "scenario_id": 1,
+      "replicate": 0,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 100,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 100,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30602011,
+        "test_seed": 31602011,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_005.json",
+      "request_id": "dae1ef5621a6e642bd1e1908db6496328bcb4c9786399385a131a86b1caf87be"
+    },
+    {
+      "task_id": 6,
+      "scenario_id": 1,
+      "replicate": 1,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 100,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 100,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30602012,
+        "test_seed": 31602012,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_006.json",
+      "request_id": "57f06a0966ccb70026463b460237810673cf46075816193135bb0496eccbd931"
+    },
+    {
+      "task_id": 7,
+      "scenario_id": 1,
+      "replicate": 2,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 100,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 100,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30602013,
+        "test_seed": 31602013,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_007.json",
+      "request_id": "7c2971b6524981f58b4e0388f3e7df55f43317b41a26828f6b63c824a99c48b9"
+    },
+    {
+      "task_id": 8,
+      "scenario_id": 1,
+      "replicate": 3,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 100,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 100,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30602014,
+        "test_seed": 31602014,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_008.json",
+      "request_id": "30f3a7e29c3925fe1b77a676ebc2ffd11f3f4675e8d589815c72d37bc9e348ce"
+    },
+    {
+      "task_id": 9,
+      "scenario_id": 1,
+      "replicate": 4,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 100,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 100,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30602015,
+        "test_seed": 31602015,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_009.json",
+      "request_id": "0e67abdf08ebe27618df1744824e7f03f8311eb1a802287361168fe04e85abe9"
+    },
+    {
+      "task_id": 10,
+      "scenario_id": 2,
+      "replicate": 0,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 200,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30603011,
+        "test_seed": 31603011,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_010.json",
+      "request_id": "eb363b0ff8a1ef4949980fa7701473fb6a265ea7e730981740c96ae9b3c533e5"
+    },
+    {
+      "task_id": 11,
+      "scenario_id": 2,
+      "replicate": 1,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 200,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30603012,
+        "test_seed": 31603012,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_011.json",
+      "request_id": "234360542cebfaf6cb64fc44457dd9cb59c7ac0155b8318fde25d1678c345e0c"
+    },
+    {
+      "task_id": 12,
+      "scenario_id": 2,
+      "replicate": 2,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 200,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30603013,
+        "test_seed": 31603013,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_012.json",
+      "request_id": "f072f6182af699e06cc6cebc9376a653cfddd53837dd9deeb198b3d71fea775a"
+    },
+    {
+      "task_id": 13,
+      "scenario_id": 2,
+      "replicate": 3,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 200,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30603014,
+        "test_seed": 31603014,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_013.json",
+      "request_id": "c878a24a66c6ad8454ce30882eaf8d9f807ea959691e5ad335a761e0c7405405"
+    },
+    {
+      "task_id": 14,
+      "scenario_id": 2,
+      "replicate": 4,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 200,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30603015,
+        "test_seed": 31603015,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_014.json",
+      "request_id": "c92402520ea83620dcbe8a1c962e65fe70f8a999c38cbb8dfe8c7eb36e327c42"
+    },
+    {
+      "task_id": 15,
+      "scenario_id": 3,
+      "replicate": 0,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 200,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30604011,
+        "test_seed": 31604011,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_015.json",
+      "request_id": "422ca9843bc1eae6cc3394e2f5cb2d8bc632cf0623be5e811982d2c95665581d"
+    },
+    {
+      "task_id": 16,
+      "scenario_id": 3,
+      "replicate": 1,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 200,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30604012,
+        "test_seed": 31604012,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_016.json",
+      "request_id": "031f5b0e98e0a4f69db568da4e2c559bacc288bd22a4d36e3cabc0e7208726a9"
+    },
+    {
+      "task_id": 17,
+      "scenario_id": 3,
+      "replicate": 2,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 200,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30604013,
+        "test_seed": 31604013,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_017.json",
+      "request_id": "dc5c69be5fdc6f9082a0f5c97a9649e5672ab9376df085c02bca895ffe8caa89"
+    },
+    {
+      "task_id": 18,
+      "scenario_id": 3,
+      "replicate": 3,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 200,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30604014,
+        "test_seed": 31604014,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_018.json",
+      "request_id": "71efbca32f70371abfd8339a4371184def3475bd698b0135f229131ba91ca1e6"
+    },
+    {
+      "task_id": 19,
+      "scenario_id": 3,
+      "replicate": 4,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 200,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30604015,
+        "test_seed": 31604015,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_019.json",
+      "request_id": "23b8066ccf93c195dffdab0c8839290aeff4b513a8b1cb70ab671a728ecdfb28"
+    },
+    {
+      "task_id": 20,
+      "scenario_id": 4,
+      "replicate": 0,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 400,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30605011,
+        "test_seed": 31605011,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_020.json",
+      "request_id": "df621161c80d1f27a1bf2f0d18b845423ba2dd52c3f9c6e08694fa4501d8e7ba"
+    },
+    {
+      "task_id": 21,
+      "scenario_id": 4,
+      "replicate": 1,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 400,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30605012,
+        "test_seed": 31605012,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_021.json",
+      "request_id": "c475ac6b4dcd4d2e0f84e2e8562650961426d25856c614e6c9cd9105f3ce0756"
+    },
+    {
+      "task_id": 22,
+      "scenario_id": 4,
+      "replicate": 2,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 400,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30605013,
+        "test_seed": 31605013,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_022.json",
+      "request_id": "faaef7bbc572c0acbf7872b1b4778b8f8437a28918838ba292b158b6c3f35629"
+    },
+    {
+      "task_id": 23,
+      "scenario_id": 4,
+      "replicate": 3,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 400,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30605014,
+        "test_seed": 31605014,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_023.json",
+      "request_id": "6041d57d2be2488fdb7e6962114cf5f245f357d98568aad8e5833bf4f052627c"
+    },
+    {
+      "task_id": 24,
+      "scenario_id": 4,
+      "replicate": 4,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 400,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30605015,
+        "test_seed": 31605015,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_024.json",
+      "request_id": "9ef712d3b838d3c0c4ff729903f88b02778784b36521ee9411d8b2b87243d71d"
+    },
+    {
+      "task_id": 25,
+      "scenario_id": 5,
+      "replicate": 0,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 400,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30606011,
+        "test_seed": 31606011,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_025.json",
+      "request_id": "e1f2c12a4667710e3c26a689c5fc2d332111a24dff7b366f987d20f4747937fa"
+    },
+    {
+      "task_id": 26,
+      "scenario_id": 5,
+      "replicate": 1,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 400,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30606012,
+        "test_seed": 31606012,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_026.json",
+      "request_id": "af5cc3a841de48389e1b965de73c032c103eba0e49bb91b68a21ca21d58653dd"
+    },
+    {
+      "task_id": 27,
+      "scenario_id": 5,
+      "replicate": 2,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 400,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30606013,
+        "test_seed": 31606013,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_027.json",
+      "request_id": "ec1df7be454dc6cfe66bbb7679a28d12fc989ac15cb41d69d97c7097a42e6974"
+    },
+    {
+      "task_id": 28,
+      "scenario_id": 5,
+      "replicate": 3,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 400,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30606014,
+        "test_seed": 31606014,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_028.json",
+      "request_id": "4ff11c27bdb05dede1d8d0c6f21ec28a574e2f211b350f9bbf0997442b4e9091"
+    },
+    {
+      "task_id": 29,
+      "scenario_id": 5,
+      "replicate": 4,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 400,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30606015,
+        "test_seed": 31606015,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_029.json",
+      "request_id": "fc7e13103490b266405662b60e919a8743196d5b8ab56ad4790075dbe93f8664"
+    },
+    {
+      "task_id": 30,
+      "scenario_id": 6,
+      "replicate": 0,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 100,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 100,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30607011,
+        "test_seed": 31607011,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_030.json",
+      "request_id": "aff98b5b38405ee5f68f02b790ae6c0b79a55a9d1dcb21746d8e94cdb5eec273"
+    },
+    {
+      "task_id": 31,
+      "scenario_id": 6,
+      "replicate": 1,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 100,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 100,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30607012,
+        "test_seed": 31607012,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_031.json",
+      "request_id": "2ae44c9b3f6ef13c090b78a5bdd145e1dfa91644e8cd48d373458c0b0dfff008"
+    },
+    {
+      "task_id": 32,
+      "scenario_id": 6,
+      "replicate": 2,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 100,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 100,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30607013,
+        "test_seed": 31607013,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_032.json",
+      "request_id": "04875581dfb6ef547bc480b8cbd01d3d8f2f367bed204eb6341f00b74766e31f"
+    },
+    {
+      "task_id": 33,
+      "scenario_id": 6,
+      "replicate": 3,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 100,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 100,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30607014,
+        "test_seed": 31607014,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_033.json",
+      "request_id": "7a65fc02a89329292c9b9068bdbb7a4f995389e0a93ce9f8491e4b030a33ded2"
+    },
+    {
+      "task_id": 34,
+      "scenario_id": 6,
+      "replicate": 4,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 100,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 100,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30607015,
+        "test_seed": 31607015,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_034.json",
+      "request_id": "045b55bc15dccb08055bb4596beba32c91b0962860e41da1f2bcff524dc8ade3"
+    },
+    {
+      "task_id": 35,
+      "scenario_id": 7,
+      "replicate": 0,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 100,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 100,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30608011,
+        "test_seed": 31608011,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_035.json",
+      "request_id": "5c6600ba1aad384ea48f1626584f17c1412cd49420406f60f37e5660621c4fa8"
+    },
+    {
+      "task_id": 36,
+      "scenario_id": 7,
+      "replicate": 1,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 100,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 100,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30608012,
+        "test_seed": 31608012,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_036.json",
+      "request_id": "e9af836beb62f21b410575d3bfcc2b17b6d626492d8e90e4a55de7960b9ea56e"
+    },
+    {
+      "task_id": 37,
+      "scenario_id": 7,
+      "replicate": 2,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 100,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 100,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30608013,
+        "test_seed": 31608013,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_037.json",
+      "request_id": "c6625d2bb06fb4a5926241236e98ff51082d2d5b47ddf53a99fb32b397eaf21f"
+    },
+    {
+      "task_id": 38,
+      "scenario_id": 7,
+      "replicate": 3,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 100,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 100,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30608014,
+        "test_seed": 31608014,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_038.json",
+      "request_id": "c6be54d33624f9ade964ae3c6f743df6436af7c305f7528419dae9b4aa284e83"
+    },
+    {
+      "task_id": 39,
+      "scenario_id": 7,
+      "replicate": 4,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 100,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 100,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30608015,
+        "test_seed": 31608015,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_039.json",
+      "request_id": "044fcc28b309221a73190adc12d44abc8a9665790d2e2567c6446fc8e80e7c53"
+    },
+    {
+      "task_id": 40,
+      "scenario_id": 8,
+      "replicate": 0,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 200,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30609011,
+        "test_seed": 31609011,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_040.json",
+      "request_id": "944d57f18b58b5ec5724e224439bff852fcc929f53f0ae4bd9f1ba2babd5b6e5"
+    },
+    {
+      "task_id": 41,
+      "scenario_id": 8,
+      "replicate": 1,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 200,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30609012,
+        "test_seed": 31609012,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_041.json",
+      "request_id": "3ee4b78970b6bfecbb10e6ca1fb867dbd944f94873f746daeb3a253d8101672f"
+    },
+    {
+      "task_id": 42,
+      "scenario_id": 8,
+      "replicate": 2,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 200,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30609013,
+        "test_seed": 31609013,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_042.json",
+      "request_id": "98146ab781a6bd8a43d995e3ea813f27e8dc8e307e4361f58ae4eb906020d088"
+    },
+    {
+      "task_id": 43,
+      "scenario_id": 8,
+      "replicate": 3,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 200,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30609014,
+        "test_seed": 31609014,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_043.json",
+      "request_id": "49bb5b04b3c95e90022a0399e9ef7c6629dee8b10b009ddad21ff903afe0ddb7"
+    },
+    {
+      "task_id": 44,
+      "scenario_id": 8,
+      "replicate": 4,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 200,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30609015,
+        "test_seed": 31609015,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_044.json",
+      "request_id": "60c6cf59b7d3467299fdb0a6bc2266e5267fbf22b044b1ac99f291318318fe0d"
+    },
+    {
+      "task_id": 45,
+      "scenario_id": 9,
+      "replicate": 0,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 200,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30610011,
+        "test_seed": 31610011,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_045.json",
+      "request_id": "cb1ab420e676c22186b30364c2ae423ba6f57289b0e43793f0872ec0c746382a"
+    },
+    {
+      "task_id": 46,
+      "scenario_id": 9,
+      "replicate": 1,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 200,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30610012,
+        "test_seed": 31610012,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_046.json",
+      "request_id": "e775321f6f922d1a47f6cbeca53194641c237f7a62a8e32551919495f04d89fd"
+    },
+    {
+      "task_id": 47,
+      "scenario_id": 9,
+      "replicate": 2,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 200,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30610013,
+        "test_seed": 31610013,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_047.json",
+      "request_id": "f1f5adfc4d61e9335c74e27e9c53d505829e8723ac62ab06561cac1e4bdae776"
+    },
+    {
+      "task_id": 48,
+      "scenario_id": 9,
+      "replicate": 3,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 200,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30610014,
+        "test_seed": 31610014,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_048.json",
+      "request_id": "045bce6c933cb552f976d7b69be7e82df091f8d21935b4c304836abeafaa829c"
+    },
+    {
+      "task_id": 49,
+      "scenario_id": 9,
+      "replicate": 4,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 200,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30610015,
+        "test_seed": 31610015,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_049.json",
+      "request_id": "c0bb086b4dafd15aef97d9aa47cb0a89246ae68e33cf6f7189dcfbd7165282c6"
+    },
+    {
+      "task_id": 50,
+      "scenario_id": 10,
+      "replicate": 0,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 400,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30611011,
+        "test_seed": 31611011,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_050.json",
+      "request_id": "a4d67f07c6d464b72d633b03439a8e8ffe7979bdf2ad01b3ae9d6b56ee76daa8"
+    },
+    {
+      "task_id": 51,
+      "scenario_id": 10,
+      "replicate": 1,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 400,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30611012,
+        "test_seed": 31611012,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_051.json",
+      "request_id": "b110a1d379b1ff0490accfffe29eb94e703aeb128b98621e8a982344a75d9144"
+    },
+    {
+      "task_id": 52,
+      "scenario_id": 10,
+      "replicate": 2,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 400,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30611013,
+        "test_seed": 31611013,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_052.json",
+      "request_id": "fe9c0350357290f09940c0eeb5eadeedbe681177d4c9ee8a55bbdb086dd97324"
+    },
+    {
+      "task_id": 53,
+      "scenario_id": 10,
+      "replicate": 3,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 400,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30611014,
+        "test_seed": 31611014,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_053.json",
+      "request_id": "cce7574558fbccee8136244fa013a7ef35e393e57f548374d9943ddbd2edfb0b"
+    },
+    {
+      "task_id": 54,
+      "scenario_id": 10,
+      "replicate": 4,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 400,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30611015,
+        "test_seed": 31611015,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_054.json",
+      "request_id": "0c00ff037510fca985544eb4918edde8743be05e7b912d1a9acc002a7473b053"
+    },
+    {
+      "task_id": 55,
+      "scenario_id": 11,
+      "replicate": 0,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 400,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30612011,
+        "test_seed": 31612011,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_055.json",
+      "request_id": "bbda4b61ca5053d08fe238b02b9514f3ce41de252dbcaf2ec36d6520a48f34a1"
+    },
+    {
+      "task_id": 56,
+      "scenario_id": 11,
+      "replicate": 1,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 400,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30612012,
+        "test_seed": 31612012,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_056.json",
+      "request_id": "ac7671ef74ab1e1e5d24026d0ab0f208b1f50c5a1319ba14aa0c24932693643d"
+    },
+    {
+      "task_id": 57,
+      "scenario_id": 11,
+      "replicate": 2,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 400,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30612013,
+        "test_seed": 31612013,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_057.json",
+      "request_id": "c1414faa879bd6dded8a8aadc665b429f5ba6dcb8ecc84044dfc00f26c974840"
+    },
+    {
+      "task_id": 58,
+      "scenario_id": 11,
+      "replicate": 3,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 400,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30612014,
+        "test_seed": 31612014,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_058.json",
+      "request_id": "a4a3002e5afcfa304f1da2da7a089d75e0a9ea40d6d8a87fad4494e20fe9d98f"
+    },
+    {
+      "task_id": 59,
+      "scenario_id": 11,
+      "replicate": 4,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 400,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 4.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30612015,
+        "test_seed": 31612015,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_059.json",
+      "request_id": "7392c02aa418520e68606c50e774a807ed31acb807cecc6c6c2e7578fb2496cf"
+    },
+    {
+      "task_id": 60,
+      "scenario_id": 12,
+      "replicate": 0,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 400,
+        "snr": 0.5,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 0.5,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30613011,
+        "test_seed": 31613011,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_060.json",
+      "request_id": "c9c215c496e3075a0462f41b1089edc9366398ea7cfb48b9a150b2eecfcd0648"
+    },
+    {
+      "task_id": 61,
+      "scenario_id": 12,
+      "replicate": 1,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 400,
+        "snr": 0.5,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 0.5,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30613012,
+        "test_seed": 31613012,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_061.json",
+      "request_id": "998aa185029eda9d920fbebc21eef8009e40bd462c8e95b63b7307abded441a3"
+    },
+    {
+      "task_id": 62,
+      "scenario_id": 12,
+      "replicate": 2,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 400,
+        "snr": 0.5,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 0.5,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30613013,
+        "test_seed": 31613013,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_062.json",
+      "request_id": "bf28a7469bc1b50a12addbe3bdbf18b842a50aa6914cbc9b74d8a4afc74d0e2b"
+    },
+    {
+      "task_id": 63,
+      "scenario_id": 12,
+      "replicate": 3,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 400,
+        "snr": 0.5,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 0.5,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30613014,
+        "test_seed": 31613014,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_063.json",
+      "request_id": "abf659114c48d6596cc555439f8e5898193c0259402868c2fdebdb05c854273b"
+    },
+    {
+      "task_id": 64,
+      "scenario_id": 12,
+      "replicate": 4,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 400,
+        "snr": 0.5,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 0.5,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30613015,
+        "test_seed": 31613015,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_064.json",
+      "request_id": "6a2f16861eb7b5180cbc2ce6753a57d703c0f887162a6f90a9f68745ce29b284"
+    },
+    {
+      "task_id": 65,
+      "scenario_id": 13,
+      "replicate": 0,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 400,
+        "snr": 0.5,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 0.5,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30614011,
+        "test_seed": 31614011,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_065.json",
+      "request_id": "64195d1d4a3334c1aae62627e9846eceea7eccbd4117d83d4d9c0fb27c7aa139"
+    },
+    {
+      "task_id": 66,
+      "scenario_id": 13,
+      "replicate": 1,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 400,
+        "snr": 0.5,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 0.5,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30614012,
+        "test_seed": 31614012,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_066.json",
+      "request_id": "587ad9a129836e1928722639811dc36a1f9487ca2f7549fbad288c131ff227ce"
+    },
+    {
+      "task_id": 67,
+      "scenario_id": 13,
+      "replicate": 2,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 400,
+        "snr": 0.5,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 0.5,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30614013,
+        "test_seed": 31614013,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_067.json",
+      "request_id": "0f987e20b6aea310ace9cbceff4459ed0382f03fe0df81cace51599a6a74634c"
+    },
+    {
+      "task_id": 68,
+      "scenario_id": 13,
+      "replicate": 3,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 400,
+        "snr": 0.5,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 0.5,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30614014,
+        "test_seed": 31614014,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_068.json",
+      "request_id": "079cde23b0e6abe9b2ec9e18d17e290cf6c5ca795ff22e2e398043f7c87d73e6"
+    },
+    {
+      "task_id": 69,
+      "scenario_id": 13,
+      "replicate": 4,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 400,
+        "snr": 0.5,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      "request": {
+        "config": {
+          "n_train": 400,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "snr": 0.5,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30614015,
+        "test_seed": 31614015,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_069.json",
+      "request_id": "a7016aa8bb0d7547bb2878e4dbb0ea22d082080661da0c4ff0218e8da505c41a"
+    },
+    {
+      "task_id": 70,
+      "scenario_id": 14,
+      "replicate": 0,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 200,
+        "snr": 2.0,
+        "rho": [
+          0.6,
+          0.6,
+          0.6
+        ],
+        "stratum": "correlation_stress"
+      },
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.6,
+            0.6,
+            0.6
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30615011,
+        "test_seed": 31615011,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_070.json",
+      "request_id": "123f7db33729a45684450ffde1cb0452ebe12201666127e5176386475a793350"
+    },
+    {
+      "task_id": 71,
+      "scenario_id": 14,
+      "replicate": 1,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 200,
+        "snr": 2.0,
+        "rho": [
+          0.6,
+          0.6,
+          0.6
+        ],
+        "stratum": "correlation_stress"
+      },
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.6,
+            0.6,
+            0.6
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30615012,
+        "test_seed": 31615012,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_071.json",
+      "request_id": "86932c61151cb2a02640970b0e8ad7b674a7a9ea419e0686b8867ed1b37d92b1"
+    },
+    {
+      "task_id": 72,
+      "scenario_id": 14,
+      "replicate": 2,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 200,
+        "snr": 2.0,
+        "rho": [
+          0.6,
+          0.6,
+          0.6
+        ],
+        "stratum": "correlation_stress"
+      },
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.6,
+            0.6,
+            0.6
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30615013,
+        "test_seed": 31615013,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_072.json",
+      "request_id": "a41f542872cce3013fe66ce447edf227f9ba642d9b058a5e1a4e7ce9a2c96e4c"
+    },
+    {
+      "task_id": 73,
+      "scenario_id": 14,
+      "replicate": 3,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 200,
+        "snr": 2.0,
+        "rho": [
+          0.6,
+          0.6,
+          0.6
+        ],
+        "stratum": "correlation_stress"
+      },
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.6,
+            0.6,
+            0.6
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30615014,
+        "test_seed": 31615014,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_073.json",
+      "request_id": "847d6b095c64191e6b792dcbfb5315049964d5e31d6b6d21dc3c30b82957dc51"
+    },
+    {
+      "task_id": 74,
+      "scenario_id": 14,
+      "replicate": 4,
+      "scenario": {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 200,
+        "snr": 2.0,
+        "rho": [
+          0.6,
+          0.6,
+          0.6
+        ],
+        "stratum": "correlation_stress"
+      },
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            2,
+            3,
+            4
+          ],
+          "rho": [
+            0.6,
+            0.6,
+            0.6
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30615015,
+        "test_seed": 31615015,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_074.json",
+      "request_id": "9a7fa0a6ebe720aaeede38abbb483084b8c75d0b1f9db7e438bcf3d61476221c"
+    },
+    {
+      "task_id": 75,
+      "scenario_id": 15,
+      "replicate": 0,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 200,
+        "snr": 2.0,
+        "rho": [
+          0.6,
+          0.6,
+          0.6
+        ],
+        "stratum": "correlation_stress"
+      },
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.6,
+            0.6,
+            0.6
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30616011,
+        "test_seed": 31616011,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_075.json",
+      "request_id": "1ccca93b8a4ea2257d131d1d4932920104b3a0af0bbec800f4ddd1db0b4bd083"
+    },
+    {
+      "task_id": 76,
+      "scenario_id": 15,
+      "replicate": 1,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 200,
+        "snr": 2.0,
+        "rho": [
+          0.6,
+          0.6,
+          0.6
+        ],
+        "stratum": "correlation_stress"
+      },
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.6,
+            0.6,
+            0.6
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30616012,
+        "test_seed": 31616012,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_076.json",
+      "request_id": "dc26dc4a3186163cdd4097e1dc7b0b5a2ff5348ffe0767b1e0a8dcdbf32776a4"
+    },
+    {
+      "task_id": 77,
+      "scenario_id": 15,
+      "replicate": 2,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 200,
+        "snr": 2.0,
+        "rho": [
+          0.6,
+          0.6,
+          0.6
+        ],
+        "stratum": "correlation_stress"
+      },
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.6,
+            0.6,
+            0.6
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30616013,
+        "test_seed": 31616013,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_077.json",
+      "request_id": "9484f9815177fb85f45e2dc2dea7c41adabb6c85c1d8d6a045b7cc039433155d"
+    },
+    {
+      "task_id": 78,
+      "scenario_id": 15,
+      "replicate": 3,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 200,
+        "snr": 2.0,
+        "rho": [
+          0.6,
+          0.6,
+          0.6
+        ],
+        "stratum": "correlation_stress"
+      },
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.6,
+            0.6,
+            0.6
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30616014,
+        "test_seed": 31616014,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_078.json",
+      "request_id": "c0163b89fdb1bcae545b084c39eb7c6d8a3b58f7aa581bb6818175c671175e85"
+    },
+    {
+      "task_id": 79,
+      "scenario_id": 15,
+      "replicate": 4,
+      "scenario": {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 200,
+        "snr": 2.0,
+        "rho": [
+          0.6,
+          0.6,
+          0.6
+        ],
+        "stratum": "correlation_stress"
+      },
+      "request": {
+        "config": {
+          "n_train": 200,
+          "n_test": 500,
+          "dims": [
+            32,
+            20,
+            25
+          ],
+          "sparsity": [
+            3,
+            4,
+            5
+          ],
+          "rho": [
+            0.6,
+            0.6,
+            0.6
+          ],
+          "snr": 2.0,
+          "support_shape": "continuous",
+          "sigma": 1,
+          "k_max": 1,
+          "max_cycles": 6,
+          "n_lambdas": 20,
+          "cv_folds": 5,
+          "max_iter": 500,
+          "tol": 1e-06,
+          "abess_init_criterion": "bic",
+          "abess_init_c": 3,
+          "tensor_abess_mode": "adaptive",
+          "msic_refine_alpha": 1.5,
+          "msic_refine_gamma": 1,
+          "msic_refine_one_se_scale": 1,
+          "random_state": 2026,
+          "test_batch_size": 100
+        },
+        "seed": 30616015,
+        "test_seed": 31616015,
+        "groups": [
+          "A2"
+        ],
+        "fit_options": {
+          "candidate_budget": 2000,
+          "selection": "original MSIC alpha=1.5,gamma=1,one_se_scale=1; Phase D only",
+          "cache": "single A2 fresh worker; no external cache"
+        }
+      },
+      "request_file": "requests/task_079.json",
+      "request_id": "9a83f55f01ee16e637f0eb6ae4efdb0d6392a58722c048b6590d8d370291806c"
+    }
+  ],
+  "protocol": {
+    "schema_version": 1,
+    "research_only": true,
+    "release_approved": false,
+    "frozen_utc": "2026-10-11T06:02:23.803054+00:00",
+    "purpose": "New independent A2 MSIC confirmation, only the already locked two rules; no confirmation parameter selection",
+    "task_card_sha256": "6d6925027fd376706943f43f512d4a0a635087e99b598edc816b6f292b8c38fc",
+    "groups": [
+      "A2"
+    ],
+    "rules": [
+      {
+        "id": "msic-alpha1.5-scale1",
+        "role": "baseline",
+        "alpha": 1.5,
+        "gamma": 1,
+        "one_se_scale": 1
+      },
+      {
+        "id": "msic-alpha2-scale0",
+        "role": "candidate",
+        "alpha": 2,
+        "gamma": 1,
+        "one_se_scale": 0
+      }
+    ],
+    "base_config": {
+      "n_train": 200,
+      "n_test": 500,
+      "dims": [
+        32,
+        20,
+        25
+      ],
+      "sparsity": [
+        4,
+        3,
+        5
+      ],
+      "rho": [
+        0.3,
+        0.3,
+        0.3
+      ],
+      "snr": 2,
+      "support_shape": "continuous",
+      "sigma": 1,
+      "k_max": 1,
+      "max_cycles": 6,
+      "n_lambdas": 20,
+      "cv_folds": 5,
+      "max_iter": 500,
+      "tol": 1e-06,
+      "abess_init_criterion": "bic",
+      "abess_init_c": 3,
+      "tensor_abess_mode": "adaptive",
+      "msic_refine_alpha": 1.5,
+      "msic_refine_gamma": 1,
+      "msic_refine_one_se_scale": 1,
+      "random_state": 2026,
+      "test_batch_size": 100
+    },
+    "scenarios": [
+      {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 100,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 100,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 200,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 200,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 400,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 400,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 100,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 100,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 200,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 200,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 400,
+        "snr": 2.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 400,
+        "snr": 4.0,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 400,
+        "snr": 0.5,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 400,
+        "snr": 0.5,
+        "rho": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "stratum": "primary"
+      },
+      {
+        "sparsity": [
+          2,
+          3,
+          4
+        ],
+        "n_train": 200,
+        "snr": 2.0,
+        "rho": [
+          0.6,
+          0.6,
+          0.6
+        ],
+        "stratum": "correlation_stress"
+      },
+      {
+        "sparsity": [
+          3,
+          4,
+          5
+        ],
+        "n_train": 200,
+        "snr": 2.0,
+        "rho": [
+          0.6,
+          0.6,
+          0.6
+        ],
+        "stratum": "correlation_stress"
+      }
+    ],
+    "n_reps": 5,
+    "seed_base": 30601011,
+    "test_seed_offset": 1000000,
+    "budget": {
+      "workers": 8,
+      "worker_blas_threads": 1,
+      "max_controller_seconds": 3600,
+      "candidate_budget": 2000,
+      "policy": "All stages share one persisted start, failures/budget stop forbid adoption and resume; no truncation or rescue"
+    },
+    "environment": {
+      "libraries": {
+        "python": "3.12.8",
+        "numpy": "1.26.4",
+        "scipy": "1.16.1"
+      },
+      "platform": "Windows",
+      "machine": "AMD64",
+      "worker_thread_environment": {
+        "OPENBLAS_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "NUMEXPR_NUM_THREADS": "1"
+      }
+    },
+    "core_sources": {
+      "tensor_abess/__init__.py": "f09ee71e1a5b9a9c9deddbfcdec0d028cd34803af58318af1beca9e9a3aa5dbe",
+      "tensor_abess/baselines/__init__.py": "2e25cb27c0deae528eefec64946bc7aafd241b235145c3fb2bbc32da983bd00a",
+      "tensor_abess/baselines/base.py": "296af75c1a2afbce822d401f3ba81a231b176aa8ff7d51a3fa3575ad03303306",
+      "tensor_abess/baselines/cp.py": "164b04db1ab6ac6b163366957d5a3e5e3db9d9e117fe62a1bf63d6378e936fbb",
+      "tensor_abess/baselines/group_lasso.py": "28acbc2c67ef3a462b7c8c9551c6d08eca076877100494f23ed5b60aeb24ab75",
+      "tensor_abess/baselines/lasso.py": "b0ce26433580f51c4a56a99d3748fbd609a7527469669475ff774bab3e1393f0",
+      "tensor_abess/baselines/tucker.py": "a90c90b46ded263dd57fc99b926b6d82abb410b4541d9d898fc5b907037b0283",
+      "tensor_abess/common/__init__.py": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+      "tensor_abess/common/ranks.py": "4684b9504f033aee9cee10a40ab652d8ad76f2e871833fe3f123a883b2a32aa4",
+      "tensor_abess/group/__init__.py": "ceb9fc92074ba440ef5c2082453aeba1f67db8da03a49309937e0e5efc32d3e1",
+      "tensor_abess/group/adaptive.py": "453f0b2e9568f3a611977151ab20943a120bb9603adb90838d52d4ca5a306376",
+      "tensor_abess/group/bess_fix.py": "6577bc8b26b99b45b8a4bd7f154135fd10c0627c520c6a379f8a6616ab9c87fb",
+      "tensor_abess/group/sacrifices.py": "b05f00ea51a5d91e01961e468e15ec3ca8046af649f8f2bbb51addd264376155",
+      "tensor_abess/group/splicing.py": "0ac340129f4f38f1aaf2c4d7c778f5c763964c9b6792485bcd017147b4d4641c",
+      "tensor_abess/metrics/__init__.py": "34ad9b63350042207d203b6c33c481bcf8fbb8e113216a094766e82778ac9eee",
+      "tensor_abess/metrics/support.py": "18495d2a039e6d9df9c650c4532a52e8cb59a05594755946098eede234054dd8",
+      "tensor_abess/tensor/__init__.py": "a7a284698fe7934f052f95d6b93f595b46262a0b4b81f7e3cbf806fa13850667",
+      "tensor_abess/tensor/abess.py": "81906d0355135964da69650d6fc19e6cbc96b534ee94e5eddfae32175b68c6a0",
+      "tensor_abess/tensor/bcd.py": "92f02fc69c598e0439fba05f836d4830c5640d53e916997c0a3680d747812e8d",
+      "tensor_abess/tensor/candidate_search.py": "0a7075f894f50d3953d4799da0cb01d8ba733ec15b0649a2799dfac3e0294143",
+      "tensor_abess/tensor/ops.py": "cc0140752af901e792dc48811d320cb928f0dc917bbc9ccf3f8e8ae1cd9ee0fa",
+      "tensor_abess/tensor/reduction.py": "8b8a66856d5e8c8a0a887fb97f911687d6f48b8d25079430abb7ffe550774076",
+      "tensor_abess/tensor/sic.py": "84637e426a8ad8d9c471d8f81787135052f10f954475127403d5a9b2b4f51d9f",
+      "tensor_abess/utils/__init__.py": "969942a09ec95253bd97eddd57740fea3da8bb1ca0cb9c69074d9244b168e343",
+      "tensor_abess/utils/data.py": "67696c6f1327a0f7f9e6c7980a1c7a648d4bf6a9165ce7ea673948891f63937c",
+      "tensor_abess/utils/glasso.py": "05cf440fdf5c5cce814264ec35cc6c7b0397cdf229889452abe2e90cd650097d",
+      "tensor_abess/utils/init.py": "6fc58919fd76fdbdd0b4cedfe5ce446a3f1f01ad37b48a2218505364b09a5c9f",
+      "tensor_abess/utils/validation.py": "d6500d0a227854dfc963f33fb47f97d10ef67527b15a599426c4d1202e669dbe",
+      "tensor_abess/vector/__init__.py": "7f8f788a7915a4540f753f8e9a5e9917008ca725cb5b9fb23a8e575e75ab59f7",
+      "tensor_abess/vector/abess.py": "901efc50fc964801b44e9e12e90980ea065e15a303b9375f142fc8f0eb0527f0",
+      "tensor_abess/vector/sacrifices.py": "2462c4f8f3e447e98218eb2c68811893a24c547b78007848e047c6afd79db9f2",
+      "tensor_abess/vector/sic.py": "f562d2736186173f0939de7677a6f14a64c7a2d202bd414929e7aee310c1487b",
+      "tensor_abess/vector/splicing.py": "c14f4e47e7c8506ee63422016c69693a303ae5638f7c6ddd097d9baffa8b7e63"
+    },
+    "development_input_dir": "numerical_simulation/outputs_a2_msic_decision",
+    "rules_file": "numerical_simulation/outputs_a2_msic_decision/MSIC_DECISION_RULES.json",
+    "development_rule_summary_sha256": "195857332335f9a859a6d7e9c036dda6fd18e2fe916a71b9a4cb7b2f1d966f14",
+    "development_integrity_sha256": "7aeda734b771f5c9a65635ea8cbe1bbf448b9aa39ece71488476b5296ce28858",
+    "development_screen_sha256": "f7dc12222c19df4ee226bfc2c141e9e2b6105e8d39aac34e19890c0f35268bb5",
+    "rules_file_sha256": "06b148d2ef7dec6d3ac1c3f38aad7214641dae6945e281817f7bd736c4fd9e24",
+    "confirmation_gate": {
+      "complete_pairing_and_ols_required": true,
+      "pooled_pmse_ratio_max": 0.99,
+      "paired_stratified_bootstrap_pmse_ratio_95_upper_max": 1.0,
+      "any_scenario_pmse_ratio_max": 1.1,
+      "strong_representable_exact_gain_min": -0.05,
+      "strong_representable_mode_f1_gain_min": -0.02,
+      "strong_representable_under_rate_increase_max": 0.05,
+      "strong_representable_q1_rate_increase_max": 0.05,
+      "bootstrap_seed": 40601011,
+      "bootstrap_resamples": 10000
+    },
+    "refit_tasks": [
+      0,
+      20,
+      50
+    ],
+    "bootstrap": {
+      "seed": 40601011,
+      "n_resamples": 10000,
+      "unit": "Paired dataset resampling within frozen scenarios; report primary70/stress10 separately and pooled80 fixed gate"
+    },
+    "seed_nonoverlap": {
+      "request_files_checked": 541,
+      "overlap_count": 0
+    },
+    "interpretation": "Fresh original-MSIC A2 library fit for each new dataset; fixed library rescoring is mathematically identical for full grid because global alpha/scale do not control initialization, adaptive mode scores, or fixed fits. Three uncached public alpha2/scale0 fresh refits required to verify equivalence. Truth and test only evaluate after training selection."
+  },
+  "protocol_sha256": "c70b62b854c041127dbd4bb45c77856e53ed9bb29b656e2c033b9baae4d29be3",
+  "protocol_id": "c90cb1ab965dd89e3fb5707e6e8e4991bf9efc22610de5a5b3ff138c9cb6e319",
+  "sources": {
+    "core": {
+      "tensor_abess/__init__.py": "f09ee71e1a5b9a9c9deddbfcdec0d028cd34803af58318af1beca9e9a3aa5dbe",
+      "tensor_abess/baselines/__init__.py": "2e25cb27c0deae528eefec64946bc7aafd241b235145c3fb2bbc32da983bd00a",
+      "tensor_abess/baselines/base.py": "296af75c1a2afbce822d401f3ba81a231b176aa8ff7d51a3fa3575ad03303306",
+      "tensor_abess/baselines/cp.py": "164b04db1ab6ac6b163366957d5a3e5e3db9d9e117fe62a1bf63d6378e936fbb",
+      "tensor_abess/baselines/group_lasso.py": "28acbc2c67ef3a462b7c8c9551c6d08eca076877100494f23ed5b60aeb24ab75",
+      "tensor_abess/baselines/lasso.py": "b0ce26433580f51c4a56a99d3748fbd609a7527469669475ff774bab3e1393f0",
+      "tensor_abess/baselines/tucker.py": "a90c90b46ded263dd57fc99b926b6d82abb410b4541d9d898fc5b907037b0283",
+      "tensor_abess/common/__init__.py": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+      "tensor_abess/common/ranks.py": "4684b9504f033aee9cee10a40ab652d8ad76f2e871833fe3f123a883b2a32aa4",
+      "tensor_abess/group/__init__.py": "ceb9fc92074ba440ef5c2082453aeba1f67db8da03a49309937e0e5efc32d3e1",
+      "tensor_abess/group/adaptive.py": "453f0b2e9568f3a611977151ab20943a120bb9603adb90838d52d4ca5a306376",
+      "tensor_abess/group/bess_fix.py": "6577bc8b26b99b45b8a4bd7f154135fd10c0627c520c6a379f8a6616ab9c87fb",
+      "tensor_abess/group/sacrifices.py": "b05f00ea51a5d91e01961e468e15ec3ca8046af649f8f2bbb51addd264376155",
+      "tensor_abess/group/splicing.py": "0ac340129f4f38f1aaf2c4d7c778f5c763964c9b6792485bcd017147b4d4641c",
+      "tensor_abess/metrics/__init__.py": "34ad9b63350042207d203b6c33c481bcf8fbb8e113216a094766e82778ac9eee",
+      "tensor_abess/metrics/support.py": "18495d2a039e6d9df9c650c4532a52e8cb59a05594755946098eede234054dd8",
+      "tensor_abess/tensor/__init__.py": "a7a284698fe7934f052f95d6b93f595b46262a0b4b81f7e3cbf806fa13850667",
+      "tensor_abess/tensor/abess.py": "81906d0355135964da69650d6fc19e6cbc96b534ee94e5eddfae32175b68c6a0",
+      "tensor_abess/tensor/bcd.py": "92f02fc69c598e0439fba05f836d4830c5640d53e916997c0a3680d747812e8d",
+      "tensor_abess/tensor/candidate_search.py": "0a7075f894f50d3953d4799da0cb01d8ba733ec15b0649a2799dfac3e0294143",
+      "tensor_abess/tensor/ops.py": "cc0140752af901e792dc48811d320cb928f0dc917bbc9ccf3f8e8ae1cd9ee0fa",
+      "tensor_abess/tensor/reduction.py": "8b8a66856d5e8c8a0a887fb97f911687d6f48b8d25079430abb7ffe550774076",
+      "tensor_abess/tensor/sic.py": "84637e426a8ad8d9c471d8f81787135052f10f954475127403d5a9b2b4f51d9f",
+      "tensor_abess/utils/__init__.py": "969942a09ec95253bd97eddd57740fea3da8bb1ca0cb9c69074d9244b168e343",
+      "tensor_abess/utils/data.py": "67696c6f1327a0f7f9e6c7980a1c7a648d4bf6a9165ce7ea673948891f63937c",
+      "tensor_abess/utils/glasso.py": "05cf440fdf5c5cce814264ec35cc6c7b0397cdf229889452abe2e90cd650097d",
+      "tensor_abess/utils/init.py": "6fc58919fd76fdbdd0b4cedfe5ce446a3f1f01ad37b48a2218505364b09a5c9f",
+      "tensor_abess/utils/validation.py": "d6500d0a227854dfc963f33fb47f97d10ef67527b15a599426c4d1202e669dbe",
+      "tensor_abess/vector/__init__.py": "7f8f788a7915a4540f753f8e9a5e9917008ca725cb5b9fb23a8e575e75ab59f7",
+      "tensor_abess/vector/abess.py": "901efc50fc964801b44e9e12e90980ea065e15a303b9375f142fc8f0eb0527f0",
+      "tensor_abess/vector/sacrifices.py": "2462c4f8f3e447e98218eb2c68811893a24c547b78007848e047c6afd79db9f2",
+      "tensor_abess/vector/sic.py": "f562d2736186173f0939de7677a6f14a64c7a2d202bd414929e7aee310c1487b",
+      "tensor_abess/vector/splicing.py": "c14f4e47e7c8506ee63422016c69693a303ae5638f7c6ddd097d9baffa8b7e63"
+    },
+    "experiment": {
+      "numerical_simulation/candidate_search_study/run.py": "45efc54a13afdb744413ced5c47f93ecffd6093994e309b53cad4db6b980f3b0",
+      "numerical_simulation/candidate_search_study/worker.py": "13a46a15cafc68c39bd53ea2978e3dfbeb60ed0f431527c28f22479cd892514d",
+      "numerical_simulation/candidate_search_study/__init__.py": "7b07114b8b469ec8605d2cc09e5807ae6fad0aa8831a22eddac2b2ec220e4bec",
+      "numerical_simulation/version_validation/worker.py": "6a02064621eef70c04a60d31002ea9216ee8235299f4deb6db3bc198a1550c81",
+      "numerical_simulation/data_generation.py": "0a867f244bd44271e301eb0629c82f2332fccebb20a4329b51e27ad194066423",
+      "numerical_simulation/metrics.py": "eaf4bbb30472754da10754476620bbb2dcb7a1c7e80b571014fb04edf183951f",
+      "numerical_simulation/known_s_cluster/profiles.json": "76465458701ad6da176fd93d688d1b4762285a9cf391360737e0730a35c3fa94",
+      "numerical_simulation/a2_msic_decision/run.py": "ed7a77cf85e5ca929586a9a1a956cde8dfb3a6bc307b859d420eb12071a37ac6",
+      "numerical_simulation/a2_msic_decision/confirmation.py": "2ed55550d3bc603db9343d7bec03617747e1633a7e8c4660bb152a9ec3383219",
+      "numerical_simulation/a2_final_validation/run.py": "0a289294a9a91c53cdd44008db08a4a19bdf146b15338ea2c2a5e57443b15239",
+      "numerical_simulation/a2_final_validation/analyse.py": "772cc6ba7fe01b285e56e6c71ca89be45ad9fd3f61e849bfc30b77816cfe85ef",
+      "numerical_simulation/candidate_search_study/numerics.py": "3cf1572ccc2937e9c6f0ede46d461192ca7eab20d22eb2e5ef49252665766a74",
+      "numerical_simulation/candidate_search_study/msic_after_search.py": "88f4dbd82572d9fc8e5c0a988fc466d5707173cec02cd81a623f204f9a9df913"
+    }
+  },
+  "environment": {
+    "libraries": {
+      "python": "3.12.8",
+      "numpy": "1.26.4",
+      "scipy": "1.16.1"
+    },
+    "platform": "Windows",
+    "machine": "AMD64",
+    "worker_thread_environment": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1"
+    }
+  },
+  "git_commit": "d0c3547704fbaf5d90a3e5423568768a1ba11759",
+  "controlled_development_parents": {
+    "MSIC_DECISION_RULES.json": "06b148d2ef7dec6d3ac1c3f38aad7214641dae6945e281817f7bd736c4fd9e24",
+    "integrity_report.json": "7aeda734b771f5c9a65635ea8cbe1bbf448b9aa39ece71488476b5296ce28858",
+    "plan.json": "ca4d761d4f74f628632b6e4dcc3119ccc9226de9833c7dd29dd3015815f77a40",
+    "rule_summary.csv": "195857332335f9a859a6d7e9c036dda6fd18e2fe916a71b9a4cb7b2f1d966f14",
+    "scenario_summary.csv": "ded478556380b971150b08209406bdf0e2ed2028fe3dea2e98590548d1c89194",
+    "DEVELOPMENT_SCREEN_RESULT.json": "f7dc12222c19df4ee226bfc2c141e9e2b6105e8d39aac34e19890c0f35268bb5"
+  },
+  "rules": [
+    {
+      "rule": "msic-alpha1.5-scale1",
+      "role": "default",
+      "criterion": "msic",
+      "alpha": 1.5,
+      "gamma": 1.0,
+      "scale": 1.0
+    },
+    {
+      "rule": "msic-alpha2-scale0",
+      "role": "mild_candidate",
+      "criterion": "msic",
+      "alpha": 2.0,
+      "gamma": 1.0,
+      "scale": 0.0
+    }
+  ],
+  "research_only": true,
+  "release_approved": false,
+  "plan_id": "1857d78e504ede09a0e305d6cffa338007bea87b0a1f84ac80a2ee9a3843c828"
+}

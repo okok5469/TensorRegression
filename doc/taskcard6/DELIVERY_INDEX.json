@@ -1,0 +1,60 @@
+{
+  "date": "2026-10-15",
+  "task": "taskcard6",
+  "protected_files_rechecked": 2570,
+  "protected_differences": [],
+  "P0": {
+    "status": "BLOCKED_STRICT_DATA_ENVIRONMENT_MISMATCH",
+    "planned": 250,
+    "valid_v51_fits": 0,
+    "plan": "numerical_simulation/outputs_version_attribution/cluster_run/plan.json"
+  },
+  "P1a": {
+    "status": "COMPLETE",
+    "fits": 75,
+    "oof": 2175
+  },
+  "P1b": {
+    "status": "PASSED",
+    "identical_zip_sha256": "899133561b556174af9c70d064ab6a0e2419b136b3ab7b53871b1bc0ff07cacc",
+    "bytes_each": 49943
+  },
+  "P2": "COMPLETE_FROM_SAVED_RESULTS_WITH_LIMITATIONS",
+  "P3": "PROVISIONAL_P0_AND_HCP_NKI_PENDING",
+  "files": {
+    "doc/VERSION_EFFECT_DECOMPOSITION.md": "683d662b2a21458b512ecb978e9fe0322960c25b15879650ba5744deeddc76a3",
+    "doc/BCD_FIX_STATISTICAL_IMPACT.md": "52c595a484d9daf50b7e8871c4841c771b121159a1675ee655304565255fdbf8",
+    "doc/A2_GRID_STATISTICAL_IMPACT.md": "2eaceba19d1af4620d2d22187e17bb9e040cf7bae0e888191ee8c1703ea74423",
+    "doc/LEMON_V52_EMPIRICAL_REPORT.md": "3098f10b424f42dd264ec543c24ab6662ad5943966a1a95b8dfb21329c54b71a",
+    "doc/LEMON_V5_V52_COMPARISON.md": "a675d906e875d74715ed73d7ce2b6fdca5ba786f12bb9a8c9471eaf37173a0f9",
+    "doc/TEAM_V52_DELIVERY.md": "8ace2297aa77d3eadbb1be1fb2e285a5607faaf0da2c52509b9ca6030aefd5d5",
+    "doc/V52_FAILURE_CASE_ANALYSIS.md": "2d07762189063b9a6e265e1609567c4a7bffbb5d24c8139d266a3582fb3ace4f",
+    "doc/SUPPORT_RECOVERY_VS_PREDICTION.md": "af40b59679b3c28a275ebe07e20c8ed63f32123bfb441afc66e5e4bceb58b8c2",
+    "doc/SIMULATION_ERROR_ATTRIBUTION.md": "87e5ecd064331a6803fe6561be1485fe2287c4098a2dcab84368c09227c94f08",
+    "doc/FINAL_SIMULATION_ASSESSMENT.md": "3423898378e884a1f440149768e1bf8b0833ef89a6ca2a97bc721e698b33405c",
+    "doc/LEMON_EMPIRICAL_CONCLUSIONS.md": "4041bb481707139ffee92f252c22a0bd19f87a0d5832e8c08ac503cda7de47a2",
+    "doc/TENSOR_ABESS_RESEARCH_STATUS.md": "bada52eee29a5c04d5cc8563a760b9c996ad4231eb1445ce72f2063a4837ae2c",
+    "doc/NEXT_RESEARCH_DECISION.md": "44926d074c45a4b588ed831773de666c40fb850c8626274433daaeaeea079a52",
+    "doc/TASKCARD6_EXECUTION_REPORT.md": "a07318727c86502af017739e44515b9e963da90d8cc6c15f8f0d9a73ee95d784",
+    "doc/team_sync/v5.2-search-final/full_package/Tensor-ABESS-v5.2-HCP.zip": "899133561b556174af9c70d064ab6a0e2419b136b3ab7b53871b1bc0ff07cacc",
+    "doc/team_sync/v5.2-search-final/full_package/Tensor-ABESS-v5.2-NKI.zip": "899133561b556174af9c70d064ab6a0e2419b136b3ab7b53871b1bc0ff07cacc",
+    "doc/taskcard6/TEST_VALIDATION.json": "62c47ce296b81fad0b41e64a33b73372b42fd0f47dfb867a35d3b77b02ccb6f6",
+    "doc/taskcard6/figures/QA_REPORT.json": "7aa027b1cc48e210d1cbe940402171b53b58e0ca8aacd73d48fdbaa841b9a3bd",
+    "empirical_analysis/lemon/outputs_eeg_incremental_v52_search_final/run_state.json": "4cdcaa46b787ae004762be841e2b0ad17f28f2c851236eabf19cc3a73b6c56a6"
+  },
+  "utility_source_sha256": {
+    "scripts/taskcard6/figures.py": "f5332766905facf393a9dad1f1305a2173dbfbbaf5c4923081ed2e1e5c716eeb",
+    "scripts/taskcard6/lemon_analysis.py": "db074816cc938cdb07b7bb18b511a652f0e10a16ed696be8f81e67ef191fddf0",
+    "scripts/taskcard6/reports.py": "8078fe87da03510e7f06e15356d1b7f2540576d28c619f87fb9ea1f22cc04dc3",
+    "scripts/taskcard6/simulation_analysis.py": "d5b9db7532a9ce6c103a185a85ea681b395147a71e222eb880ef0370bdedcb3f",
+    "scripts/taskcard6/team_package.py": "e20437f20e30afafe73c732006df566c2559f3baf2d413b10f75f213c1915c79",
+    "scripts/taskcard6/test_lemon_analysis.py": "106580e76d028841bdb46e5dfcec4f196637097395b8b4f75b9a81d33117c351",
+    "scripts/taskcard6/team_payload/examples/smoke_test.py": "9c1261a333a4cd731d1a8c959101afad8d62ab7ac622c21692ddc43e979ea613",
+    "scripts/taskcard6/team_payload/scripts/check_version.py": "6769767fc4959d7ed0321d0042bb7004b1c65208dcf37fa780f198253ba807bf",
+    "scripts/taskcard6/team_payload/tests/test_compatibility.py": "9d0ac3f15e3a351007822ac172ba7348670b00c62285e3e894e23fa07914d7fb",
+    "numerical_simulation/version_attribution/run.py": "082f603bb975f04eef5c234f5fad695d2fe942ff02367e5bf18c2a6cd0bc8217",
+    "tests/test_version_attribution.py": "e1b60402c40cf841d7f874854b5f5140bb56fd9b2185330b00aee072015f4e85",
+    "tests/test_taskcard6_team_package.py": "10c30aa74d76f9ede5e0124a711226cb7a2ed08a39a9a26e362bd2fd2a68e50b",
+    "tests/test_taskcard6_simulation_analysis.py": "d51eed9620eda5fb653eb9abeccb34360ead566184fc8c437eec6135faf83786"
+  }
+}

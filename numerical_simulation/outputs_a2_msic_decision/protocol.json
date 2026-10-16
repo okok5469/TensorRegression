@@ -1,0 +1,33 @@
+{
+  "stage": "A2-controlled-development-MSIC-rescoring",
+  "research_only": true,
+  "release_approved": false,
+  "group": "A2",
+  "rules": [
+    {
+      "rule": "msic-alpha1.5-scale1",
+      "role": "default",
+      "criterion": "msic",
+      "alpha": 1.5,
+      "gamma": 1.0,
+      "scale": 1.0
+    },
+    {
+      "rule": "msic-alpha2-scale0",
+      "role": "mild_candidate",
+      "criterion": "msic",
+      "alpha": 2.0,
+      "gamma": 1.0,
+      "scale": 0.0
+    }
+  ],
+  "mode_alpha": 1.0,
+  "gamma": 1.0,
+  "input_cohort": "development",
+  "dataset_count": 90,
+  "entry_gate": "Execute only after the independent A2 search decision permits Phase C",
+  "rule_selection_performed": false,
+  "confirmation_performed": false,
+  "new_model_fitting": false,
+  "purpose": "Controlled descriptive A2-pool development evidence; fixed two rules; original MSIC remains default pending separate evidence"
+}

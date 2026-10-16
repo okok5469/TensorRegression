@@ -1,0 +1,627 @@
+[
+  {
+    "path": "numerical_simulation/__pycache__/__init__.cpython-312.pyc",
+    "size_bytes": 687,
+    "sha256": "5060427fb6f1f7bd08768f9c4ea30da732d145b222930d6e55263fd454aa6c24"
+  },
+  {
+    "path": "numerical_simulation/__pycache__/consistency_checks.cpython-312.pyc",
+    "size_bytes": 5533,
+    "sha256": "4efa5671ff834e23c6e614c85e21954e7b6940671f4c37befea7f04830bc9d49"
+  },
+  {
+    "path": "numerical_simulation/__pycache__/data_generation.cpython-312.pyc",
+    "size_bytes": 11846,
+    "sha256": "b5a2dc11af280501c3364b052f7e84bbe8cde81f8351461b9eae24a364a4e74d"
+  },
+  {
+    "path": "numerical_simulation/__pycache__/main.cpython-312.pyc",
+    "size_bytes": 7767,
+    "sha256": "5d381129d96477cdf3788bcbc8fd3558573eb53cc12dbf6e113c8d58fa79b09a"
+  },
+  {
+    "path": "numerical_simulation/__pycache__/methods.cpython-312.pyc",
+    "size_bytes": 16917,
+    "sha256": "495c559c157b6370bc90925cc425f15c08805679936a1e0cacd8db52a2ed8bbf"
+  },
+  {
+    "path": "numerical_simulation/__pycache__/metrics.cpython-312.pyc",
+    "size_bytes": 6464,
+    "sha256": "77b6de9eb4c2aa55078331bb45c6229d93d6ba001c80e82b729dd6ed571dc703"
+  },
+  {
+    "path": "numerical_simulation/__pycache__/plots.cpython-312.pyc",
+    "size_bytes": 10570,
+    "sha256": "f36bc6fd0953db690301ca7384236580bbd6f8eb7e60cf9c986a4ef5dbcb21fe"
+  },
+  {
+    "path": "numerical_simulation/__pycache__/runner.cpython-312.pyc",
+    "size_bytes": 23247,
+    "sha256": "89b84315986f5a865f968b97773ea94d999d1497fed16b1a47341d916d91878e"
+  },
+  {
+    "path": "numerical_simulation/a2_final_validation/__pycache__/analyse.cpython-312.pyc",
+    "size_bytes": 35554,
+    "sha256": "18cbd58338a208478fe03851e4a1aedd94b8059154fc58229d6a28f9b0d932c3"
+  },
+  {
+    "path": "numerical_simulation/a2_final_validation/__pycache__/run.cpython-312.pyc",
+    "size_bytes": 33489,
+    "sha256": "a5351fa36fd13a2e0a2f99c71f8b92aae88a6f679e4b3251b6fbd67cc093d207"
+  },
+  {
+    "path": "numerical_simulation/a2_msic_decision/__pycache__/run.cpython-312.pyc",
+    "size_bytes": 23260,
+    "sha256": "fe9067a4ba0e8352fa6c29cacf0f6d3b858797fc7faaef87ba3c3db81efb164c"
+  },
+  {
+    "path": "numerical_simulation/advisor_experiments_20261004/__pycache__/run.cpython-312.pyc",
+    "size_bytes": 18225,
+    "sha256": "d252b41f78d3c3cf90a9539c8cb188f957213dfe484da8d7550b851346c9eb5f"
+  },
+  {
+    "path": "numerical_simulation/advisor_experiments_20261004/__pycache__/summarize.cpython-312.pyc",
+    "size_bytes": 47814,
+    "sha256": "96468c52f8d2083c9eaa5e1f94bbe0b17df8befb070a2d2538856f59ffc796d9"
+  },
+  {
+    "path": "numerical_simulation/advisor_experiments_20261004/__pycache__/test_run.cpython-312.pyc",
+    "size_bytes": 12003,
+    "sha256": "6e0c70366fffc5752a1a9cd4e97e1ebdc4e121c0228700a020ab4f4c9819ebaf"
+  },
+  {
+    "path": "numerical_simulation/candidate_search_study/__pycache__/__init__.cpython-312.pyc",
+    "size_bytes": 312,
+    "sha256": "19b1fa09ce4efd7ef919d06c4a065dd03444d444c76e7c4174da80932c92111f"
+  },
+  {
+    "path": "numerical_simulation/candidate_search_study/__pycache__/analyse.cpython-312.pyc",
+    "size_bytes": 11197,
+    "sha256": "48f21fd44657ba16b52dafedd484667bf7b9227400ef33987fa8a7cb297259db"
+  },
+  {
+    "path": "numerical_simulation/candidate_search_study/__pycache__/contrasts.cpython-312.pyc",
+    "size_bytes": 20487,
+    "sha256": "011b1aa00aef9cc5d647fb247a027d5aaab166bb7daa66bbc667a6aa93cd2aba"
+  },
+  {
+    "path": "numerical_simulation/candidate_search_study/__pycache__/msic_after_search.cpython-312.pyc",
+    "size_bytes": 24747,
+    "sha256": "5a191c4d210b1287f59e4eed8e370c5b7e33f9702473508a5438b774da180aa1"
+  },
+  {
+    "path": "numerical_simulation/candidate_search_study/__pycache__/msic_confirmation.cpython-312.pyc",
+    "size_bytes": 32350,
+    "sha256": "090139792731fbf5e86f1745ba04a713f77ba0077e3d04c3f6458ff0070d1543"
+  },
+  {
+    "path": "numerical_simulation/candidate_search_study/__pycache__/msic_refit.cpython-312.pyc",
+    "size_bytes": 23150,
+    "sha256": "968d0c2ba86f63f70f80d051741fdd04da36bd2c5f557e86062d8abe4d35b116"
+  },
+  {
+    "path": "numerical_simulation/candidate_search_study/__pycache__/numerics.cpython-312.pyc",
+    "size_bytes": 18192,
+    "sha256": "874ac2e0ca7a4db40710f45b7a95595a8bcdb25196f2f6c0a8d77c9ca6c45761"
+  },
+  {
+    "path": "numerical_simulation/candidate_search_study/__pycache__/run.cpython-312.pyc",
+    "size_bytes": 28898,
+    "sha256": "f9bc5a61ec3360ffaa326b505db1d03edc5091aba60dc56d36ed3c8712fe6d68"
+  },
+  {
+    "path": "numerical_simulation/candidate_search_study/__pycache__/stability.cpython-312.pyc",
+    "size_bytes": 4842,
+    "sha256": "75f6078a1ff33dad813fe579d0de5af3acf824fe5d9db187baf671d20a703a9c"
+  },
+  {
+    "path": "numerical_simulation/candidate_search_study/__pycache__/stability_run.cpython-312.pyc",
+    "size_bytes": 31365,
+    "sha256": "fce6c6c4667b2b807b3823f25fdd79e2f87fe6eb7f4a64b965d43eaad12327c8"
+  },
+  {
+    "path": "numerical_simulation/candidate_search_study/__pycache__/test_contrasts.cpython-312.pyc",
+    "size_bytes": 6949,
+    "sha256": "6c5d183d6a292d78f732dd258634246efd67a4c3b146e20f65d6238a954208b8"
+  },
+  {
+    "path": "numerical_simulation/candidate_search_study/__pycache__/test_run.cpython-312.pyc",
+    "size_bytes": 22658,
+    "sha256": "c9b8aa1d1f8ba369615946659913fb0714de43384329ff97cb4f46561dc1a78d"
+  },
+  {
+    "path": "numerical_simulation/candidate_search_study/__pycache__/worker.cpython-312.pyc",
+    "size_bytes": 22580,
+    "sha256": "69fc0fc0419538695d430f6539544992c31dd7177f98b2c9834b46b83a7c7b43"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/__pycache__/run.cpython-312.pyc",
+    "size_bytes": 47867,
+    "sha256": "e5d38aa033c19c9c68ecb15e8997f318fda2321957720c7629f65a92bb883c26"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/upload_verification/numerical_simulation/__pycache__/__init__.cpython-312.pyc",
+    "size_bytes": 810,
+    "sha256": "eeeafa615511f4ffe1d8237007463bc3a2f305c586b413d0a8ce1ec6d76f4190"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/upload_verification/numerical_simulation/__pycache__/data_generation.cpython-312.pyc",
+    "size_bytes": 11969,
+    "sha256": "ac5f777d8aa66a581a894fc9607c719a680c146560a6ac1aa3cac721d7e09e19"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/upload_verification/numerical_simulation/__pycache__/methods.cpython-312.pyc",
+    "size_bytes": 17040,
+    "sha256": "f6f9f42143e76a623f569d5c89bc518a7d93856cfa2cc8905bcd6b24bb67f5ed"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/upload_verification/numerical_simulation/__pycache__/metrics.cpython-312.pyc",
+    "size_bytes": 6587,
+    "sha256": "0a73dac87b1fd54f3289c16dc760020b1bcf82b797698387c20c968ee529e735"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/upload_verification/numerical_simulation/known_s_cluster/__pycache__/run.cpython-312.pyc",
+    "size_bytes": 48107,
+    "sha256": "88ee8a105661c8f360fd24b52e7cc549d45fe44ce7d653787c8b214f1c2b6241"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/upload_verification/numerical_simulation/known_s_cluster/__pycache__/test_run.cpython-312.pyc",
+    "size_bytes": 21249,
+    "sha256": "69240bb3bcb509b94a619a1f474c0bb8b4da9493731ab8812bed0f6485ff133c"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/upload_verification/src/tensor_abess/__pycache__/__init__.cpython-312.pyc",
+    "size_bytes": 1016,
+    "sha256": "9da8f73656f082e1a3709f9c7d49917fef6a3901d995bd3c04358dac8a9a3cd5"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/upload_verification/src/tensor_abess/common/__pycache__/__init__.cpython-312.pyc",
+    "size_bytes": 255,
+    "sha256": "901e2bf3c69e30e90b67fd757030cea35307f61011b9abeb8ccf68200bf3fdfe"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/upload_verification/src/tensor_abess/common/__pycache__/ranks.cpython-312.pyc",
+    "size_bytes": 1862,
+    "sha256": "a1cd4d81cc074a893d6c6ef2b3d3e50760964544275f2b9e626cc02ba4d6b92d"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/upload_verification/src/tensor_abess/group/__pycache__/__init__.cpython-312.pyc",
+    "size_bytes": 543,
+    "sha256": "783630c95709bb0d804a62a530d4d65109d29c503509c278acc46326f0fa416f"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/upload_verification/src/tensor_abess/group/__pycache__/adaptive.cpython-312.pyc",
+    "size_bytes": 4003,
+    "sha256": "97f0666b6425b99e42c38a799c59e40bfa5ccdb9717deaab836fee782c8974a1"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/upload_verification/src/tensor_abess/group/__pycache__/bess_fix.cpython-312.pyc",
+    "size_bytes": 4595,
+    "sha256": "3ea3a74d7cf3e8f53d39155046f827f0c485c393075f0f525ebc5d1c3bbdcae0"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/upload_verification/src/tensor_abess/group/__pycache__/sacrifices.cpython-312.pyc",
+    "size_bytes": 6151,
+    "sha256": "f2adde7c7fc8c5ee73411d138247966949573cc45e62a079ad7d9995c0d106bf"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/upload_verification/src/tensor_abess/group/__pycache__/splicing.cpython-312.pyc",
+    "size_bytes": 2827,
+    "sha256": "b16ecb200b2ba7c140c4fe0086bb60b12be7143d49043062b045f8c70a932904"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/upload_verification/src/tensor_abess/metrics/__pycache__/__init__.cpython-312.pyc",
+    "size_bytes": 428,
+    "sha256": "2ff10106c8d97615ad94c03e40eae11cd8e207ad16cad57ee7dd8d4233ff16b7"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/upload_verification/src/tensor_abess/metrics/__pycache__/support.cpython-312.pyc",
+    "size_bytes": 3080,
+    "sha256": "827dbc674b2891d10c764dae250e5c39f19b56c00f6862aa6b1b86414f8bdc37"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/upload_verification/src/tensor_abess/tensor/__pycache__/__init__.cpython-312.pyc",
+    "size_bytes": 1703,
+    "sha256": "98ea1ca1ea1b374322b609ea8364779708924184f7678a3b8539119a52cb2402"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/upload_verification/src/tensor_abess/tensor/__pycache__/abess.cpython-312.pyc",
+    "size_bytes": 6856,
+    "sha256": "884175b6bdabdf6bf41442c8fc94e4eee586e0506547f1caf12d157f91c6ade6"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/upload_verification/src/tensor_abess/tensor/__pycache__/bcd.cpython-312.pyc",
+    "size_bytes": 17135,
+    "sha256": "14575e7a3783b749f198741f299eca65029e4b573171b9147edddc4490ed9168"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/upload_verification/src/tensor_abess/tensor/__pycache__/ops.cpython-312.pyc",
+    "size_bytes": 5466,
+    "sha256": "c29fd280ea0a2b9303e4180e8a6c9e6d9b04a838a669ef5290051e10810da38f"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/upload_verification/src/tensor_abess/tensor/__pycache__/reduction.cpython-312.pyc",
+    "size_bytes": 4734,
+    "sha256": "77c10fcd8336d409dbda7e5825c34bf8589043fd4906e6a0837574e4199ed768"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/upload_verification/src/tensor_abess/tensor/__pycache__/sic.cpython-312.pyc",
+    "size_bytes": 6160,
+    "sha256": "d99d67cdc205cad0bc3b70515df68ab5932ca75ddfffb1c84804f710af0b5a2e"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/upload_verification/src/tensor_abess/utils/__pycache__/__init__.cpython-312.pyc",
+    "size_bytes": 1218,
+    "sha256": "c0ac930f6a780fa056dcd8913d00f0dad2aab421d26ce29fce2125aa9e983522"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/upload_verification/src/tensor_abess/utils/__pycache__/glasso.cpython-312.pyc",
+    "size_bytes": 8559,
+    "sha256": "b9afafcc6f2e2c2078782419b2a569e5362820ab326a34543a908055fcf98759"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/upload_verification/src/tensor_abess/utils/__pycache__/init.cpython-312.pyc",
+    "size_bytes": 11729,
+    "sha256": "3915c6e7f0aa5e0fe833106cb9eb4802846944b84656bba5a44e3bec92fa4358"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/upload_verification/src/tensor_abess/vector/__pycache__/__init__.cpython-312.pyc",
+    "size_bytes": 653,
+    "sha256": "bd7bd194dea2a1f7a1132d3d68ba88658e909bb2d247376aa097deb9ab4d5021"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/upload_verification/src/tensor_abess/vector/__pycache__/abess.cpython-312.pyc",
+    "size_bytes": 5726,
+    "sha256": "5b692cee652758d919b91cb26a6a1eb08c38f275cab4404f3490045167789c83"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/upload_verification/src/tensor_abess/vector/__pycache__/sacrifices.cpython-312.pyc",
+    "size_bytes": 4705,
+    "sha256": "424a41ce9e6c709111b3a807ca4e70717dc65c3cd2b9fbdfc2a95702e3ee1b35"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/upload_verification/src/tensor_abess/vector/__pycache__/sic.cpython-312.pyc",
+    "size_bytes": 1963,
+    "sha256": "77b1220021fd5b9fbf4e172790d7d0959ba3f2ecbf6bea28c2dec41d553ad720"
+  },
+  {
+    "path": "numerical_simulation/known_s_cluster/upload_verification/src/tensor_abess/vector/__pycache__/splicing.cpython-312.pyc",
+    "size_bytes": 2940,
+    "sha256": "263ab84797364520f2d3aedc64c725c99cc05c5e332316ebbdb3068725d0b14c"
+  },
+  {
+    "path": "numerical_simulation/version_validation/__pycache__/__init__.cpython-312.pyc",
+    "size_bytes": 313,
+    "sha256": "47985c0eb9efda45db396a8f3c8b38b08c4443cfdcd6046f3e1e4f53ea7324d1"
+  },
+  {
+    "path": "numerical_simulation/version_validation/__pycache__/analyse.cpython-312.pyc",
+    "size_bytes": 10127,
+    "sha256": "d2d2a8f7da1dbcfd810a3ff0dec22a8a35fe9a403aecca3bdc656152fda15d83"
+  },
+  {
+    "path": "numerical_simulation/version_validation/__pycache__/paired.cpython-312.pyc",
+    "size_bytes": 26713,
+    "sha256": "c76fbb40dbbb4ac61f57e562199f8019e7fe887c0c7c332eda94f2181533ef75"
+  },
+  {
+    "path": "numerical_simulation/version_validation/__pycache__/test_plan.cpython-312.pyc",
+    "size_bytes": 6117,
+    "sha256": "684c19ec5085ecd4b3e45ef1662836622af4a766092b93d95129cf7f2b329124"
+  },
+  {
+    "path": "numerical_simulation/version_validation/__pycache__/test_selection.cpython-312.pyc",
+    "size_bytes": 11834,
+    "sha256": "6b63a81bfa2d49ec1f4fadc3a4d704f285b0c7c77deb8f76b63b4b0e883fa9fe"
+  },
+  {
+    "path": "numerical_simulation/version_validation/__pycache__/worker.cpython-312.pyc",
+    "size_bytes": 29282,
+    "sha256": "333c178e31d0c048257e84dab98e60278ab198401bc62516562bf437e6d670b9"
+  },
+  {
+    "path": "src/tensor_abess/__pycache__/__init__.cpython-312.pyc",
+    "size_bytes": 959,
+    "sha256": "f56c737c94294e87157ecec2d6c8296a8615c0e39bc50b445c1488358ebf713a"
+  },
+  {
+    "path": "src/tensor_abess/baselines/__pycache__/__init__.cpython-312.pyc",
+    "size_bytes": 1262,
+    "sha256": "cc5a9632c23c86fd1e01814faa78a0b127e09dc8bf2dfbe4325e48018c570feb"
+  },
+  {
+    "path": "src/tensor_abess/baselines/__pycache__/base.cpython-312.pyc",
+    "size_bytes": 768,
+    "sha256": "d4d47232bc9569e9b39993b973ddd43fb776cd4d9703bd5e8b3eb7e3a84eb45d"
+  },
+  {
+    "path": "src/tensor_abess/baselines/__pycache__/cp.cpython-312.pyc",
+    "size_bytes": 3309,
+    "sha256": "aa7767f6e2cbb3dd0c3af02461b8720b31c6cec3c8b88f47806388da9d973e81"
+  },
+  {
+    "path": "src/tensor_abess/baselines/__pycache__/group_lasso.cpython-312.pyc",
+    "size_bytes": 4611,
+    "sha256": "0ed052f053426c1d7f6a74da0117e24531512145c58244716c33debf5f0c78eb"
+  },
+  {
+    "path": "src/tensor_abess/baselines/__pycache__/lasso.cpython-312.pyc",
+    "size_bytes": 1730,
+    "sha256": "b6b7bee0f1d6aaf4d55c96932958aec5d8ab37cd2806b4d534a917d534e960cc"
+  },
+  {
+    "path": "src/tensor_abess/baselines/__pycache__/tucker.cpython-312.pyc",
+    "size_bytes": 3311,
+    "sha256": "8f6587351e295796c4028f0df7d029705f684c9f97f11352d9b91f654c189a39"
+  },
+  {
+    "path": "src/tensor_abess/common/__pycache__/__init__.cpython-312.pyc",
+    "size_bytes": 198,
+    "sha256": "29b8ed644f0343c4f4293651231792e41b0db567564283f4b6aad15a4015664f"
+  },
+  {
+    "path": "src/tensor_abess/common/__pycache__/ranks.cpython-312.pyc",
+    "size_bytes": 1805,
+    "sha256": "65d0b55dc52bc8933bd221bd680fde4061b587fe4ec26ece4c3b360c4be09e24"
+  },
+  {
+    "path": "src/tensor_abess/group/__pycache__/__init__.cpython-312.pyc",
+    "size_bytes": 486,
+    "sha256": "2de1f00a258b71e5dafcd5e216767e2e8260da4c51e8d4306278fafe3b1b2619"
+  },
+  {
+    "path": "src/tensor_abess/group/__pycache__/adaptive.cpython-312.pyc",
+    "size_bytes": 3880,
+    "sha256": "eaee89497995eaa12adb3951706b379cccce5f45fae0c30faeb9c0e000e31f54"
+  },
+  {
+    "path": "src/tensor_abess/group/__pycache__/bess_fix.cpython-312.pyc",
+    "size_bytes": 4472,
+    "sha256": "338d1fe7fca62f256712142725887223d3f10b90825d39188085c67d895174cd"
+  },
+  {
+    "path": "src/tensor_abess/group/__pycache__/sacrifices.cpython-312.pyc",
+    "size_bytes": 6094,
+    "sha256": "1306fa5f6e8fd987b66ba9fbed16cd775265847f77127a75ae6aec93fe671db4"
+  },
+  {
+    "path": "src/tensor_abess/group/__pycache__/splicing.cpython-312.pyc",
+    "size_bytes": 2704,
+    "sha256": "2527fc1ce0225d04b2e571e4c124a28263f1499a764a555b572c696015a73516"
+  },
+  {
+    "path": "src/tensor_abess/metrics/__pycache__/__init__.cpython-312.pyc",
+    "size_bytes": 371,
+    "sha256": "4cc5a7e73a2645b3a4fcd67ab782e6102c9f518c02f7adaaee0f4de098bc1ee9"
+  },
+  {
+    "path": "src/tensor_abess/metrics/__pycache__/support.cpython-312.pyc",
+    "size_bytes": 3023,
+    "sha256": "4a92371be07e867b9a8f42d2fba1b1fac2cdbea8089e87a4e184664f174d2f70"
+  },
+  {
+    "path": "src/tensor_abess/tensor/__pycache__/__init__.cpython-312.pyc",
+    "size_bytes": 1646,
+    "sha256": "bd6de34f6b6e6d803f8c7cb0993a29dd1960e3f81fa1fd6dcdd25c7eea333612"
+  },
+  {
+    "path": "src/tensor_abess/tensor/__pycache__/abess.cpython-312.pyc",
+    "size_bytes": 6733,
+    "sha256": "6825203688229c07fcefa9fc9d43fc3aa3be84fd7bc49b54f6a95ea5bd49330e"
+  },
+  {
+    "path": "src/tensor_abess/tensor/__pycache__/bcd.cpython-312.pyc",
+    "size_bytes": 21298,
+    "sha256": "01795ac343011999a8207b78a5741a61aea40fc0a11d341ed6e9ab28aeafb67b"
+  },
+  {
+    "path": "src/tensor_abess/tensor/__pycache__/ops.cpython-312.pyc",
+    "size_bytes": 5409,
+    "sha256": "967bfd31ac0fa0d502ed6575efffbb4c6cb4c03ab894e49d2cf3df9558885955"
+  },
+  {
+    "path": "src/tensor_abess/tensor/__pycache__/reduction.cpython-312.pyc",
+    "size_bytes": 4677,
+    "sha256": "983bd370592b478011ae2d5e9d2a0e0abac24c0fbeb525113c44904a44dc6fd0"
+  },
+  {
+    "path": "src/tensor_abess/tensor/__pycache__/sic.cpython-312.pyc",
+    "size_bytes": 6037,
+    "sha256": "1764480eeabde48bf0b1c69c22413c25d00f5c614bd8c4802fedb2198f465252"
+  },
+  {
+    "path": "src/tensor_abess/utils/__pycache__/__init__.cpython-312.pyc",
+    "size_bytes": 1161,
+    "sha256": "d1c14b4d14927605216d94baee325570a5e58ec1479c7e05823f82072f702e3c"
+  },
+  {
+    "path": "src/tensor_abess/utils/__pycache__/data.cpython-312.pyc",
+    "size_bytes": 3927,
+    "sha256": "b0cadd032025309ec48c33fa2e49f93355e50041ee4c8adf16dc6d790582f0ca"
+  },
+  {
+    "path": "src/tensor_abess/utils/__pycache__/glasso.cpython-312.pyc",
+    "size_bytes": 8502,
+    "sha256": "9f17994eade1ba55092b50b15ca675a6828185a1a936c9295e4530aaaf6e839f"
+  },
+  {
+    "path": "src/tensor_abess/utils/__pycache__/init.cpython-312.pyc",
+    "size_bytes": 11606,
+    "sha256": "eafb9121b04266a7258d91f989884aa4f736a4d57b058ef66536614c6fa66d4c"
+  },
+  {
+    "path": "src/tensor_abess/utils/__pycache__/validation.cpython-312.pyc",
+    "size_bytes": 18526,
+    "sha256": "86428889957f3db6fcb7f8d9f0335a6a93d14c9e0918fafd8bea362c31473f8e"
+  },
+  {
+    "path": "src/tensor_abess/vector/__pycache__/__init__.cpython-312.pyc",
+    "size_bytes": 596,
+    "sha256": "03259ffc1ec9f25b143786bcb1e577526a093ca4fd1cfebd4a46705b6b0c6b4f"
+  },
+  {
+    "path": "src/tensor_abess/vector/__pycache__/abess.cpython-312.pyc",
+    "size_bytes": 5669,
+    "sha256": "b3b684c8c3a2c8eed475b89ba7ac56cdf52adda5a418d80ceebe931a8af7ddbb"
+  },
+  {
+    "path": "src/tensor_abess/vector/__pycache__/sacrifices.cpython-312.pyc",
+    "size_bytes": 4648,
+    "sha256": "d2dbecdf5a67588d8db6da98585943765665bf84c44ec0bb158ddfb6e6aba2c5"
+  },
+  {
+    "path": "src/tensor_abess/vector/__pycache__/sic.cpython-312.pyc",
+    "size_bytes": 1906,
+    "sha256": "4f3793eaef80db1ee7cf59e3053826c34cf967cbd937802f3e2338984bb03a2b"
+  },
+  {
+    "path": "src/tensor_abess/vector/__pycache__/splicing.cpython-312.pyc",
+    "size_bytes": 2883,
+    "sha256": "352c19869803567687ce2316198b382871d630b68904c7771d9b37076ab7f6d9"
+  },
+  {
+    "path": "src/tests/__pycache__/test_group_adaptive.cpython-312.pyc",
+    "size_bytes": 3954,
+    "sha256": "fde98d69fb5ab3839b5314e1fd154ee92520db3339d206cf8c5c4b29dad12da1"
+  },
+  {
+    "path": "src/tests/__pycache__/test_group_core.cpython-312.pyc",
+    "size_bytes": 4039,
+    "sha256": "911730f64aa20fdc36561cd325fd037e86d6697ed896d696fcb8958ab1048477"
+  },
+  {
+    "path": "src/tests/__pycache__/test_optional_imports.cpython-312.pyc",
+    "size_bytes": 1383,
+    "sha256": "790b1e358665a67b671d36b458886fdf6b7e29577024ef0c7d98f9ce0e8cfc5e"
+  },
+  {
+    "path": "src/tests/__pycache__/test_sic.cpython-312.pyc",
+    "size_bytes": 4257,
+    "sha256": "65074f045769fde1d83e23d017df590adb4703b7728b664d34722b969ce2b9dd"
+  },
+  {
+    "path": "src/tests/__pycache__/test_tensor_adaptive.cpython-312.pyc",
+    "size_bytes": 14275,
+    "sha256": "64aaa1b24ac6e70a192e1860e864c13d9929432b9efc7eb5e828697899511984"
+  },
+  {
+    "path": "src/tests/__pycache__/test_validation_suite.cpython-312.pyc",
+    "size_bytes": 1639,
+    "sha256": "2199ab8ff017a2cea45838ab0667b8ae30d148d6abce93afa29188d75596ec6d"
+  },
+  {
+    "path": "src/tests/__pycache__/test_validation_visuals.cpython-312.pyc",
+    "size_bytes": 4068,
+    "sha256": "1a359acc0a212a6d3ba40e031952e89bf61dbac7e5d67f3845ddf3b8c5c92f46"
+  },
+  {
+    "path": "tests/__pycache__/test_a2_final_analysis.cpython-312.pyc",
+    "size_bytes": 19208,
+    "sha256": "a276d2e485e4592d73fbdd0aa9dd86e13a2ab74c1ee521c7800222a0a29c8d04"
+  },
+  {
+    "path": "tests/__pycache__/test_a2_final_validation.cpython-312.pyc",
+    "size_bytes": 12900,
+    "sha256": "f8a20e35a19984d447969bdc550a6ea6efea9e16c74385a4d4d7420a72465a06"
+  },
+  {
+    "path": "tests/__pycache__/test_a2_msic_decision.cpython-312.pyc",
+    "size_bytes": 13023,
+    "sha256": "1a8ee6aad098cd14f7056952d1af49e5edc932b4f136ef80d983ac45ede2a428"
+  },
+  {
+    "path": "tests/__pycache__/test_a2_release_candidate.cpython-312.pyc",
+    "size_bytes": 14565,
+    "sha256": "d308535c713da313c15d6b06bd64b9bab4db8e5ee78cf746661d2f9703e13323"
+  },
+  {
+    "path": "tests/__pycache__/test_bcd_fix_regression.cpython-312-pytest-8.3.5.pyc",
+    "size_bytes": 18455,
+    "sha256": "705e235746edc50158a91893cc97aa4fe60b3d169419901867b3b312b1b6b566"
+  },
+  {
+    "path": "tests/__pycache__/test_bcd_fix_regression.cpython-312.pyc",
+    "size_bytes": 18341,
+    "sha256": "9508220f6d31965f3bff372efae872314f3aff07d5f903c3b38dfd219c17e43c"
+  },
+  {
+    "path": "tests/__pycache__/test_candidate_numerics.cpython-312.pyc",
+    "size_bytes": 6403,
+    "sha256": "81343bab20eb6014123d9eb0fe2e7bd1c3cbe2e1559fc80390c0057e30c0e691"
+  },
+  {
+    "path": "tests/__pycache__/test_candidate_search_core.cpython-312-pytest-8.3.5.pyc",
+    "size_bytes": 19099,
+    "sha256": "c04e87398e5b7d703a1208349c078aabd995604f692d0fcb84def6cd1f00df69"
+  },
+  {
+    "path": "tests/__pycache__/test_candidate_search_core.cpython-312.pyc",
+    "size_bytes": 18985,
+    "sha256": "e91ff964001ecc466a4d067df328d2e1f1d2a46f8564fd6a4cb2453eb248ec2c"
+  },
+  {
+    "path": "tests/__pycache__/test_candidate_study_analysis.cpython-312.pyc",
+    "size_bytes": 4405,
+    "sha256": "9e34e2a19999c849d41be3db1044e3b1f0d501599fcb7f4fd747302260e3e5a5"
+  },
+  {
+    "path": "tests/__pycache__/test_lemon_models.cpython-312-pytest-8.3.5.pyc",
+    "size_bytes": 27273,
+    "sha256": "6fffa834fe075c141403359cb5b01022fd684eb37633699475b869fc67bc7de4"
+  },
+  {
+    "path": "tests/__pycache__/test_lemon_models.cpython-312.pyc",
+    "size_bytes": 27160,
+    "sha256": "7d715a1e9203a705918f0ad5cc8a4e83560bfde66f402bcf394d730ef65353c5"
+  },
+  {
+    "path": "tests/__pycache__/test_msic_after_search.cpython-312.pyc",
+    "size_bytes": 20135,
+    "sha256": "c3d14d5d77216af378ca6b5844a0c59e39de6e22487f51bfa2ea13aee8fd7e8e"
+  },
+  {
+    "path": "tests/__pycache__/test_msic_confirmation.cpython-312.pyc",
+    "size_bytes": 21003,
+    "sha256": "732e3813538e54253eb4b52462c4324bfcdd4bd253c30720e7b9558059d10a07"
+  },
+  {
+    "path": "tests/__pycache__/test_msic_refit.cpython-312.pyc",
+    "size_bytes": 13042,
+    "sha256": "324ae970bdf903a6fa3da72929dfd7791c7d37d564f143a9581461972fb85937"
+  },
+  {
+    "path": "tests/__pycache__/test_numerical_simulation.cpython-312-pytest-8.3.5.pyc",
+    "size_bytes": 23125,
+    "sha256": "9dbb3471fcdc8099f2fc073a2117b8c4d8575df5af14f1bae3c6f9141e5a4b86"
+  },
+  {
+    "path": "tests/__pycache__/test_numerical_simulation.cpython-312.pyc",
+    "size_bytes": 22946,
+    "sha256": "fdc024f7baa013e264aa34476e3e7ddcc916f77873d4d8ed90d294ba71d4f79f"
+  },
+  {
+    "path": "tests/__pycache__/test_phase_c.cpython-312-pytest-8.3.5.pyc",
+    "size_bytes": 21702,
+    "sha256": "19a86c24b05331e8298ab1ed66474eee3ca0a3f54ad91b268a7d4e8e6bea7fbe"
+  },
+  {
+    "path": "tests/__pycache__/test_stability_run.cpython-312.pyc",
+    "size_bytes": 7646,
+    "sha256": "826192703de157345fb3041177063fdac772a5743f4cc0d1be21aa9ee0282452"
+  },
+  {
+    "path": "tests/__pycache__/test_support_search_stability.cpython-312.pyc",
+    "size_bytes": 7762,
+    "sha256": "8bac052963fdd9d593e462580f9dcd9e7122f88ea5b2f89501996345466bf049"
+  },
+  {
+    "path": "tests/__pycache__/test_tensor_bcd.cpython-312-pytest-8.3.5.pyc",
+    "size_bytes": 18394,
+    "sha256": "1ad55c2e488f3da60b79a90998894ae4f9de46e492f53746b9127928cdf8fd5e"
+  },
+  {
+    "path": "tests/__pycache__/test_tensor_bcd.cpython-312.pyc",
+    "size_bytes": 5871,
+    "sha256": "09db465df78fd903bbea5fe35dec3ea5ccb167a96eb8120b78b0e7e4926ce175"
+  }
+]

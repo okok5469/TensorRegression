@@ -1,0 +1,87 @@
+{
+  "plan_id": "55cd1a254efe2425d650e755950388efa2ff8746aa0ebd83f9cfffdb50cf7cd3",
+  "task_id": 76,
+  "checks_passed": true,
+  "rows": [
+    {
+      "task_id": 76,
+      "group": "A0",
+      "seed": 30516012,
+      "candidate_index": 8,
+      "n_train": 400,
+      "q_hat": 6,
+      "sizes": [
+        1,
+        2,
+        3
+      ],
+      "rank": 6,
+      "rank_deficient": false,
+      "rank_tolerance": 2.338937410223617e-12,
+      "singular_max": 26.334094122814985,
+      "singular_min": 15.507758712635601,
+      "singular_values": [
+        26.334094122814985,
+        22.576253231781347,
+        20.635129360164015,
+        19.46492954512246,
+        16.89514390838578,
+        15.507758712635601
+      ],
+      "condition_number": 1.6981237979514197,
+      "rss_stored": 500.98235577502675,
+      "rss_rectangular": 500.9823557750267,
+      "rss_tensor": 500.9823557750267,
+      "rss_independent_ols": 500.9823557750267,
+      "rss_relative_difference": 1.1346391385954192e-16,
+      "ols_rss_relative_difference": 0.0,
+      "prediction_max_abs_difference": 2.220446049250313e-16,
+      "normal_equation_residual": 1.8507751702329065e-13,
+      "normal_equation_relative_residual": 2.930488915042492e-16,
+      "beta_l2_difference_from_independent_ols": 0.0,
+      "beta_relative_difference_from_independent_ols": 0.0,
+      "coefficients_nonunique": false,
+      "checks_passed": true,
+      "audit_seconds": 0.043826599954627454
+    },
+    {
+      "task_id": 76,
+      "group": "A2",
+      "seed": 30516012,
+      "candidate_index": 9,
+      "n_train": 400,
+      "q_hat": 4,
+      "sizes": [
+        1,
+        2,
+        2
+      ],
+      "rank": 4,
+      "rank_deficient": false,
+      "rank_tolerance": 2.2874181027620692e-12,
+      "singular_max": 25.754038288099455,
+      "singular_min": 15.965201515538967,
+      "singular_values": [
+        25.754038288099455,
+        22.119692976996717,
+        17.446333860337276,
+        15.965201515538967
+      ],
+      "condition_number": 1.6131358105961262,
+      "rss_stored": 513.6213594822152,
+      "rss_rectangular": 513.6213594822152,
+      "rss_tensor": 513.6213594822152,
+      "rss_independent_ols": 513.6213594822152,
+      "rss_relative_difference": 0.0,
+      "ols_rss_relative_difference": 0.0,
+      "prediction_max_abs_difference": 0.0,
+      "normal_equation_residual": 8.556294447906627e-14,
+      "normal_equation_relative_residual": 1.3853043135307649e-16,
+      "beta_l2_difference_from_independent_ols": 0.0,
+      "beta_relative_difference_from_independent_ols": 0.0,
+      "coefficients_nonunique": false,
+      "checks_passed": true,
+      "audit_seconds": 0.026199599960818887
+    }
+  ]
+}

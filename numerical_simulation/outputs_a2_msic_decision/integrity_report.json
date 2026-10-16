@@ -1,0 +1,15 @@
+{
+  "status": "complete",
+  "checks_passed": true,
+  "plan_id": "706abe98c9d211baea6491fdfa649ced7d787d7d1cc32d0cac76da29d6dfa22c",
+  "dataset_count": 90,
+  "rule_rows": 180,
+  "default_exact_replays": 90,
+  "pool_fingerprints_unchanged": true,
+  "new_model_fitting": false,
+  "rule_selection_performed": false,
+  "confirmation_performed": false,
+  "release_approved": false,
+  "elapsed_sec": 202.57000659999903,
+  "scope": "Historical development A2 candidates only; two predeclared global MSIC rules; no independent confirmation"
+}

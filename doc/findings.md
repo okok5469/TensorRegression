@@ -100,3 +100,53 @@
 - task018：原minimum也非真，q=54；真q60候选处于eligible容差带，最终按eligible中的最小q选择q24。这里one-SE进一步偏向小模型，但不是四例中唯一原因：原minimum已经不是完整真支撑，不能称“去掉one-SE就恢复真模型”。
 - 四例纯粹“真支撑就是minimum、只被one-SE替换”的数量为0。分类为3例真候选在minimum容差带之外，1例minimum非真且真候选仍在带内、最终被最小q偏好排除。位置搜索已覆盖真模型与评分能选中真模型是两件独立事情。
 - 已在原精度上核验minimum_score等于保存候选score最小值；eligible_indices恰为score<=minimum+tolerance的候选；最终selected按(q,score,sum(sizes))字典序从eligible取得，均与已保存selection一致。未计算任何新的alpha/scale准则。
+## 2026-10-11 任务卡4前置核查
+
+- 任务卡3历史27、开发90、确认90以及A3 MSIC确认90已实际完成，旧“未执行”叙述属于文档收尾缺漏，已补齐。
+- 确认A0 Exact6/90、PMSE3.118404313；A2 Exact26/90、PMSE3.082733325。A3新MSIC不能直接作为A2的规则依据。
+- 原五组共享fixed缓存，历史runtime_sec不等于独立冷启动耗时；A2缓存成本加回估计194.3502秒/A0实测172.9293秒，需另作预声明冷启动核验。
+
+## 2026-10-11 任务卡4最终决策
+
+- A2新形状主90 Exact15→36、PMSE下降1.03%；成本估计+14.88%、cold实测+10.37%，原事前门禁通过；收益主要来自n400，rho.6仅验证n200兼容性，旧caps及弱信号限制未消失。
+- A2两MSIC规则开发90筛选通过，但独立80确认在3600秒预算停止、停止时68完成，最终71份留存不能替代完整验收；fresh refit0、无完整analysis/integrity，不据部分结果批准新MSIC；冻结规则要求保留原MSIC，故推荐D2。
+- 157项限定测试通过、2040受保护文件差异0；最终D2只改私有规模枚举，32源码/公共接口/原MSIC冻结，七份交付及队友/full准备齐备；research_only=true、release_approved=false，生产仍v5.1，正式发布待用户批准。
+
+## 2026-10-11 任务卡5正式发布
+
+- 用户任务卡5正式批准D2，当前生产32源匹配冻结v5.2，唯一核心变动bcd网格；历史研究状态不改，批准/released独立记录于doc/releases/v5.2-search-final。已有HEAD不是新commit，大量既有未提交修改保留，采用独立patch/完整指纹交接。
+- 66项发布/部署/清理限定测试通过；旧known-s shell的一项字面activation静态断言失败在非发布范围单列，新入口沿用实际conda初始化并独立验证。
+- 125再生缓存显式删除、7068重要hash差异0；目录净大小仍增加，归档只是原位置索引，没有历史移动/改标签或数据删除。
+- OpenSSH9.5默认SFTP路径不套旧shell引号；实际PowerShell mock Apply/普通副本backup和source/path/hash冲突通过，新700入口必须已有真实SLURM单任务Gate。当前远端全部NOT_RUN，本机仅task0四方法完成并strict resume不变。
+- 旧LEMON EEG增量结果32core匹配v5-original，q80接近n116容量81；新版仍需保留仅协变量基线及同一划分重新训练全部ABESS折，不能假定A2或BCD修复必然改善预测。
+
+## 2026-10-15 full模拟验收启动
+- 正式目录已包含plan、PASSED集群预检及task/slurm原文件；尚无原生汇总CSV/integrity报告。
+- 正式manifest已记录任务卡5批准D2且released；历史任务卡4文档的待批状态应按时间解释，不能覆盖正式发布身份。
+- 实证启动需完整模拟验收、各项目源码/数据/划分Gate和明确运行授权；本轮仅做判断及报告。
+
+### 2026-10-15 身份与作业记录初审
+- plan_id=30f231df0327e58331a18580dc8a03caeb0872dc991e57c42b095556100a80f6；full/50重复/700任务/4方法。
+- 38个plan源码与依赖raw SHA256均匹配现场；其中32 core同时匹配正式发布manifest。
+- 原目录恰700 JSON+700 NPZ；700个SLURM签名记录覆盖task0..699，所有记录签名、log hash及关联record hash匹配，Gate签名与task0两个原产物hash匹配。
+- 作业36235单任务task0为严格校验后skipped，作业36255含699个completed；单任务Gate不再是NOT_RUN。
+- 审计脚本首次误用紧凑JSON序列化计算job签名，产生工具层假阳性；已按原runner的sort_keys/ensure_ascii/默认分隔符规范重核700条，差异0，未改任何签名或产物。
+- 原runner read_task不重生训练/测试X/y，不独立重算预测指标或OLS；后续报告严格限定核验范围。
+
+### 2026-10-15 完整验收与科学判断
+- 原生完整性通过，独立read_task700复核亦通过；所有原始task/plan/gate/slurm及生产源码均保留。新生成raw/summary/integrity及两份不适用fixed比较表头。
+- 14标签仅10不同参数配置、600完整输入指纹组合（不是700独立数据）；sample200/dimbase/rho.3重复同50组，报告明确披露。
+- 严格旧新700对task/env/input一致，38源仅BCD不同；旧32core逐项匹配v5-original VERSION，Oracle非runtime指标全部一致。新Exact138→182/700，但PMSE2.236761→2.381274（+6.46%）；去重600 PMSE+7.22%、Exact120→162，不能称全面改进，也不能将v5到v5.2组合效应单独归因A2。
+- n100 caps(4,4,4)排除真(4,3,5)，Exact0/50/PMSE6.442；n400 Exact1→49/50，新PMSE1.1895。旧caps限制与弱信号、相关/高维恢复风险全部写入报告。
+- 工程released身份维持，推荐冻结版交队友验证，暂缓全面性能优势/论文定稿主张；项目自身Gate、完整OOF与仅协变量基线仍需执行。
+
+## 2026-10-15 任务卡6准备
+- 新LEMON目标目录尚不存在；旧结果已完整75 fits/2175 OOF，记录总耗时约1208.85秒，约20.15分钟。
+- P0正式训练X/y未完整保存，只有hash、B_true与noise；必须重生且逐项raw指纹匹配，不以相同seed/allclose替代，需核对本机与Linux计算差异。
+- 本地任务卡6在P0.3标题后跳到交接说明，缺P1标题及细则；已向用户询问，当前子任务只读审计，未启动拟合或新实现。
+
+### 2026-10-15 任务卡6核心发现
+- grid AST及96源码审计：v5.1到v5.2仅候选函数不同；n100 caps4/4/4的64与n200 caps5/5/5的125有序网格完全相同；n400 caps6/6/7从150→252，真第二模3由库外进库；这些是结构覆盖证据，不冒充250数值归因。
+- 用原init函数caps生成AST穷举6324种LEMON初始化长度组合，n116/dims61/16/5/c3始终caps4/4/5，原/新80规模同序，A2未扩LEMON网格。不能把当前LEMON恶化归于新增规模。
+- 模拟ΔPMSE中位数0，正累计124.080355、负累计-22.921523、净101.158833；最大20例占净恶化72.20%，n100+rho0贡献80.06%，不是单一离群决定。94恶化中73增q且RSS降、8同q且RSS降、13减q且RSS未降，不能统一归因为大q。
+- 当前P0严格输入Gate阻塞；P3建议保持正确性修复的冻结基线、保留负面实证、在原环境补250并研究结构/数据匹配，不自动调整caps/MSIC或恢复已知缺陷BCD。

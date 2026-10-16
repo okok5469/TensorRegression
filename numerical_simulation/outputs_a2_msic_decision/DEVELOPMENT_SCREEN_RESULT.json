@@ -1,0 +1,11 @@
+{
+  "status": "pass",
+  "rules_sha256": "06b148d2ef7dec6d3ac1c3f38aad7214641dae6945e281817f7bd736c4fd9e24",
+  "evidence": {
+    "pooled_pmse_ratio": 0.9276886548642442,
+    "worst_scenario_pmse_ratio": 1.0328219465747939,
+    "strong_exact_gain": 0.0,
+    "strong_mode_f1_gain": 0.0023148148148148806,
+    "strong_under_rate_increase": 0.0
+  }
+}

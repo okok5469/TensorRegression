@@ -34,8 +34,12 @@ candidate-search-study.patch包含16个新增文件：10个研究Python模块（
 
 本轮新身份为doc/algorithm_versions/v6-msic-after-search-candidate/VERSION.json，是基于冻结v5.2 core的global-rule研究包装器，release_approved=false、生产默认未变；任务卡2旧v6-msic-candidate/VERSION.json原样保留（SHA e5982d924890600c8d2deb5a44bfe078f0cf71aed19a4dce995091f2b0270da2），没有覆盖旧研究身份。
 
-新msic-study.patch仅三个msic模块与三tests，共六new-file，SHA 9d56aede75a153e80353ff33d9e4bac0fd8cf2cfae43e9cc58dd347398441f24，独立空副本Git检查/实际apply及六文件逐字校验通过。31 wrapper tests加100既有任务3限定测试总131，不表示全仓库通过。三个fresh代表0/40/80全通过，确认90仍进行中，不将候选当正式版本。
+新msic-study.patch仅三个msic模块与三tests，共六new-file，SHA 9d56aede75a153e80353ff33d9e4bac0fd8cf2cfae43e9cc58dd347398441f24，独立空副本Git检查/实际apply及六文件逐字校验通过。31 wrapper tests加100既有任务3限定测试总131，不表示全仓库通过。三个fresh代表0/40/80全通过，五组独立确认90及MSIC两规则180行评价均完整核验；90锁模型满秩、max condition17.332759，不将候选当正式版本。本次收尾只同步记录，没有重跑测试或实际集群验证。
 
 README的P4指令与增量上传说明有独立readme-update.patch（SHA 8fff4744842d6b5ec8c2f22a487e01ad92e0ab04d1f3773b6a84748b7401fc78）。最初嵌套目录git apply因发现主仓库而Skip，字节断言及时失败；停止此校验后用GIT_CEILING_DIRECTORIES明确隔离Git发现范围，真实check/apply/reversecheck及README字节核验通过，保留文件原换行，不更改任何计算文件或实验产物。代码补丁不因文档新增而改写。
 
 应用順序：任务卡2v5.1修复→任务卡3四核心candidate patch→16文件study patch→本轮六文件MSIC patch→README独立文档delta。保持独立研究目录，不直接覆盖队友正式代码；具体CLI、LOCK父plan/summary绑定、三fresh门槛、独立确认仅两规则、3.9环境新plan和最小必要上传见README。无需ZIP，不升级集群，不代发队友消息。
+
+## 任务卡3最终交接状态（2026-10-11）
+
+独立确认A2原MSIC Exact26/90、PMSE3.082733，相对A0的6/90、3.118404保留恢复优势；A3锁规则alpha2/scale0 Exact27/90、PMSE3.117813，改善A3但未超过A2预测表现，不可直接移植为A2最佳规则。生产仍同步v5.1及原MSIC，研究身份均未批准；A2扩展真形状/相关性验证属于任务卡4，不替换队友生产代码，不启动700正式任务或三个实证重训。已有patch和源码指纹不因此次状态收尾改变。

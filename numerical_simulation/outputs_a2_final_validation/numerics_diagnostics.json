@@ -1,0 +1,10 @@
+{
+  "status": "complete",
+  "checks_passed": true,
+  "plan_id": "55cd1a254efe2425d650e755950388efa2ff8746aa0ebd83f9cfffdb50cf7cd3",
+  "task_count": 100,
+  "selected_model_count": 200,
+  "rank_deficient_count": 0,
+  "max_condition_number": 40.4306026283234,
+  "scope": "Selected A0/A2 original-MSIC models only; all training arrays regenerated with exact fingerprints; not all candidate matrices; no coefficient or support changed"
+}

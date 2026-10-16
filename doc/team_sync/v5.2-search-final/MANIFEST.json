@@ -1,0 +1,248 @@
+{
+  "version": "v5.2-search-final",
+  "research_only": true,
+  "release_approved": false,
+  "approval_status": "D2_materials_complete_pending_final_user_approval",
+  "base_version": "v5.1-bcd-fix",
+  "base_commit": "d0c3547704fbaf5d90a3e5423568768a1ba11759",
+  "v51_snapshot_historical_base_commit": "d4e28969ac480ba6efc01bcc985a53d179e7ed31",
+  "observed_repository_head": "d0c3547704fbaf5d90a3e5423568768a1ba11759",
+  "candidate_source_path": "doc/algorithm_versions/v5.2-search-final/src",
+  "changed_core_files": [
+    "tensor_abess/tensor/bcd.py"
+  ],
+  "core_file_count": 32,
+  "source_sha256": {
+    "tensor_abess/__init__.py": "f09ee71e1a5b9a9c9deddbfcdec0d028cd34803af58318af1beca9e9a3aa5dbe",
+    "tensor_abess/baselines/__init__.py": "2e25cb27c0deae528eefec64946bc7aafd241b235145c3fb2bbc32da983bd00a",
+    "tensor_abess/baselines/base.py": "296af75c1a2afbce822d401f3ba81a231b176aa8ff7d51a3fa3575ad03303306",
+    "tensor_abess/baselines/cp.py": "164b04db1ab6ac6b163366957d5a3e5e3db9d9e117fe62a1bf63d6378e936fbb",
+    "tensor_abess/baselines/group_lasso.py": "28acbc2c67ef3a462b7c8c9551c6d08eca076877100494f23ed5b60aeb24ab75",
+    "tensor_abess/baselines/lasso.py": "b0ce26433580f51c4a56a99d3748fbd609a7527469669475ff774bab3e1393f0",
+    "tensor_abess/baselines/tucker.py": "a90c90b46ded263dd57fc99b926b6d82abb410b4541d9d898fc5b907037b0283",
+    "tensor_abess/common/__init__.py": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+    "tensor_abess/common/ranks.py": "4684b9504f033aee9cee10a40ab652d8ad76f2e871833fe3f123a883b2a32aa4",
+    "tensor_abess/group/__init__.py": "ceb9fc92074ba440ef5c2082453aeba1f67db8da03a49309937e0e5efc32d3e1",
+    "tensor_abess/group/adaptive.py": "453f0b2e9568f3a611977151ab20943a120bb9603adb90838d52d4ca5a306376",
+    "tensor_abess/group/bess_fix.py": "6577bc8b26b99b45b8a4bd7f154135fd10c0627c520c6a379f8a6616ab9c87fb",
+    "tensor_abess/group/sacrifices.py": "b05f00ea51a5d91e01961e468e15ec3ca8046af649f8f2bbb51addd264376155",
+    "tensor_abess/group/splicing.py": "0ac340129f4f38f1aaf2c4d7c778f5c763964c9b6792485bcd017147b4d4641c",
+    "tensor_abess/metrics/__init__.py": "34ad9b63350042207d203b6c33c481bcf8fbb8e113216a094766e82778ac9eee",
+    "tensor_abess/metrics/support.py": "18495d2a039e6d9df9c650c4532a52e8cb59a05594755946098eede234054dd8",
+    "tensor_abess/tensor/__init__.py": "a7a284698fe7934f052f95d6b93f595b46262a0b4b81f7e3cbf806fa13850667",
+    "tensor_abess/tensor/abess.py": "fc0a87f201f2f6aa18f62667d881cddfddc5d969b70c7b83cf95213c5cc7ee45",
+    "tensor_abess/tensor/bcd.py": "db2999e8875acd06fdee2253884fd1c9c1d768ecadb41ef9059969bae0201fd7",
+    "tensor_abess/tensor/ops.py": "cc0140752af901e792dc48811d320cb928f0dc917bbc9ccf3f8e8ae1cd9ee0fa",
+    "tensor_abess/tensor/reduction.py": "8b8a66856d5e8c8a0a887fb97f911687d6f48b8d25079430abb7ffe550774076",
+    "tensor_abess/tensor/sic.py": "84637e426a8ad8d9c471d8f81787135052f10f954475127403d5a9b2b4f51d9f",
+    "tensor_abess/utils/__init__.py": "969942a09ec95253bd97eddd57740fea3da8bb1ca0cb9c69074d9244b168e343",
+    "tensor_abess/utils/data.py": "67696c6f1327a0f7f9e6c7980a1c7a648d4bf6a9165ce7ea673948891f63937c",
+    "tensor_abess/utils/glasso.py": "05cf440fdf5c5cce814264ec35cc6c7b0397cdf229889452abe2e90cd650097d",
+    "tensor_abess/utils/init.py": "fb019d1a09c5f421db24ff8ae6821d5c7e01b7e440f0efe177727117a5762962",
+    "tensor_abess/utils/validation.py": "d6500d0a227854dfc963f33fb47f97d10ef67527b15a599426c4d1202e669dbe",
+    "tensor_abess/vector/__init__.py": "7f8f788a7915a4540f753f8e9a5e9917008ca725cb5b9fb23a8e575e75ab59f7",
+    "tensor_abess/vector/abess.py": "901efc50fc964801b44e9e12e90980ea065e15a303b9375f142fc8f0eb0527f0",
+    "tensor_abess/vector/sacrifices.py": "2462c4f8f3e447e98218eb2c68811893a24c547b78007848e047c6afd79db9f2",
+    "tensor_abess/vector/sic.py": "f562d2736186173f0939de7677a6f14a64c7a2d202bd414929e7aee310c1487b",
+    "tensor_abess/vector/splicing.py": "c14f4e47e7c8506ee63422016c69693a303ae5638f7c6ddd097d9baffa8b7e63"
+  },
+  "source_canonical_LF_sha256": {
+    "tensor_abess/__init__.py": "2b9c43b7cb3a8b61393fc262d07c36a1149f64f8b699f30676bc716b024693d8",
+    "tensor_abess/baselines/__init__.py": "186a35ecaef1cd2cf9c438ed8a2c9f7d0df8faefb765f576f6b84df1e25c265e",
+    "tensor_abess/baselines/base.py": "3c49f32c6824ef82575d375f03a96e45cd305dc4759844f3c0384e947fcd0d55",
+    "tensor_abess/baselines/cp.py": "825578ad4d54c3438651c769d7265d2a3ab6da02f9e655644dd6ab86f3ccd1c8",
+    "tensor_abess/baselines/group_lasso.py": "685fbf2e18a419e8a665801266afda7d6573d6da5f5b733548834b4357c0c7d3",
+    "tensor_abess/baselines/lasso.py": "8e7196d34cb7001b3f60059d4768494f13fdcd11f3900af5d0ac168444d909b2",
+    "tensor_abess/baselines/tucker.py": "9df8584ad83e1b8c8a657dc60f2903a7b38be8f1b3561ed4a5b603b39862fa65",
+    "tensor_abess/common/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "tensor_abess/common/ranks.py": "dcc9fe396e67f7b08ee6724b954a0206c3af9d832aee30fa69975f9ad98c857e",
+    "tensor_abess/group/__init__.py": "2b9bb5eec17c012673ceb449fe5c4512ea46b4494ffcd53daf71f55acb4838c6",
+    "tensor_abess/group/adaptive.py": "371046f4c9936acaa03bd76c5f3d0e59f0d1c5d7c2b426c6a2d7ef44cc3e767d",
+    "tensor_abess/group/bess_fix.py": "a56816ec09cb04f19d468a537d7fd8825510c2f8786a89c22c670e8c8eebe7fd",
+    "tensor_abess/group/sacrifices.py": "ccb85b8ef6a95a919acb1a4e7961f5e7a48d1db490e3f179eb542121c9f1f0cd",
+    "tensor_abess/group/splicing.py": "9c0f0506fc51a4412138105aedbbabba7cc7735c0b905c447541884681f8c1d6",
+    "tensor_abess/metrics/__init__.py": "048955cf61c87b59caf78c294db2fbefe7b2b28d8d61ffe6a4d56ddfd7cbaf1a",
+    "tensor_abess/metrics/support.py": "33abd827efd97d1da27b9719d3d5758e007ac0690a6b0da3b58d0c61afa4b23f",
+    "tensor_abess/tensor/__init__.py": "74e1c7c15d59a523bbb0397cee95f82b66724c2c629ea0891f408c1e1a247bce",
+    "tensor_abess/tensor/abess.py": "9bd586d611254bfbea2c3722645b180ba9877784de893eacc6de9e4e324bb80c",
+    "tensor_abess/tensor/bcd.py": "eb4f01626e0108f4cf87a604835aab7fa99866f484abaea23ce54b8911f063d0",
+    "tensor_abess/tensor/ops.py": "9dc9234b38478fc3d7d9c30c36a269210b89d464020fa5dc41412048de7c7b4e",
+    "tensor_abess/tensor/reduction.py": "0db6b3405664fe9d3a3ff27f66d42e678699102190c0513f13b981567dbd4534",
+    "tensor_abess/tensor/sic.py": "224bc22eb531f7f0ca7245152ff76014cc89b6b6f9c40f7af2b656077669479f",
+    "tensor_abess/utils/__init__.py": "69120afc5cd92975a198b20226e44d78fd5cf56f7e291d6a0cc8aa9e8bf73025",
+    "tensor_abess/utils/data.py": "8fbfcbbce1b4a2e93169582b33ca6be9ec453b343c0564660a37308b115e0f54",
+    "tensor_abess/utils/glasso.py": "1979d6542ae84b0ff4203eb6de6fd6b5dcb3af387099f27f8b6bda807dc6aa8f",
+    "tensor_abess/utils/init.py": "b6e0479fcc79f389db938a98f29968438ce4afc9fa0060ecc646014297e54fe4",
+    "tensor_abess/utils/validation.py": "27b13b10c7ab4646686282d06e2630f39988f8b3879af315091901bcf44a4e4b",
+    "tensor_abess/vector/__init__.py": "4f84ea14c5d82afa0265146eeab8edbf7385954c148956e6038666a26ff0f34c",
+    "tensor_abess/vector/abess.py": "f786b1d09c95fa53ab8b3dc9821575156a8fc5c04a71ba7c7281c86be694cf5f",
+    "tensor_abess/vector/sacrifices.py": "edbc2401566d7ddde50254ebe22512fe396bafacfd66d147e422d5fcdf886c01",
+    "tensor_abess/vector/sic.py": "1e8d68b53de1f6c9be16233932f336fd5666b1f214f5db0fb97591fd24432aba",
+    "tensor_abess/vector/splicing.py": "0dc67f4f3ae21d0c18589b50ed9c9023b9afc2125d9c5ade880c5b8a88cc4059"
+  },
+  "bcd_before_raw_sha256": "c5e67a666c8c120bfcd9ff000a5c6b1bcd7c0be37e0b549a0a34ca61ecfbd737",
+  "bcd_before_canonical_LF_sha256": "4966b563a0c3d8c0b233141b1f1d136a0dce3b4af3c02331cfe191af6310816c",
+  "bcd_after_raw_sha256": "db2999e8875acd06fdee2253884fd1c9c1d768ecadb41ef9059969bae0201fd7",
+  "bcd_after_canonical_LF_sha256": "eb4f01626e0108f4cf87a604835aab7fa99866f484abaea23ce54b8911f063d0",
+  "patch_path": "search-final.patch",
+  "patch_sha256": "23524a12a3ccd502b058e5eec7ef984abae43bccc085d467ed292b1d3585b3db",
+  "script_path": "run_v52_search_final_full.sh",
+  "script_sha256": "5e84b81d53e60f0e6c59011762c2c7432bf856d28326b90122cf0e1e5dc0138b",
+  "patch_application_verification": [
+    {
+      "base_line_endings": "lf",
+      "git_apply_check": true,
+      "git_apply_actual": true,
+      "reverse_check": true,
+      "canonical_files_equal": 32,
+      "git_flags": [
+        "-c",
+        "core.autocrlf=false",
+        "apply",
+        "--ignore-space-change"
+      ]
+    },
+    {
+      "base_line_endings": "crlf",
+      "git_apply_check": true,
+      "git_apply_actual": true,
+      "reverse_check": true,
+      "canonical_files_equal": 32,
+      "git_flags": [
+        "-c",
+        "core.autocrlf=false",
+        "apply",
+        "--ignore-space-change"
+      ]
+    }
+  ],
+  "bash_syntax_passed": true,
+  "script_LF_only": true,
+  "identity_guard_checks": [
+    {
+      "target_line_endings": "lf",
+      "canonical_guard_passed": true
+    },
+    {
+      "target_line_endings": "crlf",
+      "canonical_guard_passed": true
+    }
+  ],
+  "identity_guard_rejects_changed_source": true,
+  "argument_guard_checks": [
+    {
+      "mode": "invalid",
+      "array_id_set": false,
+      "exit_code": 2,
+      "python_calls_mocked": true
+    },
+    {
+      "mode": "run",
+      "array_id_set": false,
+      "exit_code": 1,
+      "python_calls_mocked": true
+    },
+    {
+      "mode": "run",
+      "array_id_set": true,
+      "exit_code": 0,
+      "python_calls_mocked": true
+    },
+    {
+      "mode": "prepare",
+      "array_id_set": false,
+      "exit_code": 0,
+      "python_calls_mocked": true
+    },
+    {
+      "mode": "merge",
+      "array_id_set": false,
+      "exit_code": 0,
+      "python_calls_mocked": true
+    }
+  ],
+  "component_test_scope": "Actual patch application and canonical 32-file comparison; Bash syntax and extracted case/identity components. No full script, real cluster, sbatch, scientific fit or 700-task run performed.",
+  "private_helper_boundary": "Full integer triples inside legacy caps with capacity filter; unused private window and invalid empty-domain fallback removed. Public API unchanged. Research candidate_budget=2000 wrapper not included; cost limits must be recorded separately.",
+  "public_api_changed": false,
+  "fixed_bcd_changed": false,
+  "caps_changed": false,
+  "msic_defaults_changed": false,
+  "production_src_changed_by_packaging": false,
+  "model_bridge_status": "passed_representative_same_data_fit",
+  "candidate_version_identity_path": "doc/algorithm_versions/v5.2-search-final/VERSION.json",
+  "candidate_validation_tests_passed": 6,
+  "candidate_validation_scope": "Five static source/grid/API tests plus one separate-process n400 dims6x6x7 exact model-and-trajectory bridge against research explicit legacy/full. Not all scenarios or actual cluster runtime.",
+  "final_regression_tests_status": "passed_157_limited_scope",
+  "cold_cost_status": "passed_complete_16_single_group_fits",
+  "msic_final_decision_status": "retain_original_independent_confirmation_incomplete",
+  "cluster_environment": {
+    "python": "3.9.25",
+    "numpy": "2.0.2",
+    "scipy": "1.13.1",
+    "packages_updated": false
+  },
+  "full_simulation_configuration": {
+    "methods": [
+      "adaptive",
+      "oracle",
+      "lasso",
+      "glasso"
+    ],
+    "profile": "full",
+    "n_reps": 50,
+    "data_tasks": 700,
+    "method_results": 2800,
+    "output_directory": "numerical_simulation/outputs_v52_search_final_full",
+    "logs_directory": "numerical_simulation/v52_search_final_full_logs",
+    "cpu_threads_per_task": 1,
+    "slurm_array": "0-699%64"
+  },
+  "ordinary_review_copies_directory": "C:\\Users\\xmx\\AppData\\Local\\Temp\\a2_d2_deploy_review_qp87vjk0",
+  "current_production_version": "v5.1-bcd-fix",
+  "formal_simulation_started": false,
+  "empirical_retraining_started": false,
+  "recommended_decision": "D2",
+  "final_regression": {
+    "status": "passed_limited_scope",
+    "total_tests_passed": 157,
+    "research_unittest": 106,
+    "final_candidate_bcd_simulation_pytest": 29,
+    "msic_decision_confirmation_unittest": 16,
+    "candidate_static_fit_bridge": 6,
+    "protected_files_checked": 2040,
+    "protected_file_differences": 0,
+    "whole_repository_tested": false,
+    "actual_cluster_runtime_tested": false,
+    "environment": {
+      "python": "3.12.8",
+      "numpy": "1.26.4",
+      "scipy": "1.16.1"
+    },
+    "report": "doc/FINAL_ALGORITHM_VERSION.md"
+  },
+  "msic_decision": {
+    "decision": "retain_original_msic",
+    "reason": "independent_confirmation_incomplete_budget_stop",
+    "development_datasets": 90,
+    "development_rule_rows": 180,
+    "confirmation_expected_datasets": 80,
+    "confirmation_evaluations_observed_at_budget_stop": 68,
+    "final_retained_job_files": 71,
+    "final_retained_evaluation_files": 71,
+    "post_budget_results_used_for_decision": false,
+    "confirmation_complete": false,
+    "confirmation_gates_passed": false,
+    "fresh_refits_completed": 0,
+    "resume_allowed": false,
+    "plan_id": "1857d78e504ede09a0e305d6cffa338007bea87b0a1f84ac80a2ee9a3843c828",
+    "stopped_sha256": "bbb1c7cddd46a7bc0ce46e9ef5c11e3a9f1065c344347a75b1c59564c41a03bb",
+    "report": "doc/A2_MSIC_DECISION.md"
+  },
+  "cold_cost_evidence": {
+    "analysis_path": "numerical_simulation/outputs_a2_final_validation/analysis.json",
+    "analysis_sha256": "959e4b42604c6c4fec23c7a94f387e9534a559a04a0f1f1008671789cd9087cb",
+    "standalone_cost_estimate_ratio": 1.148793,
+    "measured_cold_cost_ratio": 1.1036801,
+    "predeclared_max_ratio": 1.5
+  }
+}
