@@ -1,5 +1,88 @@
 # LEMON 实施记录
 
+## 2026-10-18 废弃文件清理
+- 用户授权先清理各目录废弃文件；本轮只清理能证明可再生且未被跟踪/引用/保护的文件，复用已有清理逻辑，不改科学源码和旧清理审计。
+- 已完成191文件/56空缓存目录清理，缓存字节数1113995（约1.062 MiB）；目录分布doc127、src24、empirical22、numerical6、scripts6、tests1、pytest5。新清理证据234460字节，不将缓存大小误写为整个项目净缩减量。
+- 删除前后7874受保护文件与186对应源码哈希不变；相同提升权限下Git跟踪状态完全一致，仅原3个工作流文档M，未增加跟踪删除。PLAN/DELETION/VALIDATION三份记录保存在doc/cleanup_2026-10-18，旧清理报告/实验索引原字节保留。
+- 权限与故障记录：初次沙箱扫描在.pytest_cache拒绝访问，先停删除；提升权限只读成功后恢复，无ACL变更。首次删除命令在任何删除前因PowerShell Split重载参数报错，修正路径分段并确认191目标完整后才执行；清理后首次Git比较因默认/提升权限上下文不同失败，停止后以原上下文复核完全一致。
+- 默认沙箱Git将不可访问的隔离test_tools/taskcard4_test_tools显示为大量D；提升权限视图证明这些不是实际文件删除，已纠正初始“既有D状态”解释。依赖目录与环境始终未进入删除候选。
+
+## 2026-10-18 任务卡10授权续跑
+- 开发48/48已完整：原30字节复用+新18成功，追加批4432.141秒，成功case累计8801.487秒/CPU5498.656秒，单进程最大峰值394.199 MiB；固定12例/36模型外部测试流重放通过，最大预测差3.77e−15、最大指标差5.33e−15。
+- 九门槛5项失败：总体A2/A1=0.991535>0.98、最坏cell A2/A0=2.836125>1.15、n400 Exact差−8.33pp<−5pp、n400 PMSE比1.054448>1.05、强SNR欠选差+18.75pp>+5pp；剩余24287.959秒大于确认储备10888.375秒，确认未执行属于科学拒绝而非超时。
+- 新五份追加报告、六CSV及外审证据生成；暂定B，Q5不可识别且未实证解决，P1/P2沿用独立方案。最终验收通过：COMPLETE_RESEARCH_WITH_DECLARED_GATE_RESULT，开发48/确认0，23184候选身份、144内折缓存、六CSV、29链接、6820原文件及共享预算通过，追加1053文件交付索引完成；这是按开发失败停止规则完成交付，不是确认通过或正式发布。
+- 续跑验收审查补齐“确认已启动、0例完成后中止”的终态区分，新增3项负控先失败再通过，独立验收工具共7/7通过；旧4项日志保留，不改科学runner。新报告由完整结果综合决定B/C，补配对胜平负、恢复和实际成本表；报告代码编译通过，尚未提前生成最终结论。
+- 调度11项与独立验收工具4项测试通过，原6820文件核验通过，30例原字节复用；追加开发已于04:04:12 UTC开启共享28800秒时钟。task030–033训练身份预检4/4通过，未生成测试流或拟合；首批030/031约442秒完成，未再触发旧900秒超时。
+- 文档读取的控制台GBK输出无法编码数学符号，已改显式UTF-8输出，原文件字节未变化；一次工作流补丁因锚点不符未写入，读取实际行后修正。
+- 用户在明确获知30/48开发、0/48确认、900秒上限触发后，授权“继续完成未完成任务，权限允许”；该授权支持追加计算协议，不改旧失败历史。
+- 设计审查：原30完整请求继续作为已见开发证据，仅重算原18未完成请求，不换seed/方法/门槛；确认仍用原未生成请求，需完整开发九门槛通过。
+- 追加预算8h总墙钟跨续开发/确认、3600s单case、2worker；根据已完成n400最慢841.328s，18例约2.1h、48确认约3h并需储备，4h不足以稳妥覆盖，选8h而不无限延长。
+- 冻结拟合模块保持原字节；新调度与报告物理隔离，原30副本保留旧plan/protocol哈希并用reuse manifest标记来源，不冒充新实验。
+
+## 2026-10-18 任务卡10
+- 最终诊断验收通过，状态COMPLETE_DIAGNOSIS_WITH_SCIENTIFIC_STAGE_STOPPED：34实例精确输入/源码/候选B/缓存/REE/F1/测试PMSE及六CSV重建通过，74相对链接、897文件交付索引、5922保护文件无变化；科学确认保持NOT_RUN，未发布、未重跑、未改正式算法。
+- 最终只读审查修复验收器的execution目录过宽glob，限定计划中科学cohort；补精确30完成/4终止/14未启集合覆盖，未完成9门槛不计算。复现文档由主线接管完成，CLI参数按源码核对，原路径均拒覆写。
+- 开发因task030达到冻结900秒单case期限停止（900.016秒，控制器整段1938.703秒）：30/48完整，031–033同伴中止、034–047未启动；不延长期限、不补算、不改协议。开发9门槛NOT_EVALUABLE_INCOMPLETE，无development_lock，确认及开发/确认外部固定范围重放NOT_RUN。
+- n100完整24例PMSE均值A0/A1/A2=4.679961/3.231389/3.128412，改善主要发生于范围/来源限制，CV同库额外下降0.102977；n400只有6例弱信号，不作恢复非劣或总体推广结论。暂定B仅保留研究实现，不能当CV科学失败或独立确认通过。
+- 34完整实例10842候选、102缓存折逐例外测前独立审计通过；九份报告、候选覆盖及计算计数CSV已形成，最终保护/链接/独立数值总验收中。
+- 报告脚本首轮compile发现字符串跨行加法语法错误，编译前已停止、加括号修复通过，无科学生成；独立审查发现部分结果不应算完整门槛，报告器显式仅处理stopped终态。
+- 一次辅助审计glob误纳execution目录的控制器complete标记，缺少模型审计文件而停止；改用明确pilot/pilot和formal/development范围只读汇总，原始结果不改。额外Get-CimInstance进程列表被Windows拒绝，停止该额外检查，无权限修改，不宣称其已验证。
+- 4例Pilot全通过，耗时44–45.563秒(n100)、382.469–417.594秒(n400)，整线464.984秒，最大峰值412413952字节；逐例外测前独立审计及训练/测试身份保存齐全。
+- 已依据成本冻结正式24cells×开发/确认各2重复、4worker单线程、7200s总/900s单case；理想吞吐与确认预留7007.355s，裕量小但无延长，只有开发9门槛与剩余预算双过才确认。FORMAL_PROTOCOL SHA3bfb7ae1dd508e3d2b79e18612a7d2d48269fe1409a6902a24a5df5a15ec2c18，96预注册请求已准备，尚未生成开发数据。
+- 一次只读内存查询inline Python shell转义错误未执行，改为ASCII here-string读取标准内存API，不涉及科学代码或数据。
+- 联合门禁46/46通过：原Cold16、CV13、独立审计算术4、控制器13；gates修复后只在fresh subprocess加载各研究测试，正式core前后32文件哈希与路径核对通过。
+- 已冻结PILOT_PROTOCOL.json（SHA d63eee1fc539dac4858f8ba5dbde08dfd74e698cf7d4dd31acf8da4b6073de83），准备4例新seed family计划并以2worker/单线程启动；总上限1800s、每例900s、Job Object强停止，未启动开发/确认。
+- 联合验收第一尝试在import阶段被正确拒绝：Cold核心先加载，test_cv仍要求configure_core freshprocess；科学0拟合/0生成。保留GATE_ATTEMPT_1.json，仅修gates.py将新模块各自隔离subprocess，不改算法、原测试或assertion。
+- Windows原taskkill对自有子进程树被OS拒绝；控制器改用挂起创建→标准Job Object→恢复，13门禁实证超时终止自建孙代，无权限修改、安装或非任务PID访问；失败与成功日志保留。
+- 设计预检拒绝原种子区间：pilot split(+100M)与development train数值冲突，development split与confirmation train冲突；未生成数据或冻结科学协议。停止实验启动后，将阶段base调整为3101810000/3501810000/3901810000，保留test+50M/split+100M及原唯一性门禁，要求完整重验，不放宽断言。
+- 隔离CV模块13项门禁通过，含原A0位一致、fold heldout响应扰动不改该fold B/cache/预测、稀疏批量预测/中心化fixture与缓存篡改拒绝；独立审计4项算术/篡改负控通过。
+- 5922历史文件保护基线已冻结；公共caps严格证明为334/566，主程序只固定规模来源，Q5同形状来源识别限制已写设计。
+- Pilot前已冻结9项数字门槛意向GATE_INTENT.json；正式重复数只据Pilot成本确定，不据Pilot预测表现调参；当前控制器实现中，尚未科学Pilot/开发/确认。
+- 已读取完整新任务卡与Task9验收，分派容量设计、CV实现和独立防泄漏审计；实现与实验等待容量定义核准后进行。
+- 新建隔离目录并冻结历史保护；沿用既有解释器和单线程数值依赖，无新分支或核心修改。
+
+## 2026-10-17 任务卡9
+- 2026-10-18收尾：250归因、216完整库身份/四规则、12例旧预测Gate与1908候选PMSE全部完成；PureWarm原Cold16+并集9通过，复验同25不能累加为独立50。
+- 交叉复审核对并修正主报告平均q四数，补加罚后最终q可反向增加的2个反例；区分Task7零生成与Task8限12例输入重建。
+- 复现输出隔离已补齐，新目录不覆盖现有证据；PureWarm CLI新增输出路径复验通过。保留原red/green及历史失败，未改原断言、生产源码或旧实验。
+- 后续结论：优先严格训练内CV并分离内折容量效应，支撑稳定性为第二方向；不执行下一卡或新版本发布。
+- 已读取任务卡、阶段汇总及要求报告，分派250归因、候选/MSIC、Pure Warm三项隔离工作；Warm等待P0/P1稳定。
+- 建立research/taskcard9与doc/taskcard9，制定12例无拟合重放上限及固定规模Warm范围；原报告、失败记录与正式版本保留。
+
+## 2026-10-17 八卡阶段汇总
+- 已交付work_progress/2026-10-17_eight_taskcards_stage_summary.md，共285行，串联八卡工作、关键量化结果、失败/中止处置、最新版本与后续证据需求，并复用已有250配对图。
+- 三组只读来源核对完成；卡1–3及6–8草稿复审后修正覆盖分类，卡4–5明确157测试/80确认68截止和71留存/正式发布与后续700验收时态。数字以最终报告为准，不拼加重复实验或测试总数。
+- 新报告58个本地相对链接全部存在，八张原任务卡链接齐全，UTF-8和限定git diff --check通过；本轮没有拟合、改算法或改旧实验/结果报告。一次补丁完整锚点不匹配未写入，改按实际整行重发后成功。
+- 本轮仅编写阶段报告并更新doc工作流；不重跑实验，不修改科学产物、算法或既有结果报告。
+- 已分派任务卡1–3、4–5、6–8只读核对，主线负责统一证据链、当前状态与work_progress交付。
+
+## 2026-10-17 任务卡7结果接收
+- 十份任务卡7报告及README/STATUS已更新为250/250接收完成；A/C仅更新过时阶段说明，B/D补齐数值拆分和最终八问，并关联任务卡8已有未过推广门槛的独立研究，不启动新算法。
+- 报告代理批量替换首个断言遇PowerShell中文管道编码不符，实际未写目标；主线接管，以apply_patch创建UTF-8报告脚本后直接执行，12目标一次写入通过，旧原字节均在快照保留。
+- Debug→依赖显式化→精简完成：审计根路径改显式参数，重放后的序列化结果与原审计逐字段相同；首次直接比较Python整数dict键与JSON字符串键导致工具层假不等，按JSON往返规范比较后通过，未改科学结果。
+- 两审计完成PASS：250回传记录/5 Gate/750原NPZ/CSV与96源码及依赖完整匹配；750模型的独立数值检查通过。主线实际分析250配对、150种子族，未拟合或再次merge。
+- 新三面板图纳入两段各250配对点和全部750模型恢复计数，全部极值可见；源码21PASS/0WARN/0FAIL、1.5pt对齐、6pt字号、collision0/0和逐面板目视通过，PDF/SVG/TIFF/PNG600dpi完整。
+- 用户授权核验回传结果并完成遗漏；建立doc/taskcard7_completion，5664原科学/源码/新cluster产物保护及15份目标文档原字节快照通过，旧索引不改。
+- 分派两项只读审查；已有原生CSV和integrity，不调用已有输出拒覆写的merge，不重新拟合。
+- 一次PowerShell管道中文路径被编码成问号，改为按已知文件glob定位；一次临时读取命令括号语法错误，修正后只读完成。未改科学文件。
+- 审计初步摘要出现n100/SNR.5标签互换，已暂停结论写入，直接以plan的n_train/snr/rho核对并纠正；原CSV及结果未变。
+
+## 2026-10-16 任务卡8启动
+- 主D最终216/216完成，最后确认完成UTC2026-10-16 16:28:19，早于冻结截止16:46:46；开发/确认均未过，保留原MSIC，不以平均PMSE改善放行。
+- 3253保护文件、全部31968候选B和31752固定BCD路径/选择/门槛独立元数据核验通过；预选12例输入/共享测试流/候选OLS与所选预测独立重建通过，正式源码/incoming/历史不变。
+- 12份报告、训练内全144规模与主D全216配对两图完成；PDF/SVG/TIFF/600dpi PNG、源码/对齐/6pt字体/碰撞与最终目视均通过，重叠的选择标记由表中三模形状明确区分。
+- 2026-10-16 15:43:06 UTC开发108全部完成并冻结lock；平均PMSE改善4.89%，最坏场景恶化56.70%，未通过预定开发门槛。固定双规则确认按原协议继续，不改规则/数据/预算。
+- 新只读完整性脚本完成中途验证：保护3253文件及当时140已完成数据的全部元数据和SHA通过；此记录明确final=false，不充作最终验收。
+- A完成、B/C/E按失败门禁停止；D2完成212.27秒，7项测试及432候选/12预处理/12所选模型独立验收。主D仍按冻结216数据与2小时上限运行。
+- 主线已接管协作额度结束后的收尾；既有主D控制器与4个worker继续运行，未重启或重复拟合。跨协作作用域不能通过旧session号接管stdout，改为只读检查已有完整记录及终态，不改控制器。
+- 合并新研究工具17项测试通过（6模拟协议、7内选阶、4审计工具），Warm科学失败不计为工具测试失败；Cold原样31检查已另存。内训练图全144候选，绘图轴限改为真实全数据范围以避免截点，未改科学数据。
+- 初始snapshot因两份已更新launcher文档的旧index SHA不符停止；逐项审计确认仅部署文档漂移，历史数值/源码无差异。已保留当前改动并建立独立3253文件保护基线，旧index未改。
+- 用户批准D开发/确认各108数据及7200秒上限，共享开始/截止UTC已在首次实验前冻结于taskcard8/COMPUTE_BUDGET.json。
+- 分派Warm审计/正确性、独立冷v5.2模拟与训练内部选阶可行性；执行任务卡已授权隔离研究，不动正式算法。
+- 初始根目录无四类工作流文件；保留既有未提交任务卡7交付及用户新增launcher测试，先做保护指纹核验。
+- 已读任务卡8/AGENTS及文件规划、设计梳理/TDD要求；任务卡规定边界与用户批准预算构成本轮冻结实验设计依据，不另开分支或worktree。
+- 定点检索时一个猜测旧路径不存在，已按实际目录定位，不是实验输入缺失；历史test_tools权限警告不作为本轮数据Gate放宽依据。
+
 ## 2026-10-10 任务卡2执行中
 
 - 任务卡移动至empirical_analysis/任务卡/，读取任务卡2获得核心修复/版本快照/团队patch授权；当前main分支、HEAD d4e28969ac480ba6efc01bcc985a53d179e7ed31；不创建分支或提交远端。
@@ -307,3 +390,86 @@
 - 最终核验曾用Python默认本地编码读取含中文路径的JSON，出现检查器层的实验ID假不匹配；改为明确UTF-8读取后旧新ID分别完整匹配，未改任何原记录。
 - 自审精确化n400覆盖用语：真规模从全局fixed规模网格外进入网格内；旧池仍含adaptive结果，不把原网格缺尺寸误写成整个旧候选池永远不可达。P0仍明确0/250，所有结构解释不冒充数值归因。
 - 交付索引doc/TASKCARD6_EXECUTION_REPORT.md，证据/hash索引doc/taskcard6/DELIVERY_INDEX.json。LEMON及ZIP/P2/P3阶段完成；P0需原环境恢复，HCP/NKI待返。
+## 2026-10-16 任务卡7启动
+- 本地阶段已完成：A补15外折、C2重放12代表训练拟合、C3完成45内模型评价（含9个协变量基线），B按用户选择待原集群。
+- A全部15折/1215候选B、C2 1458候选合法满秩/score、C3 1740内验证预测独立核验；三版最终输出和v51/v52实际候选路径分别实测留证。
+- 新增10项限定unittest先红后绿并最终合并通过；科研图2张共5面板全量折数据，PDF/SVG/TIFF/PNG600dpi，对齐/6pt字体/碰撞均通过并目视核验。
+- 已交付10份目标报告及复现说明；Debug→第一性原理审查→精简完成（研究脚本隔离、去除报告脚本全局数据依赖），独立审查未发现实质缺陷。
+- 最终审阅将“非零形状变化”改为本批972对全部同形状，防止误读；QA日志首次捕获受Windows本地编码影响，显式UTF-8子进程输出后完整采集，实验和图内容未修改。
+- 访问异常为已获准继续的旧测试工具；默认Python与历史.venv不同且可选基线缺件，实际使用既有历史.venv和标准库unittest，未安装或改环境；完整32源码hash及真实用到的import均校验。
+- 已读取任务卡7、仓库约束及既有工作流；根目录无四类工作流文件。
+- 权限异常已向用户报告并停止，用户明确“允许访问，继续执行”后恢复目标证据核验。
+- 分派A隔离v5.1补跑及路径记录、B严格环境Gate审计、C训练内重搜诊断；生产和历史结果只读。
+
+## 2026-10-16 任务卡7单文件集群提交交付
+- 用户明确要求一个sh直接提交；采用现有站点配置与单作业顺序worker，不创建分支/worktree，不改科学算法、共享依赖、冻结worker/plan或历史结果。
+- 新run_v51_attribution.sh：绝对cd/chdir、module+conda无额外source、四线程变量、根目录日志、自动原字节初始化、全量身份校验、真实五pilot→245→merge，逐任务即时进度。
+- 新启动层只允许完整结果校验后跳过；部分JSON/NPZ/Gate、失败预检、错计划或已有CSV/integrity均停止保留。fcntl非阻塞锁及子进程pass_fds避免同启动器并发写，手动旧worker不参与新增锁不得混用。
+- 初始7测试因缺sh实际FAIL，实现后GREEN；新增流程测试首次因测试fixture重复mkdir报错，修正fixture的exist_ok后，8项新测试全部通过；原归因10项也通过，共18项限定测试，无真实拟合。
+- Bash语法、LF、内嵌Python3.9 AST及临时250任务编排检查通过；独立审查确认阶段/覆盖/锁继承，仅将已有preflight日志精确化为历史记录核验。
+- 冻结worker SHA082f603bb975f04eef5c234f5fad695d2fe942ff02367e5bf18c2a6cd0bc8217、原计划文件SHA4c84e048353510a65d8db62e531062a081752ae76262112de8d49671e15b4ae3均未变，三版96源码原测试校验通过。
+- 运行报告及输出README更新；部分apply_patch返回锚点失败但后读发现报告首段已写入，按实际内容核对后仅补缺失README，未重复追加报告。
+- 交付本地sh供用户上传，实际SLURM/Linux锁/分区时间上限未测试，未远程上传/提交，实际250科学任务仍待集群运行。
+
+## 2026-10-18 Task11 startup
+- User authorized privileged read of old test-tool directories; read succeeded without ACL changes.
+- Prior Task10 root reports describe stopped history; continuation_01 contains complete 48-case development evidence matching Task11.
+- Isolated audit, historical rescore, and runner assigned to agents; all simulation starts remain gated by parent.
+- Protection manifest established before new science. A guessed continuation protection filename was absent; directory inventory located actual DELIVERY_INDEX; no missing scientific prerequisite.
+
+### Task11 pre-Pilot gate
+- Historical full audit passed: 216 pools, 31968 candidates, exact original A0 recovery in 216/216.
+- Original Cold 16 checks and 29 new unit checks passed before independent review.
+- Historical strong-signal extra underselection is heterogeneous; no broad severe-recovery claim or early statistical stop. No new data generated.
+- Independent reviewer caught concurrent read of half-written peer input_identity: Pilot launch held; author fixing only current-output scan exclusion, with exclusive input claims retained.
+- PILOT_PROTOCOL.json was sealed before review completed and is NOT_EXECUTED; a corrected-source ready protocol will be sealed before first new scientific input, preserving this evidence.
+
+### Task11 formal run handoff
+- Pilot complete, session33181 exited0; paths doc/taskcard11/results/pilot and PILOT_PROTOCOL_READY.json.
+- Formal prepared and launched uniquely via research.taskcard11.experiment run-validation; live exec session48000.
+- Latest observed count36/96, no failures; do not inspect partial PMSE or change frozen source/report/protocol.
+- Formal plan: doc/taskcard11/results/formal/plan.json; scientific source files including report.py/test_report.py are now hash-bound.
+- Final reporting: python -B -m research.taskcard11.report --input doc/taskcard11/results/formal (only complete96).
+- Independent verifier agent has verify.py/test_verify.py (9 tests), read-only same-seed full replay pending after formal completes.
+- Historical agent finished rescore/history and report generator (7 report tests), no more source edits allowed during live batch.
+- Final decisions/reports and FINAL_VALIDATION/PROTECTED_FINAL_CHECK/DELIVERY_INDEX still outstanding.
+
+### Task11 final completion (supersedes the live handoff above)
+- Formal runner exited0 with all 96/96 cases complete, zero failed/not-started cases, 5100.688s shared science wall time and maximum case 258.657s; no replacement, extra search or second round.
+- Frozen report produced all paired/group/cell/selection/truth/q tables and uncertainty. Six statistical gates pass; strong q-underselection increases 7/32 -> 11/32 and fails the fixed +0.05 limit. Result B retains original MSIC and formally released v5.2.
+- Independent replay initially stopped on verifier lifecycle double initialization. Failure preserved; only unfrozen verifier and its test were repaired with RED->GREEN, source-path checks retained, then complete original-input replay restarted from the beginning.
+- Pilot6 and formal96 independent full replay PASS: 16406 candidate RSS/normal-equation checks, 1122 saved artifact hashes, exact training/truth/test identities; maximum prediction error 6.66e-15, RSS error 6.82e-13. Zero new searches or scientific repetitions.
+- Final 47 new unit tests plus 16 unchanged original Cold checks PASS (63 distinct checks); 7874 protected files unchanged and tracked Git state matches startup. FINAL_TEST_VALIDATION_POST_REPLAY supersedes the preserved 46-test intermediate record.
+- Nine named deliverables, final algorithm freeze, real-data suitability plan and reproducibility commands completed under doc/taskcard11; final status and content hashes in FINAL_VALIDATION.json and DELIVERY_INDEX.json. Formal source, historical failures/results, existing user changes and release identity preserved; no branch/worktree/commit, new release, real-data fit or teammate message.
+
+
+## 2026-10-18 Task12 start
+- Task12 explicitly reopens only the existing FS formula for final research comparison; no coefficient, search or production changes.
+- Delegated selection/history gate, cluster scripts/runner, and empirical audit/adapter in physically disjoint new files.
+- Broad document search encountered the known protected old test-tool directories; stopped that scan and continued only explicit authorized target paths, no ACL changes or use of inaccessible package copies.
+- Root workflow files absent; all planning remains under doc. Actual cluster config confirms Slurm/CMO_HPC/xjh/myenv/project path; unknown site quota/time/memory remain unknown.
+
+
+## Task12 resumed 2026-10-20
+- User explicitly requested unfinished work continue. Existing tracked Git state equals Task12 startup; no production/history edits. Old exec session21284 no longer exists; artifact recovery by agent confirms initial102 regression completed (471.94s), no search restart.
+- Agent turns had previously stopped on usage-limit errors; reassigned same authorized tasks and recovered persisted files.
+- Initial wrapper default-domain audit found official zero-y and rank-deficient inputs legal, wrapper incorrectly restrictive. New adapter now permits unmodified zero RSS and verifies minimum-norm OLS; rank/condition reported without repairing coefficients. New102-source regression required before P0 acceptance; old102 evidence preserved.
+- Cluster runtime independent review covers direct formal gate, source/config binding, own-rule re-selection, dual digest history lookup and metrics replay; lifecycle issue from old fresh-process configure helper is being corrected only in new runner.
+- Task12 cluster protocol/package/empirical protocol not yet sealed; no380 formal input or remote submission.
+
+### Task12 local delivery completed 2026-10-20
+- Final selection source76106293:12 selection tests,16 original Cold and7 frozen MSIC checks; root full55 Task12 tests PASS,78 distinct total. No global changes, source32 remains original released v5.2.
+- History predecessor102 full training/OLS/cache PASS550.457s; final four-guard-only source delta proved and102 sealed pools/16406 candidates/204 models/1122 hashes rechecked15.871s. Old-source caches correctly rejected; no fabricated current-source cache migration.
+- Cluster19 tests/4SH syntax/mock gates PASS; P0,380+3smoke cluster protocol and empirical protocol sealed. Actual ZIP70 payload files,262049bytes,SHA39ee2e260fe8778c22de17046351ceb20b0cd4e2290bca05c9b0441f100eb8d3; independent extraction/native exact comparison PASS. Initial fixture keyword error preserved and corrected; README-only initial ZIP retained separately.
+- Prespecified local n200 pilot1/1:126 candidates,one search,45.679s case/47.046s controller; all candidate OLS passed, excluded from380 formal and3 remote smoke.
+- Unique LEMON run15/15 PASS277.074s under1800s:15 searches,1215 candidates,2610 full-model OOF rows. Original15 outputs exactly match historical v5.2. FS RMSE0.359627 versus original0.504581 and CovOnly0.317485; improves original but still worse than all4 baselines;9/5/1 fold improve/same/worse. HCP/NKI NOT_RUN with missing inputs and original metric protocol boundaries documented.
+- Root independent30-model pool/preprocessing/prediction replay and all OOF metrics PASS; maximum matrix prediction error2.66e-15,143 artifact hashes. All9705 protected files unchanged and tracked Git status equals initial.
+- All required local deliverables complete. Final status LOCAL_DELIVERY_COMPLETE_PENDING_CLUSTER_RESULTS; remote login/upload/smoke/submission/formal380, HCP/NKI fitting and FS production release NOT_RUN. No final A/B/C science recommendation before cluster return.
+- LOCAL_COST_REPORT UTF8 encoding corrected before sealing; initial multi-operation patch was rejected without file change, then a single explicit update succeeded. Scientific data and frozen source unaffected.
+
+
+### Task12 cluster return closure
+- Independent saved-chain verification PASS: formal380, smoke3, frozen sources/protocols/seeds/artifact hashes.
+- User-reported original Linux strict verification PASS: smoke3/formal380 and exact summary/analysis match with four frozen thread variables=1. Windows floating-point stop preserved; second command without variables correctly rejected before validation.
+- Final recommendation B: retain original MSIC production default; FS frozen research only. Primary PMSE -19.65%, n100 -28.70%; four recovery gates failed. HCP/NKI NOT_RUN; no further tuning or production changes.
+- Local delivery snapshots preserved under doc/taskcard12/cluster_review/local_delivery_snapshot; current final reports and evidence indexed separately.

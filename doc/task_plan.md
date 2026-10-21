@@ -1,5 +1,62 @@
 # LEMON 实证流程实施
 
+## 2026-10-18 废弃文件清理
+- [x] 完整盘点191个未跟踪缓存，无精确引用、无保护清单命中，186个Python缓存均有对应源码；依赖工具和环境目录排除，85个已跟踪临时/验证文件保留。
+- [x] 按封存清单逐文件删除191个缓存共1113995字节，并非递归移除56个已确认空缓存目录；不改源码、实验结果和历史报告。
+- [x] 7874受保护文件及186对应源码哈希不变，扫描范围内缓存归零，相同提升权限下Git跟踪状态与清理前完全一致；三份清理证据位于doc/cleanup_2026-10-18。
+
+## 2026-10-18 任务卡10授权续跑
+- [x] 用户明确要求继续完成未完成任务；采用原队列计算协议追加，不重设科学参数或门槛。
+- [x] 冻结原Task10全部交付及历史保护；新增续跑协议和带来源的30例复用/18例重算清单，11项调度门禁通过，6820原文件无变化。
+- [x] 新目录18例全部完成，开发合计48/48；追加批4432.141秒，无新超时。原九门槛4通过/5失败，确认按预定科学条件NOT_RUN，预算不足并非本轮停止原因。
+- [x] 固定12例/36模型开发外测重放通过；48例、23184候选、144内折缓存及六CSV独立验收通过，6820原文件不变，新增1053文件交付索引完成；按预定科学停止规则收尾，Q5仍不可识别、未实证解决。
+- 边界：原协议、超时、NOT_RUN、FINAL及897文件交付保留；所有追加文件仍限research/taskcard10和doc/taskcard10，不动正式核心。
+
+## 2026-10-18 任务卡10：严格训练内CV三臂研究
+- [x] 审计任务9/正式源码，冻结5922历史文件保护、无泄漏公共容量与三臂程序定义。
+- [x] 隔离实现/桥接/防泄漏/OLS/缓存46项门禁通过；4例新种子Pilot完整通过，另4项外审工具测试与Pilot测试流重放通过。
+- [x] 根据Pilot成本冻结24场景、开发/确认各2重复、7200秒总预算和900秒单case期限；开发30/48后超时停止，完整9门槛不可评价，确认NOT_RUN。
+- [x] 九份报告及最终诊断验收完成：34完整实例/10842候选/102缓存折、六CSV独立重算、74相对链接、897文件索引与5922历史保护通过；科学开发中止而非完整成功，P1/P2仅设计。
+- 边界：新代码research/taskcard10，报告doc/taskcard10；不改v5.2/caps/网格/MSIC/历史，不合并Warm，不提交集群。
+
+## 2026-10-17 任务卡9：小样本、候选与选阶解耦
+- [x] 冻结5852历史文件保护与12例上限协议；核验资产等级、实际源码及身份。
+- [x] 完成250配对/750模型/500阶段变化与216库分层诊断，缺失量明确NA。
+- [x] 同库864次选择/127872源码分数核对，12例门禁后1908候选PMSE，区分惩罚与容忍带。
+- [x] P0/P1稳定后固定规模Pure Warm25/25门禁通过；全adaptive/性能NOT_RUN；给出下一卡CV/容量分离建议，不发布新版本。
+- 收尾：2026-10-18核对报告、复现入口、CSV统计与历史保护，六份报告及最终JSON交付doc/taskcard9。
+- 边界：全部新代码research/taskcard9，报告doc/taskcard9；正式/历史源码和实验不改。
+
+## 2026-10-17 八张任务卡阶段汇总
+- [x] 定位任务卡1–8、现有work_progress及最新任务卡7/8验收材料，按三组分派只读证据核对。
+- [x] 汇总每卡目标、实际执行、结果与状态，串联问题发现、竞争解释和验证过程。
+- [x] 写入work_progress/2026-10-17_eight_taskcards_stage_summary.md；58个相对链接、八卡覆盖、UTF-8和限定diff检查通过，不改源码、原实验或旧报告。
+
+## 2026-10-17 任务卡7集群结果接收与闭环
+- [x] 定位已回传250 JSON/250 NPZ、5 Gate及已有merge；保存5664文件保护基线和15份待更新材料原字节。
+- [x] 只读核验250完整身份、原环境记录、CSV与750三版本系数/指标，不重新merge或拟合。
+- [x] 基于原config映射五场景，完成BCD/网格配对效应、恢复/成本/极值，明确250唯一输入及150种子族，不作跨场景IID推断。
+- [x] 更新任务卡7十份报告/状态/复现/图形及新补全索引；全部历史计划、原结果和任务卡8独立结论保留。
+- 边界：不改算法/MSIC/caps、不分支、不提交、不联网、不联系队友、不重跑完成任务。
+
+## 2026-10-16 任务卡8：Warm BCD与独立选阶研究
+- [x] A：incoming原样32文件副本审计完成，Cold31/31过，Warm11方法失败/错误；历史seed2026恢复未通过。
+- [x] B/C停止决策：Warm性能门禁失败，15折、新配对模拟及E交互均NOT_RUN，不替代为队友反馈。
+- [x] D：开发108及锁后确认108全部在冻结7200秒内完成；仅固定库原1.5/scale1与预声明2/scale0。开发与确认均未过门槛，保持正式默认。
+- [x] D可行性：12次真实Cold拟合/3个预声明外训练集完成；432内验证候选独立重算，外测评估0。
+- [x] E/F：Warm组合门禁拒绝；12份目标报告、全216配对、两图及复现/数值/完整性证据完成，均research_only。
+- 边界：不改生产/历史/incoming；不发布v6、不同步队友、不新跑700，不恢复任务卡7的250集群计划。
+- 已知：incoming实际存在，但初审包含网格回退及best-visited保护删除，不可当成纯Warm效果。
+
+## 2026-10-16 任务卡7：三版本归因与训练内诊断
+- [x] A：三版完整身份验收、15个v5.1外折完成；B/支撑/435条预测与v5.2精确相同。
+- [x] B本地：250旧Gate与冻结计划只读核验；用户明确集群稍后运行。
+- [x] B计算：2026-10-17回传250/250验收通过，5 Gate及原Linux环境封存身份匹配；原计划和Windows失败记录保留。
+- [x] C：预声明45训练内模型评价及12代表训练重放完成，全部候选/预测独立数值核验。
+- [x] D：10份报告、配对图及复现记录完成；保留v5.2工程基线，不改正式算法、不联系队友。
+- 授权：用户已明确允许访问并继续；历史测试工具目录不属于本任务必要依赖，不更改其ACL。
+- 边界：不分支、不worktree、不改生产/冻结源码、正式MSIC/caps或旧结果；不根据外测选择诊断参数。
+
 ## 2026-10-10 任务卡2：BCD修复、MSIC研究和团队同步
 
 - [x] 审计实际源码/Git状态；不创建分支、提交或推送，保留用户既有修改。
@@ -185,3 +242,59 @@
 - [x] P3：14份报告/索引完成，阶段性结论明确P0缺250数值及HCP/NKI待补；未修改正式算法或启动下一轮调参研究。
 - 技能：沿用文件规划，brainstorming用于缺失范围澄清；诊断新增代码按TDD，绘图沿用现有Python工作流并按nature-figure验收；不创建分支/worktree或提交。
 - 预读脚本误猜frozen_solver.py文件名不存在，未修改文件；已改用目录清单定位实际worker，不作自动补建。
+
+## 2026-10-16 任务卡7集群单文件启动
+- 用户要求单个sh直接sbatch；范围为新启动脚本、限定测试及运行说明，冻结worker/plan和历史结果只读。
+- [x] TDD验证初始化、严格Gate、已有结果身份、残缺拒绝和真实worker参数；新8项及原10项共18项限定检查通过。
+- [x] 单作业顺序五pilot及245任务，仅验证完整结果后跳过，逐项打印进度，不修复半文件。
+- [x] 语法、限定行为测试、独立审查及冻结hash复核；不实际提交或拟合。
+- 记录：两次追加补丁因既有文件锚点不符未写入，改为UTF8原生追加。
+
+## 2026-10-18 Task11 final MSIC finite-sample decision
+- Authorized design: taskcard11; unique FS term ell*q^2/(2*n), unchanged v5.2 search/OLS/tolerance.
+- [x] Read access authorized; Task10 continuation_01 reconciled (48 development, 0 confirmation).
+- [x] Formal core and historical artifacts fingerprinted.
+- [x] Audit formula and rescore historical identical pools.
+- [x] Engineering Pilot; freeze 24 cells x 4 fresh inputs and fixed gates/budgets before validation.
+- [x] One prospective validation completed: all 96 fresh paired cases; paired analysis and data-fit plan saved.
+- Formal source immutable; no branches, release, second formula or extra validation round.
+
+### Task11 current execution
+- [x] Original MSIC/source/math audit and 216 historical identical-pool check.
+- [x] 46 pre-Pilot correctness tests; peer-identity race fixed before scientific generation.
+- [x] Pilot 6/6 completed; 1142 candidate OLS audits and independent saved-evidence review passed.
+- [x] Formal protocol/96 requests frozen; runtime estimate 6149.04s under 28800s.
+- [x] Formal 96-case validation COMPLETE, zero failures, 5100.688s; max 2 workers, longest case 258.657s, within frozen budgets.
+- [x] Complete statistical report, independent full replay, historical fingerprint check, final decision/freeze: result B, original MSIC and v5.2 retained.
+- [x] Engineering acceptance: 47 new unit tests + 16 original Cold checks; Pilot6/formal96 full replay (16406 candidates); 7874 protected files unchanged.
+- [x] Final evidence is in doc/taskcard11/FINAL_VALIDATION.json and DELIVERY_INDEX.json; data-fit handoff prepared, no further scientific round or release.
+
+
+## 2026-10-18 Task12 dual-MSIC research and cluster delivery
+- User explicitly authorizes the fixed FS study despite Task11 closure; Task11 failed-gate evidence remains immutable. Taskcard12 is the approved design.
+- Isolation: new research/taskcard12 and doc/taskcard12; no production changes, branches, worktrees, releases or remote actions.
+- [x] Read Task12, root AGENTS and actual CLUSTER_GUIDE; root workflow area clean; protect historical inputs and delivery.
+- [x] P0: default-original/shared-pool dual interface, strict cache, TDD and historical102 regression.
+- [x] P1/P2: freeze380 new requests and n200 risk criteria, local cost/gates, real-site scripts, upload package/guide; hand off before remote execution.
+- [x] P3: frozen empirical protocol, accessible LEMON15-fold comparison complete, HCP/NKI contracts delivered as NOT_RUN.
+- [x] Independent acceptance, protected hashes, complete local deliverables with PENDING_CLUSTER_RESULTS and no premature A/B/C recommendation.
+- Brainstorming: taskcard-approved isolated wrapper chosen over changing production or duplicating optimizer; reuse frozen logic with explicit data/config interfaces.
+
+
+### Task12 continuation 2026-10-20
+- [x] REQUESTS380 plus independent smoke3/localcost1 frozen; 768 seeds audited against34 historical plans/2215 seed values, no collision.
+- [x] HISTORICAL_INPUTS971 pairs recorded with both legacy/current digest checking in runner.
+- [x] Analysis7 tests and delivery4 tests RED->GREEN; primary360 weighting, n200 risk/Exact uncertainty fixed before new results.
+- [x] Cluster18 tests, four SH syntax and local mock pass; further independent numerical/lifecycle checks in progress.
+- [x] P0 native-domain fix completed; final archived102 replay and local acceptance recorded below.
+- [x] P0 and cluster/empirical protocols frozen; actual ZIP built, independently extracted and tested; initial package retained after README-only final correction.
+- [x] Prespecified local n200 cost pilot passed:126 candidates,1 native search,45.679s (controller47.046s), excluded from380 formal.
+- [x] LEMON15/15 complete under frozen source/protocol:15 searches,1215 candidates,2610 OOF rows; independent30-model/143-artifact verification PASS.
+- [x] Final local acceptance:78 distinct checks;9705 protected files unchanged; FINAL_VALIDATION and DELIVERY_INDEX sealed. User submits cluster380; HCP/NKI inputs remain absent.
+
+
+### Task12 cluster return closure
+- Independent saved-chain verification PASS: formal380, smoke3, frozen sources/protocols/seeds/artifact hashes.
+- User-reported original Linux strict verification PASS: smoke3/formal380 and exact summary/analysis match with four frozen thread variables=1. Windows floating-point stop preserved; second command without variables correctly rejected before validation.
+- Final recommendation B: retain original MSIC production default; FS frozen research only. Primary PMSE -19.65%, n100 -28.70%; four recovery gates failed. HCP/NKI NOT_RUN; no further tuning or production changes.
+- Local delivery snapshots preserved under doc/taskcard12/cluster_review/local_delivery_snapshot; current final reports and evidence indexed separately.

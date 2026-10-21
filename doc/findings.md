@@ -1,5 +1,63 @@
 # LEMON 实施依据
 
+## 2026-10-18 清理依据
+- 任务卡5曾仅删除125个未跟踪的Python再生字节码；其清单不可直接重用。旧脚本apply_plan支持完整清单先验、路径边界、跟踪/引用/保护和SHA核对后逐文件删除。
+- 任务卡10原6820保护和追加1053交付索引仍应完整保留；不能根据old、STOPPED或temp文件名认定历史证据废弃。
+- 本轮两份当前SHA清单和相关18份历史SHA清单均不含缓存；旧全目录盘点CSV的缓存路径只是历史库存记录。保留旧CSV自身，不需为缓存清理重写历史。旧apply_plan的宽目录KEEP不适用于本轮全部候选，因此只复用精确引用检查，删除用原生PowerShell按新封存清单独立校验后执行，无递归删除。
+- 临时目录中的两份PDF抽取文本、Task6 ZIP验证解压副本及push.log共85文件均已Git跟踪，本轮保留；.pytest_cache读取和Git状态比较必须使用一致权限上下文，不能把沙箱不可读状态等同实际缺失。
+
+## 2026-10-18 任务卡10续跑边界
+- 完整开发新增结论：n100 A2相对A0平均PMSE降低33.15%，同容量A2相对A1仅降低3.19%；总体同库改善0.85%，n400反而增加5.44%。n400 A0/A1逐例结果全相同，CV为1改善/14相同/9恶化，Exact13→11。
+- n400丢失恢复的task033、037公共库均已有真支撑；A2分别从q60选到q80、q24选到q60，训练RSS下降而外测PMSE上升，属于选中更大错误支撑而非真形状被容量排除。最坏cell11为n100/SNR4/真形状234/rho.6，两重复PMSE比2.836。
+- 强SNR总体欠选率A0=31.25%、A1=A2=50%；相对A0差异包含容量/来源变化，不能全归CV。预定联合门槛仍判失败，不因这种机制区分撤销门槛。
+- task030/031在2worker续跑中约442秒成功；不能据此将原900秒超时判为算法数值故障，也不能把混合并发计时宣称为统一速度基准。原超时和3例同伴中止开销必须保留，未保存的失败CPU/峰值不可补造。
+- 本次是用户授权后的计算协议修订；原已完成30例并未因换目录获得未见身份，原4例中止输入重算也不是新科学重复。
+- 原单shape单fixed-B设计不能识别同形状异支撑多来源风险；续跑不改候选定义，只将Q5作为明确未解决问题报告，不能标PASS。
+- 原worker可原样接受预算修订协议；完整30副本保留全部原始字节，新18用新plan，合并开发锁必须覆盖原48 ID且记录旧/新来源；确认锁不能仅依赖文件数量。
+
+## 2026-10-18 任务卡10设计审计
+- 最终科学状态为超时停止：开发30/48，n100完整24而n400仅6个弱信号；不能用部分总体重算9推广门槛、生成开发锁或进入确认。Pilot估计与4worker正式尾部耗时不等价，900秒单case期限独立于7200秒总预算。
+- n100描述性PMSE A0/A1/A2=4.679961/3.231389/3.128412，主要降幅发生于A0→A1（容量/来源混合），同容量CV额外下降约3.19%；未确认不能推广。同形状多来源风险在本设计不可识别，不能用CV选形状宣称解决。
+- 完整34实例10842候选均满秩、独立OLS系数差0、最大条件数83.1274；该证据仅是数值正确性，不证明估计方差小或Ridge必要。部分候选/被中止case不纳入通过计数，外测独立流重放仅Pilot4例实际执行。
+- 种子区间必须把train/test/split三种角色一起检查，不能只查训练测试；控制器TDD已识别未冻结草案区间冲突并停启动，改为相隔400M的三阶段base后再通过完整审计才允许生成。
+- 必须区分A1−A0容量/范围程序变化、A2−A1同容量CV选择差异、A2−A0总变化；候选集合不能依赖验证响应。
+- 正式caps下限floor(sqrt(n)/2)，在本模拟dims及n100/400与其三折内训练量下，下限乘积已超Q，缩减到平衡区后caps可由n/dims确定；需证明并桥接再冻结。
+- Task9全部证据冻结不改，新开发/确认须新随机族及完整输入，与旧数据身份去重。
+
+## 2026-10-17 任务卡9证据边界
+- 结果：n100 28/50恶化，26例q上升中25恶化，但2例同形状换支撑也恶化；n400网格49/50改善，Exact1→49。Task8池首个阻断n100为容量36/位置30/选阶2/成功4，不能把68个非Exact全归MSIC。
+- 12例全池重放8个正selection gap，9对同形状异支撑有3对低RSS高PMSE；q/shape惩罚不能改变同形状的RSS排序。216例Exact A0/A1/A2/A3=71/65/49/69，增强惩罚平均收缩、去band扩张；存在2个加罚最终q反向上升的band交互反例。
+- 固定Pure Warm25门禁通过，seed2026保留Cold RSS154.472，额外起点RSS277.869更差；只有固定规模原型可行性，非全adaptive/性能证明。
+- 250配对保存750所选模型，无全候选池、原X/y或测试流；位置搜索/选阶gap与OLS秩条件数不可独立补算。
+- Task8有216完整库共31968候选，可固定系数重评分；12例development按配置机械抽取、先身份Gate后测试评价，不作为新确认。
+- 缺少精确文件名“代码终版(2).md”，使用现存Math说明作背景，真实源码为公式依据；不假定两文档字节相同。
+
+## 2026-10-17 阶段汇总依据
+- 阶段报告已完成，区分工程正确性/恢复/泛化，原样Warm未运行性能、旧80确认预算中止、卡8完整216门槛失败，以及卡7已完成250的当前状态。
+- 复核纠正草稿一处分类：27历史数据首次阻断为caps9/grid9/位置6，另3为真支撑覆盖成功，不能写成最终选模失败；引用来源及正文已修正。
+- 用户要求汇总任务卡1–8及执行结果，写入既有work_progress目录；采用Markdown，沿用已有进展文档格式。
+- 早期work_progress存在“进行中”和250待集群等历史状态，本次以任务卡7最新250/250接收报告及任务卡8完整216数据/门槛结果为准，保留旧记录。
+
+## 2026-10-17 任务卡7结果补全
+- 全量独立验收通过：原生load_plan重建、96源码、250 seal/四输入/环境、5 Gate、750 NPZ和已有CSV逐字段一致；750模型独立REE/支撑指标/MSIC误差≤5.69e-14。非n400的200组v51/v52 B/支撑精确相同；n4001/50相同。
+- 最终五场景ΔBCD/ΔGrid PMSE：baseline+.021461/0；n100+1.245466/0；n400+.001716/−.109788；SNR.5+.089270/0；rho0+.374218/0。n400 Exact1→1→49/50，网格收益并非BCD修复单独带来。
+- 250输入唯一但只有150seed/test_seed族，按五场景各50配对描述；原700仅600唯一组合，历史138→182为标签加权描述。未保存原X/y及逐测试数组，本轮不声称独立重算RSS/PMSE，来源边界已记录。
+- 实际目录为numerical_simulation/outputs_v51_attribution/cluster_run，含250对结果、5 Gate、原生CSV和PASSED250的integrity；尚需独立验收，不重跑拒覆写的merge。
+- 五场景按原config确认：task0 baseline n200/SNR2/rho.3；50弱信号SNR.5；250小样本n100；350大样本n400；550独立rho0。不能按任意标签列表顺序绑定场景。
+- n100 PMSE5.196560→6.442026→6.442026；n4001.297588→1.299304→1.189516。初步数值待全部身份和数值验收后进入正式结论。
+
+## 2026-10-16 任务卡8前置
+- D确认108完成：PMSE2.443688→2.252872（−7.81%），Exact36→34；最坏cell比1.156737>1.15，SNR4 q欠选增0.055556>0.05，确认未过。后者增加来自逐模不可表示子集，可表示30例欠选率不变，但不能事后改门槛。
+- 最终验收：全部216数据/31968候选系数有限性、合法支撑及逐数组SHA/31752 fixed轨迹和选择重放通过；3253保护文件无差异。预选12例独立重建输入/测试流、RSS、OLS条件和所选指标通过，未重拟合。
+- 独立D开发108/108已锁定：PMSE比0.951085，但最坏cell比1.566972超过1.15，开发门槛失败；其余四项通过。确认只按拟合前预声明作固定规则研究复核，不再调参或反称开发合格。
+- 中途只读完整性核验通过：3253保护文件、32冻结core、108开发及当时32确认的所有候选元数据/最佳访问路径/选择重放与artifact SHA无差异；最终全量核验仍待控制器终态。
+- Warm原样实测：上传6/6过但历史seed2026错误支撑/RSS252.229556与旧warm-only相同，Cold恢复真支撑/RSS154.471958；正式31方法全过，Warm20过/11失败或错误。best-visited等注入契约失败与真实历史回归分别说明。
+- D2：full q80/80/24；common MSIC q1/2/24，CV q2/2/4，stable q32/2/24；48共同规模的限制本身改变前两组选择，不能将收益全部归CV。12拟合和432候选SSE已独立验收。
+- 初始保护复核发现任务卡7索引后两份集群launcher文档已有更新，现场另有对应launcher及8项测试；旧2880数值/生产保护完全匹配。已记录旧/今SHA于taskcard8/BASELINE_RECONCILIATION.json，保留旧索引与当前文档，不放宽科学身份。
+- 真正incoming bcd.py与上传test均存在；静态初审同时修改Warm、fixed正确性保护及候选网格，必须原样测试，不能只凭队友RMSE改善认可。
+- 独立D预算已由用户批准：36cells×开发/确认各3重复，总墙时7200秒；新seed与开发后锁定/确认门禁需拟合前冻结。
+- 旧test_tools权限问题已在此前获准继续目标访问，本轮不依赖这些目录；已有测试/实验均用历史.venv且不安装依赖。
+
 ## 2026-10-09 EEG增量预测审计
 
 任务卡要求独立模块及新输出。原evaluation只在outer train拟合preprocessor后，将整个outer标准化残差传给基线内部CV，因此内层训练/验证的预处理并未重新拟合；新实验外部3折选择lambda并各自拟合全部nuisance/scale。ABESS保持BIC初始化与MSIC固定信息准则，无新外部ABESS参数调优。现有.venv包含NumPy/SciPy/Matplotlib/YAML，不含sklearn；采用NumPy预先固定年龄分层均衡CV，不安装依赖。7项主线验收测试红后绿，覆盖covariate OLS、完整预测恢复、inner training centering和OOF唯一覆盖。
@@ -150,3 +208,48 @@
 - 用原init函数caps生成AST穷举6324种LEMON初始化长度组合，n116/dims61/16/5/c3始终caps4/4/5，原/新80规模同序，A2未扩LEMON网格。不能把当前LEMON恶化归于新增规模。
 - 模拟ΔPMSE中位数0，正累计124.080355、负累计-22.921523、净101.158833；最大20例占净恶化72.20%，n100+rho0贡献80.06%，不是单一离群决定。94恶化中73增q且RSS降、8同q且RSS降、13减q且RSS未降，不能统一归因为大q。
 - 当前P0严格输入Gate阻塞；P3建议保持正确性修复的冻结基线、保留负面实证、在原环境补250并研究结构/数据匹配，不自动调整caps/MSIC或恢复已知缺陷BCD。
+# 2026-10-16 任务卡7前置
+- 实测最终归因：15折v5.1=v5.2的B/支撑/预测精确一致；RMSE .371667→.504581，q80 1→5，LEMON变化在v5→v5.1。
+- C2六代表训练折重放：486个v5.1/v5.2候选及路径完全一致；480个v5→v5.1 fixed候选295 RSS下降、185相同、0变差，惩罚不变。
+- C3三预声明外训练集/9内折：固定q1→12→45时训练误差9/9下降、验证7/9严格上升；大MSIC8/9低于小，全部三组adaptive内OOF劣于协变量。
+- 工程正确性、统计恢复与泛化分开：保留v5.2基线，独立研究新选阶；不认定EEG无信号、不用外测选alpha。250按用户选择稍后集群执行，当前0/250。
+- 旧LEMON v5/v5.2完整OOF已保存，数据145人，三重复五折；历史32源码及Windows环境已有配对审计。
+- 250模拟任务此前实际0/250：Linux3.9.25/NumPy2.0.2/SciPy1.13.1与本机不同，除B_true外输入hash失败；不得降低Gate。
+- 用户本轮已解除访问阻塞，继续限定目标路径，不恢复/改写无关历史测试工具。
+
+## 2026-10-16 单文件SLURM启动
+- 新增run_v51_attribution.sh，固定站点/root/chdir及现存根目录日志；不需要手动cd或跨终端变量，不改变冻结runner/plan。
+- 单作业串行，stdlib fcntl非阻塞锁且pass_fds继承给子进程；五pilot后逐个245worker，日志即时打印任务ID/计数。
+- 完整旧结果先检查seal/plan/task/version/core/environment/inputs/NPZ/pilot gate再跳过；任何残缺、失败preflight或已有汇总立即停止，绝不修复或覆盖。
+- 历史成功preflight仅标为保存记录核验，所有新worker实测当前环境和输入；全已完成只做原生只读结果汇总，不宣称重测当前环境。
+
+## 2026-10-18 Task11 evidence scope
+- Task10 valid final evidence is doc/taskcard10/continuation_01: n400 A0/A1/A2 Exact=13/13/11 of 24; independent confirmation NOT_RUN due failed development gates.
+- Historical Task8/9 pools are already seen and diagnostic only; not independent confirmation.
+- Fixed candidate FS=MSIC0+ell*q^2/(2*n); q-dependent penalties cannot reorder identical-shape supports by training RSS.
+
+### Task11 completed prospective evidence
+- All 24 frozen cells x 4 independent cases completed (96/96; 15264 candidates), with no failed, omitted or replaced input; Pilot and history excluded from these statistics.
+- Overall PMSE 2.978516 -> 2.176566 (ratio 0.730755); n100 4.762711 -> 3.153757 (0.662177); n400 1.194322 -> 1.199375 (1.004231). Exact 31 -> 33 overall and 30 -> 30 at n400; no previously exact case was lost.
+- Six of seven statistical gates pass. The sole failure is strong-SNR q-underselection: 7/32 -> 11/32, delta +0.125 > +0.05. All four newly underselected cases improve PMSE; three have cap-unrepresentable truth (4,3,5), one has representable (2,3,4) but no true support in the saved pool. The fixed all-strong denominator is not revised after seeing this split.
+- n100 P95 ratio 0.576230; worst complete-cell ratio 1.031972; five individual PMSE deteriorations are retained. Frozen paired-bootstrap mean-ratio intervals support overall/n100 gains, but four repeats per cell do not establish broad tail or recovery noninferiority.
+- Decision B follows the predeclared all-gates rule despite material prediction gains: retain original MSIC and v5.2-search-final; no new formula, tuning round, release or real-data fit. Dataset suitability audit framework is the next-stage handoff.
+
+
+## 2026-10-18 Task12 scope and initial evidence
+- Requested result now differs from Task11: fixed FS research interface and new380 paired cluster inputs (not locally submitted), then existing-data dual OOF comparisons; preserve Task11 result B and failure +0.125 strong underselection.
+- Root CLUSTER_GUIDE.md is actual configuration source: module load anaconda3 then conda activate myenv, project /public/home/xjh/xmx/tensor-sparse-regression-main, Slurm CMO_HPC/account xjh, 1 CPU per worker, historical array project cap64. This is not a confirmed site quota.
+- Cluster results remain PENDING_CLUSTER_RESULTS until user uploads/submits and returns complete raw results. Windows smoke is not remote validation.
+
+### Task12 final local evidence
+- LEMON fixed FS changes10/15 folds; q mean37.467->3.533, median24->2; q decreases7/increases3/same5. RMSE0.504581->0.359627 (28.73% lower), still13.27% above CovOnly0.317485. Three repeats all improve original yet all remain worse than covariates; no stable EEG incremental advantage established.
+- Sole adverse fold repeat1/fold5 q1->2,RMSE0.307022->0.342161; worst FS fold repeat2/fold1 RMSE0.579377 remains unchangedq24. No difficult fold/subject removed; no parameter changed from outcomes.
+- HCP-YA/NKI-RS actual inputs and prior metrics unavailable in audited repo scopes. Generic code currently RMSE/R2; a different original metric requires its adapter before that dataset's future frozen protocol, not after results.
+- Task11 original strong-underselection failure0.125>0.05 preserved. New380 protocol separates balanced360 from additional20 pressure cases, emphasizes n200 representable strong support and30-case stress loss, reports conditional Exact-loss uncertainty, and does not auto-release FS.
+
+
+### Task12 cluster return closure
+- Independent saved-chain verification PASS: formal380, smoke3, frozen sources/protocols/seeds/artifact hashes.
+- User-reported original Linux strict verification PASS: smoke3/formal380 and exact summary/analysis match with four frozen thread variables=1. Windows floating-point stop preserved; second command without variables correctly rejected before validation.
+- Final recommendation B: retain original MSIC production default; FS frozen research only. Primary PMSE -19.65%, n100 -28.70%; four recovery gates failed. HCP/NKI NOT_RUN; no further tuning or production changes.
+- Local delivery snapshots preserved under doc/taskcard12/cluster_review/local_delivery_snapshot; current final reports and evidence indexed separately.
