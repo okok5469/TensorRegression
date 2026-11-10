@@ -1,4 +1,4 @@
-# LEMON 实施记录
+﻿# LEMON 实施记录
 
 ## 2026-10-18 废弃文件清理
 - 用户授权先清理各目录废弃文件；本轮只清理能证明可再生且未被跟踪/引用/保护的文件，复用已有清理逻辑，不改科学源码和旧清理审计。
@@ -473,3 +473,262 @@
 - User-reported original Linux strict verification PASS: smoke3/formal380 and exact summary/analysis match with four frozen thread variables=1. Windows floating-point stop preserved; second command without variables correctly rejected before validation.
 - Final recommendation B: retain original MSIC production default; FS frozen research only. Primary PMSE -19.65%, n100 -28.70%; four recovery gates failed. HCP/NKI NOT_RUN; no further tuning or production changes.
 - Local delivery snapshots preserved under doc/taskcard12/cluster_review/local_delivery_snapshot; current final reports and evidence indexed separately.
+
+## 2026-10-21 Task13 BLOCKED
+- User authorized skipping inaccessible historical test-tool directories. Delegated read-only source audit; no implementation.
+- Found both files; checked sizes, MD5, SHA256, official source and native MAT element boundaries. Apple.mat truncated; CSV passes.
+- Python stdin diagnostic failed on Chinese-path encoding without reading/writing input; native BinaryReader successfully verified truncation.
+- Saved DATA_AUDIT.md, APPLE_EMPIRICAL_FINAL_REPORT.md, FINAL_VALIDATION.json; awaiting complete input path. No downloads, algorithm changes or model runs.
+
+### Task13 2026-10-22
+- Rechecked complete data and initial MAT fields; delegated data/model/source tasks then paused all upon confirming missing sklearn in both existing Python environments.
+- Updated validation/status report; preserved old truncation evidence. Formal models0, OOF0. No dependencies installed.
+
+### Task13 dependency authorization
+- User authorized isolated missing-dependency installation. Pinned sklearn1.5.2/joblib1.4.2/threadpoolctl3.5.0 installed only in doc/taskcard13/runtime; numpy1.26.4/scipy1.16.1 unchanged.
+- Initial sandbox network denial then approved elevated install; transient download timeout retried with120s timeout. Installer owner-only ACL made new packages unreadable; enabled inheritance exclusively within verified task runtime path,1963 entries succeeded,0 failed. No old-directory ACL changed.
+- Import sklearn1.5.2 verified;12 meaningful unit tests pass (models7,runner4,report1). Data implementation remains in progress; no scientific prediction yet.
+
+### Task13 frozen preflight and resource decision
+- First frozen protocol and all7 smoke fits completed; no Apple outer-test response or comparative score used. Cubic training-size/tuning projection100498.178s exceeds7200s; cluster handoff required without dropping folds/methods.
+- Synthetic end-to-end15-fold M1/90prediction collect and corrupt-cache refusal PASS. Independent source audit32/raw+LF PASS, data axes/ID and baseline legality reviewed.
+- Added engineering safeguards before formal prediction: native-environment cache key, independent collect replay/scaler checks, duplicate-cube conflicting-label guard. First smoke Lasso stopping warning prompts fixed numerical solver-budget review, not parameter/representation tuning; initial freeze retained before updated freeze.
+- Six fixed-ID/input figures rendered and individually reviewed; text floor8pt and zero collision FAIL/WARN.
+
+### Task13 local handoff accepted
+- Lasso final stopping budget100000/tol1e-6 converges17779 iterations withgap9.99847e-7; originalalpha/grid unchanged. Data duplicate-conflicting-label guard verified with failing-then-passing fixture.
+- Archived engineering firstfreeze and smoke, re-froze final source/config, reran7smoke fits including peak working-set memory; final projector184433.12s triggers cluster handoff. No formal Apple predictions or outer-test ranking accessed.
+- Current21testsPASS;6QC figures PDF glyph/collision and individual visual reviewPASS. Built73file3260709byteZIP; independent extracted tests21PASS and hashes/contracts/source/data/splits/105-5040 expectationsPASS. Builder initial script import-root error fixed before artifact generation; no scientific effect.
+- Source protected fingerprints unchanged, final report/validation/index saved. CurrentstatusPENDING_CLUSTER_RESULTS; remote submitNOT_RUN, formal0/105,OOF0/5040. See doc/taskcard13/APPLE_EMPIRICAL_FINAL_REPORT.md and cluster_handoff guide.
+
+### Task13 user-directed local execution
+- User explicitly directed full empirical work on local computer instead of cluster. Operational controller doc/taskcard13/local_execute.py runs unchanged frozen --stage one105 tasks with2workers and1thread each, to local completion; scientific config/source/splits/data remain unchanged.
+- Controller test observed failure before implementation and nowPASS; existing contract/dependencies independently rechecked. Prior pending-cluster validation retained in local_execution/PRE_LOCAL_VALIDATION.json. Current statusRUNNING_LOCAL, no remote submission.
+
+### Task13 COMPLETE on user computer
+-105 frozen tasks completed,0FAILED;2520 inner fits and5040 actualOOF; model/summary/report generation2597s. Existing full source unchanged. Operatortelemetry one read raced an in-progress JSON write; reread+COMPLETE counts consistent, no scientific artifact affected. CIM process query denied; directpsutil read of ownedworkers confirmed CPU/memory without system changes.
+- Independent root-agent auditPASS:105markers/420hashes/5040OOF/scalers/inverseprediction/15OLS-MSIC/50source/32release/complete-repeat metrics. No refit.
+-21figures glyph/collision audits and individual visual reviewPASS; three metric-label overlaps corrected only in doc plotting script/generatedfigures, archived originalgeometry. Final report explicitly includes all numerical limits and weak-signal conclusion.
+- Root doc/taskcard13 report/CSV/config/splits/protocol/FINAL_VALIDATION/DELIVERY_INDEX nowCOMPLETE; local controller ended, no workers remain, no cluster submission. Historical cluster package retained onlyasarchive.
+
+
+## Mushroom screening started; Apple paused
+- OnlyexistingCSV read; data/ID/duplicate/units audit before modelperformance. FivefocusedTDDtests observedFAIL for missingnewmodule. Chosenminimalisolated module; no Apple/corecode edits or new dependencies.
+
+### Mushroom CSV models completed
+-5focusedTDDchecksPASS.3repeated5outer/3inner exact-spectrum-groupedCV completed in29.97s;45finalmodel/scaler artifacts,1080innerfits,2250OOF,0warnings. Alltrainingstatistics refit ininnerfolds; noTensor module imported.
+- RidgeRMSE11.1252/R2.858019;PLS12.0783/.832731;Mean29.7344/-.013511. Groups243,records250; six conflicting-label duplicate-spectrum groups fully retained and samefold. Independent verification requested before finalseal.
+
+### Mushroom screen accepted
+- IndependentalternateCSVparser and45savedmodels/scalers rebuilt2250OOF withmaxabsdifference0;15outer45inner knownexact-spectrum groupsdisjoint;9complete-repeat metrics/summaryrecomputed;raw/sourceSHAconsistent. FiveunitchecksPASS.
+- Report,summary/repeat/fold metrics,OOF,manifest,quality,protocol/config/splits/contract,45model+CVrecords,FINAL_VALIDATION/DELIVERY_INDEX sealed. Primaryoutputs doc/mushroom_screen/MUSHROOM_SCREEN_REPORT.md andsummary_metrics.csv. NoApplechanges/Tensorimport/rawMATread/downloads/newdependencies.
+
+### Task15 started 2026-10-23
+- Read full taskcard15, recovered screen contract and reviewed Apple adapters. Delegated read-only source/protocol audit and actual MAT/official metadata inspection; isolated eight-model runner work delegated with no real fits before gates.
+- Streamed all five MATs and CSV (10,257,235,841 total bytes); all six official MD5 values match. Saved raw_file_identity.json with SHA256 and MATLAB5 header evidence. No data/core/Apple/screen modifications.
+- Actual structure250explicitM001..250/Labels,204waves400..998.04 exactCSV; frozen fullROI8x8x24 feasible. Protocol tests3RED->GREEN verify ID remapping, file-isolated inner3, crossfile duplicate refusal. Cache prepared250,0cube duplicates,20outer60inner validated; independent reconstruction pending.
+- A one-off inspection used locale-default JSON decoding and failed before model use; explicitly reading UTF8 fixed it. All stored JSON remains UTF8 unchanged. Backend preference recovered from prior task-specific Python record (default global preference absent).
+- Independent18rawcube geometry/waves/hash/labels reconstructionPASS maxabs2.8047e-14; all20outer60innergroups/file isolationPASS. Frozen32release+oldadapters+newsource and cache/config/splits before real fitting.
+-13focusedtestsPASS; controller firstGREEN run caught syntax typo before any command execution, corrected and rerunPASS. Pilot8outer/219inner fullfirstfold completed208.8s; allscalers/predictioninverse/nativeenvironment/artifacts/OLS/MSICreplayPASS.
+- Added actual unchanged200-record M1 fit memoryprobe. Initial outer process was Windows venv launcher so its4.4MB alone was not a valid interpreter measurement; corrected to child selfreported peak67,682,304bytes and sampled tree71,626,752bytes. Two identical engineering fit repetitions reproduce saved predictions, no formal artifact/settings changed.
+- Full160tasks launched locally two workers/one thread; identicalpilot8 skip via verifiedcache. No remote submission; savedresults analysis/figure scripts await complete8000OOF.
+- STOP: after40complete tasks/2000saved per-taskOOF, Windows denied os.replace(execution/STATUS.tmp,STATUS.json),WinError5. Controller stopped, cleanup left no experimentworker; main_r1_f5_M3 incomplete, all40completed artifacts preserved. No modelFAILED.json found. Fault-stop instruction prevents unapproved write-path repair/retry; FINAL_VALIDATION and execution report explicitlyINCOMPLETE, no full metrics/ranking/A-B-C claimed.
+
+### Task15 explicitly authorized repair and resume
+- User: please resume, repair permitted. Only doc operationalcontroller and its test modified; real Win32 GENERIC_READ/FILE_SHARE_READ(noDELETEshare) test reproduces oldPermissionError, then new immutable snapshot publisherPASS. No retries/ACLchanges/algorithm changes. Read latest execution/status_events/*.json, preserve old failedSTATUS ashistory.
+- Frozen55source/config/data/splits verified;40savedmodels/2000OOF/scalers replayPASS maxabs0; partialtask35directoryempty, no oldworkers.15focusedtestsPASS. Full160controller restarted2workers/1thread; verifiedcomplete tasks skip unchanged.
+
+### Task15 COMPLETE after authorized resume
+-160/160finalmodels,4380innerfits,8000OOF(main6000/block2000),0failed tasks; resumedwall1870.3s. Independent nativeenvironment/artifacthash/allscaler/inverseprediction/20fixedsupportOLS-originalMSIC/55frozen-source/32releasePASS. NativeM6/M7screen1500OOFmaxdiff0.
+- Independent32completeOOFmetrics/16summary/7paired243cluster2000drawbootstrapPASS exactnumericmatch. BlocksinglepooledSDpublishedN/A/CSVempty rather than0; all3repeatSD unchanged. ScientificdecisionB, mainABESS13.65235/.785916 vsRidgeCSV11.12521/.858019; blockABESS31.78328/-.157987; all8pooledblockR²negative.
+-17focusedtestsPASS inclWindowsreaderheldhandle regression.26scientificfiguresPDF/SVG/PNG freshsource/glyph/collision0FAIL0WARN+individualvisualPASS; sourcewarnings(300dpiPNGpreview/noTIFF/unassignedjournalwidth) reviewed againstvectorreportcontract. No plots required geometry repair.
+- Mainq24..100median40,block20..40median30;0q1/0near90%effectivecap/0OLSrankdeficient; waveJaccard.1826/.1468. Block5all50y>trainmax63.0632,RMSE57.568. ResponseSSbetweenfiles98.189% descriptive, no causalbatchclaim.
+- Numericaldisclosure:Lasso58/780allinnernonconv(57warnings),all60selectedinner+20finalconverged0warnings. M1/M2completeoptimizerconvergenceunknown retained; no scientificsolver/grid change. Fullreports/scientificdecision/FINAL_VALIDATION/1231fileDELIVERY_INDEXsealedCOMPLETE; Windowsinterruptionhistorypreserved,allworkersfinished,no cluster submitted.
+- Final saved17testlog+receipt added after independentreview requested persistentproof. Receipt firsthashed pre-saveLF whileWindowswrite storedCRLF; seal correctlyrefused, then exactsavedbyteshash matched. Re-sealed1233files withUNIT_TESTS gates; no model/table/figure change. IndependentresponseSSdecompositionrecheck.9818899859460484 agrees withreport.9818899859460483.
+
+### Task16 started
+- Read complete taskcard16 and AGENTS; delegated rawdiscovery/12station audit and independenttemporal/sourceprotocol review. Root contains no misplaced workflowfiles; task15COMPLETE remains unchanged.
+
+### Task16 COMPLETE
+- Original frozen contract7fee51150815a36fcd72eab256b19fe19825673db31d5a7a5ecce8fcc12d1f3b retained.35finalmodels/885innerfits/7336predictions completed locally in628.11s after48.157s pilot;2workers/1thread; no remote submission.
+- Independent1409response/Persistence means and5184tensorcell checks;35artifact/median/scaler/inverse/timeaxis/5OLS-MSIC/54source/32release-actualimports allPASS. Independent42summary/252monthly/205paired/48frequency/30Jaccard rows match actual saved predictions, no refitting.
+- All14scientificPDF/SVG/PNG figures automatic glyph/collisionPASS plus everyPNG and actualPDF raster visually inspected; legends moved outside time-series traces without changing scientific source/results.11focusedtestsPASS with exactsavedlog/source SHA256.
+- Six-question finalreport, supportanalysis, README,14figurelegends,scientificdecision andFINAL_VALIDATION sealedCOMPLETE.396deliveryfile byte sizes/SHA256 replayPASS; finalcategory MAIN_EMPIRICAL_CANDIDATE_WITH_LIMITS. Prior Apple/Mushroom source/results unchanged.
+
+### Teacher report 2026-10-24
+- Readpresentation/PDF/naturefigure/planningskills; userexplicittemplate/outputscope authorizeslocalLaTeXauthoring. SavedPythonbackend loaded. PDFartifactoperationmarker succeeded beforeauthoring; no externalpublishing/dependencychanges.
+- Delegatedsource/versionaudit,formalsimulationaudit,andBeijingevidenceaudit; wrote15staticframeLaTeX andbuildREADME innewPresentation/recent_work_20261024. Algorithms/scientificartifacts remainsealed. Reportwritingandfournewreportfigures delegated withexactsourceCSVrequirements.
+- Oneworkflowpatchinitialcontext'#'didnotmatch andwasreplacedwithspecificexistingcontext; nofilechangedbyfailedpatch. TemplatePDFreference3pagesrenderedandinspectedfor4:3theme/font/color/branding.
+
+### Teacher report COMPLETE
+- Created15staticframeLaTeXPDF andstandaloneplainChineseMarkdown withversionchanges,all14simulationlabels/sixrepresentativePMSEmean+sampleSDtable,Apple/Mushroomscreening,andBeijingfuture7methodmetrics/timeseries/20coordinateinterpretation. FullaggregatePMSEdeterioration/small-nnegativecase andmultistationlimit preserved.
+- FournewPythonvectorfigures +4source-dataCSVs, alignedsinglepanelN/A, source/glyph/collisionallPASS0FAIL0WARN andactual4PNG+4PDFvisualPASS; versiongraphunconnectedbetweencategoricalcells. No oldplot/result/source modified.
+- XeLaTeXfirstlayoutcaughtfourverticaloverflows; fixedspacing/figureheight/conciseparagraphs withoutshrink orscientificdataedits. Independentreviewcaughtpage4logo-footnoteoverlapdespite0Overfull; disabledonlypage4logo. Finalall15rasterpagesviewed; final3/4/9revisionsrendered/reviewed,other12byteidenticaltoalreadyreviewedrenders.
+- FinalPDF15pages4:3,0Overfull/0Missingglyph/0out-of-pageboxes/0logo-textoverlaps,5.534ptminimumrenderedfont; independentfacts/9Markdownlinks/MDreadabilityPASS.78newreportfileSHAindexandqa/FINAL_VALIDATIONCOMPLETE.12input/templatehashes+54frozenscientificsources+396Beijingsealedfilehashes unchanged; nofits,simulations,dependencyinstalls.
+- Design fixed by usercard: previous-day12x6x6, targetAotizhongxin next-dayPM25, developmentfourcalendar folds and futureyearholdout. Persistence needs genuinely observed previousdaymean; propose explicit commoneligibilitypreviousday≥18h plus target≥18h beforeanymodel performance, documentdenominator and all exclusions.
+- Raw12stationCRC/localSHA/timeaxisPASS, all35064hours/420768rows; no negative/infinite6poll values, NA retained. Officialunitsallug/m³includingCO.1422targetvalid vs1409jointvalid; extra13excluded beforeanyresults to retain truePersistence, metadata/shapes/thresholdsfixed. Cache1.24MB, NaN9837cells/1.62%,777input-missingdaysretained.
+- Independentall1409y/Persistence naturalprevday means,12dates5184cells+hourcounts/rawmemberSHA/20trainingscopesPASS. Protocol testinitialRED corrected NumPy unicode.max test-onlyreduction error via Pythonmax, thenGREEN; no realdata/modelaffected. Outertrain/test361/179,540/163,703/174,877/180,1057/352; 3calendar inner halfinitial/half3windows.
+- Frozencontract7fee51150815a36fcd72eab256b19fe19825673db31d5a7a5ecce8fcc12d1f3b beforeanymodel;54scientificsource plus32release actualimportpaths verified.7fullfirstfoldmodels+177inner pilot48.157s, originalABESS q8 fullrankOLS/MSICreplayPASS, maxOSpeak170MB. Group-Lasso initcriterionbic means passedcv_folds5inactive, no randomized internalCV.
+- Full35localtasks2workers/1BLASrunning underactual7200sbudget. Immutablestatussnapshots avoid Windowsreaderreplace conflict; resourcesinclude realinterpreter/launcherdescendants. Futuretest/config untouched bypilotdecision; scientificmodels notchanged.
+
+### 2026-10-25 algorithm explanation in progress
+- Created root Tensor-ABESS_v5.2算法全流程说明.md with full implementation-based mathematical pipeline, defaults/branches, exact best-state semantics, original MSIC, source links and measured v5 comparison. Task-round and empirical sections awaiting independent evidence consolidation.
+- Three read-only agents audit algorithm details, history and outcomes. Initial broad inventory and one append patch failed; no source modifications. Historical dependency access limitations do not affect explicitly addressed released source/results.
+- Verified 32/32 production Python raw SHA256 against release list, no mismatches; root workflow placement compliant. No experiments, code fixes, dependencies or architecture changes performed.
+
+### 2026-10-25 algorithm explanation COMPLETE
+- Delivered root Tensor-ABESS_v5.2算法全流程说明.md: 15 sections / 541 lines; full math and code mapping, 16 historical stages (including unnumbered screening with missing card14 disclosed), default and compatibility paths, exact v5/v5.1/v5.2 comparison, predictive gains and regressions.
+- Independent algorithm review corrected ambiguous Cartesian-vs-NumPy paired indexing and added initialization/cap boundary; independent results and history reviews passed. No model/source changes or fresh fitting.
+- Debug/review/simplification cycle complete: separate best-state and accepted-history rules, alpha1 vs1.5, internal CV vs external validation, released vs research candidates, and predictive vs recovery gains.
+- Final checks PASS:59 existing relative links,22 paired display equations,3 paired code blocks, example syntax compilation, no placeholders/replacement characters, all32 release SHA256 identities unchanged.
+- First final-check command suffered PowerShell interpolation of dollar/backtick characters; it failed before execution of validation and made no changes. Replaced with a literal here-string, validation passed. No blockers remain.
+
+### 2026-10-26 presentation revision in progress
+- Read presentation/template/design/PDF guidance; applied user-specified existing design and concrete comparison scope without another permission loop. PDF edit operation marker ran successfully once.
+- Delegated two comparison figures, numeric audit, and companion Markdown revision. Main updated title/date/conclusions and7 empirical slides, preserving original template and15frames.
+- Initial image preview used qa/page_12.png instead of qa/slides/page_12.png and failed without mutation; corrected path and inspected actual old slide12.
+- Revision text now includes LEMON and all four main empirical comparisons, within-dataset RMSE table, Mushroom main-vs-block evaluation, Beijing full existing baselines, and explicit current absence of main-empirical advantage. Markdown synchronized and shortened Beijing detail.
+- Source checks passed:12 previous source/template identities,32 official source files and396 Beijing sealed files unchanged; no misplaced workflow files.
+- Inline validation containing Chinese literals failed due Windows pipe encoding before any mutation; repeated ASCII-only structural check passed15frames, revision date and expected figure references. Two new figures pending agent generation.
+
+### 2026-10-26 presentation revision COMPLETE
+- Updated existing15page PDF/TeX and companion Markdown with four-dataset R2/error comparison, LEMON restored, Mushroom block-generalization result, Beijing strong-comparator comparison, and explicit no-current-main-empirical-advantage position requested by user.
+- Root generated two reproducible Python comparison plots and exact source CSVs; independent source/text/collision QA PASS, zeroFAIL/WARN collisions, actual PNG/PDF visual PASS. Repeated OOF sample SD shown; Beijing/block no invented uncertainty.
+- Corrected initial missing superscript glyph, two overfull empirical frames, and below5pt superscripts after embedding; final all15 rendered pages visually inspected, min rendered font5.012pt,0overfull/0missingglyph/0out-of-page/0logo-overlap. Final rerender15pages byte-identical to reviewed versions.
+- Source preflight initially missed dynamic export loop; explicit PDF/SVG/PNG exports made it auditable, final source preflight PASS. Previous report validation archived with its original date, fresh FINAL_VALIDATION and DELIVERY_INDEX sealed/replayed.
+- Verified13Markdown references,12previous source/template identities,4new empirical source identities,32release sources and396Beijing sealed files. No new fits/simulations, dependencies, or scientific archive changes. No remaining required work.
+- Final seal initially checked an earlier pre-fix automated-summary file and stopped before changing delivery records. Verified the authoritative independent FINAL_QA and all source/export hashes, preserved initial summary separately, synchronized current summary, documented static LOG-GUARD false positive on a unit label, then sealed and replayed the final delivery successfully.
+
+## 2026-10-26 task card 17 — BLOCKED before fitting
+- Read complete card17 and historical Beijing report/code; located UCI270 ZIP and ten extracted DAT files under D:\数据集. Data integrity and semantics are not yet accepted.
+- Required references Tensor_ABESS_Dataset_Requirements.md and Tensor_ABESS_Dataset_Search_2026-10-26.md were not found in the repository (including hidden/ignored files outside excluded dependency directories) or the depth-2 dataset-directory search.
+- Stopped under AGENTS.md prerequisite rule and paused delegated checks. No empirical fitting or batch10 predictions; no changes to released algorithms or historical results.
+- Await actual reference paths/files or explicit permission to proceed using card17 and official sources without these two documents. All model stages and final acceptance remain pending.
+
+## 2026-10-26 task17 resumed
+- User supplied both required references under empirical_analysis; read and resolved prior blocker.
+- Numerical data audit passed 13910 records, 96-coordinate full mapping and zero exact duplicates; official source semantics/release32 identities verified independently.
+- Fixed split eligibility computed: all24 outer tasks ready, including gas6 dev1 with boundaries1 and5 (constant validation response permitted). Planned192 models remain unrun.
+- Isolated implementation: parser and models unit checks pass; protocol3 tests pass. Next freeze, pilot/correctness, all dev, lock final, final, independent replay/report. Existing runtime is doc/taskcard13/runtime, no installs.
+
+### Task17 data/mapping/pilot accepted; development running
+- Official/data Gate D PASS. All24 fixed outer splits eligible, no exact duplicate groups. All96 coordinates independently matched; complete32 release sources unchanged.
+- Pilot8/8 complete; one extra native M1 replay matched B exactly. Return-frame trace independently verified97 candidates, tolerance26.1271282 and eligible set/selected candidate. Native audit18.3208783s included in shared budget.
+- Lasso weak-penalty inner candidates had genuine unresolved convergence after the predeclared50000 retry. Preserved all warnings; no grid/solver budget changes. This limits unconditional performance claims.
+- Pre-fit engineering revision only added saved inner predictions/coef/intercept. Previous source/config/contract archived under pre_audit_fix; current contract246acfaef16d0c6452116d46347958f1d0e645cec7e3e468f8cec6a4d426eccc.
+- Full28 unit tests PASS; parent development controller session45001 running one worker/one BLAS thread, final remains sealed. Analysis/report/figure scripts prepared, no final metrics read.
+
+### Task17 development accepted; final released once
+- All144 development tasks completed. Independent verify_all(dev) PASS144, saving DEVELOPMENT_ACCEPTED.json tied to current immutable contract and model seals.
+- Shared fitting budget1669.4854099s before final, includes one native pilot audit refit. No timeout/failed task.
+- PRE_FINAL_IMPLEMENTATION.json saved all current study Python hashes before launching final. Final controller session4926 started for48 tasks, scientific protocol unchanged; no final rankings inspected at release.
+
+### Task17 BLOCKED at final scientific review — official identity conflict
+- Numerical execution:192/192 outer models,63816 held-out predictions,30 unit tests, all development/final replay and independent metrics PASS; shared fitting2349.2073045s (<14400s), no task failures/timeouts.
+- Scientific reviewer found official UCI ID definitions contradict the same official gas-by-batch table and local DAT counts. Example originalID1 batch1=90/batch7=649, while the named Ethanol table counts are83/360. Count matching alone cannot authorize relabeling.
+- Earlier semantic Gate D PASS withdrawn. Metadata nowBLOCKED; pre-conflict metadata/reports archived in doc/uci270_concentration/semantic_conflict_archive. All original numeric IDs/models/predictions and frozen contract preserved without relabeling.
+- All six charts rendered but stopped before completed visual QA; a Windows audit-subprocess UTF8 decoding error also retained. Figure statusBLOCKED_SEMANTIC_MAPPING; no finalized graphical/scientific delivery.
+- FINAL_VALIDATION statusBLOCKED; see SCIENCE_REVIEW.md. Need authoritative mapping tied to this DAT version, explaining official metadata conflict. No further fits, plot repair, name substitution or main-application claims until resolved. Previous success entries describe numerical stages, not current semantic acceptance.
+
+### Task17 closed by user: anonymous archive, no contact
+- User explicitly declined email and abandoned the dataset candidate. No email/contact sent; no more mapping search, fits or physical interpretation.
+- Full ten-batch audit found44/60 mismatched cells under the official stated coding, across batches1–9; batch totals all match13910. Unique count-signature permutation is diagnostic only, not authority for gas names.
+- FINAL_VALIDATION statusABANDONED_BY_USER. Original model/prediction artifacts and anonymous gas_id research summary preserved; dataset is not a paper main empirical candidate.
+
+## 2026-10-26 handoff and conservative cleanup COMPLETE
+- User requested no new work: consolidated14 work_progress documents and16 task cards into root 项目交接文档_2026-10-26.md, with independent history/empirical evidence indexes in doc/.
+- Corrected current-state interpretation: task10 continuation development48/48, confirmation0/48 due failed gates; task12 formal380 accepted, LEMON15fold done, HCP/NKI inputs absent; Beijing main-candidate withdrawn; UCI abandoned/no email/anonymous preservation only.
+- Removed91 confirmed disposable files (90 bytecode caches+obsolete push.log),36 empty directories,864801 logical bytes. Kept protected LaTeX auxiliaries, raw data, models/predictions, failed evidence, version snapshots and runtime dependencies.
+- HANDOFF_VALIDATION_20261026.json PASS:144 Markdown links,32 production hashes unchanged,1272 UCI and106 presentation delivery records unchanged; no fitting/remote job/email/branch/worktree.
+- Initial documentation link validation encountered a not-yet-created forward validation link; final pass validates the written artifact. Initial delivery replay used wrong relative base for Presentation README; corrected to each manifest's explicit scope, all records PASS. Initial auxiliary rg exclusion touched known inaccessible old test dependency dirs; stopped and repeated with correct exclusions, no ACL edits.
+- User has not authorized any next research task; historical TODOs are not an active queue. Task records remain historical, new root handoff is current navigation.
+
+## 2026-10-26 formal v5.2 simulation root report COMPLETE
+- Created root 正式5.2算法完整数值模拟汇总.md:460 lines, DGP/AR1/SNR/support equations, full14-label50-repeat design and exact seed families, four actual method settings, MSIC/caps/tolerance, environment, metrics, all56 scenario-method cells and interpretation/limitations.
+- Independent read-only review matched700 task NPZ hashes,2800 task/raw rows and all saved-array REE/support/Exact; newly computed true mode FPR. Reaggregated full summary statistics and retained all161 original fields in56-row export CSV. No fitting, data generation or merge.
+- Numeric display audit PASS1064 detailed cells+56 Exact counts+112 overview mean/SD values;27 links and Markdown table widths PASS;38 plan source identities/32 formal source identities unchanged. PMSE was reaggregated, not independently regenerated from test X/y.
+- Report preserves negative SNR.5/SNR1/n100 results,600 unique input versus700 labels, old-version prediction regression, baseline CV/warm-start/convergence limitations and Lasso envelope-metric interpretation.
+- Audit/export/build artifacts:doc/v52_simulation_summary/ and doc/V52_SIMULATION_*AUDIT.md; REPORT_VALIDATION PASS. Initial local validation selected wrong root file via Windows Unicode pipe and later default-GBK JSON read failed; corrected ASCII content selection and explicitUTF8, no scientific inputs changed.
+
+## 2026-10-26 task card18 started
+- Read full authorization/card and prior logs; delegated independent identity, baseline and method checks. Release identity32/32 and plan38/38 preliminary PASS. Lasso cross-fold beta propagation confirmed; old GLasso lacks convex-fit certificates. No new test evaluation or baseline fits yet.
+
+### task18 protocol and input pilot
+- User confirmed local existing environment only; no cluster connection or submission. Protocol pre-froze20-input training pilot,600x2 necessary comparison,20lambda/fivefold/budgets2000-10000-50000 and unchanged dual criteria.
+- Input20 numerical correspondence PASS: trueB20/20 byte matches; Oracle RSS maxdifference1.14e-13 and prediction differences<=4.44e-16. Other hashes often differ across numerical environments; no claim of byte identity. Preserved initial diagnostic UID encoding and explicit canonical reconciliation sidecar.
+- Focused solver10 tests PASS; first40 training-only pilot fits running2workers/one BLAS thread. No new method test evaluation. Historical support/statistics rebuild ongoing.
+- Engineering failures retained: initial result dict/list, array key/path, rss field and diagonal-support test expectation corrected before fitting; independent reviewer reproduced invalid NaN admission and added RED/GREEN repair. No frozen source or old evidence modified.
+
+### task18 sole training-protocol revision
+- First Lasso pilot input0 completed101 certified fits in1155.2139158s;269400 coordinate sweeps total,max41989;maxKKT/lambda3.22414e-5,maxnormalizedgap9.12122e-7. No new test scores read or generated.
+- Certificate checks only at long budget endpoints over-solve many candidates. Sole authorized training revision will check every50CD sweeps with unchanged dual criteria/three cumulative budgets; Group solver unchanged; newmethod IDs v2.
+- Windows taskkill tree stop was denied; controlled exec-session Ctrl-C succeeded, all task Python processes exited. No permissions/ACL changes. Completed and interrupted v0outputs/source/protocol archived; no result deleted or overwritten.
+
+### task18 writing and figure gates
+- Fullmethod+simulationdraft+appendix/theory written. Two-round independent method/setup review PASS; new comparison not yetcomplete, so no chapterfreeze.
+- Fourtwo-panel ABESS/Oracle draftfigures PDF/PNG/SVG PASS:183x82mm,min7pt,alignment/collision/glyph QA allpass. Source20method-configcells independently matched; mainfourmethod comparison stillpending.
+- Independent pipeline review reproduces two CVmetadata validationholes; TDDnowrejects wrongselectedlambda/NaN scores and reconstructsSSE. Allplot/support/Wilson fixes preserve originaldefinitions. Actualnewbaseline test evaluations remain0.
+- v2pilot currentlytwo Lasso completionrecords (tasks0,1) whileotherjobsrun; exactcounts fromreport.py. RUN_IDENTITY binds700tasks/600UIDs/source/protocol/environment/configsha. Source3 andprotocolJSON remainfrozen.
+- Timers areperf_counter elapsed per method. Summedworker durations areaggregate methodelapsed, not measuredCPU or parallelwall; resource snapshots storeobserved OSCPU/RSS separately. No crossenvironment speed ratio.
+
+### task18 local timing and cluster package handoff
+- User changed execution direction: local estimate above4h requires ZIP/SH/instructions for an existing cluster. From5 Lasso and3 GLasso completions, mean elapsed1005.3696s/2870.2798s gives161.485h for600 pairs on4 local workers; incomplete-pilot extrapolation only.
+- Stopped local pilot through its existing exec-session Ctrl-C;8 completed fits and interrupted logs retained, newtest evaluations0. Cluster amendment records the authorization; no second numeric revision, frozen protocolJSON and source3 unchanged.
+- Three official Linux wheels downloaded and verified against PyPI-published SHA256, for package-local extraction only. Shared conda environment remains unchanged. Bundle/SH under independent review; no Slurm jobs submitted.
+- Final focused Task18 suite36/36 PASS in5.970s; evidence CLUSTER_FINAL_TESTS.txt. Two new recovery guards were RED before implementation: missing pair/log helpers; GREEN afterwards. Wrapper rejects orphan NPZ/JSON and unresolved numerical failure before refitting, preserves evidence, and uses separate prepare-test attempt logs with marker-bound hashes.
+- Independent review exposed and implementation corrected empty-runtime first-start conflict, Slurm spool-path root selection and array-job status base-ID formatting. Bash source has LF only. Actual Linux wheel import and HPC numerical execution remain not run locally.
+- Cluster bundle delivered:80,216,651bytes,1544ZIP files/1545entries,1543immutable payload files; SHA256=62fa9032ad2235ffa9cc303c8ea4f988c39354fdd3590baea5b38966653ab564 (independently recomputed by root). Payload32/38source hashes,700JSON+700NPZ,58Python3.9 ASTs, stdlib scheduler dry-run, GitBash -n and extracted46-module/18-case checks PASS. Runtime absent and new output empty; local fits/RUN identity omitted. Sources3/protocol agree betweenZIP/current repo/localRUN. Independent review PASS_LOCAL_SCOPED_REVIEW; actual Slurm execution NOT_RUN, Task18 IN_PROGRESS/DRAFT.
+
+### 2026-10-28 real cluster bootstrap failure
+- User supplied sacct and logs:prepare40887 FAILED1:0/8s; bootstrap rejects sklearn version before tests/training. Downstream40888 DependencyNeverSatisfied;40889-40891 Dependency. Duplicate-submit rejection is intentional protection, not failure cause. User actual root is under tensor-sparse-regression-main/taskcard18_cluster_20261026.
+- Three offline wheel hashes and pinned version verified; reproduced missing-directory importer negative cache using real bootstrap extraction/import with purePython substitutes, no real Linux binary imports. RED matches original sklearn ValueError; single invalidate_caches line GREEN. Exact actual old sklearn version/path remains unobserved.
+- Root final focused37 tests PASS8.262s; evidence bootstrap_cache_fix_20261028/FINAL_TESTS.txt. Source3/protocol hashes unchanged, no shared conda edits, new fitting or remote actions. README specifies independent20261028 root and old-chain cancellation, preserving old runtime/logs/ZIP. Repaired actual HPC execution is still pending.
+- Repair delivery READY:cluster_delivery/bootstrap_cache_fix_20261028/taskcard18_cluster_20261028.zip,80,229,296bytes,1552files/1553entries,SHA256=f7cdd6dc9070d2323bf13c4b7e686d80a75f6a166b3a6170d3fe83c0dc82dd1f. Allpayload/32/38/1400historical files,58Python3.9 AST,dryrun,Bash syntax,mini-root46modules/18cases and extracted bootstrap regression PASS. Original delivery9top-level files unchanged by SHA. Independent review PASS_LOCAL_SCOPED_REVIEW; actual repaired HPC prepare not run locally.
+
+### 2026-10-29 task18 returned archive received
+- Returned ZIP inventory:4961 files,1200 fit JSON/NPZ pairs and1200 evaluation JSON; reported1200/1200,40/40 pilot, no failure records; returned chapter state remainsDRAFT. Counts are provisional until independent validation.
+- Three frozen adapter files and protocol match local SHA256 exactly. No fitting, job submission, historical overwrite, branch or worktree.
+- Delegated separate archive and scientific-delivery reviews. Root workflow files absent. First append patch had a stale context and made no changes; logged here and appended explicitly instead.
+
+### 2026-10-30 task18 numerical and manuscript closeout
+- RETURN_VALIDATION PASS:700 historical records/NPZ,32/38 frozen sources,600 complete inputs,1200 fits/1200 evaluations,0 failures;965964 convex certificates all satisfy dual criteria. Original ZIP SHA2d444f9e805c7cd8e51c5841cc334d841ab80271b342672b2a91aa2186ca7fc3 retained; local8-fit cache unchanged.
+- Rebuilt all5 certified CSV and checked268986 numeric fields (max8.88e-16);10config/40method cells,56label cells,30paired comparisons. Added20 old/new difference rows,1031 mode-size distribution rows and40 structure/sensitivity rows.
+- Fixed20-input independent numeric replay:80 saved models/240 prediction metrics PASS, maximum absolute difference1.7763568394002505e-15; no fitting or full1200 prediction replay claim.51 scoped tests PASS9.939s.
+- Four final PDF/PNG/SVG figures,40-row main table and52 curve-source rows passed automated QA and eight-panel review; old figures preserved underfrozen. Method/simulation/appendix and evidence/theory text updated; readonly final scientific review pending.
+- Final reviewer found literal question-mark corruption only in PANEL_REVIEW.md; paused final acceptance, repaired UTF8 and reboundQA (no graph/data/code change), then resubmitted for review. Current other9 core-document encoding/link checks PASS.
+- Operational errors preserved:initial task-plan patch stale context made no changes; Windows rg wildcard corrected to-g; one added-count test first raised missing-function AttributeError, then corrected RED assertion and GREEN; delegated broad reads encountered known protected dependency directories andCIM permission denials, all stopped without elevation/ACL changes. Audit logging once omitted session ID; output/log/environment confirmed normal completion with no duplicate launch. Optional incomplete nature-writing skill was not applied; task-card scientific requirements and independent review remained authoritative.
+
+### 2026-10-30 task18 FINAL
+- Independent final review PASS afterQA text repair; all13 mandatory document/statistic/code/replay hashes and supplementary scientific checks bound inINDEPENDENT_REVIEW.md. No unresolved scientific or delivery issue.
+- return_report --write now returnsFINAL/FINAL,1200/1200 and no blocking issues; allG0-G7 PASS. FinalValidation independently rechecked32/38 current sourcehashes, every review-bound file,93 delivery artifacthashes and31Markdown links.
+- Chapters, main/supplement tables, fourPDF/PNG/SVG figures, captions, evidence map, theory interface and verified reproduction commands complete. Current FINAL is limited to methods/simulation, with fixedDGP/shape, caps, localCV/grid and negative-result boundaries retained. No user decision required and no optional experiments appended.
+- Final checkbox patch first matched an en-dash while the earlier shell-authored log had a literal question mark; no write occurred. Updated that workflow line to ASCII G0-G7 while marking completion; scientific artifacts were unaffected.
+
+### Final manifest stabilization
+- Last seal replay detected INDEPENDENT_REVIEW.md had completed writing after the first candidate manifest; paused delivery and preserved that candidate as cluster_review/FINAL_VALIDATION_PRE_REVIEW_STABLE.json. No science/source/table/figure changed.
+- After reviewer completion, verified stable reviewSHA281481c18da4f96189e01f157ff2cb23d446dfb9c158fcafeb9c9ea78e150730, reran return_report --write(FINAL), then independently rechecked32/38 sources,all22 review bindings,93 artifact hashes and31links. Fresh FINAL_VALIDATION self-seal and all artifact replays PASS. Task remainsFINAL; no unresolved issue or user decision.
+
+## 2026-10-31 task19 started
+- Captured32-source/protected-file and Git baseline; froze card-authorized protocol. Delegated physically isolated model, runner/return and data modules with TDD. Main agent owns CLI, packaging and final integration.
+- CLI RED:2 assertion failures because package command missing, as expected. Dependency install is restricted to new task19 venv. Historical permission-denied dependency directories were not modified or scanned further.
+
+### task19 implementation checks
+- Model10 deterministic tests and identity2 tests PASS; data14 tests PASS with6912 independent official HAR channel coordinates checked. CLI/archive/import acceptance tests4 PASS. Core32,simulation38 and task18 chapters remain frozen.
+- Packaging source review found3 acceptance gaps (semantic label/support signature, actual clean-venv imports, complete ZIP inventory), repaired with RED/GREEN evidence; review closed at source level.
+- First softwarefixture correctly yielded PARTIAL due L1 high-C nonconvergence at20000. Original input and failure evidence retained. Fixturev2 is fixed nonseparable software input; unchanged HAR/core/grid/tol/budgets. Runner/return full fixture now COMPLETE; final resource/return regressions and clean install pending.
+
+### task19 source freeze and full checks
+- Final42 scoped tests PASS in46.737s. Exact count comes from SCOPED_TESTS.log (data14, delivery4, identity5, model10, runner9). Last boundary fixes unify floating tie comparison and enforce default one-thread/runtime release validation for publicfit/load.
+- EVALUATION_INDEPENDENT_REVIEW.md PASS; independent81 baseline candidate probes and finite-boundary score probe accepted. All wrapperPY frozen for finalbuild/installation. Final candidate wheel SHA2be6968b07d29ebd26b0ac5fdc7343f05b245b31cfa0851434aaab99d68130b4; independent installation still pending.
+
+### task19 portable package accepted; HAR bounded run active
+- Exact finalZIP5c3fdb7701dcb4b759b70f5593854f79a5be86722518ba1971c59c4cfa54c9df accepted by second external cleanvenv installation, verify/smoke/validate/pack and development equivalence. Same wheel SHA2be6968b07d29ebd26b0ac5fdc7343f05b245b31cfa0851434aaab99d68130b4; Windows PASS/Linux UNVERIFIED. Independent82-entry ZIP/wheel/core audit PASS, no local dependency paths or large data.
+- Training-only HAR36-window/6-class functional check PASS100.2516s; exact IDs/config and default900s perclass/7200s dataset budget frozen in RESOURCE_BUDGET.json.
+- Same final installed package now runs HAR400train/2208devval, output empirical_analysis/outputs_taskcard19/har_dev_run_20261031; first3 tasks complete, L1 tuning active, Tensor follows. Officialtest remains unselected. No new representation, seed, solver or budget research.
+
+### 2026-10-31 task19 FINAL
+- PACKAGE_READY YES; G0-G5 software/protocol/package/return checks PASS. Exact primaryZIP5c3fdb7701dcb4b759b70f5593854f79a5be86722518ba1971c59c4cfa54c9df, independent Windows cleanvenv PASS; Linux UNVERIFIED.42 scoped tests and final independent byte/evidence review PASS.
+- HAR400train/2208devval,6classes, main run981.985s.109 returned-diagnostic fit calls: Ridge28/L2 28/L1 47/Tensor6; majority rule1 and training-only functional core6 separately recorded. All five methods have11040 total dev prediction rows;4/5 accepted, L1 NUMERICAL_BLOCKED with19 necessary20000-step unresolved fits including finalC10.
+- Tensor MacroF1 .7241215697 vs acceptedRidge .8274858350/L2 .8644470320; no added value in this limited screening. L1 .8732050104 is unaccepted and cannot establish a complete comparison. LOCAL_STAGE NUMERICAL_BLOCKED; official2947-window/9subject test never scored.
+- Independent sklearn metric/denominator/CM replays and all five saved-coefficient score reconstructions PASS (maxscoreerror0),400-training statistics exact; supportq total450/union153 descriptive.109-fit results and failures retained and packed to HAR_DEV_RETURN_20261031.zip.
+- Final independent review confirms38 source/config identities (32core+6simulation),42 protected inputs/chapters and preexisting trackedGit state unchanged. No new branch/worktree, old simulation rerun, manuscript edits, remote job or external message. Current card's bounded authorized scope is complete; further convergence/formal-data protocol is a separate next step.

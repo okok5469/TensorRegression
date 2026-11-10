@@ -1,0 +1,6 @@
+# Tested on Windows x86_64, CPython 3.12.8. Linux entry is UNVERIFIED.
+numpy==1.26.4
+scipy==1.16.1
+scikit-learn==1.5.2
+joblib==1.5.2
+threadpoolctl==3.6.0

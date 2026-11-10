@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "dataset": "LEMON",
+  "status": "READY",
+  "expected_subjects": 145,
+  "expected_dimensions": [61, 16, 5],
+  "response": {"name": "TMT_5", "scale": "natural log", "continuous": true},
+  "tensor_axes": ["EEG channel", "time segment", "frequency band"],
+  "baseline_models": ["Covariates Only", "Vector Lasso", "Tensor-GLasso", "Ridge"],
+  "protocol": "doc/taskcard12/EMPIRICAL_PROTOCOL.json",
+  "p0_gate": "doc/taskcard12/P0_CORRECTNESS_GATE.json",
+  "output_dir": "doc/taskcard12/verification/empirical_lemon",
+  "notes": "145 audited subjects; original 3 x 5 outer splits and training-only nuisance/scaling; all native options copied exactly from official v5.2 historical config; one new search per fold; no baseline refitting."
+}

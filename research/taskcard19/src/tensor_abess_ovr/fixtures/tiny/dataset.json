@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "name": "Deterministic software fixture; not performance evidence",
+  "source": "Fixed 14 group patterns sin(arange(112)/17)+cos(2*arange(112)/17), each repeated across all three arbitrary class identities; not performance evidence",
+  "axes": [
+    {
+      "name": "axis1",
+      "coordinates": [
+        "coordinate-0",
+        "coordinate-1"
+      ]
+    },
+    {
+      "name": "axis2",
+      "coordinates": [
+        "coordinate-0",
+        "coordinate-1"
+      ]
+    },
+    {
+      "name": "axis3",
+      "coordinates": [
+        "coordinate-0",
+        "coordinate-1"
+      ]
+    }
+  ],
+  "axis_order": [
+    "axis1",
+    "axis2",
+    "axis3"
+  ],
+  "x_shape": [
+    42,
+    2,
+    2,
+    2
+  ],
+  "classes": [
+    "walking",
+    "sitting",
+    "standing"
+  ],
+  "class_labels": {
+    "walking": "Fixture class A",
+    "sitting": "Fixture class B",
+    "standing": "Fixture class C"
+  },
+  "independent_unit": "fixture-group",
+  "dependency": "group",
+  "representation_version": "tiny-nonseparable-fixture-v2",
+  "source_files": {},
+  "processed_files": {
+    "X.npy": "48b2b02e13b8dd7932f19d08a8c7c24924c734114c9e268406af8ef3c792c7dc",
+    "samples.csv": "faf435aebe3f4b1bab4e6104c24863ee371de20ea152d9a44546e814e1473242"
+  }
+}

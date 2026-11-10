@@ -1,0 +1,44 @@
+{
+  "evaluation_stage": "dev",
+  "active_split_ids": [
+    "tiny_dev"
+  ],
+  "preprocessing": "train_coordinate_zscore_v1",
+  "core_profile": "v5.2-search-final-original-msic",
+  "primary_metric": "macro_f1",
+  "seed": 20261031,
+  "resource_budget": {
+    "per_class_seconds": 900,
+    "total_seconds": 7200
+  },
+  "expected_axes": [
+    {
+      "name": "axis1",
+      "coordinates": [
+        "coordinate-0",
+        "coordinate-1"
+      ]
+    },
+    {
+      "name": "axis2",
+      "coordinates": [
+        "coordinate-0",
+        "coordinate-1"
+      ]
+    },
+    {
+      "name": "axis3",
+      "coordinates": [
+        "coordinate-0",
+        "coordinate-1"
+      ]
+    }
+  ],
+  "methods": [
+    "majority",
+    "ridge_ovr",
+    "multinomial_l2",
+    "multinomial_l1",
+    "tensor_abess_ovr_ls"
+  ]
+}

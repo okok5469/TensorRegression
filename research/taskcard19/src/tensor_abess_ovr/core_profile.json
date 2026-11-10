@@ -1,0 +1,37 @@
+{
+  "profile_id": "v5.2-search-final-original-msic-task19-0.1.0",
+  "schema_version": 1,
+  "core_version": "v5.2-search-final",
+  "parameters": {
+    "target_sparsity": null,
+    "k_max": 1,
+    "tau": null,
+    "eps": 1e-8,
+    "c": 3.0,
+    "criterion": "bic",
+    "n_lambdas": 20,
+    "cv_folds": 5,
+    "max_iter": 500,
+    "tol": 1e-6,
+    "adaptive_criterion": "msic",
+    "msic_refine_alpha": 1.5,
+    "msic_refine_gamma": 1.0,
+    "msic_refine_one_se_scale": 1.0,
+    "max_cycles": 6,
+    "m_max": 15
+  },
+  "sources": [
+    "numerical_simulation/known_s_cluster/profiles.json:profiles.full.base_config",
+    "numerical_simulation/methods.py:run_tensor_abess_method",
+    "src/tensor_abess/tensor/abess.py:tensor_abess",
+    "doc/taskcard18/TASKCARD18_FINAL_REPORT.md"
+  ],
+  "notes": [
+    "Use the formal full profile, not TensorSimulationConfig or public function defaults.",
+    "target_sparsity is null because the formal profile uses adaptive search.",
+    "cv_folds=5 is explicitly retained; criterion=bic does not run initialization CV.",
+    "tau=null and m_max=15 match the real function defaults inherited by the formal simulation caller.",
+    "Mode-level MSIC parameters remain the frozen core defaults; global refinements use explicit alpha=1.5,gamma=1,one_se_scale=1.",
+    "500 initialization iterations are part of the frozen identity, not a convex optimality certificate."
+  ]
+}

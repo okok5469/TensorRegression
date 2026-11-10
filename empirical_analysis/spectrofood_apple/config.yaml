@@ -1,0 +1,104 @@
+{
+  "run_id": "apple_v1",
+  "mat_path": "D:\\数据集\\SpectroFood_Apple\\Apple.mat",
+  "csv_path": "D:\\数据集\\SpectroFood_Apple\\SpectroFood_dataset.csv",
+  "data_dir": "doc/taskcard13/data",
+  "output_dir": "empirical_analysis/spectrofood_apple/outputs/apple_v1",
+  "runtime_dir": "doc/taskcard13/runtime",
+  "release_manifest": "doc/releases/v5.2-search-final/RELEASE_MANIFEST.json",
+  "models": [
+    "M0",
+    "M1",
+    "M2",
+    "M3",
+    "M4",
+    "M5",
+    "M6"
+  ],
+  "representation": [
+    8,
+    8,
+    24
+  ],
+  "preprocessing": {
+    "x": "current_train_coordinate_zscore_ddof0",
+    "zero_std_threshold_relative": 1e-12,
+    "y": "current_train_pct_zscore_ddof0",
+    "inverse_y": true,
+    "flatten_order": "C"
+  },
+  "workers": 2,
+  "budget_seconds": 7200,
+  "outer_seeds": [
+    13001,
+    13002,
+    13003
+  ],
+  "inner_folds": 3,
+  "bootstrap_count": 2000,
+  "bootstrap_seed": 13999,
+  "model_config": {
+    "max_iter": 500,
+    "tol": 1e-06,
+    "max_cycles": 6,
+    "glasso_ratios": [
+      1.0,
+      0.657933224657568,
+      0.43287612810830584,
+      0.2848035868435802,
+      0.1873817422860384,
+      0.12328467394420659,
+      0.08111308307896872,
+      0.0533669923120631,
+      0.03511191734215131,
+      0.02310129700083159,
+      0.01519911082952933,
+      0.01
+    ],
+    "lasso_ratios": [
+      1.0,
+      0.5623413251903491,
+      0.31622776601683794,
+      0.1778279410038923,
+      0.1,
+      0.05623413251903491,
+      0.03162277660168379,
+      0.01778279410038923,
+      0.01,
+      0.005623413251903491,
+      0.0031622776601683794,
+      0.0017782794100389228,
+      0.001
+    ],
+    "ridge_alphas": [
+      0.0001,
+      0.00031622776601683794,
+      0.001,
+      0.0031622776601683794,
+      0.01,
+      0.03162277660168379,
+      0.1,
+      0.31622776601683794,
+      1.0,
+      3.1622776601683795,
+      10.0,
+      31.622776601683793,
+      100.0,
+      316.22776601683796,
+      1000.0,
+      3162.2776601683795,
+      10000.0
+    ],
+    "pls_components": [
+      1,
+      2,
+      3,
+      5,
+      8,
+      12,
+      16
+    ]
+  },
+  "tie_rule": "first_minimum_in_frozen_grid",
+  "retry_rule": "no scientific retries; same-fingerprint completed tasks only"
+}

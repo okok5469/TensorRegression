@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools==75.8.0", "wheel==0.45.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tensor-abess-ovr-ls"
+version = "0.1.0"
+description = "Frozen Tensor-ABESS v5.2 regression-score multiclass application"
+requires-python = ">=3.12,<3.13"
+dependencies = ["numpy==1.26.4", "scipy==1.16.1", "scikit-learn==1.5.2", "joblib==1.5.2", "threadpoolctl==3.6.0"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+tensor_abess_ovr = ["*.json", "fixtures/**/*"]

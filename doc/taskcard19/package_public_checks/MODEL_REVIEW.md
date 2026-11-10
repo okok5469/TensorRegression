@@ -1,0 +1,17 @@
+# 模型封装检查
+
+冻结算法未改动；模型只执行训练坐标标准化、K列类别指示响应中心化、逐类冻结回归、恢复训练类频率和声明的并列决策。`core_profile.json`实参来自正式full profile及真实签名；公共函数c=2、criterion=cv、max_cycles=30与数据类默认max_cycles=10均未误用。
+
+Debug检查：独立直接调用原核心逐类核对完整dataclass状态；独立einsum核对恢复截距后的分数；逐类spawn调用与直接调用保持完整状态一致；真实极短超时终止单个worker并令分类器不可使用；NaN系数与混合/缺失标签明确失败并保留类别阶段诊断。
+
+第一性原理复核：各类仅共享同一训练集合的X统计量，不共享系数、支持或初始化；响应从未除标准差。多数优先及首次训练行序只依赖训练标签，不读取评价频率。固定常数坐标保持原形状，C序映射与独立张量内积一致。所有模型数组可用allow_pickle=False读取；保存包含完整状态和代码/profile身份，数组文件损坏在加载前由SHA256识别。
+
+精简检查：仅一个预处理类、一个分类器、一份固定profile；配置每次显式读入，不维护可变全局状态。没有概率接口、softmax、联合支持、附加分类头或核心参数搜索。CLI和普通Python包导入均在数值库导入前设六项线程环境为1，包级导出仍保持lazy import。对调用前已经激活的多线程数值运行时，fit/load通过实际threadpoolctl核验明确失败并提示从CLI或预设线程环境重新启动；不静默改变已初始化线程池。
+
+轴语义边界：显式传入axis_metadata时核对三轴名称、完整坐标与顺序；省略时沿用模型已保存的坐标语义。未声明且同形的任意数值换轴无法由数值接口自动辨认。预测数据须由适配器遵守此合同。
+
+数值容差：同环境分数rtol=1e-8、atol=1e-10；确定性完整核心状态、支撑与标签严格相等。fixture仅为软件正确性检查，不承担分类性能结论。最终原始测试日志见FINAL_MODEL_TESTS.txt。
+
+后续资源协议复核发现：逐类独立900秒上限还须受同一个数据集总截止限制。已先补缺接口测试得到预期FAIL，再实现fit(deadline=绝对time.monotonic值)，每类重新计算剩余秒数并取两预算最小值；worker启动也占剩余时间。到期类不再启动，明确TimeoutError且整模型不可用。10项模型测试通过，日志见DEADLINE_RED.txt/DEADLINE_GREEN.txt；不缩短冻结算法步数，不遗留继续拟合的核心worker。
+
+公开API边界终检：fit和load均先执行完整verify_release，核对真实Python/依赖/线程、核心32源、包装与profile资源。新增普通API导入默认单线程且未提前导入numpy、实际已激活双线程拒绝fit/load、profile指纹漂移在核心调用前拒绝三项检查；修改前3项预期FAIL，修改并重建manifest后identity总计5项PASS。日志见API_BOUNDARY_RED.txt、API_BOUNDARY_BUILD.txt、API_BOUNDARY_GREEN.txt，模型回归见API_MODEL_REGRESSION.txt。

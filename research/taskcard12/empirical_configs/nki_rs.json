@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "dataset": "NKI-RS",
+  "status": "NOT_PROVIDED",
+  "reason": "No NKI-RS dataset, response, covariate design, split, preprocessing adapter or historical baseline identity was found in the audited repository.",
+  "response": {"name": null, "scale": null, "continuous": true},
+  "tensor_axes": [null, null, null],
+  "covariate_names": [],
+  "dataset_npz": null,
+  "splits_json": null,
+  "group_isolation": false,
+  "preprocessor_file": null,
+  "preprocessor_sha256": null,
+  "preprocessing_dependencies": {},
+  "baseline_predictions_csv": null,
+  "baseline_manifest_json": null,
+  "baseline_models": ["Covariates Only"],
+  "native_options": {},
+  "protocol": "doc/taskcard12/EMPIRICAL_NKI_RS_PROTOCOL.json",
+  "p0_gate": "doc/taskcard12/P0_CORRECTNESS_GATE.json",
+  "output_dir": "doc/taskcard12/verification/empirical_nki_rs",
+  "notes": "Contract only. Populate actual documented inputs; explicitly set group isolation if the study requires it. No LEMON response/preprocessing or simulation fitting parameters are assumed."
+}
